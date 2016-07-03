@@ -12,7 +12,7 @@ description: > # this means to ignore newlines until "baseurl:"
   Think out of the box
 baseurl: "/" # the subpath of your site, e.g. /blog
 root: /
-url: "127.0.0.1:4000" # the base hostname & protocol for your site
+url: "hackndo.github.io" # the base hostname & protocol for your site
 twitter_username: hackanddo
 github_username:  hackndo
 
