@@ -1,0 +1,50 @@
+---
+title: Follow the white rabbit !
+date: 2015-09-02
+author: "HackN'Do"
+layout: post
+permalink: /follow-the-white-rabbit/
+image: /assets/uploads/2015/09/oui.png
+categories:
+  - Divers
+---
+Hey there,
+  
+Je sais que ça fait quelques temps que je n'ai rien posté, mais promis j'ai plein d'idées en tête, plein de brouillons sous le capot. D'ailleurs, si vous attendez des articles concernant un certain sujet, surtout n'hésitez pas à m'en faire part.
+
+En attendant, j'ai passé le temps en montant un petit site qui ne cesse de se développer. Saurez-vous arriver au bout ?
+
+Attention, le nom de ce site, qui s'inscrit dans [une lignée très connue](http://estcequecestbientot.fr/), peut choquer les jeunes enfants. Vous trouverez ce site ici :
+
+<p style="text-align: center;">
+  <a href="http://estcequecestbientotlheuredeniquer.com">estcequecestbientotlheurede******</a>
+</p>
+
+Désolé pour le nom, mais à la limite ce n'est pas l'important.
+
+Non ce n'est pas une simple question (stupide, certes) avec une simple réponse. Vous saurez très clairement quand vous serez arrivés au bout. Un flag vous attend. Je n'en dis pas plus.
+
+Bonne chasse !
+
+PS : Allez, parce que quand même, pour montrer que [ce n'est pas impossible](http://www.estcequecestbientotlheuredeniquer.com/?scoreboard)
+
+<!--
+
+   ###########################################################################
+   ###########################################################################
+   ##                                                                       ##
+   ##   Si tu passes par là par hasard, alors la suite ne sera pas utile.   ##
+   ##   Sinon, tiens, voilà ce que tu attends :                             ##
+   ##                                                                       ##
+   ##   ...                                                                 ##
+   ##                                                                       ##
+   ##   Connection established                                              ##
+   ##   5f745f69315f756e335f66316e5f345f63335f67346d33                      ##
+   ##   Have fun !                                                          ##
+   ##   ^C                                                                  ##
+   ##   Connection closed.                                                  ##
+   ##                                                                       ##
+   ###########################################################################
+   ###########################################################################
+ 
+ -->
