@@ -35,7 +35,7 @@ GNU_STACK      0x000000 0x00000000 0x00000000 0x00000 0x00000 RW  0x4
 
 _J'ai ajouté la ligne qui indique le nom des colonnes pour une meilleure compréhension._
 
-On remarque la présence des deux flags RW (Read &#8211; Write), mais l'absence du flag E (Execute), donc la pile n'est pas exécutable. Mais alors, comment pouvons nous exploiter l'oubli de vérification de la taille du buffer ?
+On remarque la présence des deux flags RW (Read - Write), mais l'absence du flag E (Execute), donc la pile n'est pas exécutable. Mais alors, comment pouvons nous exploiter l'oubli de vérification de la taille du buffer ?
 
 # Contournement : ret2libc
 

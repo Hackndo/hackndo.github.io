@@ -7,13 +7,12 @@ permalink: /introduction-a-gdb/
 tags:
   - tuto
 ---
-# Introduction à gdb
 
-Que le programmeur qui n'a jamais mis des printf/var_dump/echo/print/System.out/console.log/cout plein son code pour savoir d'où venait un bug se dénonce. Que le programmeur qui ne s'est jamais arraché les cheveux pour un programme qui plantait violemment sans crier garde me jette la pierre (C'est une expression, hein !). Heureusement, il existe pléthore de débogueurs (_debuggers_), libres ou non, dont un qui est particulièrement reconnu, le débogueur de GNU nommé GDB (GNU Project Debugger), que nous allons introduire dans cette introduction ) gdb.
+Que le programmeur qui n'a jamais mis des `printf`, `var_dump`, `echo`, `print`, `System.out`, `console.log`, `cout` plein son code pour savoir d'où venait un bug se dénonce. Que le programmeur qui ne s'est jamais arraché les cheveux pour un programme qui plantait violemment sans crier garde me jette la pierre (C'est une expression, hein !). Heureusement, il existe pléthore de débogueurs (_debuggers_), libres ou non, dont un qui est particulièrement reconnu, le débogueur de GNU nommé **GDB** (GNU Project Debugger), que nous allons introduire dans cette introduction.
 
-Rapidement, un debugger permet de lancer un programme, placer des points d'arrêt (_breakpoints_) à certains endroits, parfois sous certaines conditions, exécuter les instructions pas à pas, étudier et modifier la mémoire (RAM, Registres) &#8230; Bref, tous les outils essentiels pour pouvoir étudier correctement le comportement d'un programme.
+Rapidement, un debugger permet de lancer un programme, placer des points d'arrêt (_breakpoints_) à certains endroits, parfois sous certaines conditions, exécuter les instructions pas à pas, étudier et modifier la mémoire (RAM, Registres) ... Bref, tous les outils essentiels pour pouvoir étudier correctement le comportement d'un programme.
 
-GDB est portable (cross-platform), donc les commandes que nous allons voir ici pourront être effectuées sur tous les OS pourvu que GDB soit installé, et les exemples pris ici ont été effectués sur Linux. C'est un outil très puissant, avec de nombreuses fonctionnalités qu'il serait difficile de lister et expliquer exhaustivement, c'est pourquoi nous verrons ici ce qui me paraissait être le plus important ( &#8230; parmi les fonctionnalités que je connais. Si vous en connaissez d'autres ou des astuces permettant d’accélérer/simplifier des choses, n'hésitez pas à m'en faire part dans les commentaires, je les intégrerai dans cet article)
+GDB est portable (cross-platform), donc les commandes que nous allons voir ici pourront être effectuées sur tous les OS pourvu que GDB soit installé, et les exemples pris ici ont été effectués sur Linux. C'est un outil très puissant, avec de nombreuses fonctionnalités qu'il serait difficile de lister et expliquer exhaustivement, c'est pourquoi nous verrons ici ce qui me paraissait être le plus important (... parmi les fonctionnalités que je connais. Si vous en connaissez d'autres ou des astuces permettant d’accélérer/simplifier des choses, n'hésitez pas à m'en faire part dans les commentaires, je les intégrerai dans cet article).
 
 # Lancement
 
@@ -23,13 +22,16 @@ Il existe différentes manières de lancer gdb et de charger un binaire dans une
 
 Pour lancer gdb, rien de plus simple. Dans un shell/terminal/console, lancez la commande suivante
 
-<pre class="lang:shell">$ gdb
+```sh
+$ gdb
 
-(gdb)</pre>
+(gdb)
+```
 
 Cette commande permet de lancer une session gdb. Pour l'instant, aucun programme n'est chargé dans gdb. Mais déjà, nous pouvons faire des choses qui nous serons utiles tout au long de nos debug. Pour avoir la liste des commandes disponibles, il suffit de lancer la commande **help**
 
-<pre class="lang:shell">(gdb) help
+```sh
+(gdb) help
 List of classes of commands:
 
 aliases -- Aliases of other commands
@@ -50,22 +52,26 @@ Type "help all" for the list of all commands.
 Type "help" followed by command name for full documentation.
 Type "apropos word" to search for commands related to "word".
 Command name abbreviations are allowed if unambiguous.
-(gdb)</pre>
+(gdb)
+```
 
 Voici d'autres commandes :
 
-<pre class="lang:shell"># Charge le binaire "binary" dans gdb
+```sh
+# Charge le binaire "binary" dans gdb
 gdb binary
 
 # Charge le binaire "binary" avec les arguments "args..."
 gdb --args <binary> <args...>
 
 # Lance gdb qui s'attache par la suite au processus PID avec les symboles du binaire "binary"
-gdb --pid <PID> --symbols <binary></pre>
+gdb --pid <PID> --symbols <binary>
+```
 
 ## Dans gdb
 
-<pre class="lang:shell"># Envoyer les arguments au binaire qui va être lancé
+```sh
+# Envoyer les arguments au binaire qui va être lancé
 (gdb) set args <args...>
 
 # Lancer le binaire
@@ -75,13 +81,15 @@ gdb --pid <PID> --symbols <binary></pre>
 (gdb) r < <(perl -e 'print "A"x5')
 
 # Tuer le binaire en cours
-(gdb) kill</pre>
+(gdb) kill
+```
 
 # Calculs
 
 Avant de s'occuper des binaires, gdb permet d'effectuer des calculs très simplement, dans différentes bases les plus utilisées (binaire, octale, hexa, décimale) et même d'afficher les caractères correspondants aux valeurs ASCII.
 
-<pre class="lang:shell"># On peut afficher les variables sous différents formats, de la manière suivante : p/<format>
+```sh
+# On peut afficher les variables sous différents formats, de la manière suivante : p/<format>
 # Les formats les plus employés sont
 # c    Caractère
 # f    Float
@@ -101,20 +109,23 @@ $4 = 26
 (gdb) p/x 0x10 + 10
 $5 = 0x1a
 (gdb) p/t 12
-$6 = 1100</pre>
+$6 = 1100
+```
 
 # Informations
 
 Quelques informations nécessaires lorsque vous avez chargé un binaire et que vous êtes en train de le déboguer
 
-<pre class="lang:shell">#disassemble : Renvoie le code assembleur correspondant aux instructions hexadécimales du binaire
+```sh
+#disassemble : Renvoie le code assembleur correspondant aux instructions hexadécimales du binaire
 (gdb) disas ma_fonction
 
 #info registers : Renvoie les informations des registres à l'instant t
 (gdb) i r
 
 #info breakpoints : Permet de lister les breakpoints et leurs états
-(gdb) i b</pre>
+(gdb) i b
+```
 
 # Affichage
 
@@ -124,42 +135,48 @@ Comme expliqué dans l'article sur les [notions de base d'assembleur](http://blo
 
 ### AT&T
 
-<pre class="lang:shell">(gdb) set disassembly-flavor att
+```sh
+(gdb) set disassembly-flavor att
 (gdb) disass main
 Dump of assembler code for function main:
    0x080483f2 <+0>:    push   %ebp
    0x080483f3 <+1>:    mov    %esp,%ebp
    ...
-End of assembler dump.</pre>
+End of assembler dump.
+```
 
 ### Intel
 
-<pre class="lang:shell">(gdb) set disassembly-flavor intel
+```sh
+(gdb) set disassembly-flavor intel
 (gdb) disass main
 Dump of assembler code for function main:
 0x080483f2 <+0>:    push   ebp
 0x080483f3 <+1>:    mov    ebp,esp
 ...
-End of assembler dump.</pre>
+End of assembler dump.
+```
 
 ## Debug
 
 Lors d'une phase de debug, il peut être utile d'avoir sous les yeux le code machine qui s'exécute ainsi que l'état des différents registres.
 
-<div class='info2'>
-  Notez cependant que si vous utilisez ces fenêtres, vous ne serez plus en mesure d'utiliser la flèche du haut pour revenir dans votre historique, puisque les flèches haut et bas servent à monter et descendre dans la fenêtre affichant le code assembleur.
-</div>
 
-<pre class="lang:shell"># Permet d'ouvrir deux fenêtre console.
+_Notez cependant que si vous utilisez ces fenêtres, vous ne serez plus en mesure d'utiliser la flèche du haut pour revenir dans votre historique, puisque les flèches haut et bas servent à monter et descendre dans la fenêtre affichant le code assembleur._
+
+```sh
+# Permet d'ouvrir deux fenêtre console.
 # L'une affiche le code assembleur
 (gdb) layout asm
 # L'autre affiche l'état des registres.
 (gdb) layout regs
-# Si un registre change lorsqu'on avance d'une instruction, il est mis en surbrillance.</pre>
+# Si un registre change lorsqu'on avance d'une instruction, il est mis en surbrillance.
+```
 
 Voici un exemple du rendu :
 
-<pre class="lang:shell">┌──Register group: general─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+```sh
+┌──Register group: general─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │eax            0xbff73ef4       -1074315532         ecx            0x86c2e41d       -2034047971         edx            0x1      1                           ebx            0xb76f0ff4       -1217458188           │
 │esp            0xbff73e40       0xbff73e40          ebp            0xbff73e48       0xbff73e48          esi            0x0      0                           edi            0x0      0                             │
 │eip            0x8048826        0x8048826 <main+6>  eflags         0x282    [ SF IF ]                   cs             0x23     35                          ss             0x2b     43                            │
@@ -197,7 +214,8 @@ B+ │0x8048823 <main+3>      and    esp,0xfffffff0          �
    │0x8048881 <main+97>     call   0x8048610 <exit@plt>                                                                                                                                                            │
    └───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 child process 20368 In: main                                                                                                                                                               Line: ??   PC: 0x8048826
-(gdb) ni</pre>
+(gdb) ni
+```
 
 # Breakpoints
 
@@ -205,7 +223,8 @@ Les breakpoints sont extrêmement puissants. Ils permettent de mettre en pause l
 
 ## Sans conditions
 
-<pre class="lang:shell">(gdb) break main
+```sh
+(gdb) break main
 Breakpoint 1 at 0x80483f8
 (gdb) break *0x08048400
 Breakpoint 2 at 0x8048400
@@ -219,23 +238,27 @@ Num     Type           Disp Enb Address    What
 Num     Type           Disp Enb Address    What
 2       breakpoint     keep n   0x08048400 <main+14>
 (gdb) delete breakpoints
-Delete all breakpoints? (y or n) y</pre>
+Delete all breakpoints? (y or n) y
+```
 
 ## Avec conditions
 
 Soit le programme C suivant :
 
-<pre class="lang:c">#include <stdio.h>
+```c
+#include <stdio.h>
 
 int main(void) {
-    for (int i=0; i<10; i++) {
-        printf("%s\n", "Boucle ...");
-    }
-}</pre>
+    for (int i=0; i<10; i++) {
+        printf("%s\n", "Boucle ...");
+    }
+}
+```
 
 Après compilation, nous le chargeons dans gdb, et nous le désassemblons
 
-<pre class="lang:shell">$ gcc boucle.c -std=c99 -m32 -o boucle
+```sh
+$ gcc boucle.c -std=c99 -m32 -o boucle
 $ gdb boucle
 (gdb) set disassembly-flavor intel
 (gdb) disas main
@@ -254,11 +277,13 @@ Dump of assembler code for function main:
    0x08048437 <+43>:    mov    eax,0x0
    0x0804843c <+48>:    leave
    0x0804843d <+49>:    ret
-End of assembler dump.</pre>
+End of assembler dump.
+```
 
-A la ligne +31, nous voyons le compteur de notre programme qui s'incrémente. Ici, la boucle est répétée 10 fois, mais il est possible qu'elle soit répétée des millions de fois. Cependant, nous ne voulons voir la comparaison à la ligne +36 que pour la dernière boucle. Pour cela, nous allons mettre un breakpoint conditionnel : Nous ne breakerons dessus que si le contenu de esp+0x1c vaut 10 (donc 0xa)
+A la ligne `+31`, nous voyons le compteur de notre programme qui s'incrémente. Ici, la boucle est répétée 10 fois, mais il est possible qu'elle soit répétée des millions de fois. Cependant, nous ne voulons voir la comparaison à la ligne `+36` que pour la dernière boucle. Pour cela, nous allons mettre un breakpoint conditionnel : Nous ne breakerons dessus que si le contenu de `esp+0x1c` vaut 10 (donc `0xa`)
 
-<pre class="lang:shell">(gdb) b *0x08048430 if *(int*)($esp+0x1c) == 0xa
+```sh
+(gdb) b *0x08048430 if *(int*)($esp+0x1c) == 0xa
 Breakpoint 1 at 0x8048430
 (gdb) r
 Starting program: /home/betezed/blog/exemples/boucle
@@ -275,34 +300,42 @@ Boucle ...
 
 Breakpoint 1, 0x08048430 in main ()
 (gdb) x/x $esp+0x1c
-0xbffff39c:    0x0000000a</pre>
+0xbffff39c:    0x0000000a
+```
 
 Ce qui aurait pu être fait également de la manière suivante :
 
-<pre class="lang:shell">(gdb) b *0x08048430
+```sh
+(gdb) b *0x08048430
 Breakpoint 1 at 0x8048430
-(gdb) cond 1 *(int*)($esp+0x1c) == 0xa</pre>
+(gdb) cond 1 *(int*)($esp+0x1c) == 0xa
+```
 
 Et pour enlever les conditions sur un breakpoint :
 
-<pre class="lang:shell">(gdb) cond 1
-Breakpoint 1 now unconditional.</pre>
+```sh
+(gdb) cond 1
+Breakpoint 1 now unconditional.
+```
 
 # Pas à pas
 
-<pre class="lang:shell"># nexti : Permet d'avancer d'une (ou <step>) instruction(s), et si c'est un call, le call est exécuté
+```sh
+# nexti : Permet d'avancer d'une (ou <step>) instruction(s), et si c'est un call, le call est exécuté
 # jusqu'à son retour.
 (gdb) ni <step>
 # stepi : Permet d'avancer d'une (ou <step>) instruction(s), en rentrant dans les calls
 (gdb) si <step>
 # continue : Permet de continuer jusqu'au prochain breakpoint
-(gdb) c</pre>
+(gdb) c
+```
 
 # Fonctions
 
-Il est possible de définir des fonctions au sein de gdb, permettant de simplifier la répétition d'un ensemble de commandes, ou encore de boucler jusqu'à ce qu'une condition soit vérifiée. Pour cela, il faut lancer la commande **define <ma_fonction>** puis indiquer les instructions voulues, et terminer par **end**. Comme les exemples valent toujours mieux que les beaux discours :
+Il est possible de définir des fonctions au sein de gdb, permettant de simplifier la répétition d'un ensemble de commandes, ou encore de boucler jusqu'à ce qu'une condition soit vérifiée. Pour cela, il faut lancer la commande `define <ma_fonction>` puis indiquer les instructions voulues, et terminer par `end`. Comme les exemples valent toujours mieux que les beaux discours :
 
-<pre class="lang:shell">(gdb) define init_mes_params
+```sh
+(gdb) define init_mes_params
 Type commands for definition of "init_mes_params".
 End with a line saying just "end".
 >set disassembly-flavor intel
@@ -337,24 +370,28 @@ gs             0x63    99
 0xbffff3d8:    0xb7ff06d6    0xb7fffad0    0xb7fd42e8    0xb7fcfff4
 0xbffff3e8:    0x00000000    0x00000000    0xbffff428    0xc6213b34
 0xbffff3f8:    0xe97a4d24    0x00000000    0x00000000    0x00000000
-(gdb)</pre>
+(gdb)
+```
 
 Il est possible d'utiliser les structures de contrôles, telles que
 
-<pre class="lang:c">> if <condition>
+```c
+> if <condition>
 >     commandes...
 > end
 > while <condition>
 >     commandes...
-> end</pre>
+> end
+```
 
 # .gdbinit
 
 Bien sûr, avec toutes ces informations, vous pouvez vous créer votre petit environnement gdb qui satisfait vos besoins et vos préférences, mais vous n'allez évidemment pas taper toutes les commandes à chaque fois. Il est très fastidieux de devoir taper, à chaque lancement de gdb, les commandes permettant de changer de syntaxe, de breaker sur la fonction main, de désassembler le binaire, d'étudier la pile, si c'est ce que vous voulez faire à chaque fois que vous ouvrez gdb (mais libre à vous de choisir ce que vous voulez)
 
-Pour cela, il vous suffit de créer un fichier .gdbinit dans le même dossier depuis lequel vous lancez gdb, et dans ce fichier, vous mettez ligne après ligne les commandes que vous souhaitez lancer. Par exemple :
+Pour cela, il vous suffit de créer un fichier `.gdbinit` dans le même dossier depuis lequel vous lancez gdb, et dans ce fichier, vous mettez ligne après ligne les commandes que vous souhaitez lancer. Par exemple :
 
-<pre class="lang:shell">$ cat .gdbinit
+```sh
+$ cat .gdbinit
 # Pour toujours avoir la syntaxe intel
 set disassembly-flavor intel
 
@@ -375,24 +412,24 @@ define afficher_layouts
 layout asm
 layout regs
 end
-$</pre>
+$ 
+```
 
-Et pour finir, sachez que si vous avez votre .gdbinit, mais que vous ne voulez pas l'utiliser pour votre prochaine session gdb, il suffit de passer l'argument -nx à gdb pour lui demander d'ignorer ce fichier.
+Et pour finir, sachez que si vous avez votre `.gdbinit`, mais que vous ne voulez pas l'utiliser pour votre prochaine session gdb, il suffit de passer l'argument `-nx` à gdb pour lui demander d'ignorer ce fichier.
 
-<pre class="lang:shell">$ gdb <binary> -nx</pre>
+```sh
+$ gdb <binary> -nx
+```
 
 Voilà, avec cette introduction à gdb, vous devriez pouvoir l'utiliser et profiter de sa force. Il manque un tas de choses, j'en suis conscient, et j'ajouterai des fonctions qui me paraitront pertinentes, que ce soit en les découvrant par moi-même, ou par vos commentaires !
 
 # Pour aller plus loin ...
 
-Si vous sentez que gdb est trop morne, qu'il manque de couleurs, de fonctionnalités, sachez que de nombreuses initiatives existent dans le monde open source afin de vous rendre la vie plus agréable, en vous proposant des .gdbinit remarquablement complets et utiles. (_Merci à yaap pour les liens_) Nous pouvons citer, entre autre :\`
+Si vous sentez que gdb est trop morne, qu'il manque de couleurs, de fonctionnalités, sachez que de nombreuses initiatives existent dans le monde open source afin de vous rendre la vie plus agréable, en vous proposant des `.gdbinit` remarquablement complets et utiles. (_Merci à yaap pour les liens_) Nous pouvons citer, entre autre :\`
 
-<a href="https://github.com/dholm/dotgdb" target="_blank">dotgdb</a>
-
-<a href="https://github.com/longld/peda" target="_blank">peda</a>
+* [peda](https://github.com/longld/peda)
+* [dotgdb](https://github.com/dholm/dotgdb)
 
 N'hésitez pas à les installer, et les modifier selon vos besoins, vous avez (presque) toutes les clés en main pour comprendre comment ils fonctionnent. Notez cependant que ces outils ne sont pas exempts de bugs ou de comportements inattendus. Utilisez les avec discernement, n'hésitez pas à être bon critique !
-
-&nbsp;
 
 Bon reverse 😉

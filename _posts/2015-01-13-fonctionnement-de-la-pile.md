@@ -7,59 +7,31 @@ permalink: /fonctionnement-de-la-pile/
 tags:
   - tuto
 ---
-<p style="text-align: left;">
-  La pile (dont on a parlé dans <a title="Gestion de la mémoire" href="http://blog.hackndo.com/?p=203" target="_blank">cet article</a>) a une structure <strong>LIFO</strong> (Last In, First Out). Cela veut dire que le dernier élément qui est placé sur la pile sera le premier élément à être dépilé. Pour mieux comprendre, on peut imaginer une pile d'assiette. Si on empile des assiettes les unes sur les autres, il faudra enlever la dernière assiette posée, puis l'avant-dernière etc. pour pouvoir récupérer la première assiette posée. C'est le même principe.
-</p>
+La pile (dont on a parlé dans l'article sur la [gestion de la mémoire]({{ site.baseurl }}gestion-de-la-memoire/) a une structure **LIFO** (Last In, First Out). Cela veut dire que le dernier élément qui est placé sur la pile sera le premier élément à être dépilé. Pour mieux comprendre, on peut imaginer une pile d'assiette. Si on empile des assiettes les unes sur les autres, il faudra enlever la dernière assiette posée, puis l'avant-dernière etc. pour pouvoir récupérer la première assiette posée. C'est le même principe.
 
-<div class='warning2'>
-  Contrairement à la pile d'assiette, la stack empile ses éléments vers le bas. Donc ce qu'on appelle le haut de la stack, c'est finalement l'adresse la plus basse de la stack. <span style="text-decoration: underline;">Plus on empile des valeurs dans la stack, plus les adresses diminuent</span>. C'est déroutant, mais on s'y fait rapidement !
-</div>
+Contrairement à la pile d'assiette, la stack empile ses éléments vers le bas. Donc ce qu'on appelle le haut de la stack, c'est finalement l'adresse la plus basse de la stack. **Plus on empile des valeurs dans la stack, plus les adresses diminuent**. C'est déroutant, mais on s'y fait rapidement !
 
 ![img]({{ site.baseurl }}assets/uploads/2015/03/img_54f6e3d3da5b8.png?w=640" alt="" data-recalc-dims="1)
 
-&nbsp;
+Cette structure LIFO est finalement extrêmement utile. En effet, lors de l'appel d'une fonction, toutes les données nécessaires pour l'exécution de la fonction, ainsi que pour le retour à l'état initial sont empilées. Une fois la fonction terminée, il faut donc retourner à la ligne suivant son appel, et ceci ce fait en dépilant tout ce qui a été précédemment empilé, laissant intact le reste de la pile et les autres éventuelles stack frames. Voici un schéma qui tente de résumer mes propos :
 
-<p style="text-align: left;">
-  Cette structure LIFO est finalement extrêmement utile. En effet, lors de l'appel d'une fonction, toutes les données nécessaires pour l'exécution de la fonction, ainsi que pour le retour à l'état initial sont empilées. Une fois la fonction terminée, il faut donc retourner à la ligne suivant son appel, et ceci ce fait en dépilant tout ce qui a été précédemment empilé, laissant intact le reste de la pile et les autres éventuelles stack frames. Voici un schéma qui tente de résumer mes propos :
-</p>
+![img]({{ site.baseurl }}assets/uploads/2015/01/img_54b4159f5c27f.png)
 
-<p style="text-align: center;">
-  <img class="alignnone size-full wp-image-239 " src="http://i2.wp.com/blog.hackndo.com/assets/uploads/2015/01/img_54b4159f5c27f.png?w=640" alt="" data-recalc-dims="1" />
-</p>
+Nous avons vu dans un article sur la [gestion de la mémoire]({{ site.baseurl }}gestion-de-la-memoire/) ce qu'étaient les stack frame (vous savez, ces informations stockées sur la pile lors de l'appel d'une fonction pour enregistrer le contexte d'exécution ainsi que les variables passées à la fonction). Et bien le registre `ESP` garde en mémoire l'adresse du haut de la pile (donc l'adresse la plus basse, puisque plus la pile grandit, plus les nouvelles adresses sont basses). Il est donc mis à jour à chaque modification de la pile (ajout d'une valeur ou suppression de la dernière valeur). Le registre `EBP` garde en mémoire l'adresse du début de la stack frame. Ainsi, la stack frame courante se situe entre l'adresse contenue dans `EBP` et l'adresse contenue dans `ESP`.
 
-<p style="text-align: center;">
-  <em>Représentation de la structure LIFO de la pile, d'un point de vue extérieur<br /> </em>
-</p>
-
-<p style="text-align: left;">
-  Nous avons vu <a title="Gestion de la mémoire" href="http://blog.hackndo.com/?p=203">dans un article précédant</a> ce qu'étaient les stack frame (vous savez, ces informations stockées sur la pile lors de l'appel d'une fonction pour enregistrer le contexte d'exécution ainsi que les variables passées à la fonction). Et bien le registre <strong>ESP</strong> garde en mémoire l'adresse du haut de la pile (donc l'adresse la plus basse, puisque plus la pile grandit, plus les nouvelles adresses sont basses). Il est donc mis à jour à chaque modification de la pile (ajout d'une valeur ou suppression de la dernière valeur). Le registre <strong>EBP</strong> garde en mémoire l'adresse du début de la stack frame. Ainsi, la stack frame courante se situe entre l'adresse contenue dans <strong>EBP</strong> et l'adresse contenue dans <strong>ESP</strong>.
-</p>
-
-Voici un schéma qui illustre le rôle des registres EBP et ESP :
-
-&nbsp;
+Voici un schéma qui illustre le rôle des registres `EBP` et `ESP` :
 
 ![img]({{ site.baseurl }}assets/uploads/2015/01/LIFO_EBP_ESP.jpg)
 
-<p style="text-align: center;">
-  <em>Illustration des rôles des registres EBP et ESP pour une stack frame</em>
-</p>
+Ce que nous venons de voir est vrai tant qu'on reste dans la même stack frame. Cependant, que se passe-t-il lorsqu'il y a un appel à une nouvelle fonction ? Une fois cette nouvelle fonction terminée, comment le processeur revient-il à l'état précédent ? C'est ce que nous allons voir tout de suite.
 
-<p style="text-align: left;">
-  Ce que nous venons de voir est vrai tant qu'on reste dans la même stack frame. Cependant, que se passe-t-il lorsqu'il y a un appel à une nouvelle fonction ? Une fois cette nouvelle fonction terminée, comment le processeur revient-il à l'état précédent ? C'est ce que nous allons voir tout de suite.
-</p>
 
-<p style="text-align: left;">
-  <div class='info2'>
-    Pour être en mesure de bien comprendre la suite de cet article, des notions de base d'assembleur sont utiles. Même s'il est possible de suivre sans aucune connaissance, il est fortement conseillé de lire l'article <a href="http://blog.hackndo.com/assembleur-notions-de-base/">Notions de base sur l'assembleur</a> qui vous donnera les bases nécessaires pour une meilleure compréhension.
-  </div>
-</p>
+_Pour être en mesure de bien comprendre la suite de cet article, des notions de base d'assembleur sont utiles. Même s'il est possible de suivre sans aucune connaissance, il est fortement conseillé de lire l'article [Notions de base sur l'assembleur]({{ site.baseurl }}assembleur-notions-de-base/) qui vous donnera les bases nécessaires pour une meilleure compréhension._
 
-<p style="text-align: left;">
-  Considérons le programme fonction.c suivant :
-</p>
+Considérons le programme fonction.c suivant :
 
-<pre lang="c">#include <stdio.h>
+```c
+#include <stdio.h>
 #include <stdlib.h>
 
 int reponse(int a, int b, int c) {
@@ -69,14 +41,16 @@ int reponse(int a, int b, int c) {
 int main() {
     int result;
     result = reponse(4, 8, 42);
-}</pre>
+}
+```
 
-Après compilation, on désassemble la fonction _main_ pour voir les instructions assembleur qui la compose
+Après compilation, on désassemble la fonction `main` pour voir les instructions assembleur qui la compose
 
-<pre lang="sh">hackndo@becane$ gcc fonction.c -o fonction
+```sh
+hackndo@becane$ gcc fonction.c -o fonction
 hackndo@becane$ gdb -q fonction
 Reading symbols from /home/hackndo/fonction...(no debugging symbols found)...done.
-(gdb) disass main
+(gdb) disas main
 Dump of assembler code for function main:
     0x080483a5 <+0>:     push   ebp
     0x080483a6 <+1>:     mov    ebp,esp
@@ -88,115 +62,68 @@ Dump of assembler code for function main:
     0x080483c7 <+34>:    mov    DWORD PTR [ebp-0x4],eax
     0x080483ca <+37>:    leave
     0x080483cb <+38>:    ret
-End of assembler dump.</pre>
+End of assembler dump.
+```
 
 Si vous n'avez pas eu le temps de regarder l'article sur les notions de base d'assembleur, rappelons rapidement le rôle des commandes que nous avons utilisées.
 
-La commande **gcc** (**G**NU **C**ompiler **C**ollection) est une commande sous Linux qui permettait de compiler des programmes écrits en C historiquement, mais qui maintenant permet de compiler des programmes dans différents langages (C, C++, Java &#8230;).
+La commande `gcc` (**G**NU **C**ompiler **C**ollection) est une commande sous Linux qui permettait de compiler des programmes écrits en C historiquement, mais qui maintenant permet de compiler des programmes dans différents langages (C, C++, Java...).
 
-**gdb** (**G**NU Project **D**e**b**ugger) est un debugger puissant, totalement en ligne de commande. Il permet, entre autre, de désassembler un programme, de le lancer, de le mettre en pause pendant son exécution, de lire la mémoire, la modifier pendant l'exécution et j'en passe.
+**gdb** (**G**NU Project **D**e**b**ugger) est un debugger puissant, totalement en ligne de commande. Il permet, entre autre, de désassembler un programme, de le lancer, de le mettre en pause pendant son exécution, de lire la mémoire, la modifier pendant l'exécution et j'en passe. Vous pouvez également lire l'article [Introduction à GDB]({{ site.baseurl }}introduction-a-gdb/) pour mieux comprendre son fonctionnement.
 
-<div class='info2'>
-  <span style="text-decoration: underline;"><strong>Astuce</strong></span> : Lorsque nous sommes dans une session gdb, il est possible de lui passer un grand nombre de commandes. Comme certaines d'entre elles peuvent avoir des noms très longs, ou peuvent être appelées extrêmement souvent, certaines abréviations peuvent être utilisées. Par exemple, la commande permettant d'avoir des informations sur les registres est <strong>info registers</strong> mais elle peut être lancée en utilisant la simple commande <strong>i r</strong>.
-</div>
+**Astuce**: Lorsque nous sommes dans une session gdb, il est possible de lui passer un grand nombre de commandes. Comme certaines d'entre elles peuvent avoir des noms très longs, ou peuvent être appelées extrêmement souvent, certaines abréviations peuvent être utilisées. Par exemple, la commande permettant d'avoir des informations sur les registres est **info registers** mais elle peut être lancée en utilisant la simple commande **i r**.
 
-Pour désassembler une fonction d'un programme chargé dans gdb, nous lui passons la commande **disassemble _function_**_._ Ici nous souhaitons désassembler la fonction _main,_ donc nous lançons la commande **disass _main_**, sachant que **disass** est un alias de **disassemble**, comme nous venons de l'expliquer.
+Pour désassembler une fonction d'un programme chargé dans gdb, nous lui passons la commande `disassemble function`. Ici nous souhaitons désassembler la fonction `main`, donc nous lançons la commande `disas main`, sachant que `disas` est un alias de `disassemble`, comme nous venons de l'expliquer.
 
-On remarque différentes choses. Tout d'abord, on voit l'appel à la fonction _reponse_ à la ligne +29 (adresse 0x080483c2) avec l'instruction _call_. Ensuite on remarque sur les 3 lignes précédentes qui sont l'ajout sur la pile des arguments qui seront envoyés à cette fonction : Sont placés le 3ème argument, puis le deuxième et enfin le premier.
+On remarque différentes choses. Tout d'abord, on voit l'appel à la fonction `reponse` à la ligne `+29` (adresse `0x080483c2`) avec l'instruction `call`. Ensuite on remarque sur les 3 lignes précédentes qui sont l'ajout sur la pile des arguments qui seront envoyés à cette fonction : Sont placés le 3ème argument, puis le deuxième et enfin le premier.
 
-Une fois que nous arrivons à l'instruction _call_, regardons l'état de la pile :
+Une fois que nous arrivons à l'instruction `call`, regardons l'état de la pile :
 
-<pre lang="sh">(gdb) x/8xw $esp
+```sh
+(gdb) x/8xw $esp
 0xbffffc9c:    0x00000004    0x00000008    0x0000002a    0x080483eb
-0xbffffcac:    0xb7fd6ff4    0x080483e0    0x00000000    0xbffffd38</pre>
+0xbffffcac:    0xb7fd6ff4    0x080483e0    0x00000000    0xbffffd38
+```
 
-Pour pouvoir lire ces informations, je vous rappelle que la pile grandit vers les adresses basses. La première ligne que nous pouvons lire commence par **0xbffffc9c** suivie de 4 groupes de 4 octets. Le premier groupe est bien à l'adresse **0xbffffc9c**, le groupe suivant 4 octets plus loin est donc à **0xbffffca0,** ensuite le groupe est à **0xbffffca4** et enfin le dernier groupe de la première ligne est à l'adresse **0xbffffca8**. On passe alors à la ligne suivante, et on avance encore une fois de 4 octets, ce qui nous donne bien l'adresse **0xbffffcac** et ainsi de suite.
+Pour pouvoir lire ces informations, je vous rappelle que la pile grandit vers les adresses basses. La première ligne que nous pouvons lire commence par `0xbffffc9c` suivie de 4 groupes de 4 octets. Le premier groupe est bien à l'adresse `0xbffffc9c`, le groupe suivant 4 octets plus loin est donc à `0xbffffca`, ensuite le groupe est à `0xbffffca4` et enfin le dernier groupe de la première ligne est à l'adresse `0xbffffca8`. On passe alors à la ligne suivante, et on avance encore une fois de 4 octets, ce qui nous donne bien l'adresse `0xbffffcac` et ainsi de suite.
 
-Le registre ESP pointe vers le &#8220;haut&#8221; de la pile, donc vers l'adresse **0xbffffc9c**. Comme nous nous sommes préparés à l'appel de la fonction, le sommet de la pile (pointé par ESP) est composé des arguments qui sont passés à la fonction. On voit bien les valeurs 4, 8 et 42 (2a en hexadécimal).
+Le registre ESP pointe vers le "haut" de la pile, donc vers l'adresse `0xbffffc9c`. Comme nous nous sommes préparés à l'appel de la fonction, le sommet de la pile (pointé par `ESP`) est composé des arguments qui sont passés à la fonction. On voit bien les valeurs 4, 8 et 42 (`0x2a` en hexadécimal).
 
 La pile est donc dans l'état suivant :
 
-<p style="text-align: center;">
-  ![img]({{ site.baseurl }}assets/uploads/2015/03/img_54f6274496d0a.png?w=640" alt="" data-recalc-dims="1)
-</p>
+![img]({{ site.baseurl }}assets/uploads/2015/03/img_54f6274496d0a.png)
 
-Les arguments sont donc enregistrés sur la pile. Mais une fois que le programme rentre dans la fonction, il va devoir se souvenir d'où il vient. Et pour cela, il va falloir qu'il enregistre le registre EIP (c'est le registre qui a en mémoire l'adresse de l'instruction courante). On ne voit cependant pas d'instruction PUSH EIP dans le code, tout simplement pour la raison suivante (qu'il est impératif de retenir)
+Les arguments sont donc enregistrés sur la pile. Mais une fois que le programme rentre dans la fonction, il va devoir se souvenir d'où il vient. Et pour cela, il va falloir qu'il enregistre le registre `EIP` (c'est le registre qui a en mémoire l'adresse de l'instruction courante). On ne voit cependant pas d'instruction `PUSH EIP` dans le code, tout simplement pour la raison suivante (qu'il est impératif de retenir)
 
-<div class='error2'>
-  L'instruction call est équivalente à <span style="text-decoration: underline;">deux instructions</span></p> 
-  
-  <p>
-    <strong>call </strong>
-  </p>
-  
-  <p>
-    est équivalent à
-  </p>
-  
-  <p>
-    <strong>PUSH EIP<br /> </strong><strong>JMP </strong>
-  </p>
-  
-  <p>
-    De la même manière, l'instruction RETURN est équivalente à <span style="text-decoration: underline;">deux instructions</span>
-  </p>
-  
-  <p>
-    <strong>RET</strong>
-  </p>
-  
-  <p>
-    est équivalent à
-  </p>
-  
-  <p>
-    <strong>POP EIP<br /> JMP EIP</strong></div> 
-    
-    <p>
-      Donc si nous avançons d'une instruction pour entrer dans la fonction, la valeur de EIP est poussée sur la pile, et nous obtenons :
-    </p>
-    
-    <pre lang="sh">(gdb) stepi
+Donc si nous avançons d'une instruction pour entrer dans la fonction, la valeur de EIP est poussée sur la pile, et nous obtenons :
+        
+```sh
+(gdb) stepi
 0x08048394 in reponse ()
+
 (gdb) x/8x $esp
     0xbffffc98:    0x080483c7    0x00000004    0x00000008    0x0000002a
-    0xbffffca8:    0x080483eb    0xb7fd6ff4    0x080483e0    0x00000000</pre>
+    0xbffffca8:    0x080483eb    0xb7fd6ff4    0x080483e0    0x00000000
+```
     
-    <p>
-      On voit arriver l'adresse 0x080483c7 en haut de la pile.  Vous remarquez ce que c'est ? Oui, c'est l'adresse de l'instruction qui suit le <em>call</em> dans le main. Au moment de rentrer dans la fonction, le processeur enregistre la prochaine instruction à suivre une fois qu'il sortira de la fonction dans laquelle il vient d'entrer.
-    </p>
-    
-    <p>
-      Avec cette sauvegarde de l'EIP, nous avons donc une représentation de la pile comme suit :
-    </p>
-    
-    <p style="text-align: center;">
-      <img class="alignnone size-full wp-image-422 " src="http://i1.wp.com/blog.hackndo.com/assets/uploads/2015/03/img_54f6289eaa721.png?w=640" alt="" data-recalc-dims="1" />
-    </p>
-    
-    <p style="text-align: left;">
-      Voilà, nous avons fait le jump. Nous sommes à la première instruction de la fonction <em>reponse()</em>
-    </p>
-    
-    <p style="text-align: left;">
-      <div class='info2'>
-        J'ai bien suivi ce que tu dis, mais du coup cette nouvelle fonction doit avoir un espace à elle sur la stack ? Sa stack frame doit être dissociée de celle de la fonction main ?
-      </div>
-    </p>
-    
-    <p>
-      Effectivement, rappelons que chaque fonction possède sa propre <em>stack frame</em>. Lorsqu'une fonction est appelée, elle va se réserver un espace sur le dessus de la pile. En dessous de cet espace se trouve la <em>stack frame</em> de la fonction appelante. Quand la fonction en cours sera terminée, il faudra pouvoir revenir à la fonction appelante.
-    </p>
-    
-    <p>
-      Pour cela, chaque fonction possède ce qu'on appelle un <strong>prologue</strong> et un <strong>épilogue</strong>. Le prologue permet de sauvegarder les informations de la fonction appelante et de réserver l'espace sur la pile dont aura besoin la fonction, tandis que l'épilogue permet de restituer ces informations sauvegardées pour que la fonction appelante puisse reprendre son cours d'exécution comme si rien ne s'était passé.
-    </p>
-    
-    <p style="text-align: left;">
-      Prenons le code de la fonction <em>reponse</em> pour voir en détail comment cela fonctionne.
-    </p>
-    
-    <pre lang="sh">(gdb) disass reponse
+On voit arriver l'adresse `0x080483c7` en haut de la pile.  Vous remarquez ce que c'est ? Oui, c'est l'adresse de l'instruction qui suit le `call` dans le `main`. Au moment de rentrer dans la fonction, le processeur enregistre la prochaine instruction à suivre une fois qu'il sortira de la fonction dans laquelle il vient d'entrer.
+        
+Avec cette sauvegarde de l'EIP, nous avons donc une représentation de la pile comme suit :
+        
+![img]({{ site.baseurl }}assets/uploads/2015/03/img_54f6289eaa721.png)
+        
+Voilà, nous avons fait le `jump`. Nous sommes à la première instruction de la fonction `reponse()`
+
+Mais du coup cette nouvelle fonction doit avoir un espace à elle sur la stack. Sa stack frame doit être dissociée de celle de la fonction `main`.
+
+En effet, rappelons que chaque fonction possède sa propre _stack frame_. Lorsqu'une fonction est appelée, elle va se réserver un espace sur le dessus de la pile. En dessous de cet espace se trouve la _stack frame_ de la fonction appelante. Quand la fonction en cours sera terminée, il faudra pouvoir revenir à la fonction appelante.
+        
+Pour cela, chaque fonction possède ce qu'on appelle un **prologue** et un **épilogue**. Le prologue permet de sauvegarder les informations de la fonction appelante et de réserver l'espace sur la pile dont aura besoin la fonction, tandis que l'épilogue permet de restituer ces informations sauvegardées pour que la fonction appelante puisse reprendre son cours d'exécution comme si rien ne s'était passé.
+        
+Prenons le code de la fonction `reponse` pour voir en détail comment cela fonctionne.
+        
+```sh
+(gdb) disas reponse
 Dump of assembler code for function reponse:
     0x08048394 <+0>:    push   ebp
     0x08048395 <+1>:    mov    ebp,esp
@@ -206,21 +133,17 @@ Dump of assembler code for function reponse:
     0x080483a0 <+12>:   add    eax,DWORD PTR [ebp+0x10]
     0x080483a3 <+15>:   pop    ebp
     0x080483a4 <+16>:   ret
-End of assembler dump.</pre>
+End of assembler dump.
+```
     
-    <p style="text-align: left;">
-      Le prologue de cette fonction est situé sur les lignes +0 et +1.
-    </p>
-    
-    <p style="text-align: left;">
-      On voit dans l'ordre que EBP est poussé sur la pile avec PUSH EBP, permettant de sauvegarder le registre EBP sur la pile, registre qui pointait vers le début de la stack frame précédente. A la ligne +1, la valeur de ESP est copiée dans EBP. A ce moment là, EBP et ESP pointent vers la même case mémoire. C'est normal, nous venons de commencer la stack frame de la fonction appelée, et elle n'a encore rien mis dessus. Donc le début et la fin sont confondus !
-    </p>
-    
-    <p style="text-align: left;">
-      D'ailleurs, si on regarde l'évolution des registres EPB et ESP ainsi que de la pile lors de l'exécution des premières instructions de la fonction <em>reponse()</em> on obtient ceci :
-    </p>
-    
-    <pre lang="sh">(gdb) disass reponse
+Le prologue de cette fonction est constitué des lignes `+0` et `+1`.
+
+On voit dans l'ordre que `EBP` est poussé sur la pile avec `PUSH EBP`, permettant de sauvegarder le registre `EB`P sur la pile, registre qui pointait vers le début de la stack frame précédente. A la ligne `+1`, la valeur de `ESP` est copiée dans `EBP`. A ce moment là, `EBP` et `ESP` pointent vers la même case mémoire. C'est normal, nous venons de commencer la stack frame de la fonction appelée, et elle n'a encore rien mis dessus. Donc le début et la fin sont confondus !
+
+D'ailleurs, si on regarde l'évolution des registres `EPB` et `ESP` ainsi que de la pile lors de l'exécution des premières instructions de la fonction `reponse()` on obtient ceci :
+        
+```sh
+(gdb) disas reponse
 Dump of assembler code for function reponse:
 => 0x08048394 <+0>:     push   ebp
    0x08048395 <+1>:     mov    ebp,esp
@@ -231,14 +154,17 @@ Dump of assembler code for function reponse:
    0x080483a3 <+15>:    pop    ebp
    0x080483a4 <+16>:    ret
 End of assembler dump.
+
 (gdb) i r $ebp $esp
 ebp            0xbffffcb8    0xbffffcb8
 esp            0xbffffc98    0xbffffc98
+
 (gdb) continue
 Continuing.
 
 Breakpoint 1, 0x08048397 in reponse ()
-(gdb) disass reponse
+
+(gdb) disas reponse
 Dump of assembler code for function reponse:
    0x08048394 <+0>:     push   ebp
    0x08048395 <+1>:     mov    ebp,esp
@@ -248,35 +174,29 @@ Dump of assembler code for function reponse:
    0x080483a0 <+12>:    add    eax,DWORD PTR [ebp+0x10]
    0x080483a3 <+15>:    pop    ebp
    0x080483a4 <+16>:    ret
-End of assembler dump.</pre>
-    
-    <pre>(gdb) x/8xw $esp
+End of assembler dump.
+
+(gdb) x/8xw $esp
 0xbffffc94:    0xbffffcb8    0x080483c7    0x00000004    0x00000008
 0xbffffca4:    0x0000002a    0x080483eb    0xb7fd6ff4    0x080483e0
+
 (gdb) i r $ebp $esp
 ebp            0xbffffc94    0xbffffc94
-esp            0xbffffc94    0xbffffc94</pre>
+esp            0xbffffc94    0xbffffc94
+```
     
-    <p style="text-align: left;">
-      Reprenons ce code pas à pas : Nous sommes au début des instructions de la fonction, près à exécuter le push ebp. On voit que ebp contient l'adresse 0xbffffcb8 et esp contient 0xbffffc98. On retrouve bien le ESP qu'on avait représenté sur le dernier schéma. Ensuite, nous avançons de deux instructions. On regarde alors ebp et esp. Ils sont bien égaux, comme prévus. On a poussé l'ancienne valeur de ebp sur la pile, ce qui a décalé de le haut de la pile de 4 octets. Le haut de la pile vaut donc 0xbffffc98 &#8211; 4 donc 0xbffffc94. Ensuite, on affecte esp à ebp. esp valant maintenant 0xbffffc94, ebp prend la même valeur, comme le montre la dernière commande de cette séquence. Voici un dernier schéma qui représente l'état actuel de la pile :
-    </p>
+Reprenons ce code pas à pas : Nous sommes au début des instructions de la fonction, près à exécuter le `push ebp`. On voit que `EBP` contient l'adresse `0xbffffcb8` et esp contient `0xbffffc98`. On retrouve bien le `ESP` qu'on avait représenté sur le dernier schéma. Ensuite, nous avançons de deux instructions. On regarde alors `EBP` et `ESP`. Ils sont bien égaux, comme prévus. On a poussé l'ancienne valeur de `EBP` sur la pile, ce qui a décalé de le haut de la pile de 4 octets. Le haut de la pile vaut donc `0xbffffc98 - 4` donc `0xbffffc94`. Ensuite, on affecte `ESP` à `EBP`. `ESP` valant maintenant `0xbffffc94`, `EBP` prend la même valeur, comme le montre la dernière commande de cette séquence. Voici un dernier schéma qui représente l'état actuel de la pile :
+
+![img]({{ site.baseurl }}assets/uploads/2015/03/img_54f6c6cbaed67.png)
+
+Voilà pour l'explication de ces lignes dans gdb. Ensuite nous avons quelques instructions qui permettent d'effectuer le calcul demandé, puis nous arrivons aux deux dernières lignes, qui sont `pop ebp` et `ret`.
+
+La première va permettre de replacer le pointeur `EBP` sur le début de la stack frame de la fonction appelante, tandis que le deuxième permet de `POP EIP` (donc renvoyer la sauvegarde de `EIP` dans le registre `EIP`) pour reprendre le cours de l'instruction qui était à la suite de l'appel de fonction. Cette routine peut se résumer très sommairement au schéma suivant :
+
+![img]({{ site.baseurl }}assets/uploads/2015/03/img_54f62a66a6700.png)
     
-    ![img]({{ site.baseurl }}assets/uploads/2015/03/img_54f6c6cbaed67.png?w=640" alt="" data-recalc-dims="1)
-    
-    <p style="text-align: left;">
-      Voilà pour l'explication de ces lignes dans gdb. Ensuite nous avons quelques instructions qui permettent d'effectuer le calcul demandé, puis nous arrivons aux deux dernières lignes, qui sont <em>pop ebp</em> et <em>ret</em>. La première va permettre de replacer le pointeur EBP sur le début de la stack frame de la fonction appelante, tandis que le deuxième permet de pop EIP (donc renvoyer la sauvegarde de EIP dans le registre EIP) pour reprendre le cours de l'instruction qui était à la suite de l'appel de fonction. Cette routine peut se résumer très sommairement au schéma suivant :
-    </p>
-    
-    ![img]({{ site.baseurl }}assets/uploads/2015/03/img_54f62a66a6700.png?w=640" alt="" data-recalc-dims="1)
-    
-    <p>
-      Le programme est lu instruction par instruction (<strong>1</strong>). Lors d'un call (<strong>2</strong>), on empile l'instruction en cours (EIP est pushée sur la pile), puis on saute à l'adresse donnée par le call. Ici, les instructions de la fonction sont exécutées les unes à la suite des autres jusqu'au RET (<strong>3</strong>) qui va récupérer la valeur de EIP enregistrée précédemment, afin de revenir à là où le programme en était (<strong>4</strong>), sans perdre le fil !
-    </p>
-    
-    <p>
-      Magique, non ?
-    </p>
-    
-    <p>
-      Avec cette compréhension un peu plus détaillée, vous êtes à même de comprendre le concept du buffer overflow, expliqué dans <a href="http://blog.hackndo.com/buffer-overflow-stack-based-3-techniques/">cet article</a>
-    </p>
+Le programme est lu instruction par instruction (**1**). Lors d'un `call` (**2**), on empile l'instruction en cours (`EIP` est pushée sur la pile), puis on saute à l'adresse donnée par le `call`. Ici, les instructions de la fonction sont exécutées les unes à la suite des autres jusqu'au `RET` (**3**) qui va récupérer la valeur de `EIP` enregistrée précédemment, afin de revenir à là où le programme en était (**4**), sans perdre le fil !
+        
+Magique, non ?
+        
+Avec cette compréhension un peu plus détaillée, vous êtes à même de comprendre le concept du buffer overflow, expliqué dans l'article [Buffer Overflow]({{ site.baseurl }}buffer-overflow/)
