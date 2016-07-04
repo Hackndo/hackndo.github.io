@@ -1,12 +1,11 @@
 ---
 title: "L'espace à notre échelle"
 date: 2015-01-28
-author: "HackN'Do"
+author: "Hackndo"
 layout: post
 permalink: /lespace-a-notre-echelle/
-image: /assets/uploads/2015/01/LH_95.jpg
-categories:
-  - Espace
+tags:
+  - other
 ---
 <div class="_38 direction_ltr">
   <p>

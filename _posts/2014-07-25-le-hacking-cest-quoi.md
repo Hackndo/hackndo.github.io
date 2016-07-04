@@ -4,11 +4,11 @@ date: 2014-07-25 15:38:43 -0400
 author: "hackndo"
 layout: post
 permalink: /le-hacking-cest-quoi/
-categories:
-  - hacking
+tags:
+  - other
 ---
 
-Bonjour à tous, et bienvenue sur mon tout premier **vrai **article
+Bonjour à tous, et bienvenue sur mon tout premier article.
 
 Je pense qu'il faut commencer par certaines bases si je veux que le fil des articles soit cohérent.
 

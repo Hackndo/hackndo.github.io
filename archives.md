@@ -8,40 +8,51 @@ title: Archives
 {% for post in site.posts %}
   {% for tag in post.tags %}
     {% if tag == "exploit" %}
-  * {{ post.date | date_to_string }} &raquo; [ {{ post.title }} ](http://{{ site.url }}{{ post.permalink }})
+  * {{ post.date | date_to_string }} &raquo; [ {{ post.title }} ]({{ post.url }})
     {% break %}
     {% endif %}
   {% endfor %}
 {% endfor %}
 
-## Embedded Systems
+## Tutos
 
 {% for post in site.posts %}
   {% for tag in post.tags %}
-    {% if tag == "embedded" %}
-  * {{ post.date | date_to_string }} &raquo; [ {{ post.title }} ](http://{{ site.url }}{{ post.permalink }})
+    {% if tag == "tuto" %}
+  * {{ post.date | date_to_string }} &raquo; [ {{ post.title }} ]({{ post.url }})
     {% break %}
     {% endif %}
   {% endfor %}
 {% endfor %}
 
-## Systems Security
+## Web
 
 {% for post in site.posts %}
   {% for tag in post.tags %}
-    {% if tag == "security" %}
-  * {{ post.date | date_to_string }} &raquo; [ {{ post.title }} ](http://{{ site.url }}{{ post.permalink }})
+    {% if tag == "web" %}
+  * {{ post.date | date_to_string }} &raquo; [ {{ post.title }} ]({{ post.url }})
     {% break %}
     {% endif %}
   {% endfor %}
 {% endfor %}
 
-## Software Development
+## CTF
 
 {% for post in site.posts %}
   {% for tag in post.tags %}
-    {% if tag == "software development" %}
-  * {{ post.date | date_to_string }} &raquo; [ {{ post.title }} ](http://{{ site.url }}{{ post.permalink }})
+    {% if tag == "CTF" %}
+  * {{ post.date | date_to_string }} &raquo; [ {{ post.title }} ]({{ post.url }})
+    {% break %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+
+## Autres
+
+{% for post in site.posts %}
+  {% for tag in post.tags %}
+    {% if tag == "other" %}
+  * {{ post.date | date_to_string }} &raquo; [ {{ post.title }} ]({{ post.url }})
     {% break %}
     {% endif %}
   {% endfor %}

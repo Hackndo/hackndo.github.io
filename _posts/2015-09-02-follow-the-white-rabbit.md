@@ -1,12 +1,11 @@
 ---
 title: Follow the white rabbit !
-date: 2015-09-02
-author: "HackN'Do"
+date: 2015-09-02 15:38:43 -0400
+author: "Hackndo"
 layout: post
 permalink: /follow-the-white-rabbit/
-image: /assets/uploads/2015/09/oui.png
-categories:
-  - Divers
+tags:
+  - other
 ---
 Hey there,
   

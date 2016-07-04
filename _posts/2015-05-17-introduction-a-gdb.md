@@ -1,18 +1,15 @@
 ---
 title: Introduction à gdb
 date: 2015-05-17
-author: "HackN'Do"
+author: "Hackndo"
 layout: post
 permalink: /introduction-a-gdb/
-image: /assets/uploads/2015/05/gdb_visual.jpg
-categories:
-  - Hacking
-  - Software
-  - UNIX
+tags:
+  - tuto
 ---
 # Introduction à gdb
 
-Que le programmeur qui n'a jamais mis des printf/var_dump/echo/print/System.out/console.log/cout&#8230; plein son code pour savoir d'où venait un bug se dénonce. Que le programmeur qui ne s'est jamais arraché les cheveux pour un programme qui plantait violemment sans crier garde me jette la pierre (C'est une expression, hein !). Heureusement, il existe pléthore de débogueurs (_debuggers_), libres ou non, dont un qui est particulièrement reconnu, le débogueur de GNU nommé GDB (GNU Project Debugger), que nous allons introduire dans cette introduction ) gdb.
+Que le programmeur qui n'a jamais mis des printf/var_dump/echo/print/System.out/console.log/cout plein son code pour savoir d'où venait un bug se dénonce. Que le programmeur qui ne s'est jamais arraché les cheveux pour un programme qui plantait violemment sans crier garde me jette la pierre (C'est une expression, hein !). Heureusement, il existe pléthore de débogueurs (_debuggers_), libres ou non, dont un qui est particulièrement reconnu, le débogueur de GNU nommé GDB (GNU Project Debugger), que nous allons introduire dans cette introduction ) gdb.
 
 Rapidement, un debugger permet de lancer un programme, placer des points d'arrêt (_breakpoints_) à certains endroits, parfois sous certaines conditions, exécuter les instructions pas à pas, étudier et modifier la mémoire (RAM, Registres) &#8230; Bref, tous les outils essentiels pour pouvoir étudier correctement le comportement d'un programme.
 

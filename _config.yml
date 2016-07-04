@@ -19,7 +19,7 @@ github_username:  hackndo
 # Build settings
 markdown: kramdown
 
-paginate: 20
+paginate: 5
 paginate_path: "page/:num"
 github:
   repo:

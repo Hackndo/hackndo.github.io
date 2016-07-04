@@ -1,14 +1,12 @@
 ---
-title: Tuto Buffer Overflow
+title: Buffer Overflow
 date: 2015-03-04
-author: "HackN'Do"
+author: "Hackndo"
 layout: post
-permalink: /tuto-buffer-overflow/
-image: /assets/uploads/2015/03/groot.jpg
-categories:
-  - Hacking
-  - Software
-  - UNIX
+permalink: /buffer-overflow/
+tags:
+  - exploit
+  - tuto
 ---
 # Tuto buffer overflow
 

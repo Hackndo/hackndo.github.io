@@ -1,14 +1,11 @@
 ---
 title: 'Assembleur &#8211; Notions de base'
 date: 2015-04-22
-author: "HackN'Do"
+author: "Hackndo"
 layout: post
 permalink: /assembleur-notions-de-base/
-image: /assets/uploads/2015/04/BACKGROUND.jpg
-categories:
-  - Hacking
-  - Software
-  - UNIX
+tags:
+  - tuto
 ---
 Salut tout le monde, voici un nouvel article qui va permettre, je pense, d'éclaircir bon nombre de notions que j'ai déjà abordées dans mes articles précédents, et qui permettront également de faciliter la compréhension des articles à venir.
 

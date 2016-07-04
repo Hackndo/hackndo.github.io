@@ -1,18 +1,11 @@
 ---
 title: 'C &#8211; Pointeurs de fonction (Trick)'
 date: 2015-03-03
-author: "HackN'Do"
+author: "Hackndo"
 layout: post
 permalink: /c-pointeurs-de-fonction-avance/
-image: /assets/uploads/2015/03/shellcode.jpg
-categories:
-  - Software
 tags:
-  - C
-  - fonction
-  - gestion
-  - mémoire
-  - pointeurs
+  - tuto
 ---
 Voici un petit mémo sur les pointeurs de fonction. Pour rappel, un pointeur est une variable qui contient une adresse mémoire d'une donnée. La donnée peut être un int, un float, un tableau, etc. Mais ça peut aussi être l'adresse d'une fonction. Mais qu'est ce que ça veut dire que l'adresse d'une fonction ?
 
