@@ -10,6 +10,7 @@ title: hackndo
 email: hackndo@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
   Think out of the box
+tagline: Think out of the box
 baseurl: "/" # the subpath of your site, e.g. /blog
 root: /
 url: "hackndo.github.io" # the base hostname & protocol for your site
