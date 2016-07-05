@@ -166,10 +166,10 @@ pre {
   padding: 1rem;
   font-size: .8rem;
   line-height: 1.4;
-  white-space: pre;
-  white-space: pre-wrap;
-  word-break: break-all;
-  word-wrap: break-word;
+  overflow: auto;
+  word-break: normal !important;
+  word-wrap: normal !important;
+  white-space: pre !important;
   background-color: #f9f9f9;
 }
 pre code {
@@ -183,6 +183,8 @@ pre code {
 .highlight {
   margin-bottom: 1rem;
   border-radius: 4px;
+  margin-right: 0.25rem;
+  margin-left: 0.25rem;
 }
 .highlight pre {
   margin-bottom: 0;
