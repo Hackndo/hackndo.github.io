@@ -7,7 +7,8 @@ permalink: /retour-a-la-libc/
 disqus_identifier: 0000-0000-0000-0008
 cover: assets/uploads/2015/05/retli.jpg
 tags:
-  - exploit
+  - userland
+  - tuto
 ---
 # Rappels
 

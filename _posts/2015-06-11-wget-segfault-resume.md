@@ -7,7 +7,7 @@ permalink: /wget-segfault-resume/
 disqus_identifier: 0000-0000-0000-0007
 cover: assets/uploads/2015/06/WGETSEGFAULT.jpg
 tags:
-  - exploit
+  - userland
 ---
 Salut à tous, **winw** m'a montré récemment un truc assez sympa. Dans un terminal, tapez la commande
 

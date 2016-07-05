@@ -8,6 +8,7 @@ disqus_identifier: 0000-0000-0000-000E
 cover: assets/uploads/2015/01/stack.jpg
 tags:
   - tuto
+  - userland
 ---
 La pile (dont on a parlé dans l'article sur la [gestion de la mémoire]({{ site.baseurl }}gestion-de-la-memoire/) a une structure **LIFO** (Last In, First Out). Cela veut dire que le dernier élément qui est placé sur la pile sera le premier élément à être dépilé. Pour mieux comprendre, on peut imaginer une pile d'assiette. Si on empile des assiettes les unes sur les autres, il faudra enlever la dernière assiette posée, puis l'avant-dernière etc. pour pouvoir récupérer la première assiette posée. C'est le même principe.
 

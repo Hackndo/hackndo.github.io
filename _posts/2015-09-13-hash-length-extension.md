@@ -7,7 +7,7 @@ permalink: /hash-length-extension/
 disqus_identifier: 0000-0000-0000-0003
 cover: assets/uploads/2015/09/hash_length_extension.jpg
 tags:
-  - exploit
+  - crypto
 ---
 Salut à tous,
 

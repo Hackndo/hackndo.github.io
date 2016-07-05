@@ -7,7 +7,7 @@ permalink: /buffer-overflow/
 disqus_identifier: 0000-0000-0000-000B
 cover: assets/uploads/2015/03/groot.jpg
 tags:
-  - exploit
+  - userland
   - tuto
 ---
 
