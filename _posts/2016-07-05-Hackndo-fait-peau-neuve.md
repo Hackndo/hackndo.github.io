@@ -5,6 +5,7 @@ author: "hackndo"
 layout: post
 permalink: /hackndo-fait-peau-neuve/
 disqus_identifier: 0000-0000-0000-0012
+cover: assets/uploads/2016/07/beta_hackndo_com.jpg
 tags:
   - other
 ---

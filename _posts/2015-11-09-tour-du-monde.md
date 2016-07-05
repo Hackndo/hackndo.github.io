@@ -5,6 +5,7 @@ author: "hackndo"
 layout: post
 permalink: /tour-du-monde/
 disqus_identifier: 0000-0000-0000-0011
+cover: assets/uploads/2015/11/DSC00791-copie2.jpg
 tags:
   - other
 ---

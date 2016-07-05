@@ -5,6 +5,7 @@ author: "Hackndo"
 layout: post
 permalink: /lespace-a-notre-echelle/
 disqus_identifier: 0000-0000-0000-000D
+cover: assets/uploads/2015/01/LH_95.jpg
 tags:
   - other
 ---

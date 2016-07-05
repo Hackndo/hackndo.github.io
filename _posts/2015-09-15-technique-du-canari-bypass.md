@@ -5,6 +5,7 @@ author: "Hackndo"
 layout: post
 permalink: /technique-du-canari-bypass/
 disqus_identifier: 0000-0000-0000-0002
+cover: assets/uploads/2015/09/9537298100_c67c2e1071_b.jpg
 tags:
   - exploit
 ---

@@ -5,6 +5,7 @@ author: "Hackndo"
 layout: post
 permalink: /introduction-a-gdb/
 disqus_identifier: 0000-0000-0000-0009
+cover: assets/uploads/2015/05/gdb_visual.jpg
 tags:
   - tuto
 ---

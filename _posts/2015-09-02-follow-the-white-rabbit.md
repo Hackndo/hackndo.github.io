@@ -5,6 +5,7 @@ author: "Hackndo"
 layout: post
 permalink: /follow-the-white-rabbit/
 disqus_identifier: 0000-0000-0000-0004
+cover: assets/uploads/2015/09/oui.png
 tags:
   - other
 ---
