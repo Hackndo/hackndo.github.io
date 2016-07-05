@@ -4,6 +4,7 @@ date: 2015-01-13
 author: "Hackndo"
 layout: post
 permalink: /fonctionnement-de-la-pile/
+disqus_identifier: 0000-0000-0000-000E
 tags:
   - tuto
 ---

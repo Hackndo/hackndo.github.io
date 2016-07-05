@@ -4,6 +4,7 @@ date: 2015-03-04
 author: "Hackndo"
 layout: post
 permalink: /buffer-overflow/
+disqus_identifier: 0000-0000-0000-000B
 tags:
   - exploit
   - tuto

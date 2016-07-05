@@ -4,6 +4,7 @@ date: 2015-06-11
 author: "Hackndo"
 layout: post
 permalink: /wget-segfault-resume/
+disqus_identifier: 0000-0000-0000-0007
 tags:
   - exploit
 ---

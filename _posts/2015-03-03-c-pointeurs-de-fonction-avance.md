@@ -4,6 +4,7 @@ date: 2015-03-03
 author: "Hackndo"
 layout: post
 permalink: /c-pointeurs-de-fonction/
+disqus_identifier: 0000-0000-0000-000C
 tags:
   - tuto
 ---

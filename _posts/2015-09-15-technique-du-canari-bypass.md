@@ -4,6 +4,7 @@ date: 2015-09-15
 author: "Hackndo"
 layout: post
 permalink: /technique-du-canari-bypass/
+disqus_identifier: 0000-0000-0000-0002
 tags:
   - exploit
 ---

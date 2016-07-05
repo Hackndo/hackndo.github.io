@@ -4,6 +4,7 @@ date: 2014-07-25 11:38:43 -0400
 author: "hackndo"
 layout: post
 permalink: /libre-opensource-freeware/
+disqus_identifier: 0000-0000-0000-0010
 tags:
   - other
 ---

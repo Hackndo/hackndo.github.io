@@ -4,6 +4,7 @@ date: 2015-05-24 15:38:43 -0400
 author: "Hackndo"
 layout: post
 permalink: /retour-a-la-libc/
+disqus_identifier: 0000-0000-0000-0008
 tags:
   - exploit
 ---

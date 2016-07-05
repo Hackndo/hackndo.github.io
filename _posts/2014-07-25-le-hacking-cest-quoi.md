@@ -4,6 +4,7 @@ date: 2014-07-25 15:38:43 -0400
 author: "hackndo"
 layout: post
 permalink: /le-hacking-cest-quoi/
+disqus_identifier: 0000-0000-0000-0001
 tags:
   - other
 ---

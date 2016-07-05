@@ -4,6 +4,7 @@ date: 2015-01-11
 author: "Hackndo"
 layout: post
 permalink: /gestion-de-la-memoire/
+disqus_identifier: 0000-0000-0000-000F
 tags:
   - tuto
 ---

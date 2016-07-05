@@ -4,6 +4,7 @@ date: 2015-09-13 15:38:43 -0400
 author: "Hackndo"
 layout: post
 permalink: /hash-length-extension/
+disqus_identifier: 0000-0000-0000-0003
 tags:
   - exploit
 ---

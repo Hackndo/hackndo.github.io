@@ -4,6 +4,7 @@ date: 2015-04-22
 author: "Hackndo"
 layout: post
 permalink: /assembleur-notions-de-base/
+disqus_identifier: 0000-0000-0000-000A
 tags:
   - tuto
 ---
