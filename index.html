@@ -2,7 +2,6 @@
 layout: default
 title: Home
 ---
-
 <div class="posts">
   {% for post in paginator.posts %}
   <div class="post">
@@ -15,7 +14,10 @@ title: Home
       </a>
     </h1>
 
-    <span class="post-date">{{ post.date | date_to_string }} | <a class="post-comments-count" href="http://{{ site.url }}{{ post.url }}#disqus_thread">0 Comment</a></span>
+    <div class="post-info">
+      <p class="alignleft">{{ post.date | date_to_string }} | <a class="post-comments-count" href="http://{{ site.url }}{{ post.url }}#disqus_thread">0 Comment</a></p>
+      <p class="alignright">Auteur : <strong>{{ post.author }}</strong></p>
+    </div>
 
     {{ post.content }}
     <hr />
