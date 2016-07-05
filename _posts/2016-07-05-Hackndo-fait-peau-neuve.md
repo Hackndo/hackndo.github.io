@@ -16,7 +16,7 @@ Anciennement hosté sur un dédié, j'en avais marre de payer tous les mois un s
 
 Je n'ai aucun regret, ça donne exactement ce que je voulais, et je n'ai plus à me soucier d'une panne de disque ou d'une innondation qui mettrait en péril toutes mes données.
 
-Oui, je sais, j'aurais pu faire un `cron` couplé avec un Hubic et tout ça, mais j'étais également curieux de découvrir le système de pages de Github ainsi que [Jeykill](https://jekyllrb.com/), et j'en suis vraiment content.
+Oui, je sais, j'aurais pu faire un `cron` couplé avec un Hubic et tout ça, mais j'étais également curieux de découvrir le système de pages de Github ainsi que [Jekyll](https://jekyllrb.com/), et j'en suis vraiment content.
 
 Bonne navigation à tous, j'espère que ce nouveau design vous plaira
 
