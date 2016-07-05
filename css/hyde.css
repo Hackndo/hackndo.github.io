@@ -70,6 +70,19 @@ html {
   }
 }
 
+.sidebar-about img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 48em) {
+  .sidebar-about img {
+    display: inline-block;
+    margin-bottom: -0.5rem;
+  }
+}
+
 /* Sidebar links */
 .sidebar a {
   color: #fff;
