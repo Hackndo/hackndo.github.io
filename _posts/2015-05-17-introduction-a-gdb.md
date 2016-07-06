@@ -12,6 +12,8 @@ tags:
 
 Que le programmeur qui n'a jamais mis des `printf`, `var_dump`, `echo`, `print`, `System.out`, `console.log`, `cout` plein son code pour savoir d'où venait un bug se dénonce. Que le programmeur qui ne s'est jamais arraché les cheveux pour un programme qui plantait violemment sans crier garde me jette la pierre (C'est une expression, hein !). Heureusement, il existe pléthore de débogueurs (_debuggers_), libres ou non, dont un qui est particulièrement reconnu, le débogueur de GNU nommé **GDB** (GNU Project Debugger), que nous allons introduire dans cette introduction.
 
+<!--more-->
+
 Rapidement, un debugger permet de lancer un programme, placer des points d'arrêt (_breakpoints_) à certains endroits, parfois sous certaines conditions, exécuter les instructions pas à pas, étudier et modifier la mémoire (RAM, Registres) ... Bref, tous les outils essentiels pour pouvoir étudier correctement le comportement d'un programme.
 
 GDB est portable (cross-platform), donc les commandes que nous allons voir ici pourront être effectuées sur tous les OS pourvu que GDB soit installé, et les exemples pris ici ont été effectués sur Linux. C'est un outil très puissant, avec de nombreuses fonctionnalités qu'il serait difficile de lister et expliquer exhaustivement, c'est pourquoi nous verrons ici ce qui me paraissait être le plus important (... parmi les fonctionnalités que je connais. Si vous en connaissez d'autres ou des astuces permettant d’accélérer/simplifier des choses, n'hésitez pas à m'en faire part dans les commentaires, je les intégrerai dans cet article).

@@ -14,6 +14,8 @@ tags:
 
 Bonjour, nous avons vu dans la série d'articles précédents comment fonctionnait la mémoire d'un processus au sein d'un système Unix. Grâce à cette compréhension, nous avons exposé une vulnérabilité très connue qu'est le dépassement de tampon en utilisant la pile (_buffer overflow stack based_).
 
+<!--more-->
+
 Pour rappel, le buffer overflow est une vulnérabilité présente lorsque le programmeur ne vérifie pas la taille d'une variable fournie par l'utilisateur, et qu'il stocke cette variable en mémoire. Il est alors possible pour l'attaquant d'entrer une valeur de taille supérieure à ce qui était prévu, et lorsque cette valeur (appelée _buffer_) est copiée en mémoire, elle dépasse de l'espace qui lui était alloué (dépassement de tampon).
 
 Cela peut engendrer une erreur de segmentation car ce dépassement va probablement écraser la sauvegarde du registre EIP (sauvegarde effectuée afin que lorsque la fonction en cours se termine, le processeur retrouve l'adresse de l'instruction suivant l'appel de cette fonction), donc comme EIP est partiellement ou totalement écrasé, les chances sont fortes pour que cette nouvelle valeur pointe soit vers une zone mémoire non autorisée en lecture, soit vers zone mémoire contenant des instructions non valides.

@@ -16,6 +16,8 @@ Je l'ai lu en long, large et travers, mais il est en anglais et relativement lon
 
 Je ne me contente évidemment pas d'un simple résumé, je tente le plus possible d'ajouter des schémas ou des exemples pour rendre cette série la plus agréable à lire possible.
 
+<!--more-->
+
 ## Introduction
 
 Lorsque vous utilisez votre ordinateur tous les jours, en allant sur internet, en regardant des films, ou encore en codant, une grosse machinerie est en route pour vous simplifier la vie. Pour utiliser votre wifi ou écouter de la musique, il faut à un moment donné communiquer avec le matériel, et pourtant vous n'avez pas besoin de connaitre le constructeur de votre carte réseau, ni celui de votre carte son. Si c'est possible, c'est parce que vous utilisez un système d'exploitation (ou OS, Operating System) qui sert de couche d'abstraction pour ces différentes contraintes. Et le coeur de l'OS est ce qu'on appelle le noyau (kernel).
@@ -39,7 +41,7 @@ Mais attention, écrire des exploits pour profiter de vulnérabilités dans le k
 
 Sans être exhaustif, il existe différentes vulnérabilités.
 
-Le kernel est responsable de l'ordonnancement (_scheduling_) des différentes tâches pour simuler un comportement multi-tâches. Nous ne rentrerons pas dans les détails de l'ordonnancement, mais le fait que le kernel switch d'une tâche à l'autre permet l'utilisation de _race conditions_ (contidions de concurrence). C'est à dire qu'entre deux instructions peut s'écouler un temps plus ou moins long, et pour peu que la première instruction soit une vérification sur des droits et que la deuxième soit une action si les droits sont vérifiés, il est possible de modifier des éléments entre la vérification et l'action prise, pour que l'action s'effectue sur autre chose que prévu.
+Le kernel est responsable de l'ordonnancement (_scheduling_) des différentes tâches pour simuler un comportement multi-tâches. Nous ne rentrerons pas dans les détails de l'ordonnancement, mais le fait que le kernel bascule d'une tâche à l'autre permet l'utilisation de _race conditions_ (contidions de concurrence). C'est à dire qu'entre deux instructions peut s'écouler un temps plus ou moins long, et pour peu que la première instruction soit une vérification sur des droits et que la deuxième soit une action si les droits sont vérifiés, il est possible de modifier des éléments entre la vérification et l'action prise, pour que l'action s'effectue sur autre chose que prévu.
 
 Par ailleurs, pour passer d'un processus à l'autre, le kernel doit mémoriser des informations telles que les fichiers ouverts, les droits du processus, et quelles pages mémoires sont utilisées par celui-ci. Si nous trouvons où sont stockées ces infos et que nous les modifions, ça peut devenir intéressant.
 

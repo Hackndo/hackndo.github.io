@@ -12,6 +12,8 @@ tags:
 
 L'espace, c'est grand, très grand. Dès qu'on commence à parler d'univers, on arrive rapidement à parler en années-lumières, en millions, milliards, et plus. Mais finalement, on ne se rend compte de rien, on ne sait pas se représenter ça. Ca veut dire quoi 15 milliards d'années lumière ? Et d'ailleurs, c'est quoi une année lumière ? Pour avoir une idée plus précise, il suffit de diviser les distances par un milliard, et on se rend rapidement compte de tout ça. Pour information, une année lumière, c'est une distance qui vaut à la distance parcourue par la lumière en une année, ou 394 milliards de kilomètres.
 
+<!--more-->
+
 On va donc se placer dans le référentiel héliocentrique, avec le soleil placé au niveau du ministère de l'intérieur à Paris, dans le 8ème. Si on considère que le Soleil est une boule de 1m40 de diamètre (largeur d'un petit lit double), alors :
 
 La **Terre** serait une bille d'1,3cm de diamètre située au Franprix 150m plus loin, A 34cm de cette bille se trouverait la Lune, tête d'épingle de 3,4mm de diamètre. **Mercure**, la planète la plus proche du Soleil, serait une petite perle d'1/2cm au bout de la rue à 50m. **Mars** serait une bille 2 fois plus petite que la Terre située à 200m du Lit-Soleil. **Jupiter**, planète la plus grosse de notre système solaire, serait un petit melon de 14cm de diamètre, situé à l'Assemblée Nationale. **Saturne** avec ses anneaux ferait la même taille et serait sur l'Arc de Triomphe. **Pluton** la (ou l'ex) planète la plus éloignée du Soleil, serait une tête d'épingle plus petite que la Lune (2,3mm), située sur l'hippodrome de Longchamp.

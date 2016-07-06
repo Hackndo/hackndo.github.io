@@ -13,6 +13,8 @@ Salut tout le monde, voici un nouvel article qui va permettre, je pense, d'écla
 
 Cet article à un but modeste : Comprendre la sortie d'un `disass main` sur un programme relativement simple (Mais si ! vous savez, cette commande dans gdb qui permet de désassembler un - i.e. produire le code assembleur d'un - binaire)
 
+<!--more-->
+
 ```sh
 (gdb) set disassembly-flavor intel
 (gdb) disass main

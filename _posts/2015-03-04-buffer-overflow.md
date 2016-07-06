@@ -16,6 +16,8 @@ Nous allons ici expliquer ce qui se cache derrière la notion de buffer overflow
   1. Cas d'un buffer qui alloue suffisamment d'espace pour contenir un shellcode avant l'adresse de retour sur la pile
   2. Cas d'un buffer trop petit pour contenir un shellcode avant l'adresse de retour sur la pile
 
+<!--more-->
+
 ## Théorie
 
 Nous avons vu l'utilité de la pile (_stack_) dans les articles précédents. En fin d'article, nous avons évoqué le cas où une fonction avec besoin d'allouer de l'espace sur la pile pour une de ses variables locales, qui était un tableau

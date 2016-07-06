@@ -13,6 +13,8 @@ Hello tout le monde.
 
 Un petit post pour vous prévenir : Je pars faire le tour du monde ! Départ dimanche 15 novembre 2015, retour fin août 2016. Donc pendant cette période, je risque d'être un peu absent. (Et oui.)
 
+<!--more-->
+
 **MAIS** (oui, il y a un **mais**) peut-être que des articles vont tout de même sortir, car mon cher ami (et admin de newbiecontest) **the lsd** va probablement nous pondre quelques posts. Je le remercie beaucoup pour cette proposition !
 
 Jusque là, j'étais plutôt tourné appsys, tandis que lui se penchera sur l'aspect **réseau**. C'est un domaine extrêmement intéressant également, et je suis pressé de voir ce qu'il va nous pondre 😀

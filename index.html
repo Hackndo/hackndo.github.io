@@ -19,7 +19,19 @@ title: Home
       <p class="alignright">Auteur : <strong>{{ post.author }}</strong></p>
     </div>
 
-    {{ post.content }}
+    {{ post.excerpt | remove: '<p>' | remove: '</p>' }}
+
+    {% capture content_words %} 
+      {{ post.content | number_of_words }} 
+    {% endcapture %} 
+    {% capture excerpt_words %} 
+      {{ post.excerpt | number_of_words }} 
+    {% endcapture %} 
+    {% if excerpt_words != content_words %}
+    <br />
+    <a href="{{ post.url }}">Lire la suite →</a>
+    </p>
+    {% endif %}
     <hr />
   </div>
   {% endfor %}

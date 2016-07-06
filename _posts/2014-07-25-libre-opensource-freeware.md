@@ -14,6 +14,8 @@ Logiciel libre, open source, freeware, ça vous dit quelque chose ? Sûrement, c
 
 Mais alors quelles sont les différences ? Tout ça, ça veut dire quoi, en fait ?
 
+<!--more-->
+
 ![gpl]({{ site.baseurl }}assets/uploads/2014/07/gpl.png)
 
 Pas d'amalgame, pas de confusion, soyons clairs, soyons précis.

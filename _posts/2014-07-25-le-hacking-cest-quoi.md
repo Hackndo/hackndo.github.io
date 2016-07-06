@@ -16,6 +16,8 @@ Je pense qu'il faut commencer par certaines bases si je veux que le fil des arti
 
 Or, l'une des notions qui me semble d'une importance primordiale, c'est le hacking. C'est pourquoi, ici, je vais expliciter clairement ce que, à mon sens, signifie le terme hacking.
 
+<!--more-->
+
 Tout d'abord, commençons par une petite illustration :
 
 Vous connaissez sans doute ce jeu :

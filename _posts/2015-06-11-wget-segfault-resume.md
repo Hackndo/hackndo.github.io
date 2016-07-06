@@ -16,7 +16,11 @@ $ wget -r %3a
 Segmentation fault
 {% endhighlight %}
 
-Vous obtiendrez un segfault. C'est assez sympa, d'autant plus que wget est quand même un binaire largement utilisé. Les bugs comme celui-ci se font rares ! On s'est alors demandé ce qu'on pourrait bien en faire. Nous ne nous sommes donc pas arrêtés là, et on a cherché la cause du problème. Pour cela, nous nous sommes armés de ce bon vieux gdb, ainsi que des sources de la dernière version de wget en date (1.16.3) disponible ici :
+Vous obtiendrez un segfault.
+
+<!--more-->
+
+C'est assez sympa, d'autant plus que wget est quand même un binaire largement utilisé. Les bugs comme celui-ci se font rares ! On s'est alors demandé ce qu'on pourrait bien en faire. Nous ne nous sommes donc pas arrêtés là, et on a cherché la cause du problème. Pour cela, nous nous sommes armés de ce bon vieux gdb, ainsi que des sources de la dernière version de wget en date (1.16.3) disponible ici :
 
 <http://ftp.gnu.org/gnu/wget/wget-1.16.3.tar.gz>
 

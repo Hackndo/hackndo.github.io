@@ -12,6 +12,8 @@ tags:
 ---
 Aujourd'hui, je vais tenter de rassembler tout ce que j'ai pu comprendre sur la gestion de la mémoire lors de l'exécution d'un programme. Cet article est écrit en vu de comprendre l'exploitation de certaines failles applicatives, telles que le _buffer overflow_, le _heap overflow_ ou encore la _format string_, failles que je décrirai dans les prochains articles.
 
+<!--more-->
+
 ## Mémoire virtuelle
 
 Les processus tournant sur une machine ont besoin de mémoire, et dans un ordinateur, la quantité de mémoire est limitée. Il faut donc que les processus aillent chercher de la mémoire disponible pour pouvoir travailler. Cependant, les processus tournent de nos jours dans des systèmes d'exploitation multi-tâches. Plusieurs processus s'exécutent en même temps. Que se passerait-il si deux processus voulaient accéder, au même instant, à la même zone mémoire ? Et surtout, si jamais un processus écrivait dans une zone mémoire, puis un autre processus écrasait cette même zone mémoire avec ses propres données, alors le processus A, le pauvre, pensera retrouver ses données, mais il trouvera en fait les données de B. Et là, c'est le drame ! Il faudrait alors que les processus communiquent en permanence entre eux pour savoir qui fait quoi, où et quand. Ce serait une vraie perte de temps et d'une complexité effroyable pour ce problème.

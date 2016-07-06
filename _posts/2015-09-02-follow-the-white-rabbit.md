@@ -13,6 +13,8 @@ Hey there,
   
 Je sais que ça fait quelques temps que je n'ai rien posté, mais promis j'ai plein d'idées en tête, plein de brouillons sous le capot. D'ailleurs, si vous attendez des articles concernant un certain sujet, surtout n'hésitez pas à m'en faire part.
 
+<!--more-->
+
 En attendant, j'ai passé le temps en montant un petit site qui ne cesse de se développer. Saurez-vous arriver au bout ?
 
 Attention, le nom de ce site, qui s'inscrit dans [une lignée très connue](http://estcequecestbientot.fr/), peut choquer les jeunes enfants. Vous trouverez ce site ici :

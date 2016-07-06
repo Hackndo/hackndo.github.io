@@ -11,6 +11,8 @@ tags:
 ---
 Voici un petit mémo sur les pointeurs de fonction. Pour rappel, un pointeur est une variable qui contient une adresse mémoire d'une donnée. La donnée peut être un int, un float, un tableau, etc. Mais ça peut aussi être l'adresse d'une fonction. Mais qu'est ce que ça veut dire que l'adresse d'une fonction ?
 
+<!--more-->
+
 Lorsqu'on compile un programme, le code est en fait transformé en instructions machine que peut comprendre le processeur. Ce code est stocké sur le disque dur. Une fois qu'on exécute le programme, alors le code est copié dans la mémoire vive de la machine, et c'est seulement ensuite qu'il sera exécuté. Il est donc écrit dans la mémoire vive, dans le segment qu'on appelle **segment _text_**. Les instructions sont lues les unes à la suite des autres par défaut. Mais parfois il peut y avoir des instructions qui, explicitement, demandent au processeur de sauter à une case mémoire en particulier, notamment lors de l'appel de fonction (avec l'instruction `call`). C'est cette adresse (qu'on appelle point d'entrée ou _Entry Point_) qui contient,la première instruction de la fonction, qui est ce qu'on appelle **l'adresse de la fonction**.
 
 Voici un schéma d'une portion du segment _text_ de la mémoire vive allouée à l'exécutable :

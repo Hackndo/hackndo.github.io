@@ -13,6 +13,8 @@ Salut à tous,
 
 Récemment je me suis penché sur un sujet que je trouve extrêmement intéressant, autant pour son côté moderne, que sa finesse ou que pour la rigueur qu'il était nécessaire d'avoir pour mener à bien toutes les étapes. Ce sujet concerne une partie des fonctions de hachage : Ceci s'appelle la technique du **hash length extension**.
 
+<!--more-->
+
 Dans un premier temps, il faut savoir que cette technique ne marche que pour certains algorithmes de hachage, sûrement pas pour tous. Vous verrez par la suite pourquoi. Nous allons prendre dans cet article l'exemple de l’algorithme sha1 tout simplement car c'est avec lui que j'ai effectué tous mes tests.
 
 Je vous propose alors de partir d'une vision large du sujet pour comprendre globalement le fonctionnement de cette technique avant d’entamer une explication technique agrémentée d'exemples.
