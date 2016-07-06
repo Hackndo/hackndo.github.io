@@ -1,7 +1,7 @@
 ---
 title: Follow the white rabbit !
 date: 2015-09-02 15:38:43 -0400
-author: "Hackndo"
+author: "Pixis"
 layout: post
 permalink: /follow-the-white-rabbit/
 disqus_identifier: 0000-0000-0000-0004

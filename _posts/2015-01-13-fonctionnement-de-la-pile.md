@@ -1,7 +1,7 @@
 ---
 title: Fonctionnement de la pile
 date: 2015-01-13
-author: "Hackndo"
+author: "Pixis"
 layout: post
 permalink: /fonctionnement-de-la-pile/
 disqus_identifier: 0000-0000-0000-000E

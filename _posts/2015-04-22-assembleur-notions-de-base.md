@@ -1,7 +1,7 @@
 ---
 title: 'Assembleur - Notions de base'
 date: 2015-04-22
-author: "Hackndo"
+author: "Pixis"
 layout: post
 permalink: /assembleur-notions-de-base/
 disqus_identifier: 0000-0000-0000-000A

@@ -1,7 +1,7 @@
 ---
 title: Gestion de la mémoire
 date: 2015-01-11
-author: "Hackndo"
+author: "Pixis"
 layout: post
 permalink: /gestion-de-la-memoire/
 disqus_identifier: 0000-0000-0000-000F

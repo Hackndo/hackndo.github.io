@@ -1,7 +1,7 @@
 ---
 title: Introduction à gdb
 date: 2015-05-17
-author: "Hackndo"
+author: "Pixis"
 layout: post
 permalink: /introduction-a-gdb/
 disqus_identifier: 0000-0000-0000-0009

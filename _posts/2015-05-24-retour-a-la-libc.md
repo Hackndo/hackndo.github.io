@@ -1,7 +1,7 @@
 ---
 title: Retour à la libc
 date: 2015-05-24 15:38:43 -0400
-author: "Hackndo"
+author: "Pixis"
 layout: post
 permalink: /retour-a-la-libc/
 disqus_identifier: 0000-0000-0000-0008

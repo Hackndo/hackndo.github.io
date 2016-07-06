@@ -1,7 +1,7 @@
 ---
 title: "Le monde du kernel"
 date: 2016-07-05  17:48:43
-author: "hackndo"
+author: "Pixis"
 layout: post
 permalink: /le-monde-du-kernel/
 disqus_identifier: 0000-0000-0000-0013

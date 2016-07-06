@@ -1,7 +1,7 @@
 ---
 title: 'Libre, opensource & freeware'
 date: 2014-07-25 11:38:43 -0400
-author: "hackndo"
+author: "Pixis"
 layout: post
 permalink: /libre-opensource-freeware/
 disqus_identifier: 0000-0000-0000-0010
