@@ -54,7 +54,13 @@ Deux implémentations existent pour la séparation des pages allouées entre ker
 * La première, c'est que la plage de mémoire virtuelle attribuée à un processus est **partagée**. Une partie pour le processus, l'autre partie pour le kernel. Pour cela, les entrées de la table de page du kernel sont répliquées dans la table de page du processus. C'est cette implémentation qui a été représentée dans le schéma précédent.
 * La seconde, c'est que le kernel et le processus ont tous les deux une **zone mémoire complète et indépendente**.
 
+Schématiquement, ça donne donc ceci :
+
 ![img]({{ site.baseurl }}assets/uploads/2016/06/Screen-Shot-2016-06-14-at-23.30.17.png)
+
+Mais si vous souhaitez un peu plus de détails, alors ça ressemble un peu plus à cela
+
+![img]({{ site.baseurl }}assets/uploads/2016/06/Screen-Shot-2016-07-05-at-22.39.32.png)
 
 La première implémentation est la plus intéressante. En effet, le CPU peut avoir deux contextes d'exécution. 
 
