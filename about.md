@@ -13,7 +13,7 @@ Si jamais vous êtes tombé(e) ici par hasard, sachez que je ne prétends pas ê
 
 # Qui suis-je
 
-Je suis une personne au multiples pseudos. En fonction de mes envies et des disponibilités, on me trouvera sous le pseudo Pixis, Betezed, hackndo. Je suis un fervent utilisateur du site [newbiecontest](https://www.newbiecontest.org/index.php) ([mon profil](https://www.newbiecontest.org/index.php?page=info_membre&nick=pixis)) dont je suis modérateur, également membre de la team française de CTF [0x90r00t](https://0x90r00t.com) et un vrai passionné qui passe ses jours et nuits sur différents sujets, que ce soit concernant la sécurité informatique, mais également bidouilleur raspberry/arduino/domotique, toujours curieux, et qui aime partager.
+Connu sous le pseudo **Pixis**, je suis un fervent utilisateur du site [newbiecontest](https://www.newbiecontest.org/index.php) ([mon profil](https://www.newbiecontest.org/index.php?page=info_membre&nick=pixis)) dont je suis modérateur, également membre de la team française de CTF [0x90r00t](https://0x90r00t.com) et un vrai passionné qui passe ses jours et nuits sur différents sujets, que ce soit concernant la sécurité informatique, mais également bidouilleur raspberry/arduino/domotique, toujours curieux, et qui aime partager.
 
 Je vous souhaite donc la bienvenue sur mon humble blog, et j'espère que les articles que vous pourrez trouver vous seront utiles !
 
