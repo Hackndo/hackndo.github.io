@@ -39,7 +39,7 @@ Mais attention, écrire des exploits pour profiter de vulnérabilités dans le k
 
 Sans être exhaustif, il existe différentes vulnérabilités.
 
-Le kernel est responsable du _scheduling_ des différentes tâches pour simuler un comportement multi-tâches. Nous ne rentrerons pas dans les détails du scheduling, mais le fait que le kernel switch d'une tâche à l'autre permet l'utilisation de race conditions. C'est à dire qu'entre deux instructions peut s'écouler un temps plus ou moins long, et pour peu que la première instruction soit un check sur des droits et que la deuxième soit une action si les droits sont vérifiés, il est possible de modifier des éléments entre le check et l'action prise, pour que l'action s'effectue sur autre chose que prévu.
+Le kernel est responsable de l'ordonnancement (_scheduling_) des différentes tâches pour simuler un comportement multi-tâches. Nous ne rentrerons pas dans les détails de l'ordonnancement, mais le fait que le kernel switch d'une tâche à l'autre permet l'utilisation de race conditions. C'est à dire qu'entre deux instructions peut s'écouler un temps plus ou moins long, et pour peu que la première instruction soit un check sur des droits et que la deuxième soit une action si les droits sont vérifiés, il est possible de modifier des éléments entre le check et l'action prise, pour que l'action s'effectue sur autre chose que prévu.
 
 Par ailleurs, pour switcher d'un processus à l'autre, le kernel doit mémoriser des informations telles que les fichiers ouverts, les droits du processus, et quelles pages mémoires sont utilisées par celui-ci. Si nous trouvons où sont stockées ces infos et que nous les modifions, ça peut devenir intéressant.
 
