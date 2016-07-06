@@ -70,16 +70,21 @@ html {
   }
 }
 
+
 .sidebar-about img {
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
 
+
+
 @media (min-width: 48em) {
   .sidebar-about img {
-    display: inline-block;
-    margin-bottom: -0.5rem;
+    display: block;
+    width:70%; /* you can use % */
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
@@ -94,6 +99,7 @@ html {
   margin-top: 0;
   font-family: "Signika", serif;
   font-size: 3.25rem;
+  text-align: center;
 }
 
 /* Sidebar nav */
