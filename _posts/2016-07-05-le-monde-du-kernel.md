@@ -67,3 +67,5 @@ Mais dans le deuxième, le contexte processus (_process context_), un processus 
 Comme la mémoire du kernel est répliquée pour tous les processus, on peut créer notre processus à nous, et exploiter la vulnérabilité dans le kernel qui nous permet de rediriger le flot d'exécution du kernel vers une partie de code qu'on a préparée, code qui va aller changer les infos de notre processus en cours pour lui donner des droits plus élevés.
 
 Alors, prêts à plonger dans ce nouveau monde ?
+
+[ La suite est en pleine rédaction - Stay tuned ]
