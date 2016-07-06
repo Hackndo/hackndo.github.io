@@ -51,7 +51,7 @@ Oui, il y a beaucoup de flèches. L'idée, c'est de montrer qu'à gauche, côté
 
 Deux implémentations existent pour la séparation des pages allouées entre kernel et utilisateur.
 
-* La première, c'est que la plage de mémoire virtuelle attribuée à un processus est **partagée**. Une partie pour le processus, l'autre partie pour le kernel. Pour cela, les entrées de la table de page du kernel est répliquée dans la plage mémoire allouée. C'est cette implémentation qui a été représentée dans le schéma précédent.
+* La première, c'est que la plage de mémoire virtuelle attribuée à un processus est **partagée**. Une partie pour le processus, l'autre partie pour le kernel. Pour cela, les entrées de la table de page du kernel sont répliquées dans la table de page du processus. C'est cette implémentation qui a été représentée dans le schéma précédent.
 * La seconde, c'est que le kernel et le processus ont tous les deux une **zone mémoire complète et indépendente**.
 
 ![img]({{ site.baseurl }}assets/uploads/2016/06/Screen-Shot-2016-06-14-at-23.30.17.png)
