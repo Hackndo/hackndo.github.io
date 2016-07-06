@@ -1,6 +1,6 @@
 ---
 title: "Le monde du kernel"
-date: 2016-07-05  21:48:43 -0400
+date: 2016-07-05  21:48:43
 author: "hackndo"
 layout: post
 permalink: /le-monde-du-kernel/
