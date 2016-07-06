@@ -17,7 +17,7 @@ Ceci est un tout petit article qui permet de remettre très rapidement et très 
 
 Le _deep web_, ou web profond, partie que l'on appelle "cachée" d'internet, est à opposer au web visible. Comme les deux s'opposent, expliquer l'un permet de comprendre l'autre.
 
-Le web visible, c'est le web que l'utilisateur lambda connait, parcourt. Ce sont toutes les pages web référencées par les moteurs de recherche usuels comme Yahoo, Google, Qwant, Bing etc. Un moteur de recherche effectue par définition une recherche dans une base de données qu'il a créée en référençant des pages. Pour cela, il tente de **trouver** toutes les pages web possibles et essaie de **comprendre** leur contenu afin de pouvoir les proposer à l'utilisateur lorsque celui-ci effectue une recherche par mot-clés.
+Le web visible, c'est le web que l'utilisateur lambda connait, qu'il parcourt. Ce sont toutes les pages web référencées par les moteurs de recherche usuels comme Yahoo, Google, Qwant, Bing etc. Un moteur de recherche effectue par définition une recherche dans une base de données qu'il a créée en référençant des pages. Pour cela, il tente de **trouver** toutes les pages web possibles et essaie de **comprendre** leur contenu afin de pouvoir les proposer à l'utilisateur lorsque celui-ci effectue une recherche par mot-clés.
 
 Pendant longtemps, les moteurs de recherche ne comprenaient que les pages écrites en html (trouvables), donc ce n'étaient qu'elles qui étaient indexées. Mais avec le temps, ces moteurs parviennent à comprendre d'autres types de fichiers comme les pdf, les documents word, etc. Donc actuellement, quand vous faites une recherche sur un moteur de recherche classique, vous avez accès à ces types de pages.
 
