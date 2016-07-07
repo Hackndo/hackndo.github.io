@@ -38,7 +38,7 @@ La mémoire peut être corrompue à deux niveaux. Dans la stack, associée à ch
 
 Lorsqu'un processus est en cours d'exécution, il a deux stacks : une dans le user-land, et une dans le kernel-land.
 
-Les deux fonctionnenent de manière relativement similaires, cependant la stack dans le kernel-land a quelques particularités : Sa taille est limitée, et tous les processus partagent cette même stack.
+Les deux fonctionnenent de manière relativement similaires, cependant la stack dans le kernel-land a quelques particularités : Sa taille est limitée, et toutes les stack kernel des processus partagent la même plage de mémoire, puisque la mémoire virtuelle du kernel est répliquée pour tous les processus. Ces stacks commencent et s'étendent à différents offset du Kernel-Land.
 
 Magré ces différences, les vulnérabilités que nous connaissons pour la stack dans le user-land s'appliquent très bien pour le kernel-land (buffer overflows et variantes).
 
