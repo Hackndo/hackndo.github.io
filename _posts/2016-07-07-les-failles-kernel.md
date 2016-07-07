@@ -110,7 +110,8 @@ if (stat(filename, &st) == 0)
 buff = kmalloc(2048, __GFP_WAIT);
 if (size < 2048) {
 //  ----------------------   [1]
-    ret = vfs_read(file, buff, size, &offset);
+    while (ret > 0)
+        ret = vfs_read(file, buff, size, &offset);
 }
 ```
 
