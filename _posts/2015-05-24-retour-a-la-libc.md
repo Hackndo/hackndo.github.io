@@ -1,5 +1,5 @@
 ---
-title: Retour à la libc
+title: "Retour à la libc"
 date: 2015-05-24 15:38:43 -0400
 author: "Pixis"
 layout: post
@@ -10,11 +10,12 @@ tags:
   - userland
   - tuto
 ---
-# Rappels
 
 Bonjour, nous avons vu dans la série d'articles précédents comment fonctionnait la mémoire d'un processus au sein d'un système Unix. Grâce à cette compréhension, nous avons exposé une vulnérabilité très connue qu'est le dépassement de tampon en utilisant la pile (_buffer overflow stack based_).
 
 <!--more-->
+
+## Rappels
 
 Pour rappel, le buffer overflow est une vulnérabilité présente lorsque le programmeur ne vérifie pas la taille d'une variable fournie par l'utilisateur, et qu'il stocke cette variable en mémoire. Il est alors possible pour l'attaquant d'entrer une valeur de taille supérieure à ce qui était prévu, et lorsque cette valeur (appelée _buffer_) est copiée en mémoire, elle dépasse de l'espace qui lui était alloué (dépassement de tampon).
 
@@ -22,7 +23,7 @@ Cela peut engendrer une erreur de segmentation car ce dépassement va probableme
 
 Cependant, si l'attaquant fourni une adresse mémoire soigneusement choisie pour pointer vers un code malveillant (placé dans le buffer, dans nos exemples précédents, d'où le _stack based_), alors le flow d'exécution du programme peut être modifié, et l'attaquant peut faire ce qu'on appelle une **escalade de privilèges** (sous réserve que le programme en question appartenait à une utilisateur avec des droits plus élevés et que le programme était SUID, c'est à dire qu'il s'exécutait avec les droits du propriétaire de ce logiciel)
 
-# Protections contre les BoF
+## Protections contre les BoF
 
 Dans l'[article sur les buffer overflows](http://blog.hackndo.com/buffer-overflow-stack-based/), nous avions placé notre code malveillant (shellcode) dans le buffer, qui se trouvait quelque part dans la pile. Nous aurions pu le placer à d'autres endroits (dans une variable d'environnement, par exemple, qui se trouve également sur la pile lors de l'exécution du programme), pourvu que nous puissions trouver son adresse mémoire.
 
@@ -42,7 +43,7 @@ _J'ai ajouté la ligne qui indique le nom des colonnes pour une meilleure compr�
 
 On remarque la présence des deux flags RW (Read - Write), mais l'absence du flag E (Execute), donc la pile n'est pas exécutable. Mais alors, comment pouvons nous exploiter l'oubli de vérification de la taille du buffer ?
 
-# Contournement : ret2libc
+## Contournement : ret2libc
 
 L'idée est d'utiliser des fonctions déjà programmée, contenues dans la **libc**, à notre avantage (Libraire C, libraire contenant toutes les fonctions standards telles que printf, scanf, system, strlen, strcpy &#8230;). Avant, nous faisions quelque chose comme cela pour lancer notre shellcode (shellcode qui ne faisait rien d'autre qu'un appel système à execve avec comme paramètre `"/bin/sh"`)
 
@@ -53,7 +54,7 @@ L'idée est d'utiliser des fonctions déjà programmée, contenues dans la **lib
 Cependant, comme nous ne pouvons plus exécuter le shellcode situé sur la pile, nous allons changer notre technique, et nous allons appeler directement la fonction `system()` de la libc, en lui fournissant comme argument la chaine de caractère `"/bin/sh"`.
 
 
-## Organisation de la pile
+### Organisation de la pile
 
 
 Pour cela, il bien comprendre <a href="{{site.baseurl}}fonctionnement-de-la-pile/">le fonctionnement de la pile</a> et la préparer soigneusement pour que l'appel soit fait correctement. Pour nous aider, nous allons étudier le comportement de la pile avec un programme de test :
@@ -162,7 +163,7 @@ Nous avons suivi le call, et nous remarquons bien que l'ancien EIP 0x8048441 a 
 Maintenant que nous avons une bonne compréhension de la pile lors d'un appel à la fonction system("/bin/sh"), nous pouvons nous attaquer à l'exploitation d'un buffer overflow avec un retour à la libc.
 
 
-## Exploitation - Théorie
+### Exploitation - Théorie
 
 
 
@@ -196,7 +197,7 @@ Pour pouvoir mettre la pile dans cet état, il faudra donc envoyer au programme 
 
 
 
-## Exploitation - Par l'exemple
+### Exploitation - Par l'exemple
 
 C'était un long préambule, mais il était nécessaire pour pouvoir bien comprendre les rouages de cette technique. Sans plus attendre, nous allons l'exploiter avec un exemple simple
 

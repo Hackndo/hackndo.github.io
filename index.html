@@ -19,7 +19,7 @@ title: Home
       <p class="alignright">Auteur : <strong>{{ post.author }}</strong></p>
     </div>
 
-    {{ post.excerpt | remove: '<p>' | remove: '</p>' }}
+    {{ post.excerpt }}
 
     {% capture content_words %} 
       {{ post.content | number_of_words }} 
@@ -39,17 +39,17 @@ title: Home
 
 <div class="pagination">
   {% if paginator.next_page %}
-    <a class="pagination-item older" href="{{ paginator.next_page_path }}">Older</a>
+    <a class="pagination-item older" href="{{ paginator.next_page_path }}">Plus ancien</a>
   {% else %}
-    <span class="pagination-item older">Older</span>
+    <span class="pagination-item older">Plus ancien</span>
   {% endif %}
   {% if paginator.previous_page %}
     {% if paginator.page == 2 %}
-      <a class="pagination-item newer" href="{{ site.baseurl }}">Newer</a>
+      <a class="pagination-item newer" href="{{ site.baseurl }}">Plus récent</a>
     {% else %}
-      <a class="pagination-item newer" href="{{ paginator.previous_page_path }}">Newer</a>
+      <a class="pagination-item newer" href="{{ paginator.previous_page_path }}">Plus récent</a>
     {% endif %}
   {% else %}
-    <span class="pagination-item newer">Newer</span>
+    <span class="pagination-item newer">Plus récent</span>
   {% endif %}
 </div>

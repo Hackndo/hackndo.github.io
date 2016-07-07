@@ -1,5 +1,5 @@
 ---
-title: Fonctionnement de la pile
+title: "Fonctionnement de la pile"
 date: 2015-01-13
 author: "Pixis"
 layout: post
