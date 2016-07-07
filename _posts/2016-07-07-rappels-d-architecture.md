@@ -1,6 +1,6 @@
 ---
 title: "Rappels d'architecture"
-date: 2016-07-05  14:12:57
+date: 2016-07-07  14:12:57
 author: "Pixis"
 layout: post
 permalink: /rappels-d-architecture/
@@ -65,3 +65,9 @@ Nous finirons par une petite parenthèse sur quelques particularités des CPU x8
 * La convention d'appel de fonction a été modifiée : Les arguments ne sont plus passés par la stack par défault, mais par des registres.
 
 À part ces quatre grosses différences (il y en a beaucoup d'autres), la majorité des éléments que nous connaissons dans les architectures x86 restent valables.
+
+* * *
+
+Au programme du prochain article, nous verrons comment développer un exploit de manière propre et méhodique.
+
+[ Prochain article en cours de rédaction ]
