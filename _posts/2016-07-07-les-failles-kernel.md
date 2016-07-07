@@ -124,4 +124,4 @@ Mais il arrive parfois que des morceaux de codes oublient de notifier le kernel 
 
 * * *
 
-Voilà, nous avons fait un passage sur les grands bugs rencontrés qui peuvent conduire à des exploitations du kernel. Mais alors, comment les exploiter ? Pour cela, nous avons besoin de quelques rappels nécessaire sur [l'architecture d'un ordinateur]({{ site.baseurl }}2016-07-07-rappels-d-architecture)
+Voilà, nous avons fait un passage sur les grands bugs rencontrés qui peuvent conduire à des exploitations du kernel. Mais alors, comment les exploiter ? Pour cela, nous avons besoin de quelques rappels nécessaires sur [l'architecture d'un ordinateur]({{ site.baseurl }}2016-07-07-rappels-d-architecture)

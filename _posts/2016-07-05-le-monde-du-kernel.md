@@ -74,6 +74,8 @@ Mais dans le deuxième, le contexte processus (_process context_), un processus 
 
 Comme la mémoire du kernel est répliquée pour tous les processus, on peut créer notre processus à nous. On peut alors exploiter la vulnérabilité dans le kernel qui nous permet de rediriger le flot d'exécution du kernel vers une partie de code qu'on a préparée. Il suffit alors que ce code change les infos de notre processus en cours pour lui donner des droits plus élevés, et le tour est joué.
 
-Alors, prêts à plonger dans ce nouveau monde ?
+* * *
+
+Alors, prêts à plonger dans ce nouveau monde ? La suite avec [les failles kernel]({{ site.baseurl }}2016-07-07-les-failles-kernel)
 
 [ La suite est en pleine rédaction - Stay tuned ]
