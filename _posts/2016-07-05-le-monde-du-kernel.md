@@ -33,7 +33,7 @@ Biensûr, ces protections, bien que nécessaires, ne sont pas suffisantes. De no
 
 ## Pourquoi le kernel ?
 
-Depuis longtemps, les attaquants se concentrent sur le User-Land, ce qui a logiquement entrainé la prise de mesures de sécurité notamment de la part des développeurs d'OS. Les mesures de sécurité sont majoritairement logicielles et codées dans le kernel (ASLR, Canary, NX etc.). Ça parait donc logique que l'attention des attaquants s'est tournée vers le kernel.
+Depuis longtemps, les attaquants se concentrent sur le User-Land, ce qui a logiquement entrainé la prise de mesures de sécurité telles que l'ASLR, le anary, les zones NX etc. Le user-land devient de plus en plus protégé. Ça parait donc logique que l'attention des attaquants se tourne vers le kernel.
 
 Mais attention, écrire des exploits pour profiter de vulnérabilités dans le kernel n'est pas aussi simple que dans le User-Land. En effet, s'il y a une erreur dans le User-Land, l'application crash. S'il y a une erreur dans le Kernel-Land, le kernel crash. Et le kernel, c'est le coeur de l'OS, donc s'il crash, la machine ne peut plus fonctionner, donc elle s'éteint. Et ça, c'est balo, parce qu'on ne peut plus rien faire. Par ailleurs, nous avons dit que le kernel était protégé de manière matérielle et logicielle, donc il est plus compliqué de trouver des infos, d'autant plus que TOUS les processus en cours affectent l'état du kernel, donc l'arrangement mémoire du kernel-land change rapidement, pas simple. Enfin, le kernel est extrêmement gros et complexe, donc l'attaquant doit comprendre en profondeur tous les méchanismes pour exploiter des vulnérabilités.
 
