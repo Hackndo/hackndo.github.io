@@ -76,4 +76,4 @@ Comme la mémoire du kernel est répliquée pour tous les processus, on peut cr�
 
 * * *
 
-Alors, prêts à plonger dans ce nouveau monde ? La suite avec [les failles kernel]({{ site.baseurl }}2016-07-07-les-failles-kernel)
+Alors, prêts à plonger dans ce nouveau monde ? La suite avec [les failles kernel]({{ site.baseurl }}les-failles-kernel)
