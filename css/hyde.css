@@ -88,6 +88,12 @@ html {
   }
 }
 
+@media (min-width: 48em) and (max-height: 40em) {
+  #site-logo {
+    display: none;
+  }
+}
+
 /* Sidebar links */
 .sidebar a {
   color: #fff;
