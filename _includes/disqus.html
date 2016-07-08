@@ -6,7 +6,7 @@
      */
     
     var disqus_config = function () {
-        this.page.url = 'http://{{ site.url }}{{ page.permalink }}';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.url = '{{ site.url }}{{ page.permalink }}';  // Replace PAGE_URL with your page's canonical URL variable
         this.page.identifier = '{% if page.disqus_identifier %}{{ page.disqus_identifier}}{% else %}{{ page.permalink }}{% endif %}';
     };
     
