@@ -31,15 +31,15 @@ Lorsqu'une série d'instructions est en cours d'exécution, il est possible qu'u
 * Dans le cas des interruptions **logicielles**, on dit qu'elles sont synchrones puisque le même code rejoué provoquera les mêmes interruptions.
 * Dans le cas des interruptions **matérielles**, on dit qu'elles sont asynchrones puisqu'elles peuvent survenir à tout moment (un disque qui a fini son travail, un carte réseau ayant fini de recevoir un paquet etc.).
 
-Chaque type d'interruption a un numéro unique auquel est associé une routine à exécuter. Le CPU possède un registre spécial qui permet de savoir quelle routine correspond à quel numéro d'interruption. Ce registre s'appelle _Interrupt Vector Table_.
+Chaque type d'interruption a un numéro unique auquel est associée une routine à exécuter. Le CPU possède un registre spécial qui permet de savoir quelle routine correspond à quel numéro d'interruption. Ce registre s'appelle _Interrupt Vector Table_. Vous imaginez bien qu'il sera intéressant de modifier cette table...
 
-Comme les CPU ont deux modes d'exécution, privilégié et non privilégié, comme nous l'avons dit dans l'article d'introduction sur [le monde du kernel]({{ site.baseurl }}le-monde-du-kernel), il est possible à l'aide d'instructions fournies par le CPU dans le mode non privilégié de faire des interruptions pour exécuter du code privilégié.
+Comme les CPU ont deux modes d'exécution, privilégié et non privilégié, comme nous l'avons dit dans l'article d'introduction sur [le monde du kernel]({{ site.baseurl }}le-monde-du-kernel), il est possible à l'aide d'instructions fournies par le CPU dans le mode non privilégié de faire des interruptions pour exécuter du code privilégié, par exemple pour que le kernel exécute le code faillible, et ainsi exploiter la vulnérabilité.
 
 ### Gestion de la mémoire
 
 L'accès à la mémoire physique peut-être fait de manière segmentée pour certains CPU, ou linéaire (la majorité de nos jours).
 
-Dans un adressage **segmenté**, il faut donner le numéro du segment puis l'offset de la donnée dans ce segment pour la récupérer, tandis que lorsqu'il est **linéaire**, on peut avoir un mapping 1:1 des adresses, mais on peut également avoir du paging pour avoir des zones mémoires virtuelles. Dans le cas du paging, c'est la MMU (Memory Management Unit) qui s'occupe de traduire une adresse virtuelle en une adresse physique, en passant par les tables de paging.
+Dans un adressage **segmenté**, il faut donner le numéro du segment puis l'offset de la donnée dans ce segment pour la récupérer, tandis que lorsqu'il est **linéaire**, on peut avoir un mapping 1:1 des adresses, mais on peut également avoir de la pagination (_paging_) pour avoir des zones mémoires virtuelles. Dans le cas du _paging_, c'est la MMU (_Memory Management Unit_) qui s'occupe de traduire une adresse virtuelle en une adresse physique, en passant par les tables de pages.
 
 Voici un schéma d'une mémoire physique segmentée
 
@@ -49,11 +49,11 @@ Puis un schéma des deux types de mémoires linéaires, l'une avec le mapping 1:
 
 ![img]({{ site.baseurl }}assets/uploads/2016/07/memory_management_linear.png)
 
-Cependant, comme l'opération de traduction `adresse virtuelle -> adresse physique` est un peu coûteuse, il existe un cache appelé _Translation Lookaside Buffer_ (TLB) qui garde en mémoire le _mapping_ (correspondance) entre adresse virtuelle et adresse physique. C'est pratique par exemple lorsqu'on parcourt un tableau afin de ne pas devoir retrouver l'adresse du début du tableau en mémoire physique à chaque itération.
+Cependant, comme l'opération de traduction `adresse virtuelle -> adresse physique` est un peu coûteuse, il existe un cache appelé _Translation Lookaside Buffer_ (TLB) qui garde en mémoire la correspondance entre adresses virtuelles et adresses physiques. C'est pratique par exemple lorsqu'on parcourt un tableau afin de ne pas devoir retrouver l'adresse du début du tableau en mémoire physique à chaque itération.
 
 Biensûr, comme chaque processus a sa propre plage de mémoire et sa propre table de pages, il faut que la TLB soit vidée à chaque changement de processus en cours d'exécution. 
 
-Cependant, dans le cas où la mémoire est partagée, une partie pour le kernel, une partie pour le processus, même s'il y a un changment de processus, il n'est pas nécessaire de vider la TLB du kernel puisque la table de pages du kernel est répliquée pour chaque processus, et reste alors inchangée. Sa TLB est donc toujours la même.
+Cependant, dans le cas où la mémoire est partagée (une partie pour le kernel, une partie pour le processus), même s'il y a un changment de processus, il n'est pas nécessaire de vider la TLB du kernel puisque la table de pages du kernel est répliquée pour chaque processus, et reste alors inchangée. Sa TLB est donc toujours la même.
 
 ### 32bits & 64bits
 
@@ -61,13 +61,13 @@ Nous finirons par une petite parenthèse sur quelques particularités des CPU x8
 
 * Tous les registres 32 bits (EAX, EBX, ...) sont étendus à 64 bits (RAX, RBX, ...)
 * 8 nouveaux registres (R8-R15) sont créés
-* Un bit NX (Non exécutable) est présent par défault pour les pages allouées afin de décider si oui ou non ce sont des zones mémoires exécutables
+* Un bit NX (**N**on e**x**écutable) est présent par défault pour les pages allouées afin de décider si oui ou non ce sont des zones mémoires exécutables
 * La convention d'appel de fonction a été modifiée : Les arguments ne sont plus passés par la stack par défault, mais par des registres.
 
 À part ces quatre grosses différences (il y en a beaucoup d'autres), la majorité des éléments que nous connaissons dans les architectures x86 restent valables.
 
 * * *
 
-Au programme du prochain article, nous verrons comment développer un exploit de manière propre et méhodique.
+Au programme du prochain article, nous verrons la méthodologie permettant de développer un exploit de manière propre et méhodique.
 
 [ Prochain article en cours de rédaction ]
