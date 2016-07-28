@@ -30,7 +30,7 @@ void maFonction(char *uneChaine) {
 
 On obtenait alors le schéma suivant pour représenter la stack :
 
-![img]({{ site.baseurl }}assets/uploads/2015/03/img_54f6f98c7a1cb.png)
+[![img_54f6f98c7a1cb]({{ site.baseurl }}assets/uploads/2015/03/img_54f6f98c7a1cb.png)]({{ site.baseurl }}assets/uploads/2015/03/img_54f6f98c7a1cb.png)
 
 Très bien. Maintenant, si nous allouons un tableau de caractères à cette variable locale de la manière suivante
 
@@ -47,7 +47,7 @@ Alors `uneChaine` sera copié dans la pile dans l'espace alloué, et ce en parta
 
 Tout va bien, mais vous vous dites sûrement : Hey, mais si je mets plus de caractères que prévu, il se passe quoi ?
 
-![img]({{ site.baseurl }}assets/uploads/2015/03/img_54f6fa229ad43.png)
+[![img_54f6fa229ad43]({{ site.baseurl }}assets/uploads/2015/03/img_54f6fa229ad43.png)]({{ site.baseurl }}assets/uploads/2015/03/img_54f6fa229ad43.png)
 
 C'est le drame... pour le développeur. Mais pour nous, c'est maintenant que nous allons commencer à nous amuser ! Vous avez deviné comment ?
 
@@ -316,7 +316,7 @@ Ce qu'il y a des ces 72 octets n'a pas d'importance puisqu'ils ne seront pas lus
 
 Vous avez suivi ? Allez, comme je suis sympa, je me suis fendu d'un beau schéma pour comprendre l'état de la pile juste avant d'appeler `strcpy` pour résumer l'état actuel.
 
-![img]({{ site.baseurl }}assets/uploads/2015/03/img_54f8601bb6166.png)
+[![img_54f8601bb6166]({{ site.baseurl }}assets/uploads/2015/03/img_54f8601bb6166.png)]({{ site.baseurl }}assets/uploads/2015/03/img_54f8601bb6166.png)
 
 C'est un peu plus clair ? Essayez de reprendre mes explications avec ce schéma en tête, ça sera surement plus facile de revenir une deuxième fois dessus.
 
@@ -411,7 +411,7 @@ Il s'agit donc de faire exécuter cette suite d'instructions au programme. Le no
 
 Et voici comment placer tout cela :
 
-![img]({{ site.baseurl }}assets/uploads/2015/03/img_54f78559832ab.png)
+[![img_54f78559832ab]({{ site.baseurl }}assets/uploads/2015/03/img_54f78559832ab.png)]({{ site.baseurl }}assets/uploads/2015/03/img_54f78559832ab.png)
 
 Nous avons ici une représentation horizontale de la pile. À gauche, nous avons le sommet de la pile, et plus nous allons à droite, plus nous descendons dans la pile. Lorsque `strcpy` écrit dans le buffer, il écrit de gauche à droite, jusqu'à remplacer la sauvegarde de `EBP` puis de `EIP`.
 
@@ -548,7 +548,7 @@ C'est exactement le même que celui du cas 1, sauf que cette fois-ci, dans le co
 
 Le plus simple est alors de faire exactement la même démarche que pour le premier cas, sauf que nous injecterons notre shellcode **après** la sauvegarde de EIP, comme le montre le schéma suivant :
 
-![img]({{ site.baseurl }}assets/uploads/2015/03/img_54f78478da290.png)
+[![img_54f78478da290]({{ site.baseurl }}assets/uploads/2015/03/img_54f78478da290.png)]({{ site.baseurl }}assets/uploads/2015/03/img_54f78478da290.png)
 
 Le pool de `NOP` (`\x9`0) n'est là que pour 'assurer' le coup, il n'est pas nécessaire. Viser une plage de 200 `NOP` est plus simple que viser l'adresse exacte de début de shellcode. Cependant, nous allons tout de même le faire sans, sinon ça serait trop simple !
 
@@ -571,7 +571,7 @@ Nous voyons que le programme a tenté d'accéder à l'adresse mémoire 0x0800414
   * (Le pool de NOP, mais nous allons faire sans)
   * Le shellcode
 
-![img]({{ site.baseurl }}assets/uploads/2015/03/img_54f78d2d9a419.png)
+[![img_54f78d2d9a419]({{ site.baseurl }}assets/uploads/2015/03/img_54f78d2d9a419.png)]({{ site.baseurl }}assets/uploads/2015/03/img_54f78d2d9a419.png)
 
 Pour connaitre l'adresse de la sauvegarde de `EIP` (et donc l'adresse qui suit), faisons un breakpoint juste après que `EIP` est poussé sur la pile, c'est à dire à la première instruction de `func` et regardons la valeur de `ESP`.
 
@@ -598,7 +598,7 @@ _Mais pourquoi lancer `run` avec 69 `"A"`, plutôt que de lancer `run` sans argu
 
 Il est important de se poser cette question. En effet, nous sommes en train de chercher une adresse précise d'une variable sur la pile. Il est important de passer 69 `"A"` en argument car c'est la longueur totale de notre payload que nous enverrons pour exploiter le buffer overflow (20 octets contenant le buffer et `EBP + 4` octets pour l'écrasement de `EIP + 45` octets de shellcode).  Or, avant la pile se trouvent les variables d'environnement et les arguments du programme (dont son nom).
 
-![img]({{ site.baseurl }}assets/uploads/2015/03/img_54f81318e37b8.png)
+[![img_54f81318e37b8]({{ site.baseurl }}assets/uploads/2015/03/img_54f81318e37b8.png)]({{ site.baseurl }}assets/uploads/2015/03/img_54f81318e37b8.png)
 
 Donc si on modifie la taille des arguments passés au programme, ça décalera la pile, donc les adresses que l'on recherche. C'est pourquoi il est indispensable de rester dans le même contexte d'exécution, en envoyant un argument qui soit toujours de la même taille, que ce soit pendant nos recherches ou pendant notre exploitation.
 

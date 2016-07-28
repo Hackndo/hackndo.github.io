@@ -20,7 +20,7 @@ Contrairement à la pile d'assiette, la stack empile ses éléments vers le bas.
 
 Cette structure LIFO est finalement extrêmement utile. En effet, lors de l'appel d'une fonction, toutes les données nécessaires pour l'exécution de la fonction, ainsi que pour le retour à l'état initial sont empilées. Une fois la fonction terminée, il faut donc retourner à la ligne suivant son appel, et ceci ce fait en dépilant tout ce qui a été précédemment empilé, laissant intact le reste de la pile et les autres éventuelles stack frames. Voici un schéma qui tente de résumer mes propos :
 
-![img]({{ site.baseurl }}assets/uploads/2015/01/img_54b4159f5c27f.png)
+[![img_54b4159f5c27f]({{ site.baseurl }}assets/uploads/2015/01/img_54b4159f5c27f.png)]({{ site.baseurl }}assets/uploads/2015/01/img_54b4159f5c27f.png)
 
 Nous avons vu dans un article sur la [gestion de la mémoire]({{ site.baseurl }}gestion-de-la-memoire/) ce qu'étaient les stack frame (vous savez, ces informations stockées sur la pile lors de l'appel d'une fonction pour enregistrer le contexte d'exécution ainsi que les variables passées à la fonction). Et bien le registre `ESP` garde en mémoire l'adresse du haut de la pile (donc l'adresse la plus basse, puisque plus la pile grandit, plus les nouvelles adresses sont basses). Il est donc mis à jour à chaque modification de la pile (ajout d'une valeur ou suppression de la dernière valeur). Le registre `EBP` garde en mémoire l'adresse du début de la stack frame. Ainsi, la stack frame courante se situe entre l'adresse contenue dans `EBP` et l'adresse contenue dans `ESP`.
 
@@ -96,7 +96,7 @@ Le registre ESP pointe vers le "haut" de la pile, donc vers l'adresse `0xbffffc9
 
 La pile est donc dans l'état suivant :
 
-![img]({{ site.baseurl }}assets/uploads/2015/03/img_54f6274496d0a.png)
+[![img_54f6274496d0a]({{ site.baseurl }}assets/uploads/2015/03/img_54f6274496d0a.png)]({{ site.baseurl }}assets/uploads/2015/03/img_54f6274496d0a.png)
 
 Les arguments sont donc enregistrés sur la pile. Mais une fois que le programme rentre dans la fonction, il va devoir se souvenir d'où il vient. Et pour cela, il va falloir qu'il enregistre le registre `EIP` (c'est le registre qui a en mémoire l'adresse de l'instruction courante). On ne voit cependant pas d'instruction `PUSH EIP` dans le code, tout simplement pour la raison suivante (qu'il est impératif de retenir)
 
@@ -115,7 +115,7 @@ On voit arriver l'adresse `0x080483c7` en haut de la pile.  Vous remarquez ce q
         
 Avec cette sauvegarde de l'EIP, nous avons donc une représentation de la pile comme suit :
         
-![img]({{ site.baseurl }}assets/uploads/2015/03/img_54f6289eaa721.png)
+[![img_54f6289eaa721]({{ site.baseurl }}assets/uploads/2015/03/img_54f6289eaa721.png)]({{ site.baseurl }}assets/uploads/2015/03/img_54f6289eaa721.png)
         
 Voilà, nous avons fait le `jump`. Nous sommes à la première instruction de la fonction `reponse()`
 
@@ -192,13 +192,13 @@ esp            0xbffffc94    0xbffffc94
     
 Reprenons ce code pas à pas : Nous sommes au début des instructions de la fonction, près à exécuter le `push ebp`. On voit que `EBP` contient l'adresse `0xbffffcb8` et esp contient `0xbffffc98`. On retrouve bien le `ESP` qu'on avait représenté sur le dernier schéma. Ensuite, nous avançons de deux instructions. On regarde alors `EBP` et `ESP`. Ils sont bien égaux, comme prévus. On a poussé l'ancienne valeur de `EBP` sur la pile, ce qui a décalé de le haut de la pile de 4 octets. Le haut de la pile vaut donc `0xbffffc98 - 4` donc `0xbffffc94`. Ensuite, on affecte `ESP` à `EBP`. `ESP` valant maintenant `0xbffffc94`, `EBP` prend la même valeur, comme le montre la dernière commande de cette séquence. Voici un dernier schéma qui représente l'état actuel de la pile :
 
-![img]({{ site.baseurl }}assets/uploads/2015/03/img_54f6c6cbaed67.png)
+[![img_54f6c6cbaed67]({{ site.baseurl }}assets/uploads/2015/03/img_54f6c6cbaed67.png)]({{ site.baseurl }}assets/uploads/2015/03/img_54f6c6cbaed67.png)
 
 Voilà pour l'explication de ces lignes dans gdb. Ensuite nous avons quelques instructions qui permettent d'effectuer le calcul demandé, puis nous arrivons aux deux dernières lignes, qui sont `pop ebp` et `ret`.
 
 La première va permettre de replacer le pointeur `EBP` sur le début de la stack frame de la fonction appelante, tandis que le deuxième permet de `POP EIP` (donc renvoyer la sauvegarde de `EIP` dans le registre `EIP`) pour reprendre le cours de l'instruction qui était à la suite de l'appel de fonction. Cette routine peut se résumer très sommairement au schéma suivant :
 
-![img]({{ site.baseurl }}assets/uploads/2015/03/img_54f62a66a6700.png)
+[![img_54f62a66a6700]({{ site.baseurl }}assets/uploads/2015/03/img_54f62a66a6700.png)]({{ site.baseurl }}assets/uploads/2015/03/img_54f62a66a6700.png)
     
 Le programme est lu instruction par instruction (**1**). Lors d'un `call` (**2**), on empile l'instruction en cours (`EIP` est pushée sur la pile), puis on saute à l'adresse donnée par le `call`. Ici, les instructions de la fonction sont exécutées les unes à la suite des autres jusqu'au `RET` (**3**) qui va récupérer la valeur de `EIP` enregistrée précédemment, afin de revenir à là où le programme en était (**4**), sans perdre le fil !
         

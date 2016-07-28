@@ -157,7 +157,7 @@ gdb$ x/4xw $esp
 Nous avons suivi le call, et nous remarquons bien que l'ancien EIP 0x8048441 a été poussé sur la pile, il est donc juste au dessus de l'adresse de notre chaine "/bin/sh", et la suite du programme peut s'exécuter normalement. La pile ressemble donc à ça :
 
 
-  ![img]({{ site.baseurl }}assets/uploads/2015/05/img_5562044bc46a3.png)
+  [![img_5562044bc46a3]({{ site.baseurl }}assets/uploads/2015/05/img_5562044bc46a3.png)]({{ site.baseurl }}assets/uploads/2015/05/img_5562044bc46a3.png)
 
 
 Maintenant que nous avons une bonne compréhension de la pile lors d'un appel à la fonction system("/bin/sh"), nous pouvons nous attaquer à l'exploitation d'un buffer overflow avec un retour à la libc.
@@ -170,19 +170,19 @@ Maintenant que nous avons une bonne compréhension de la pile lors d'un appel à
 Comme nous l'avons évoqué tout à l'heure, nous pouvons écraser la valeur de retour de la fonction dans laquelle se trouve la vulnérabilité. Lorsque la fonction se termine et fait appel à l'instruction RET, c'est en fait un POP EIP qui est effectué, suivi d'un JMP EIP. Le POP EIP prend la valeur qui est sur le sommet de la pile, et l'enregistre dans le registre EIP. Comme nous contrôlons cette valeur (grâce au BoF), nous contrôlons le JMP EIP.
 
 
-![img]({{ site.baseurl }}assets/uploads/2015/05/img_556205b53cf28.png)
+[![img_556205b53cf28]({{ site.baseurl }}assets/uploads/2015/05/img_556205b53cf28.png)]({{ site.baseurl }}assets/uploads/2015/05/img_556205b53cf28.png)
 
 
 Nous allons donc simuler un appel valide à la fonction system() en arrangeant la pile correctement pour que la fonction system() lance un shell. Nous avons vu dans l'exemple de l'appel à system() quel devait être l'état de la pile lorsque la fonction system() débutait :
 
 
-![img]({{ site.baseurl }}assets/uploads/2015/05/img_556206de318fa.png)
+[![img_556206de318fa]({{ site.baseurl }}assets/uploads/2015/05/img_556206de318fa.png)]({{ site.baseurl }}assets/uploads/2015/05/img_556206de318fa.png)
 
 
 En effet, il faut qu'il y ait l'adresse de retour sur le dessus de la pile, et juste en dessous l'adresse de la chaine de caractère passée en argument à la fonction system(). Donc si nous exploitons le buffer overflow, et que nous fournissons l'adresse de la fonction system() dans la sauvegarde de EIP, voici quel devrait être l'état de la pile :
 
 
-![img]({{ site.baseurl }}assets/uploads/2015/05/img_5562069a3bd6f.png)
+[![img_5562069a3bd6f]({{ site.baseurl }}assets/uploads/2015/05/img_5562069a3bd6f.png)]({{ site.baseurl }}assets/uploads/2015/05/img_5562069a3bd6f.png)
 
 
 Comme nous allons lancer un shell via l'appel à system(), l'adresse de retour ne nous importe pas vraiment, donc nous pourrons mettre n'importe quoi.
@@ -258,7 +258,7 @@ Il faut donc 20 octets de buffer, puis les 4 octets suivants remplacent la sauve
 Rappelons que nous voulons mettre la stack dans l'état suivant :
 
 
-![img]({{ site.baseurl }}assets/uploads/2015/05/img_5562069a3bd6f.png)
+[![img_5562069a3bd6f]({{ site.baseurl }}assets/uploads/2015/05/img_5562069a3bd6f.png)]({{ site.baseurl }}assets/uploads/2015/05/img_5562069a3bd6f.png)
 
 
 Nous venons de trouver l'adresse de la sauvegarde de `EIP`, il s'agit maintenant de trouver l'adresse de la fonction `system()`.  Pour cela, rien de plus simple, il suffit de lancer la commande `print system` ou `p system` dans gdb

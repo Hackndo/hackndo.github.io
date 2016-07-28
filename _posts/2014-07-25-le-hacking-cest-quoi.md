@@ -74,4 +74,4 @@ Si je devais résumer le hacking, en une phrase, ce serait : _Think out of the
 
 PS : Voici la solution du problème posé au début de cet article. Vous aviez trouvé ? Félicitations !
 
-![img]({{ site.baseurl }}assets/uploads/2014/07/hacking_dots.png)
+[![hacking_dots]({{ site.baseurl }}assets/uploads/2014/07/hacking_dots.png)]({{ site.baseurl }}assets/uploads/2014/07/hacking_dots.png)

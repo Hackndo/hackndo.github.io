@@ -361,6 +361,15 @@ tbody tr:nth-child(odd) th {
   color: #9a9a9a;
 }
 
+.google-icon-date {
+  background-image: url("../assets/icones/date_grey.png");
+  background-position: left center;
+  background-repeat: no-repeat;
+
+  padding-left:32px;
+  padding-top: 4px;
+}
+
 .alignleft {
   float: left;
   width:50%;

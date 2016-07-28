@@ -43,11 +43,11 @@ Dans un adressage **segmenté**, il faut donner le numéro du segment puis l'off
 
 Voici un schéma d'une mémoire physique segmentée
 
-![img]({{ site.baseurl }}assets/uploads/2016/07/memory_management_segmented.png)
+[![memory_management_segmented]({{ site.baseurl }}assets/uploads/2016/07/memory_management_segmented.png)]({{ site.baseurl }}assets/uploads/2016/07/memory_management_segmented.png)
 
 Puis un schéma des deux types de mémoires linéaires, l'une avec le mapping 1:1 et l'autre qui utilise le système de pagination et de mémoire virtuelle
 
-![img]({{ site.baseurl }}assets/uploads/2016/07/memory_management_linear.png)
+[![memory_management_linear]({{ site.baseurl }}assets/uploads/2016/07/memory_management_linear.png)]({{ site.baseurl }}assets/uploads/2016/07/memory_management_linear.png)
 
 Cependant, comme l'opération de traduction `adresse virtuelle -> adresse physique` est un peu coûteuse, il existe un cache appelé _Translation Lookaside Buffer_ (TLB) qui garde en mémoire la correspondance entre adresses virtuelles et adresses physiques. C'est pratique par exemple lorsqu'on parcourt un tableau afin de ne pas devoir retrouver l'adresse du début du tableau en mémoire physique à chaque itération.
 

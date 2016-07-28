@@ -440,7 +440,7 @@ Avec ces explications, que fait la ligne `+14` ?
 
 Elle met la valeur `0x28` (40 en décimal) à l'adresse contenue dans `ESP`, donc `0x28` est placé au sommet de la pile. Voici où nous en sommes :
 
-![img]({{ site.baseurl }}assets/uploads/2015/04/img_55382697a63ab.png)
+[![img_55382697a63ab]({{ site.baseurl }}assets/uploads/2015/04/img_55382697a63ab.png)]({{ site.baseurl }}assets/uploads/2015/04/img_55382697a63ab.png)
 
 Mais pourquoi donc placer ces valeurs arbitrairement comme ça ? Pourquoi sur la pile ? Quelle utilité ? Regardons la ligne suivante :
 
