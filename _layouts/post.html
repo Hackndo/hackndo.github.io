@@ -9,7 +9,11 @@ comments: true
       <p class="alignleft">{{ page.date | date_to_string }} <a class="post-comments-count" href="http://{{ site.url }}{{ page.url }}#disqus_thread"></a></p>
       <p class="alignright">Auteur : <strong>{{ page.author }}</strong></p>
     </div>
+  <!-- <nav role="navigation" class="table-of-contents"> -->
+  </nav>
+  <article>
   {{ content }}
+  </article>
 </div>
 
 <div class="related">

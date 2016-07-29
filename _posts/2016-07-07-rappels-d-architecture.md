@@ -16,7 +16,7 @@ Avant d'aller plus loin, il est nécessaire de parler rapidement de l'architectu
 
 Cet article n'a pas non plus pour vocation d'être exhaustif quant à ce sujet, nous ne parlerons donc que des éléments clés qui nous intéressent de près ou de loin pour l'exploitation de vulnérabilités au sein du kernel.
 
-### Processeur
+## Processeur
 
 Un CPU a un jeu d'instruction qui lui est propre (_Instruction Set_), lui permettant de faire des opérations, des modifications dans le flot d'exécution ou encore de modifier la mémoire. Comme les accès mémoire sont relativement lents, un CPU possède des registres. Nous avons déjà parlé des registres dans l'article sur [la gestion de la mémoire]({{ site.baseurl }}gestion-de-la-memoire/). Ce sont des petites zones de mémoire au sein d'un CPU qui sont accessibles instantannément et servent à stocker des valeurs pour des calculs, pour garder des informations sur les structures en cours etc.
 
@@ -24,7 +24,7 @@ En ce qui concerne les jeux d'instructions, il y a deux grands familles. Les RIS
 
 Par ailleurs, les ordinateurs peuvent avoir un ou plusieurs CPU (_UniProcessor_ UP ou _Symmetric MultiProcessing_ SMP).
 
-### Interruptions
+## Interruptions
 
 Lorsqu'une série d'instructions est en cours d'exécution, il est possible qu'un événement se produise et interrompe le flot d'exécution. L'origine peut être logicielle ou matérielle.
 
@@ -35,7 +35,7 @@ Chaque type d'interruption a un numéro unique auquel est associée une routine 
 
 Comme les CPU ont deux modes d'exécution, privilégié et non privilégié, comme nous l'avons dit dans l'article d'introduction sur [le monde du kernel]({{ site.baseurl }}le-monde-du-kernel), il est possible à l'aide d'instructions fournies par le CPU dans le mode non privilégié de faire des interruptions pour exécuter du code privilégié, par exemple pour que le kernel exécute le code faillible, et ainsi exploiter la vulnérabilité.
 
-### Gestion de la mémoire
+## Gestion de la mémoire
 
 L'accès à la mémoire physique peut-être fait de manière segmentée pour certains CPU, ou linéaire (la majorité de nos jours).
 
@@ -55,7 +55,7 @@ Biensûr, comme chaque processus a sa propre plage de mémoire et sa propre tabl
 
 Cependant, dans le cas où la mémoire est partagée (une partie pour le kernel, une partie pour le processus), même s'il y a un changment de processus, il n'est pas nécessaire de vider la TLB du kernel puisque la table de pages du kernel est répliquée pour chaque processus, et reste alors inchangée. Sa TLB est donc toujours la même.
 
-### 32bits & 64bits
+## 32bits & 64bits
 
 Nous finirons par une petite parenthèse sur quelques particularités des CPU x86-64.
 
