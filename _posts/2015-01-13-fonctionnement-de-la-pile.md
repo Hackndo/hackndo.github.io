@@ -10,13 +10,20 @@ tags:
   - tuto
   - userland
 ---
-La pile (dont on a parlé dans l'article sur la [gestion de la mémoire]({{ site.baseurl }}gestion-de-la-memoire/) a une structure **LIFO** (Last In, First Out). Cela veut dire que le dernier élément qui est placé sur la pile sera le premier élément à être dépilé. Pour mieux comprendre, on peut imaginer une pile d'assiette. Si on empile des assiettes les unes sur les autres, il faudra enlever la dernière assiette posée, puis l'avant-dernière etc. pour pouvoir récupérer la première assiette posée. C'est le même principe.
+La pile (dont on a parlé dans l'article sur la [gestion de la mémoire]({{ site.baseurl }}gestion-de-la-memoire/) a une structure **LIFO** (Last In, First Out).
 
 <!--more-->
+
+## LIFO
+
+Cela veut dire que le dernier élément qui est placé sur la pile sera le premier élément à être dépilé. Pour mieux comprendre, on peut imaginer une pile d'assiette. Si on empile des assiettes les unes sur les autres, il faudra enlever la dernière assiette posée, puis l'avant-dernière etc. pour pouvoir récupérer la première assiette posée. C'est le même principe.
+
 
 Contrairement à la pile d'assiette, la stack empile ses éléments vers le bas. Donc ce qu'on appelle le haut de la stack, c'est finalement l'adresse la plus basse de la stack. **Plus on empile des valeurs dans la stack, plus les adresses diminuent**. C'est déroutant, mais on s'y fait rapidement !
 
 ![img]({{ site.baseurl }}assets/uploads/2015/03/img_54f6e3d3da5b8.png?w=640" alt="" data-recalc-dims="1)
+
+## Stackframe
 
 Cette structure LIFO est finalement extrêmement utile. En effet, lors de l'appel d'une fonction, toutes les données nécessaires pour l'exécution de la fonction, ainsi que pour le retour à l'état initial sont empilées. Une fois la fonction terminée, il faut donc retourner à la ligne suivant son appel, et ceci ce fait en dépilant tout ce qui a été précédemment empilé, laissant intact le reste de la pile et les autres éventuelles stack frames. Voici un schéma qui tente de résumer mes propos :
 
@@ -30,6 +37,7 @@ Voici un schéma qui illustre le rôle des registres `EBP` et `ESP` :
 
 Ce que nous venons de voir est vrai tant qu'on reste dans la même stack frame. Cependant, que se passe-t-il lorsqu'il y a un appel à une nouvelle fonction ? Une fois cette nouvelle fonction terminée, comment le processeur revient-il à l'état précédent ? C'est ce que nous allons voir tout de suite.
 
+## Prologue - Épilogue
 
 _Pour être en mesure de bien comprendre la suite de cet article, des notions de base d'assembleur sont utiles. Même s'il est possible de suivre sans aucune connaissance, il est fortement conseillé de lire l'article [Notions de base sur l'assembleur]({{ site.baseurl }}assembleur-notions-de-base/) qui vous donnera les bases nécessaires pour une meilleure compréhension._
 

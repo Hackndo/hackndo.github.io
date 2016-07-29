@@ -22,7 +22,7 @@ Les figures suivantes illustrent les deux issues possibles.
 ![Canary ko]({{ site.baseurl }}assets/uploads/2015/09/canari_ko.png)
 
 
-# Exemple
+## Exemple
 
 Nous allons voir ici un exemple de ce type de protection. Pour cela, nous allons reprendre le programme utilisé dans l'[article sur le buffer overflow](http://blog.hackndo.com/buffer-overflow-stack-based/)
 
@@ -185,7 +185,7 @@ gdb-peda$ ni
 
 Comme attendu, nous ne prenons pas le saut `JE` à la ligne `func+62` et tombons tout droit dans le `call` à ``__stack_chk_fail` qui termine notre programme.
 
-# Exploitation
+## Exploitation
 
 MAIS nous n'allons pas nous laisser faire.
 

@@ -20,7 +20,11 @@ Vous obtiendrez un segfault.
 
 <!--more-->
 
-C'est assez sympa, d'autant plus que wget est quand même un binaire largement utilisé. Les bugs comme celui-ci se font rares ! On s'est alors demandé ce qu'on pourrait bien en faire. Nous ne nous sommes donc pas arrêtés là, et on a cherché la cause du problème. Pour cela, nous nous sommes armés de ce bon vieux gdb, ainsi que des sources de la dernière version de wget en date (1.16.3) disponible ici :
+C'est assez sympa, d'autant plus que wget est quand même un binaire largement utilisé. Les bugs comme celui-ci se font rares ! On s'est alors demandé ce qu'on pourrait bien en faire. Nous ne nous sommes donc pas arrêtés là, et on a cherché la cause du problème.
+
+## Environnement de debug
+
+Pour cela, nous nous sommes armés de ce bon vieux gdb, ainsi que des sources de la dernière version de wget en date (1.16.3) disponible ici :
 
 <http://ftp.gnu.org/gnu/wget/wget-1.16.3.tar.gz>
 
@@ -30,6 +34,8 @@ Dans un premier temps, nous avons recompilé le binaire afin d'en avoir une vers
 $ ./configure --user-prefix=/home/hackndo/wget
 $ make && sudo make install
 {% endhighlight %}
+
+## Reproduction du bug
 
 Ensuite nous avons provoqué le segfault dans gdb puis affiché la backtrace pour trouver où se situe le problème
 
@@ -49,6 +55,8 @@ CS: 0033  DS: 0000  ES: 0000  FS: 0000  GS: 0000  SS: 002B
 -----------------------------------------------------------------------------------------------------------------------
 {% endhighlight %}
 
+## Recherche de la cause
+
 {% highlight sh %}
 => 0x421adb <getproxy+27>:  mov    esi,DWORD PTR [rbx+0x18]
    0x421ade <getproxy+30>:  mov    edi,0x44af12
@@ -66,7 +74,6 @@ gdb$ bt
 #2  0x00000000004204a0 in retrieve_tree ()
 #3  0x0000000000404168 in main ()
 {% endhighlight %}
-
 
 Le segfault se produit dans la fonction `getproxy` se trouvant dans **retr.c**
 
@@ -179,4 +186,6 @@ Nous avons d'ailleurs proposé un fix à GNU. Nous verrons s'il sera accepté !
 
 Ce problème n'existe pas si le paramètre `-r` est omis, puisque cet oubli de vérification se situe seulement dans le fichier `recur.c`, et nulle part ailleurs.
 
-**Edit** : Petite mise à jour, le fix que nous avons proposé a été accepté et [est mergé dans la branche master](https://savannah.gnu.org/bugs/?45289#comment5) ! Voilà, une petite contribution au monde libre, ça fait plaisir 🙂
+## Correction du bug
+
+Nous avons envoyé un fix qui a été accepté et [est mergé dans la branche master](https://savannah.gnu.org/bugs/?45289#comment5) ! Voilà, une petite contribution au monde libre, ça fait plaisir 🙂

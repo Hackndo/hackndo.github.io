@@ -13,6 +13,8 @@ Voici un petit mémo sur les pointeurs de fonction. Pour rappel, un pointeur est
 
 <!--more-->
 
+## Comment ça marche ?
+
 Lorsqu'on compile un programme, le code est en fait transformé en instructions machine que peut comprendre le processeur. Ce code est stocké sur le disque dur. Une fois qu'on exécute le programme, alors le code est copié dans la mémoire vive de la machine, et c'est seulement ensuite qu'il sera exécuté. Il est donc écrit dans la mémoire vive, dans le segment qu'on appelle **segment _text_**. Les instructions sont lues les unes à la suite des autres par défaut. Mais parfois il peut y avoir des instructions qui, explicitement, demandent au processeur de sauter à une case mémoire en particulier, notamment lors de l'appel de fonction (avec l'instruction `call`). C'est cette adresse (qu'on appelle point d'entrée ou _Entry Point_) qui contient,la première instruction de la fonction, qui est ce qu'on appelle **l'adresse de la fonction**.
 
 Voici un schéma d'une portion du segment _text_ de la mémoire vive allouée à l'exécutable :
@@ -63,8 +65,10 @@ int retour = (*ptr)(2.0, 3);
 ```
 
 `retour` contiendra alors la valeur de retour de la fonction `myFunction`, pointée par `ptr`.
+
+## Temporaire et anonyme
   
-On peut également définir un pointeur &#8220;temporaire anonyme&#8221; vers une fonction en une ligne, de la manière suivante :
+On peut également définir un pointeur "temporaire anonyme" vers une fonction en une ligne, de la manière suivante :
 
 ```c
 (int(*)(float, int))myFunc;

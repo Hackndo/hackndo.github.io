@@ -13,7 +13,7 @@ Ceci est un tout petit article qui permet de remettre très rapidement et très 
 
 <!--more-->
 
-# Deep Web
+## Deep Web
 
 Le _deep web_, ou web profond, partie que l'on appelle "cachée" d'internet, est à opposer au web visible. Comme les deux s'opposent, expliquer l'un permet de comprendre l'autre.
 
@@ -27,7 +27,7 @@ On trouve dans le lot les pages avec des liens dynamiques (i.e. qui changent en 
 
 Vous voyez, il existe de nombreux, **très** nombreux cas pour lesquels les moteurs de recherches tels que nous les connaissons sont incapables d'indexer une ressource. Toutes ces ressources classiquement inaccessibles forment ce qu'on appelle le _deep web_.
 
-# Dark Web
+## Dark Web
 
 Une grande confusion existe entre le _dark web_ et le _deep web._ **Non**, le _dark web_ **n'est pas** le _deep web_. Le _dark web_ est une partie du _deep web_. Le _dark web_ repose sur les _darknets_, et un darknet n'est rien d'autre qu'un réseau P2P (_peer-to-peer_, ami-à-ami) dans lequel les utilisateurs sont considérés commes des personnes de confiance, et les échanges sont anonymes, donc les IP ne sont pas publiquement partagées. Un exemple connu de _dark web_ est [Freenet](https://freenetproject.org/), qui n'est finalement rien de plus qu'un **réseau anonyme** et **distribué** fondé sur l'internet.
 
