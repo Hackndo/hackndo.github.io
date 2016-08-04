@@ -31,7 +31,7 @@ Lorsqu'une série d'instructions est en cours d'exécution, il est possible qu'u
 * Dans le cas des interruptions **logicielles**, on dit qu'elles sont synchrones puisque le même code rejoué provoquera les mêmes interruptions.
 * Dans le cas des interruptions **matérielles**, on dit qu'elles sont asynchrones puisqu'elles peuvent survenir à tout moment (un disque qui a fini son travail, un carte réseau ayant fini de recevoir un paquet etc.).
 
-Chaque type d'interruption a un numéro unique auquel est associée une routine à exécuter. Le CPU possède un registre spécial qui permet de savoir quelle routine correspond à quel numéro d'interruption. Ce registre s'appelle _Interrupt Vector Table_. Vous imaginez bien qu'il sera intéressant de modifier cette table...
+Chaque type d'interruption a un numéro unique auquel est associée une routine à exécuter. Le CPU possède un registre spécial qui permet de savoir quelle routine correspond à quel numéro d'interruption. Ce registre pointe sur l'_Interrupt Vector Table_. Vous imaginez bien qu'il sera intéressant de modifier cette table...
 
 Comme les CPU ont deux modes d'exécution, privilégié et non privilégié, comme nous l'avons dit dans l'article d'introduction sur [le monde du kernel]({{ site.baseurl }}le-monde-du-kernel), il est possible à l'aide d'instructions fournies par le CPU dans le mode non privilégié de faire des interruptions pour exécuter du code privilégié, par exemple pour que le kernel exécute le code faillible, et ainsi exploiter la vulnérabilité.
 
