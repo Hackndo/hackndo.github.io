@@ -63,7 +63,7 @@ Prenons cet exemple pour une architecture 32bits.
 ```c
 /* count est un entier */
 
-size_t = ssize;
+size_t ssize;
 
 if (count <= 0) {                       // [1]
     return (EINVAL);
