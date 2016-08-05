@@ -483,9 +483,11 @@ Par ailleurs, le nom de la fonction étant `add`, il y a fort à parier que le b
 
 ![stack]({{ site.baseurl }}assets/uploads/2015/04/img_553826170a520.png)
 
-À `EBP - 0xc` se trouve... `0x2` ! Oui, `0x2` car pour lire une case mémoire, le processeur va commencer à `EBP - 0xc` puis va lire la case suivante `EBP - 0xc + 0x1` etc. Or la pile étant inversée, la lecture de la valeur se fait dans le sens inverse, on remonte donc dans le schéma précédent.
+Avant l'appel de la fonction, les deux variables `0x2` et `0x28` ont été poussées sur la pile. Ensuite `EIP` a été poussé pendant le `call` et enfin `EBP`, ce qui explique le schéma précédent. Je vous rappelle que la pile part des adresses hautes et grandi en direction des adresses basses, mais qu'une variable en mémoire est lue dans le sens classique, donc des adresses basses vers les adresses hautes. La variable située à l'adresse `EBP - 0xc` a une taille de 4 octets. Ces 4 octets sont `EBP - 0xc + 0x0`, `EBP - 0xc + 0x1`, `EBP - 0xc + 0x2` et `EBP - 0xc + 0x3`. 
 
-Ainsi, à `EBP - 0xc` se trouve `0x2`, et à `EBP - 0x8` se trouve `0x28`. EAX va donc valloir `0x2` et `EDX` va recevoir la valeur `0x28`. Nous avons vu que la ligne suivante `+12` additionnait les deux valeurs et enregistrait le résultat dans `EAX`
+Dans le schéma précédent, à `EBP` on trouve la valeur de la sauvegarde du `EBP` de la fonction appelante. Puis à `EBP - 0x4` se trouve la sauvegarde de EIP, à `EBP - 0x8` se trouve une des valeurs poussées avant le `call` et à `EBP - 0xc` se trouve la deuxième valeur. On monte comme ça de 4 en 4 car ces variable sont des adresses (EBP et EIP) ou des entier donc il prennent 4 octets en mémoire.
+
+EAX va donc valloir `0x2` et `EDX` va recevoir la valeur `0x28`. Nous avons vu que la ligne suivante `+12` additionnait les deux valeurs et enregistrait le résultat dans `EAX`
 
 ```nasm
 add    eax,edx
