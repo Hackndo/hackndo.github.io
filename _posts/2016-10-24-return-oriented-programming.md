@@ -5,7 +5,7 @@ author: "Pixis"
 layout: post
 permalink: /return-oriented-programming/
 disqus_identifier: 0000-0000-0000-0016
-cover: assets/uploads/2016/10/fourth_gadget.jpg
+cover: assets/uploads/2016/10/fourth_gadget.png
 tags:
   - userland
   - tuto
