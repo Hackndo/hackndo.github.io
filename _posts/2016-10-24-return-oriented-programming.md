@@ -449,4 +449,4 @@ Donc je ne pouvais pas enchaîner les appels systèmes. Mais si vous avez ça da
 
 Have fun !
 
-Remerciements spéciaux à **laxadedi** pour sa patience et ses explications
+Remerciements spéciaux à **laxa** pour sa patience et ses explications
