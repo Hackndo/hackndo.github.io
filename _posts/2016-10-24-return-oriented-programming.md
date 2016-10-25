@@ -448,3 +448,5 @@ ret
 Donc je ne pouvais pas enchaîner les appels systèmes. Mais si vous avez ça dans un autre binaire, alors vous pouvez enchaîner presque autant d'appels systèmes que vous le souhaitez, et vous pouvez ainsi construire une chaine d'exécution complexe, seulement en utilisant des bouts de codes à droite et à gauche.
 
 Have fun !
+
+Remerciements spéciaux à **laxadedi** pour sa patience et ses explications
