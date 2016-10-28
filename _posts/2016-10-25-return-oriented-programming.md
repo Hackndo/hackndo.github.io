@@ -49,7 +49,7 @@ Pour pallier à ces deux protections, il faut alors trouver une technique d'expl
 
 Il est vrai qu'un binaire possède rarement le code permettant de lancer un shell. Ce serait trop beau. Cependant nous pouvons trouver à un endroit un bout de code qui permet de faire une action, puis à un autre endroit un autre bout de code qui permet de faire autre chose, et ainsi de suite. De cette façon, en enchaînant ces petits bouts d'instructions, on peut finalement réussir à faire des actions qui n'étaient pas prévues par le binaire.
 
-Un example pas vraiment réaliste mais qui permet d'illustrer mes propos. Considérons la suite d'instruction présente, qui se trouve dans le binaire :
+Un exemple pas vraiment réaliste mais qui permet d'illustrer mes propos. Considérons la suite d'instruction présente, qui se trouve dans le binaire :
 
 ```sh
 [1] PUSH    EBP
@@ -139,7 +139,7 @@ INT   0x80
 
 Vous voyez que nous avons les adresses de ces 4 gadgets (suites d'instructions) `0x08041234`, `0x08046666`, `0x08041337` et `0x08044242`.
 
-Pour que l'example reste simple, nous allons effectuer un appel système `sys_exit` avec comme argument la valeur `3` (Pour tous les appels systèmes vous pouvez jeter un oeil à mon github pour les architectures [32 bits](https://github.com/Hackndo/misc/blob/master/syscalls32.md) et les [64 bits](https://github.com/Hackndo/misc/blob/master/syscalls64.md)).
+Pour que l'exemple reste simple, nous allons effectuer un appel système `sys_exit` avec comme argument la valeur `3` (Pour tous les appels systèmes vous pouvez jeter un oeil à mon github pour les architectures [32 bits](https://github.com/Hackndo/misc/blob/master/syscalls32.md) et les [64 bits](https://github.com/Hackndo/misc/blob/master/syscalls64.md)).
 
 D'après le tableau 32 bits, pour faire un appel système à `sys_exit`, `EAX` doit prendre la valeur **1** et `EBX` la valeur du code de retout, ici **3** comme nous l'avons décidé.
 
