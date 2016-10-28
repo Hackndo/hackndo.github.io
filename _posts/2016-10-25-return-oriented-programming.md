@@ -90,9 +90,7 @@ Nous avons pensé à mélanger les instructions, mais il est également possible
 
 Je m'explique. Une analogie existe avec la langue françase.
 
-Dans le mot "République", même si ce n'était pas mon intention, il y a aussi les mots "Pub", "Pu", "Publique" etc. Ce n'était pas le sens que je cherchais, mais rien n'empêche de ne choisir de lire que ces parties là. Cela n'est possible que parce que les mots de la langue française ne sont pas tous de taille égale. Si tous les mots français faisaient **exactement** 10 lettres, alors on ne pourrait pas trouver de sous-mot, puisqu'il aurait une taille inférieure.
-
-De la même manière, nous pouvons appliquer ce principe à l'exemple précédant car les instructions ne sont pas de taille fixe. Nous somme sur une architecture [CISC](https://fr.wikipedia.org/wiki/Complex_instruction_set_computing). (Cela sort un peu du sujet, mais je jugeais bon d'expliquer **pourquoi** c'est possible dans la majorité des cas, tout en ayant en tête que les architectures RISC ne sont pas concernées par le ROP).
+Dans le mot "République", même si ce n'était pas mon intention, il y a aussi les mots "Pub", "Pu", "Publique" etc. Ce n'était pas le sens que je cherchais, mais rien n'empêche de ne choisir de lire que ces parties là. 
 
 Bref, vous avez compris le principe : Nous allons piquer des morceaux d'instructions à droite et à gauche, pas forcément des bouts d'instructions prévues par le programmeur, et en les mettant bout en bout, nous allons exécuter du code arbitraire.
 
