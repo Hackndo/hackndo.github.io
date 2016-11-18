@@ -434,7 +434,7 @@ Les deux lignes suivantes sont relativement similaires :
 0x08048400 <+14>:    mov    DWORD PTR [esp],0x28
 ```
 
-Ce sont deux instructions `MOV`, mais un peu plus compliquées que ce que nous avons vu jusque là. La première des deux lignes `+6` met la valeur `0x2` dans `DWORD PTR [esp+0x4]`. `DWORD` signifie que `0x2` va prendre la place d'un double word (32 bits). Or `0x2` pouvant être stockée sur un octet, les 3 autres seront initialisé à 0. `PTR [esp+0x4]` indique que `0x2` va être stocké à l'adresse `esp+0x4`. Rappelons encore que `ESP` contient l'adresse du sommet de la pile, donc `ESP + 0x4` contient l'adresse du deuxième emplacement de la pile (Une variable étant de la taille d'un `DWORD`, donc de 4 octets, sur une architecture 32 bits - parce que oui, 32 bits = 4 octets). La ligne `+6` met donc le nombre 4 en deuxième position sur la pile.
+Ce sont deux instructions `MOV`, mais un peu plus compliquées que ce que nous avons vu jusque là. La première des deux lignes `+6` met la valeur `0x2` dans `DWORD PTR [esp+0x4]`. `DWORD` signifie que `0x2` va prendre la place d'un double word (32 bits). Or `0x2` pouvant être stockée sur un octet, les 3 autres seront initialisé à 0. `PTR [esp+0x4]` indique que `0x2` va être stocké à l'adresse `esp+0x4`. Rappelons encore que `ESP` contient l'adresse du sommet de la pile, donc `ESP + 0x4` contient l'adresse du deuxième emplacement de la pile (Une variable étant de la taille d'un `DWORD`, donc de 4 octets, sur une architecture 32 bits - parce que oui, 32 bits = 4 octets). La ligne `+6` met donc le nombre 2 en deuxième position sur la pile.
 
 Avec ces explications, que fait la ligne `+14` ?
 
