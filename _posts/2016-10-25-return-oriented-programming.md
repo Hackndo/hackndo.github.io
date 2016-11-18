@@ -30,7 +30,7 @@ Cet article a alors pour but d'exposer une nouvelle technique d'exploitation, le
 
 Lorsque vous exécutez un programme, les entêtes du binaires sont supposés donner l'emplacement des différents segments/sections. Ainsi, à chaque fois qu'on lance le binaire, les adresses ne varient pas. La pile commence toujours au même endroit, même chose pour le tas, ainsi que les segments du binaire (Mais si ! Vous savez, on a tout expliqué dans l'article sur [la gestion de la mémoire](http://blog.hackndo.com/gestion-de-la-memoire/)).
 
-Et bien l'ASLR est une protection dans le noyau qui va rendre certains espaces d'addressages aléatoires. Généralement, la pile, le tas et les bibliothèques sont impactées. Il n'est alors plus possible de retrouver à coup sûr l'adresse d'un shellcode placé sur la pile, ou l'adresse de la fonction `system` dans la libc. C'est bien ennuyant.
+Et bien l'ASLR est une protection dans le noyau qui va rendre certains espaces d'adressages aléatoires. Généralement, la pile, le tas et les bibliothèques sont impactées. Il n'est alors plus possible de retrouver à coup sûr l'adresse d'un shellcode placé sur la pile, ou l'adresse de la fonction `system` dans la libc. C'est bien ennuyant.
 
 Mais ne vous inquiétez pas, ROP est là pour nous sauver.
 
