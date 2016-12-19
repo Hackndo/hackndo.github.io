@@ -88,7 +88,7 @@ e8 b1 69 00 00      CALL    PRINTF
 
 Nous avons pensé à mélanger les instructions, mais il est également possible d'exécuter des morceaux d'instructions.
 
-Je m'explique. Une analogie existe avec la langue françase.
+Je m'explique. Une analogie existe avec la langue française.
 
 Dans le mot "République", même si ce n'était pas mon intention, il y a aussi les mots "Pub", "Pu", "Publique" etc. Ce n'était pas le sens que je cherchais, mais rien n'empêche de ne choisir de lire que ces parties là. 
 
