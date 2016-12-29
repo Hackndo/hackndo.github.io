@@ -63,6 +63,8 @@ Comme promis, nous allons nous intéresser à deux cas pratiques.
 
 ### Cas 1
 
+J'ai illustré un cas similaire en vidéo, vous le [trouverez ici](https://www.youtube.com/watch?v=V7Gdc32XRhA).
+
 ```c
 #include <stdio.h>
 #include <stdlib.h>
