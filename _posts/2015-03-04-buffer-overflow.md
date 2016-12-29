@@ -626,6 +626,8 @@ $
 
 Voilà, nous avons également ouvert un shell avec le binaire en exploitant le buffer overflow.
 
+J'ai également enregistré une vidéo avec une exploitation de buffer overflow comme dans le cas 1, vous la (trouverez ici)[https://www.youtube.com/watch?v=V7Gdc32XRhA].
+
 J'espère que cet article **tuto buffer overflow** vous aura été utile. Des protections contre ce type d'exploitation existent cependant, comme le fait de rendre la pile non exécutable. À ce moment là, pas de panique, vous pouvez toujours récupérer un shell, avec par exemple la technique du [retour à la libc]({{ site.baseurl }}retour-a-la-libc/). Have fun !
 
 N'hésitez pas à commenter et partager si vous avez aimé !
