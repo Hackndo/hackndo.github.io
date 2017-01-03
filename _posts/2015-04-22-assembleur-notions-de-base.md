@@ -228,10 +228,10 @@ eax = eax + 42
 Effectue un ET logique
 
 ```nasm
-AND 0x5, 0x7
+AND 0x5, 0x3
 ```
 
-5 est représenté en binaire par `0101` et 7 par `1110` donc un ET logique donne `0100 = 0x4`. Ce code n'est pas utile, puisque le résultat n'est sauvé nulle part, on fera cette opération avec au moins un des deux paramètre qui est un registre.
+5 est représenté en binaire par `101` et 3 par `011` donc un ET logique donne `001 = 0x1`. Ce code n'est pas utile, puisque le résultat n'est sauvé nulle part, on fera cette opération avec au moins un des deux paramètre qui est un registre.
 
 ### XOR
 
