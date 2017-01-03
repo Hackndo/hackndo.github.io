@@ -20,7 +20,7 @@ Nous allons ici expliquer ce qui se cache derrière la notion de buffer overflow
 
 ## Théorie
 
-Nous avons vu l'utilité de la pile (_stack_) dans les articles précédents. En fin d'article, nous avons évoqué le cas où une fonction avec besoin d'allouer de l'espace sur la pile pour une de ses variables locales, qui était un tableau
+Nous avons vu l'utilité de la pile (_stack_) dans les articles précédents. En fin d'article, nous avons évoqué le cas où une fonction avait besoin d'allouer de l'espace sur la pile pour une de ses variables locales, qui était un tableau
 
 ```c
 void maFonction(char *uneChaine) {
