@@ -197,7 +197,7 @@ Voici le programme vulnérable
 #include <string.h>
 
 # Pour la compilation, il faut ajouter ces informations pour avoir les bonnes protections
-# gcc -o rop rop.c -m32 -fno-stack-protector  -Wl,-z,relro,-z,now,-z,noexecstack -static
+# clang -o rop rop.c -m32 -fno-stack-protector  -Wl,-z,relro,-z,now,-z,noexecstack -static
 
 int main(int argc, char ** argv) {
     char buff[128];
@@ -215,6 +215,8 @@ int main(int argc, char ** argv) {
     return 0;
 }
 ```
+
+J'utilise ici le compilateur `clang` car `gcc` [produit un prologue et un épilogue](http://reverseengineering.stackexchange.com/questions/13811/what-is-this-protection-that-seems-to-prevent-rop-when-aslr-in-on) qui rendent l'exploitation plus compliquée. Comme le but de cet article est de faire une démonstration simple et classique du ROP, nous utilisons clang qui produit un binaire "classique".
 
 Vous remarquez l'évident buffer overflow, si nous passons à ce binaire un gros buffer, il va normalement nous renvoyer une erreur de segmentation.
 
