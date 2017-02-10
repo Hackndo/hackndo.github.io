@@ -28,9 +28,9 @@ Cependant, le chiffrement par bloc lève deux questions
 
 Nous allons dans cet article nous intéresser au mode CBC du chiffrement par blocs qui permet de répondre à la deuxième question.
 
-# Fonctionnement du mode CBC
+## Fonctionnement du mode CBC
 
-## Padding
+### Padding
 
 Alors que nous avons parlé du padding utilisé par les fonctions de hashage dans l'article sur le [Hach Length Extension](http://beta.hackndo.com/hash-length-extension), nous allons ici nous intéresser à une technique de padding majoritairement utilisée dans les chiffrements par blocs, [PKCS](https://en.wikipedia.org/wiki/PKCS)7 donc le fonctionnement est décrit dans la [RFC 5652](https://tools.ietf.org/html/rfc5652#section-6.3).
 
@@ -118,7 +118,7 @@ print([data_padding_removed])
 
 Nous parlons de padding oracle non pas en lien avec Oracle l'entreprise, mais car l'oracle est la partie (souvent) serveur qui donne l'information sur la validité - ou non - du padding d'un message chiffré, permettant l'attaque dont nous allons parler par la suite.
 
-## Blocs similaires
+### Blocs similaires
 
 Le mode CBC permet de pallier au problème des blocs similaires. Imaginons que nous avons des blocs de 32 bits, et que le message que nous voulons coder est le suivant "hack, or do not hack". En découpant ce message en blocs de 32 bits (donc 4 octets), nous obtenons ces 5 blocs
 
@@ -170,9 +170,9 @@ bloc_n_clair = déchiffrement(bloc_n_chiffré) XOR IV
 bloc_n_clair = déchiffrement(bloc_n_chiffré) XOR bloc_n-1_chiffré
 ```
 
-# Vulnérabilité du mode CBC
+## Vulnérabilité du mode CBC
 
-## Du chiffrement au XOR
+### Du chiffrement au XOR
 
 Maintenant que nous avons les mathématiques avec nous, nous pouvons créer et combiner quelques informations. Accrochez-vous, suivez bien, il n'y a rien de magique.
 
@@ -234,7 +234,7 @@ Cette équation ne possède plus de cryptographie, seulement du `XOR`. Nous avon
 
 Pour pouvoir résoudre cette équation qui pour le moment possède deux inconnues, nous faisons entrer en jeu nos connaissances sur le padding oracle.
 
-## Invoquons l'oracle
+### Invoquons l'oracle
 
 Nous avons donc l'égalité suivante grâce à notre raisonnement mathématique
 
@@ -292,7 +292,7 @@ Un problème se pose cependant pour trouver le bloc `P_1`. En effet, pour les ca
 
 Si jamais vous ne pouvez pas le trouver, alors il faudra vous contenter du déchiffrement des blocs 2 à N.
 
-# Script python
+## Script python
 
 Je vous mets à disposition le script python que j'ai écrit pour du chiffrement AES128 CBC
 
