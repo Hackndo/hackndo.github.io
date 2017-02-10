@@ -137,7 +137,7 @@ Dans le mode CBC, pour obtenir le chiffrement d'un bloc de texte clair, ce texte
 On a alors
 
 ```
-bloc_n_chiffré = chiffrement(bloc_n_clair XOR bloc_n-1_chiffré)
+bloc_n_chiffré = chiffrement(bloc_n_clair ⊕ bloc_n-1_chiffré)
 ```
 
 Si vous avez bien compris ce principe, vous devriez vous demander ce qu'il se passe pour chiffrer le premier bloc, puisqu'il n'y a pas de bloc avant lui pour effectuer ce XOR.
@@ -151,11 +151,11 @@ En termes mathématiques, voici comment un chiffrement CBC fonctionne
 ```
 # Pour n = 0:
 
-bloc_n_chiffré = chiffrement(bloc_n_clair XOR IV)
+bloc_n_chiffré = chiffrement(bloc_n_clair ⊕ IV)
 
 # Pour n > 0:
 
-bloc_n_chiffré = chiffrement(bloc_n_clair XOR bloc_n-1_chiffré)
+bloc_n_chiffré = chiffrement(bloc_n_clair ⊕ bloc_n-1_chiffré)
 ```
 
 Du coup, grâce au propriétés de l'opération XOR, voici à quoi ressemble en terme mathématiques le déchiffrement
@@ -163,11 +163,11 @@ Du coup, grâce au propriétés de l'opération XOR, voici à quoi ressemble en 
 ```
 # Pour n = 0:
 
-bloc_n_clair = déchiffrement(bloc_n_chiffré) XOR IV
+bloc_n_clair = déchiffrement(bloc_n_chiffré) ⊕ IV
 
 # Pour n > 0:
 
-bloc_n_clair = déchiffrement(bloc_n_chiffré) XOR bloc_n-1_chiffré
+bloc_n_clair = déchiffrement(bloc_n_chiffré) ⊕ bloc_n-1_chiffré
 ```
 
 ## Vulnérabilité du mode CBC
@@ -198,24 +198,24 @@ Nous pouvons, à l'aide de ce que nous avons vu avant, écrire `P'2` de la mani�
 
 ```
 # Égalité 1
-P'2 = déchiffrement(C_5) XOR X
+P'2 = déchiffrement(C_5) ⊕ X
 ```
 
 Nous avons également la formule suivante pour `C_5`
 
 ```
 # Égalité 2
-C_5 = chiffrement(P_5 XOR C_4)
+C_5 = chiffrement(P_5 ⊕ C_4)
 ```
 
 Donc en remplaçant `C_5` dans l'égalité **1** par sa représentation dans l'égalité **2** on obtient
 
 ```
-P'2 = déchiffrement(chiffrement(P_5 XOR C_4)) XOR X
+P'2 = déchiffrement(chiffrement(P_5 ⊕ C_4)) ⊕ X
 
 # Or déchiffrer un texte chiffré donne le texte original, donc
 
-P'2 = P_5 XOR C_4 XOR X
+P'2 = P_5 ⊕ C_4 ⊕ X
 ```
 
 Nous voilà avec une équation qui relie 2 éléments connus avec deux inconnues
@@ -239,24 +239,24 @@ Pour pouvoir résoudre cette équation qui pour le moment possède deux inconnue
 Nous avons donc l'égalité suivante grâce à notre raisonnement mathématique
 
 ```
-P'2 = P_5 XOR C_4 XOR X
+P'2 = P_5 ⊕ C_4 ⊕ X
 
 # Donc
 
-P_5 = P'2 XOR C_4 XOR X
+P_5 = P'2 ⊕ C_4 ⊕ X
 ```
 
 Cette égalité ne contient que l'opération `XOR`. Comme vous le savez, le `XOR` est une opération bit à bit, nous pouvons donc découper cette égalité en la calculant octet par octet. Nos blocs faisant 8 octets, nous avons les équations suivantes :
 
 ```
-P_5[0] = P'2[0] XOR C_4[0] XOR X[0]
-P_5[1] = P'2[1] XOR C_4[1] XOR X[1]
-P_5[2] = P'2[2] XOR C_4[2] XOR X[2]
-P_5[3] = P'2[3] XOR C_4[3] XOR X[3]
-P_5[4] = P'2[4] XOR C_4[4] XOR X[4]
-P_5[5] = P'2[5] XOR C_4[5] XOR X[5]
-P_5[6] = P'2[6] XOR C_4[6] XOR X[6]
-P_5[7] = P'2[7] XOR C_4[7] XOR X[7]
+P_5[0] = P'2[0] ⊕ C_4[0] ⊕ X[0]
+P_5[1] = P'2[1] ⊕ C_4[1] ⊕ X[1]
+P_5[2] = P'2[2] ⊕ C_4[2] ⊕ X[2]
+P_5[3] = P'2[3] ⊕ C_4[3] ⊕ X[3]
+P_5[4] = P'2[4] ⊕ C_4[4] ⊕ X[4]
+P_5[5] = P'2[5] ⊕ C_4[5] ⊕ X[5]
+P_5[6] = P'2[6] ⊕ C_4[6] ⊕ X[6]
+P_5[7] = P'2[7] ⊕ C_4[7] ⊕ X[7]
 ```
 
 Nous savons par ailleurs que le déchiffrement d'un texte chiffré doit donner un plaintext avec un padding valide, donc se terminant par `0x01` ou `0x02 0x02` etc. Comme nous contrôlons tous les octets de `X`, nous pouvons bruteforcer le dernier octet jusqu'à ce que l'algorithme de déchiffrement renvoie du texte valide. Dans ce cas-là, ça voudra dire que le padding du texte clair est valide, donc qu'il termine par `0x01`.
@@ -266,7 +266,7 @@ _Nous ne prenons pas en compte les faux-positifs dans cet article. En effet, il 
 Une fois qu'on a trouvé l'octet qui donne le padding valide, donc le padding `0x01`, en ne prenant l'égalité que sur le dernier octet (donc d'indice 7, puisque nos blocs font 8 octets) ...
 
 ```
-P_5[7] = P'2[7] XOR C_4[7] XOR X[7]
+P_5[7] = P'2[7] ⊕ C_4[7] ⊕ X[7]
 ```
 
 ... nous pouvons résoudre l'égalité puisque nous connaissons `P'2[7]` qui est justement `0x01`, mais également `X[7]` qui est la valeur du bruteforce et `C_4[7]` qui est dans le texte chiffré reçu.
@@ -276,7 +276,7 @@ Avec toutes ces informations, nous trouvons donc le dernier octet du dernier blo
 Maintenant, pour retrouver l'octet précédent (donc d'indexe 6), il suffit choisir `X[7]` tel que `P'2[7] = 0x2` puis de bruteforcer `X[6]` pour que le padding soit valide. Quand nous avons une valeur pour `X[6]` qui donne un padding valide, cela signifie qu'on a également `P'2[6] = 0x2`, et donc on peut résoudre l'égalité
 
 ```
-P_5[6] = P'2[6] XOR C_4[6] XOR X[6]
+P_5[6] = P'2[6] ⊕ C_4[6] ⊕ X[6]
 ```
 
 car nous avons toutes les valeurs en main.
