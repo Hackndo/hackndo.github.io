@@ -89,7 +89,7 @@ if (no_proxy_match (u->host, (const char **)opt.no_proxy))
 
 la tentative d'accès au champ `host` de la structure provoque le segfault.
 
-Très bien, nous avons isolé la cause du segfault. Cependant, comment se fait-il que le pointeur u passé à `getproxy` soit nul ? Nous remontons alors un peu la backtrace.
+Très bien, nous avons isolé la cause du segfault. Cependant, comment se fait-il que le pointeur `u` passé à `getproxy` soit nul ? Nous remontons alors un peu la backtrace.
   
 Dans `retrieve_url`, toujours dans le même fichier
 
