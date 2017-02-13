@@ -130,7 +130,7 @@ Nous avons dit que le paramètre `url_parsed` était nul. Ce pointeur est défin
 struct url *url_parsed = url_parse (url, &url_err, i, true);
 ```
 
-Cette fois-ci, aucun des paramètres passés à `url_parse_` ne sont nuls. Cette fonction renvoie donc un pointeur nul. En mettant un breakpoint juste après l'appel à cette fonction, on peut voir ce qu'il y a dans `url_err` : Le numéro 8.
+Cette fois-ci, aucun des paramètres passés à `url_parse` ne sont nuls. Cette fonction renvoie donc un pointeur nul. En mettant un breakpoint juste après l'appel à cette fonction, on peut voir ce qu'il y a dans `url_err` : Le numéro 8.
   
 Le code d'erreur 8 est défini dans le fichier `url.c` (dans lequel il y a la fonction `url_parse`)
 
