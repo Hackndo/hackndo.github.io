@@ -20,7 +20,7 @@ Vous obtiendrez un segfault.
 
 <!--more-->
 
-C'est d'autant plus sympa que wget est un binaire très largement utilisé. Les bugs comme celui-ci se font rares ! On s'est alors demandé ce qu'on pouvait bien en faire, et on pouvait le corriger. Nous ne nous sommes donc pas arrêtés là, et on a cherché la cause du problème.
+C'est d'autant plus sympa que wget est un binaire très largement utilisé. Les bugs comme celui-ci se font rares ! On s'est alors demandé ce qu'on pouvait bien en faire, et si on pouvait le corriger. Nous ne nous sommes donc pas arrêtés là, et on a cherché la cause du problème.
 
 ## Environnement de debug
 
