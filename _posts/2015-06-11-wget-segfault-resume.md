@@ -14,7 +14,7 @@ Salut à tous, **winw** m'a montré récemment un truc assez sympa. Dans un term
 {% highlight sh %}
 $ wget -r %3a
 Segmentation fault
-{% endhighlight %}
+```
 
 Vous obtiendrez un segfault.
 
@@ -33,7 +33,7 @@ Dans un premier temps, nous avons recompilé le binaire afin d'en avoir une vers
 {% highlight sh %}
 $ ./configure --user-prefix=/home/hackndo/wget
 $ make && sudo make install
-{% endhighlight %}
+```
 
 ## Reproduction du bug
 
@@ -53,7 +53,7 @@ R8 : 0x00007FFFF7FF7001  R9 : 0x00007FFFF7FE9700  R10: 0x0000000000000000  R1
 R13: 0x000000000065F950  R14: 0x00007FFFFFFFE05A  R15: 0x00007FFFFFFFE060
 CS: 0033  DS: 0000  ES: 0000  FS: 0000  GS: 0000  SS: 002B
 -----------------------------------------------------------------------------------------------------------------------
-{% endhighlight %}
+```
 
 ## Recherche de la cause
 
@@ -73,19 +73,19 @@ gdb$ bt
 #1  0x00000000004226fa in retrieve_url ()
 #2  0x00000000004204a0 in retrieve_tree ()
 #3  0x0000000000404168 in main ()
-{% endhighlight %}
+```
 
 Le segfault se produit dans la fonction `getproxy` se trouvant dans **retr.c**
 
-{% highlight c %}
+```c
 getproxy (struct url *u)
-{% endhighlight %}
+```
 
-Après quelques petites recherches, on remarque que le pointeur u sur une structure `url` est un pointeur null, et du coup à la ligne
+Après quelques petites recherches, on remarque que le pointeur `u` sur une structure `url` est un pointeur null, et du coup à la ligne
 
-{% highlight c %}
+```c
 if (no_proxy_match (u->host, (const char **)opt.no_proxy))
-{% endhighlight %}
+```
 
 la tentative d'accès au champ `host` de la structure provoque le segfault.
 
@@ -93,54 +93,54 @@ Très bien, nous avons isolé la cause du segfault. Cependant, comment se fait-i
   
 Dans `retrieve_url`, toujours dans le même fichier
 
-{% highlight c %}
+```c
 uerr_t retrieve_url (struct url * orig_parsed, const char *origurl, char **file,
 char **newloc, const char *refurl, int *dt, bool recursive,
 struct iri *iri, bool register_status)
-{% endhighlight %}
+```
 
 On voit l'appel à `getproxy`
 
-{% highlight c %}
+```c
 proxy = getproxy (u);
-{% endhighlight %}
+```
 
 Et on voit plus haut que `u` est défini comme ceci :
 
-{% highlight c %}
+```c
 struct url *u = orig_parsed
-{% endhighlight %}
+```
 
 En mettant un breakpoint à l'entrée de la fonction `retrieve_url`, on se rend compte que le paramètre `orig_parsed` est déjà un pointeur nul. On continue et on remonte la backtrace d'un cran, en allant voir la fonction `retrieve_tree` située dans le fichier `recur.c`
 
-{% highlight c %}
+```c
 uerr_t retrieve_tree (struct url *start_url_parsed, struct iri *pi)
-{% endhighlight %}
+```
 
 On voit l'appel à la fonction `retrieve_url` ici
 
-{% highlight c %}
+```c
 status = retrieve_url (url_parsed, url, &file, &redirected, referer,
 &dt, false, i, true);
-{% endhighlight %}
+```
 
 Nous avons dit que le paramètre `url_parsed` était nul. Ce pointeur est défini une ligne au dessus :
 
-{% highlight c %}
+```c
 struct url *url_parsed = url_parse (url, &url_err, i, true);
-{% endhighlight %}
+```
 
 Cette fois-ci, aucun des paramètres passés à `url_parse_` ne sont nuls. Cette fonction renvoie donc un pointeur nul. En mettant un breakpoint juste après l'appel à cette fonction, on peut voir ce qu'il y a dans `url_err` : Le numéro 8.
   
 Le code d'erreur 8 est défini dans le fichier `url.c` (dans lequel il y a la fonction `url_parse`)
 
-{% highlight c %}
+```c
 #define PE_INVALID_IPV6_ADDRESS         8
-{% endhighlight %}
+```
 
 Effectivement, dans la fonction `url_parse`, nous avons la vérification suivante :
 
-{% highlight c %}
+```c
 /* Check if the IPv6 address is valid. */
 if (!is_valid_ipv6_address(host_b, host_e))
 {
@@ -149,23 +149,23 @@ if (!is_valid_ipv6_address(host_b, host_e))
 }
 
 /* Continue parsing after the closing ']'. */
-{% endhighlight %}
+```
 
 Je vous rappelle que l'argument que nous avons passé à wget était `-r %3a` or `%3a` est le code ASCII de `:` . En amont, wget a détecté notre `:` et a donc considéré que c'était une adresse IPv6. Celle-ci étant invalide, `is_valid_ipv6_address()` renvoie `false`, et nous avons le code d'erreur. Tout est bien et se passe comme prévu par les développeurs à ce moment là.
 
 L'erreur, c'est dans le fichier `recur.c` avec ces lignes :
 
-{% highlight c %}
+```c
 struct url *url_parsed = url_parse (url, &url_err, i, true);
 status = retrieve_url (url_parsed, url, &file, &redirected, referer,
 &dt, false, i, true);
-{% endhighlight %}
+```
 
 Il n'y a aucune vérification de faite sur le retour de la fonction `url_parse`, et le pointeur `url_parsed` est utilisé sans vérifier s'il est nul, ou non.
   
 Nous avons donc, logiquement, un segfault. De notre point de vue, cet oubli ne permet aucune exploitation, mais c'était une analyse intéressante. Un fix est de vérifier que la fonction `url_parse` a renvoyé un pointeur non nul, de la manière suivante :
 
-{% highlight c %}
+```c
 struct url *url_parsed = url_parse (url, &url_err, i, true);
 
 if (!url_parsed)
@@ -180,7 +180,7 @@ else
     status = retrieve_url (url_parsed, url, &file, &redirected, referer,
     &dt, false, i, true);
     // [...]
-{% endhighlight %}
+```
 
 Nous avons d'ailleurs proposé un fix à GNU. Nous verrons s'il sera accepté !
 
