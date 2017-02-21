@@ -268,25 +268,25 @@ def sha1_custom(chunk, h0, h1, h2, h3, h4):
 
     for i in range(0, 80):
         if 0 <= i <= 19:
-            f = d ^ (b &#038; (c ^ d))
+            f = d ^ (b & (c ^ d))
             k = 0x5a827999
         elif 20 <= i <= 39:
             f = b ^ c ^ d
             k = 0x6ed9eba1
         elif 40 <= i <= 59:
-            f = (b &#038; c) | (b &#038; d) | (c &#038; d)
+            f = (b & c) | (b & d) | (c & d)
             k = 0x8f1bbcdc
         elif 60 <= i <= 79:
             f = b ^ c ^ d
             k = 0xca62c1d6
 
-        a, b, c, d, e = (rotate_left(a, 5) + f + e + k + words[i]) &#038; 0xffffffff, a, rotate_left(b, 30), c, d
+        a, b, c, d, e = (rotate_left(a, 5) + f + e + k + words[i]) & 0xffffffff, a, rotate_left(b, 30), c, d
 
-    h0 = (h0 + a) &#038; 0xffffffff
-    h1 = (h1 + b) &#038; 0xffffffff
-    h2 = (h2 + c) &#038; 0xffffffff
-    h3 = (h3 + d) &#038; 0xffffffff
-    h4 = (h4 + e) &#038; 0xffffffff
+    h0 = (h0 + a) & 0xffffffff
+    h1 = (h1 + b) & 0xffffffff
+    h2 = (h2 + c) & 0xffffffff
+    h3 = (h3 + d) & 0xffffffff
+    h4 = (h4 + e) & 0xffffffff
     return '%08x%08x%08x%08x%08x' % (h0, h1, h2, h3, h4)
 ```
 
