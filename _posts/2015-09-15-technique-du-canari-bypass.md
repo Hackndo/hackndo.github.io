@@ -24,7 +24,7 @@ Les figures suivantes illustrent les deux issues possibles.
 
 ## Exemple
 
-Nous allons voir ici un exemple de ce type de protection. Pour cela, nous allons reprendre le programme utilisé dans l'[article sur le buffer overflow](../buffer-overflow-stack-based/)
+Nous allons voir ici un exemple de ce type de protection. Pour cela, nous allons reprendre le programme utilisé dans l'[article sur le buffer overflow](../buffer-overflow/)
 
 {% highlight c %}
 #include <stdio.h>
