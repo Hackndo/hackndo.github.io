@@ -25,7 +25,7 @@ Cependant, si l'attaquant fourni une adresse mémoire soigneusement choisie pour
 
 ## Protections contre les BoF
 
-Dans l'[article sur les buffer overflows](http://blog.hackndo.com/buffer-overflow-stack-based/), nous avions placé notre code malveillant (shellcode) dans le buffer, qui se trouvait quelque part dans la pile. Nous aurions pu le placer à d'autres endroits (dans une variable d'environnement, par exemple, qui se trouve également sur la pile lors de l'exécution du programme), pourvu que nous puissions trouver son adresse mémoire.
+Dans l'[article sur les buffer overflows](../buffer-overflow-stack-based/), nous avions placé notre code malveillant (shellcode) dans le buffer, qui se trouvait quelque part dans la pile. Nous aurions pu le placer à d'autres endroits (dans une variable d'environnement, par exemple, qui se trouve également sur la pile lors de l'exécution du programme), pourvu que nous puissions trouver son adresse mémoire.
 
 Certaines protections existent pour se protéger des buffer overflows. Une des premières barrières a été de rendre la pile non exécutable. Ainsi, l'attaquant place son shellcode dans le buffer, ou dans une variable d'environnement (placée sur la pile), mais lorsque le flow d'exécution est redirigé vers son code, celui-ci ne s'exécute pas.
 
@@ -223,7 +223,7 @@ int main(int argc, char *argv[])
 {% endhighlight %}
 
 
-Ce code est le même que celui fourni en exemple dans le deuxième cas pratique de l'article sur les <a href="http://blog.hackndo.com/buffer-overflow-stack-based/">Buffer Overflows</a>. Voici le comportement attendu de ce programme :
+Ce code est le même que celui fourni en exemple dans le deuxième cas pratique de l'article sur les <a href="../buffer-overflow-stack-based/">Buffer Overflows</a>. Voici le comportement attendu de ce programme :
 
 
 {% highlight sh %}
