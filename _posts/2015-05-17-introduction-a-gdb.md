@@ -135,7 +135,7 @@ Quelques informations nécessaires lorsque vous avez chargé un binaire et que v
 
 ## Syntaxe
 
-Comme expliqué dans l'article sur les [notions de base d'assembleur](http://blog.hackndo.com/assembleur-notions-de-base/), il existe deux syntaxes pour lire de l'assembleur : AT&T et Intel. Pour passer de l'une à l'autre, voici comment faire :
+Comme expliqué dans l'article sur les [notions de base d'assembleur](./assembleur-notions-de-base/), il existe deux syntaxes pour lire de l'assembleur : AT&T et Intel. Pour passer de l'une à l'autre, voici comment faire :
 
 ### AT&T
 
