@@ -18,9 +18,9 @@ Cet article a pour but d'expliquer clairement ce qu'est le ROP ou Return Oriente
 
 ## Rappels
 
-Nous avons vu dans des précédants articles deux techniques d'exploitation suite à un buffer overflow. La première était une [introduction et exploitation simple des buffer overflow (stack-based)](http://blog.hackndo.com/buffer-overflow-stack-based/) lorsque nous n'avions aucune protection. La pile était exécutable et la distribution aléatoire de l'adressage (ASLR - _Address Space Layout Randomization_) n'était pas activée. Nous reviendrons sur ces protections dans la suite.
+Nous avons vu dans des précédants articles deux techniques d'exploitation suite à un buffer overflow. La première était une [introduction et exploitation simple des buffer overflow (stack-based)](../buffer-overflow/) lorsque nous n'avions aucune protection. La pile était exécutable et la distribution aléatoire de l'adressage (ASLR - _Address Space Layout Randomization_) n'était pas activée. Nous reviendrons sur ces protections dans la suite.
 
-Nous avons alors détaillé une technique pouvant être utilisée lorsque la pile n'était plus exécutable. Pour cela, vous pouvez lire l'article sur [le retour à la libc](http://blog.hackndo.com/retour-a-la-libc/), mais celui-ci ne fonctionne plus lorsque l'ASLR est activé.
+Nous avons alors détaillé une technique pouvant être utilisée lorsque la pile n'était plus exécutable. Pour cela, vous pouvez lire l'article sur [le retour à la libc](../retour-a-la-libc/), mais celui-ci ne fonctionne plus lorsque l'ASLR est activé.
 
 Cet article a alors pour but d'exposer une nouvelle technique d'exploitation, le ROP (_Return Oriented Programming_) qui permet malgré ces différentes protections de détourner de flux d'exécution d'un programme afin d'en prendre le contrôle.
 
@@ -28,7 +28,7 @@ Cet article a alors pour but d'exposer une nouvelle technique d'exploitation, le
 
 ### ASLR
 
-Lorsque vous exécutez un programme, les entêtes du binaires sont supposés donner l'emplacement des différents segments/sections. Ainsi, à chaque fois qu'on lance le binaire, les adresses ne varient pas. La pile commence toujours au même endroit, même chose pour le tas, ainsi que les segments du binaire (Mais si ! Vous savez, on a tout expliqué dans l'article sur [la gestion de la mémoire](http://blog.hackndo.com/gestion-de-la-memoire/)).
+Lorsque vous exécutez un programme, les entêtes du binaires sont supposés donner l'emplacement des différents segments/sections. Ainsi, à chaque fois qu'on lance le binaire, les adresses ne varient pas. La pile commence toujours au même endroit, même chose pour le tas, ainsi que les segments du binaire (Mais si ! Vous savez, on a tout expliqué dans l'article sur [la gestion de la mémoire](../gestion-de-la-memoire/)).
 
 Et bien l'ASLR est une protection dans le noyau qui va rendre certains espaces d'adressages aléatoires. Généralement, la pile, le tas et les bibliothèques sont impactées. Il n'est alors plus possible de retrouver à coup sûr l'adresse d'un shellcode placé sur la pile, ou l'adresse de la fonction `system` dans la libc. C'est bien ennuyant.
 
@@ -36,12 +36,12 @@ Mais ne vous inquiétez pas, ROP est là pour nous sauver.
 
 ### ROP - Return Oriented Programming
 
-Si vous aviez suivi l'article sur [le retour à la libc](http://blog.hackndo.com/retour-a-la-libc/), alors sachez que c'était une sorte d'introduction au ROP.
+Si vous aviez suivi l'article sur [le retour à la libc](../retour-a-la-libc/), alors sachez que c'était une sorte d'introduction au ROP.
 
 Nous sommes toujours dans le même contexte. Un binaire est vulnérable au buffer overflow. Cependant ce binaire possède les deux protections que nous avons évoquées
 
 * **NX** : C'est le nom répandu de la protection qui rend la pile **N**on e**X**écutable. Finis les shellcode sur la pile, que ce soit dans le buffer ou dans des variables d'environnement.
-* **ASLR** : En plus de ne plus être exécutable, la pile bouge d'une exécution à l'autre, tout comme le tas ou les librairies. Donc cette fois, nous ne pouvons plus trouver à coup sûr l'adresse de `system` comme nous l'avions fait dans l'article sur [le retour à la libc](http://blog.hackndo.com/retour-a-la-libc/).
+* **ASLR** : En plus de ne plus être exécutable, la pile bouge d'une exécution à l'autre, tout comme le tas ou les librairies. Donc cette fois, nous ne pouvons plus trouver à coup sûr l'adresse de `system` comme nous l'avions fait dans l'article sur [le retour à la libc](../retour-a-la-libc/).
 
 Pour pallier à ces deux protections, il faut alors trouver une technique d'exploitation qui n'exécute rien sur la pile, et qui utilise des informations qui ne bougent pas d'une exécution à l'autre. Pour cela, nous allons utiliser du code qui a déjà été créé. Et quoi de plus simple qu'utiliser le code du binaire que nous voulons exploiter ?
 

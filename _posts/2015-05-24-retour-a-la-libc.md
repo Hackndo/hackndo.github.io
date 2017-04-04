@@ -19,13 +19,13 @@ Bonjour, nous avons vu dans la série d'articles précédents comment fonctionna
 
 Pour rappel, le buffer overflow est une vulnérabilité présente lorsque le programmeur ne vérifie pas la taille d'une variable fournie par l'utilisateur, et qu'il stocke cette variable en mémoire. Il est alors possible pour l'attaquant d'entrer une valeur de taille supérieure à ce qui était prévu, et lorsque cette valeur (appelée _buffer_) est copiée en mémoire, elle dépasse de l'espace qui lui était alloué (dépassement de tampon).
 
-Cela peut engendrer une erreur de segmentation car ce dépassement va probablement écraser la sauvegarde du registre EIP (sauvegarde effectuée afin que lorsque la fonction en cours se termine, le processeur retrouve l'adresse de l'instruction suivant l'appel de cette fonction), donc comme EIP est partiellement ou totalement écrasé, les chances sont fortes pour que cette nouvelle valeur pointe soit vers une zone mémoire non autorisée en lecture, soit vers zone mémoire contenant des instructions non valides.
+Cela peut engendrer une erreur de segmentation car ce dépassement va probablement écraser la sauvegarde du registre EIP (sauvegarde effectuée afin que lorsque la fonction en cours se termine, le processeur retrouve l'adresse de l'instruction suivant l'appel de cette fonction), donc comme EIP est partiellement ou totalement écrasé, les chances sont fortes pour que cette nouvelle valeur pointe soit vers une zone mémoire non autorisée en lecture, soit vers une zone mémoire contenant des instructions non valides.
 
 Cependant, si l'attaquant fourni une adresse mémoire soigneusement choisie pour pointer vers un code malveillant (placé dans le buffer, dans nos exemples précédents, d'où le _stack based_), alors le flow d'exécution du programme peut être modifié, et l'attaquant peut faire ce qu'on appelle une **escalade de privilèges** (sous réserve que le programme en question appartenait à une utilisateur avec des droits plus élevés et que le programme était SUID, c'est à dire qu'il s'exécutait avec les droits du propriétaire de ce logiciel)
 
 ## Protections contre les BoF
 
-Dans l'[article sur les buffer overflows](http://blog.hackndo.com/buffer-overflow-stack-based/), nous avions placé notre code malveillant (shellcode) dans le buffer, qui se trouvait quelque part dans la pile. Nous aurions pu le placer à d'autres endroits (dans une variable d'environnement, par exemple, qui se trouve également sur la pile lors de l'exécution du programme), pourvu que nous puissions trouver son adresse mémoire.
+Dans l'[article sur les buffer overflows](../buffer-overflowd/), nous avions placé notre code malveillant (shellcode) dans le buffer, qui se trouvait quelque part dans la pile. Nous aurions pu le placer à d'autres endroits (dans une variable d'environnement, par exemple, qui se trouve également sur la pile lors de l'exécution du programme), pourvu que nous puissions trouver son adresse mémoire.
 
 Certaines protections existent pour se protéger des buffer overflows. Une des premières barrières a été de rendre la pile non exécutable. Ainsi, l'attaquant place son shellcode dans le buffer, ou dans une variable d'environnement (placée sur la pile), mais lorsque le flow d'exécution est redirigé vers son code, celui-ci ne s'exécute pas.
 
@@ -57,7 +57,7 @@ Cependant, comme nous ne pouvons plus exécuter le shellcode situé sur la pile,
 ### Organisation de la pile
 
 
-Pour cela, il bien comprendre <a href="{{site.baseurl}}fonctionnement-de-la-pile/">le fonctionnement de la pile</a> et la préparer soigneusement pour que l'appel soit fait correctement. Pour nous aider, nous allons étudier le comportement de la pile avec un programme de test :
+Pour cela, il faut bien comprendre <a href="{{site.baseurl}}fonctionnement-de-la-pile/">le fonctionnement de la pile</a> et la préparer soigneusement pour que l'appel soit fait correctement. Pour nous aider, nous allons étudier le comportement de la pile avec un programme de test :
 
 
 {% highlight c %}
@@ -223,7 +223,7 @@ int main(int argc, char *argv[])
 {% endhighlight %}
 
 
-Ce code est le même que celui fourni en exemple dans le deuxième cas pratique de l'article sur les <a href="http://blog.hackndo.com/buffer-overflow-stack-based/">Buffer Overflows</a>. Voici le comportement attendu de ce programme :
+Ce code est le même que celui fourni en exemple dans le deuxième cas pratique de l'article sur les <a href="../buffer-overflow/">Buffer Overflows</a>. Voici le comportement attendu de ce programme :
 
 
 {% highlight sh %}

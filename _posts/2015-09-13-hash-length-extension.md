@@ -53,7 +53,7 @@ sha1("MonS3cret" + "name=hackndo&admin=0") == "3e1dc496d50661d476139ee7e936d9b68
 L'url ressemblerait à :
 
 ```text
-http://blog.hackndo.com?name=hackndo&admin=0&check=3e1dc496d50661d476139ee7e936d9b6822f2f62
+http://beta.hackndo.com?name=hackndo&admin=0&check=3e1dc496d50661d476139ee7e936d9b6822f2f62
 ```
 
 L'utilisateur charge la page, le serveur reçoit tous les paramètres de l'URL précédant la variable _check_ (`name=hackndo&admin=0`), effectue un sha1 avec le secret en préfixe, et vérifie l'égalité avec le paramètre `check`. Comme tout est correct, il charge la page.
@@ -115,7 +115,7 @@ Nous avons maintenant tous les éléments en main pour passer au cas pratique ! 
 Pour rappel, nous avions une url qui ressemblait à
 
 ```text
-http://blog.hackndo.com?name=hackndo&admin=0&check=3e1dc496d50661d476139ee7e936d9b6822f2f62
+http://beta.hackndo.com?name=hackndo&admin=0&check=3e1dc496d50661d476139ee7e936d9b6822f2f62
 ```
 
 Et notre but va être d'ajouter à la suite de
