@@ -201,6 +201,7 @@ Pour pouvoir mettre la pile dans cet état, il faudra donc envoyer au programme 
 
 C'était un long préambule, mais il était nécessaire pour pouvoir bien comprendre les rouages de cette technique. Sans plus attendre, nous allons l'exploiter avec un exemple simple
 
+Je précise que j'ai fait [une vidéo](https://www.youtube.com/watch?v=M7NQfGobQNo) qui permet d'illustrer ce même exemple !
 
 {% highlight c %}
 #include <stdio.h>
