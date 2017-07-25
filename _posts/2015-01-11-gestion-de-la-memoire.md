@@ -6,6 +6,7 @@ layout: post
 permalink: /gestion-de-la-memoire/
 disqus_identifier: 0000-0000-0000-000F
 cover: assets/uploads/2015/01/hacking.jpg
+image: assets/uploads/2015/01/hacking.jpg
 tags:
   - tuto
   - userland

@@ -6,6 +6,7 @@ layout: post
 permalink: /libre-opensource-freeware/
 disqus_identifier: 0000-0000-0000-0010
 cover: assets/uploads/2014/07/lock.png
+image: assets/uploads/2014/07/lock.png
 tags:
   - other
 ---

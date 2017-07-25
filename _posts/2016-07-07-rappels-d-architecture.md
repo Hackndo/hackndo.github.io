@@ -6,6 +6,7 @@ layout: post
 permalink: /rappels-d-architecture/
 disqus_identifier: 0000-0000-0000-0015
 cover: assets/uploads/2016/07/kernel_3.jpg
+image: assets/uploads/2016/07/kernel_3.jpg
 tags:
   - kernelland
 ---

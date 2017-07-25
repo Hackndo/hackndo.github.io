@@ -6,6 +6,7 @@ layout: post
 permalink: /assembleur-notions-de-base/
 disqus_identifier: 0000-0000-0000-000A
 cover: assets/uploads/2015/04/BACKGROUND.jpg
+image: assets/uploads/2015/04/BACKGROUND.jpg
 tags:
   - tuto
 ---

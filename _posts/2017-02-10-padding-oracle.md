@@ -6,6 +6,7 @@ layout: post
 permalink: /padding-oracle/
 disqus_identifier: 0000-0000-0000-0018
 cover: assets/uploads/2017/02/sc1.png
+image: assets/uploads/2017/02/sc1.png
 tags:
   - crypto
   - tuto

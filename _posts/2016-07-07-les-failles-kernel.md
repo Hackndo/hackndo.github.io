@@ -6,6 +6,7 @@ layout: post
 permalink: /les-failles-kernel/
 disqus_identifier: 0000-0000-0000-0014
 cover: assets/uploads/2016/07/kernel_2.jpg
+image: assets/uploads/2016/07/kernel_2.jpg
 tags:
   - kernelland
 ---

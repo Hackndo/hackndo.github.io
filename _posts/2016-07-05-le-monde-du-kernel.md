@@ -6,6 +6,7 @@ layout: post
 permalink: /le-monde-du-kernel/
 disqus_identifier: 0000-0000-0000-0013
 cover: assets/uploads/2016/07/kernel_1.jpg
+image: assets/uploads/2016/07/kernel_1.jpg
 tags:
   - kernelland
 ---

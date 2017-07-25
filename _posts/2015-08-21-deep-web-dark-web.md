@@ -6,6 +6,7 @@ layout: post
 permalink: /deep-web-dark-web/
 disqus_identifier: 0000-0000-0000-0005
 cover: assets/uploads/2015/08/deepweb.jpg
+image: assets/uploads/2015/08/deepweb.jpg
 tags:
   - web
 ---

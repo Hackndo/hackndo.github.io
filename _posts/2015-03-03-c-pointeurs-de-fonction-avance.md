@@ -6,6 +6,7 @@ layout: post
 permalink: /c-pointeurs-de-fonction/
 disqus_identifier: 0000-0000-0000-000C
 cover: assets/uploads/2015/03/shellcode.jpg
+image: assets/uploads/2015/03/shellcode.jpg
 tags:
   - tuto
 ---
