@@ -18,11 +18,11 @@ Aujourd'hui, je vais tenter de rassembler tout ce que j'ai pu comprendre sur la 
 
 Les processus tournant sur une machine ont besoin de mémoire, et dans un ordinateur, la quantité de mémoire est limitée. Il faut donc que les processus aillent chercher de la mémoire disponible pour pouvoir travailler. Cependant, les processus tournent de nos jours dans des systèmes d'exploitation multi-tâches. Plusieurs processus s'exécutent en même temps. Que se passerait-il si deux processus voulaient accéder, au même instant, à la même zone mémoire ? Et surtout, si jamais un processus écrivait dans une zone mémoire, puis un autre processus écrasait cette même zone mémoire avec ses propres données, alors le processus A, le pauvre, pensera retrouver ses données, mais il trouvera en fait les données de B. Et là, c'est le drame ! Il faudrait alors que les processus communiquent en permanence entre eux pour savoir qui fait quoi, où et quand. Ce serait une vraie perte de temps et d'une complexité effroyable pour ce problème.
 
-[![img_54b50cc491e11]({{ site.baseurl }}assets/uploads/2015/01/img_54b50cc491e11.png)]({{ site.baseurl }}assets/uploads/2015/01/img_54b50cc491e11.png)
+[![img_54b50cc491e11](/assets/uploads/2015/01/img_54b50cc491e11.png)](/assets/uploads/2015/01/img_54b50cc491e11.png)
 
 C'est là qu'intervient la mémoire virtuelle : Les processus ne vont plus piocher directement dans la mémoire physique. On les met dans des bacs à sable (_sand box_), en leur allouant une plage de mémoire **virtuelle** (de 4Go pour les machines 32 bits), en leur faisant croire qu'ils sont les seuls à s'exécuter sur la machine. C'est alors que le kernel intervient, et effectue le lien entre les différentes plages de mémoires virtuelles et la mémoire réelle. Ceci est fait par le biais de tables de pages (_page tables_). Voici un schéma pour y voir plus clair :
 
-[![img_54b50ce3eda87]({{ site.baseurl }}assets/uploads/2015/01/img_54b50ce3eda87.png)]({{ site.baseurl }}assets/uploads/2015/01/img_54b50ce3eda87.png)
+[![img_54b50ce3eda87](/assets/uploads/2015/01/img_54b50ce3eda87.png)](/assets/uploads/2015/01/img_54b50ce3eda87.png)
 
 Le processus n'a alors plus à se soucier de l'implémentation de la mémoire. Toutes les opérations bas niveau sont gérées par le noyau de l'OS. C'est une sorte de couche d'abstraction qui simplifie la vie du processus.
 
@@ -43,7 +43,7 @@ Et les 2 zones mémoire suivantes :
   1. Tas (_heap_)
   2. Pile (_stack_)
 
-[![img_54b40db038230]({{ site.baseurl }}assets/uploads/2015/01/img_54b40db038230.png)]({{ site.baseurl }}assets/uploads/2015/01/img_54b40db038230.png)
+[![img_54b40db038230](/assets/uploads/2015/01/img_54b40db038230.png)](/assets/uploads/2015/01/img_54b40db038230.png)
 
 Chacune de ces zones représente une partie de la mémoire allouée au processus en question.
 
@@ -172,7 +172,7 @@ Vous avez donc j'espère une idée plus claire de la segmentation de la mémoire
 Les registres sont des emplacements mémoire qui sont à l'intérieur du processeur. Or dans un ordinateur, les emplacements mémoire les plus proches du processeur sont ceux à qui il est le plus rapide d'accéder, mais également les plus chers. Ainsi, plus on s'éloigne du processeur, plus les accès sont longs, mais les coûts sont faibles. Les registres sont les emplacements mémoire les plus proches (puisqu'ils sont internes au processeur), c'est alors la mémoire la plus rapide de l'ordinateur. Cette pyramide de la mémoire est représentée dans la figure suivante, qui oppose le coût de la mémoire à son temps d'accès par le processeur :
 
 
-[![img_54b3b77f84d31]({{ site.baseurl }}assets/uploads/2015/01/img_54b3b77f84d31.png)]({{ site.baseurl }}assets/uploads/2015/01/img_54b3b77f84d31.png)
+[![img_54b3b77f84d31](/assets/uploads/2015/01/img_54b3b77f84d31.png)](/assets/uploads/2015/01/img_54b3b77f84d31.png)
 
 
 Le processeur x86 32 bits possède (logiquement) 8 registres généraux (EAX, EBX, ECX, EDX, ESP, EBP, ESI, EDI)
@@ -189,4 +189,4 @@ Nous avons également deux autres registres, un peu plus spéciaux :
 * Le registre EIP est appelé **P**ointeur d'**I**nstruction. Il contient l'adresse de la prochaine instruction que le processeur doit exécuter.
 * Enfin, le registre EFLAGS qui, en réalité, contient des indicateurs, des interrupteurs, des drapeaux (_flags_) essentiellement utilisés pour des comparaisons, mais pas uniquement.
 
-Pour aller plus loin, vous pouvez lire l'article sur [le fonctionnement de la pile]({{ site.baseurl }}fonctionnement-de-la-pile).
+Pour aller plus loin, vous pouvez lire l'article sur [le fonctionnement de la pile](/fonctionnement-de-la-pile).

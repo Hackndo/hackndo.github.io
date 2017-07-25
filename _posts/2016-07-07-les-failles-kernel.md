@@ -10,7 +10,7 @@ tags:
   - kernelland
 ---
 
-Avec l'article d'introduction sur [le monde du kernel]({{ site.baseurl }}le-monde-du-kernel/), nous avons tous les éléments théoriques généraux qui permettent de comprendre pourquoi il est intéressant de trouver des failles dans le kernel.
+Avec l'article d'introduction sur [le monde du kernel](/le-monde-du-kernel/), nous avons tous les éléments théoriques généraux qui permettent de comprendre pourquoi il est intéressant de trouver des failles dans le kernel.
 
 Nous allons donc voir maintenant quelles sont ces failles. Non, nous n'allons pas encore mettre les mains dans le cambouis. Mais ce monde est tellement vaste qu'il est nécessaire d'avoir une vue globale avant de plonger la tête la première. Vous allez voir, ça reste quand même intéressant.
 
@@ -24,7 +24,7 @@ Un pointeur contient une adresse, et lorsqu'on veut récupérer ce qui se trouve
 
 Par exemple, un pointeur statique est initialisé à `NULL` en C, `NULL` étant égal à `0x00`. Si jamais aucune autre valeur n'est associée au pointeur, et qu'il est déréférencé, alors ça créera un problème car le processus ou le kernel essaiera d'accéder à l'adresse mémoire `0x00` mais il y a rarement quelquechose de mappé à cette endroit. Rarement... Mais comme c'est dans le User-Land, nous pouvons mapper cette zone mémoire et y écrire ce que nous voulons.
 
-[![dereferencement]({{ site.baseurl }}assets/uploads/2016/07/dereferencement.png)]({{ site.baseurl }}assets/uploads/2016/07/dereferencement.png)
+[![dereferencement](/assets/uploads/2016/07/dereferencement.png)](/assets/uploads/2016/07/dereferencement.png)
 
 De la même manière, si jamais la valeur d'un pointeur est écrasée, par exemple suite à un overflow, alors lors du déréférencement, au mieux si la zone mémoire est mappée, la valeur récupérée ne sera pas celle attendue et au pire il y aura un _panic_.
 
@@ -48,7 +48,7 @@ Le kernel a besoin de mémoire pour stocker différents objets. Par exemple, si 
 
 Si une page est remplie, une nouvelle page est demandée, et les infos de chaque page sont enregistrées, parfois au début ou à la fin de la page.
 
-[![heap_allocation]({{ site.baseurl }}assets/uploads/2016/07/heap_allocation.png)]({{ site.baseurl }}assets/uploads/2016/07/heap_allocation.png)
+[![heap_allocation](/assets/uploads/2016/07/heap_allocation.png)](/assets/uploads/2016/07/heap_allocation.png)
 
 Par ailleurs, sans rentrer dans les détails, on peut parfois prédire assez précisément l'ordre des chunks qui seront utilisés, donc on peut organiser l'ordre des objets que l'on utilise dans une page. C'est un vecteur d'attaque car avec des techniques d'overflow il est possible d'écrire sur des objets que l'on choisi, ou encore d'écrire sur les infos de la page mémoire utilisée.
 
@@ -125,4 +125,4 @@ Mais il arrive parfois que des morceaux de codes oublient de notifier le kernel 
 
 * * *
 
-Voilà, nous avons fait un passage sur les grands bugs rencontrés qui peuvent conduire à des exploitations du kernel. Mais alors, comment les exploiter ? Pour cela, nous avons besoin de quelques rappels nécessaires sur [l'architecture d'un ordinateur]({{ site.baseurl }}rappels-d-architecture)
+Voilà, nous avons fait un passage sur les grands bugs rencontrés qui peuvent conduire à des exploitations du kernel. Mais alors, comment les exploiter ? Pour cela, nous avons besoin de quelques rappels nécessaires sur [l'architecture d'un ordinateur](/rappels-d-architecture)

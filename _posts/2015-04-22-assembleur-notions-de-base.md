@@ -347,7 +347,7 @@ Supérieur (Greater)/ Inférieur (Lower)
 
 ### CALL adresse
 
-L'instruction `call` permet de faire appel au code d'une autre fonction située à un espace mémoire différent. L'adresse qui lui est passée en argument permet de trouver ce code. Cet appel est en fait un condensé de deux instructions. La première permet de sauvegarder l'instruction qui suit le call (pour le retour de la fonction, afin de reprendre le fil d'exécution du programme) et la deuxième permet d'effectivement sauter à la fonction recherchée. Comme nous l'avons vu dans un article précédent sur le [fonctionnement de la pile]({{ site.baseurl }}fonctionnement-de-la-pile/), le registre qui contient l'instruction suivante est `EIP`. Un call est donc finalement la suite de ces deux instructions :
+L'instruction `call` permet de faire appel au code d'une autre fonction située à un espace mémoire différent. L'adresse qui lui est passée en argument permet de trouver ce code. Cet appel est en fait un condensé de deux instructions. La première permet de sauvegarder l'instruction qui suit le call (pour le retour de la fonction, afin de reprendre le fil d'exécution du programme) et la deuxième permet d'effectivement sauter à la fonction recherchée. Comme nous l'avons vu dans un article précédent sur le [fonctionnement de la pile](/fonctionnement-de-la-pile/), le registre qui contient l'instruction suivante est `EIP`. Un call est donc finalement la suite de ces deux instructions :
 
 ```nasm
 PUSH EIP
@@ -411,7 +411,7 @@ La ligne `+0`
 push    ebp
 ```
 
-permet de pousser le registre `EBP` sur la pile. Pour rappel, `EBP` (Base Pointer) est le registre qui contient l'adresse du début du stackframe de la fonction courante. Comme nous entrons dans une fonction, il faut sauvegarder le début du stackframe de la fonction précédente, ce que fait cette ligne `+0`. Une fois ceci fait, il faut maintenant donner la valeur de notre nouvelle base de stackframe à `EBP`. Comme nous entrons à peine dans la fonction, nous n'avons encore rien empilé qui soit propre à la fonction, donc le sommet de la pile actuel correspond à la base du futur stackframe de la fonction main. Et où est contenue l'adresse du sommet de la pile ? Vous vous en souvenez, dans `ESP` (Stack Pointer ! Si ça vous est inconnu, je vous invite à relire l'article sur le [fonctionnement de la pile]({{ site.baseurl }}fonctionnement-de-la-pile/)). La ligne `+1` enregistre alors le contenu de `ESP` dans `EBP`
+permet de pousser le registre `EBP` sur la pile. Pour rappel, `EBP` (Base Pointer) est le registre qui contient l'adresse du début du stackframe de la fonction courante. Comme nous entrons dans une fonction, il faut sauvegarder le début du stackframe de la fonction précédente, ce que fait cette ligne `+0`. Une fois ceci fait, il faut maintenant donner la valeur de notre nouvelle base de stackframe à `EBP`. Comme nous entrons à peine dans la fonction, nous n'avons encore rien empilé qui soit propre à la fonction, donc le sommet de la pile actuel correspond à la base du futur stackframe de la fonction main. Et où est contenue l'adresse du sommet de la pile ? Vous vous en souvenez, dans `ESP` (Stack Pointer ! Si ça vous est inconnu, je vous invite à relire l'article sur le [fonctionnement de la pile](/fonctionnement-de-la-pile/)). La ligne `+1` enregistre alors le contenu de `ESP` dans `EBP`
 
 ```nasm
 mov    ebp,esp
@@ -440,7 +440,7 @@ Avec ces explications, que fait la ligne `+14` ?
 
 Elle met la valeur `0x28` (40 en décimal) à l'adresse contenue dans `ESP`, donc `0x28` est placé au sommet de la pile. Voici où nous en sommes :
 
-[![img_55382697a63ab]({{ site.baseurl }}assets/uploads/2015/04/img_55382697a63ab.png)]({{ site.baseurl }}assets/uploads/2015/04/img_55382697a63ab.png)
+[![img_55382697a63ab](/assets/uploads/2015/04/img_55382697a63ab.png)](/assets/uploads/2015/04/img_55382697a63ab.png)
 
 Mais pourquoi donc placer ces valeurs arbitrairement comme ça ? Pourquoi sur la pile ? Quelle utilité ? Regardons la ligne suivante :
 
@@ -481,7 +481,7 @@ Ce sont deux instructions `MOV` qui initialisent `eax` et `edx`. Si on regarde l
 
 Par ailleurs, le nom de la fonction étant `add`, il y a fort à parier que le but de cette fonction est d'additionner deux nombres. Bref, revenons-en à nos deux lignes : Nous avons déjà vu la syntaxe `DWORD PTR [ebp + 0xc]` dans la fonction `main`. Cela signifie que nous allons chercher à l'adresse `EBP + 0xc`, et nous allons prendre le `DWORD` (32 bits) qui se situe là bas. Qu'y a-t-il à `EBP + 0xc` ? Un petit schéma de l'état de la pile s'impose
 
-![stack]({{ site.baseurl }}assets/uploads/2015/04/img_553826170a520.png)
+![stack](/assets/uploads/2015/04/img_553826170a520.png)
 
 Avant l'appel de la fonction, les deux variables `0x2` et `0x28` ont été poussées sur la pile. Ensuite `EIP` a été poussé pendant le `call` et enfin `EBP`, ce qui explique le schéma précédent. Je vous rappelle que la pile part des adresses hautes et grandi en direction des adresses basses, mais qu'une variable en mémoire est lue dans le sens classique, donc des adresses basses vers les adresses hautes. La variable située à l'adresse `EBP - 0xc` a une taille de 4 octets. Ces 4 octets sont `EBP - 0xc + 0x0`, `EBP - 0xc + 0x1`, `EBP - 0xc + 0x2` et `EBP - 0xc + 0x3`. 
 

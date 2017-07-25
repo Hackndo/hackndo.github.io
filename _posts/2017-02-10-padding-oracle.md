@@ -144,7 +144,7 @@ Si vous avez bien compris ce principe, vous devriez vous demander ce qu'il se pa
 
 Et bien pour cela, un IV (**I**nitialization **V**ector) est défini, c'est à dire une chaine aléatoire choisie pour ce chiffrement d'une taille égale à la taille d'un bloc. Cet IV permet de simuler un bloc précédant. Vous obtenez alors le schéma suivant :
 
-[![Chiffrement CBC]({{ site.baseurl }}assets/uploads/2017/02/sc1.png)]({{ site.baseurl }}assets/uploads/2017/02/sc1.png)
+[![Chiffrement CBC](/assets/uploads/2017/02/sc1.png)](/assets/uploads/2017/02/sc1.png)
 
 En termes mathématiques, voici comment un chiffrement CBC fonctionne
 
@@ -180,7 +180,7 @@ Prenons un exemple théorique, une chaine de caractères qui, une fois paddée, 
 
 Nous avons donc le schéma suivant :
 
-[![notation plaintext vs chiffré]({{ site.baseurl }}assets/uploads/2017/02/sc2.png)]({{ site.baseurl }}assets/uploads/2017/02/sc2.png)
+[![notation plaintext vs chiffré](/assets/uploads/2017/02/sc2.png)](/assets/uploads/2017/02/sc2.png)
 
 Maintenant, prenons un nouveau bloc `X` totalement aléatoire. C'est un bloc que nous créons, que nous maitrisons, qu'on peut changer, frapper, manger. Prenons avec lui le dernier bloc chiffré de notre exemple, `C_5`, et concaténons les.
 
@@ -192,7 +192,7 @@ déchiffrement(X || C_5) = P'1 || P'2
 
 Nous avons alors le schéma suivant :
 
-[![notation pour la concaténation]({{ site.baseurl }}assets/uploads/2017/02/sc3.png)]({{ site.baseurl }}assets/uploads/2017/02/sc3.png)
+[![notation pour la concaténation](/assets/uploads/2017/02/sc3.png)](/assets/uploads/2017/02/sc3.png)
 
 Nous pouvons, à l'aide de ce que nous avons vu avant, écrire `P'2` de la manière suivante
 

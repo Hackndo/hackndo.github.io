@@ -24,7 +24,7 @@ Lorsque vous utilisez votre ordinateur tous les jours, en allant sur internet, e
 
 Le schéma suivant résume de manière très macro ce découpage.
 
-[![Screen-Shot-2016-06-14-at-23.20.15]({{ site.baseurl }}assets/uploads/2016/06/Screen-Shot-2016-06-14-at-23.20.15.png)]({{ site.baseurl }}assets/uploads/2016/06/Screen-Shot-2016-06-14-at-23.20.15.png)
+[![Screen-Shot-2016-06-14-at-23.20.15](/assets/uploads/2016/06/Screen-Shot-2016-06-14-at-23.20.15.png)](/assets/uploads/2016/06/Screen-Shot-2016-06-14-at-23.20.15.png)
 
 En général, le kernel est la partie qui comprend essentiellement ce qui est critique au bon fonctionnement de la machine comme l'accès au matériel, la gestion des ressources ou la sécurité. L'OS quant à lui regroupe le kernel et les programmes/bibliothèques qui sont au dessus, le _runtime_, comme la libc sous linux, le binaire _init_ etc.
 
@@ -49,9 +49,9 @@ Le kernel est responsable de l'ordonnancement (_scheduling_) des différentes t�
 
 Par ailleurs, pour passer d'un processus à l'autre, le kernel doit mémoriser des informations telles que les fichiers ouverts, les droits du processus, et quelles pages mémoires sont utilisées par celui-ci. Si nous trouvons où sont stockées ces infos et que nous les modifions, ça peut devenir intéressant.
 
-Ensuite, le kernel est responsable de la gestion de la mémoire virtuelle. L'article sur [la gestion de la mémoire]({{ site.baseurl }}gestion-de-la-memoire/) en parle rapidement, mais ajoutons ici quelques informations et termes. La mémoire physique est divisée en _frames_, et la mémoire virtuelle en _pages_. Lorsqu'un processus a besoin d'espace mémoire, il demande à la mémoire physique de lui allouer des _pages_. C'est la table de pages qui fait le lien entre les _pages_ et les _frames_, avec une table de pages par processus.
+Ensuite, le kernel est responsable de la gestion de la mémoire virtuelle. L'article sur [la gestion de la mémoire](/gestion-de-la-memoire/) en parle rapidement, mais ajoutons ici quelques informations et termes. La mémoire physique est divisée en _frames_, et la mémoire virtuelle en _pages_. Lorsqu'un processus a besoin d'espace mémoire, il demande à la mémoire physique de lui allouer des _pages_. C'est la table de pages qui fait le lien entre les _pages_ et les _frames_, avec une table de pages par processus.
 
-[![Screen-Shot-2016-07-05-at-20.56.49]({{ site.baseurl }}assets/uploads/2016/06/Screen-Shot-2016-07-05-at-20.56.49.png)]({{ site.baseurl }}assets/uploads/2016/06/Screen-Shot-2016-07-05-at-20.56.49.png)
+[![Screen-Shot-2016-07-05-at-20.56.49](/assets/uploads/2016/06/Screen-Shot-2016-07-05-at-20.56.49.png)](/assets/uploads/2016/06/Screen-Shot-2016-07-05-at-20.56.49.png)
 
 Oui, il y a beaucoup de flèches. L'idée, c'est de montrer qu'à gauche, côté mémoire virtuelle, nous avons les _pages_ qui trouvent leur emplacement grace aux tables de pages qui font la traduction avec la mémoire physique découpée en _frames_.
 
@@ -62,11 +62,11 @@ Deux implémentations existent pour la séparation des pages allouées entre ker
 
 Schématiquement, ça donne donc ceci :
 
-[![Screen-Shot-2016-06-14-at-23.30.17]({{ site.baseurl }}assets/uploads/2016/06/Screen-Shot-2016-06-14-at-23.30.17.png)]({{ site.baseurl }}assets/uploads/2016/06/Screen-Shot-2016-06-14-at-23.30.17.png)
+[![Screen-Shot-2016-06-14-at-23.30.17](/assets/uploads/2016/06/Screen-Shot-2016-06-14-at-23.30.17.png)](/assets/uploads/2016/06/Screen-Shot-2016-06-14-at-23.30.17.png)
 
 Mais si vous souhaitez un peu plus de détails, alors ça ressemble un peu plus à cela
 
-[![Screen-Shot-2016-07-05-at-22.39.32]({{ site.baseurl }}assets/uploads/2016/06/Screen-Shot-2016-07-05-at-22.39.32.png)]({{ site.baseurl }}assets/uploads/2016/06/Screen-Shot-2016-07-05-at-22.39.32.png)
+[![Screen-Shot-2016-07-05-at-22.39.32](/assets/uploads/2016/06/Screen-Shot-2016-07-05-at-22.39.32.png)](/assets/uploads/2016/06/Screen-Shot-2016-07-05-at-22.39.32.png)
 
 La première implémentation est la plus intéressante. En effet, le CPU peut avoir deux contextes d'exécution. 
 
@@ -74,10 +74,10 @@ Le premier contexte d'exécution, qui ne nous intéresse pas vraiment, est le mo
 
 Mais dans le deuxième, le contexte processus (_process context_), un processus est associé, appelé le _backing process_, ce qui signifie que quelque part dans le kernel se trouvent les infos du processus en cours, et ça c'est cool pour nous. Comme on controle le _backing process_, on contrôle le user-land. Et comme on est dans le cas où la plage mémoire est partagée avec le kernel-land, si on trouve une faille dans le kernel, on peut rediriger le flot d'exécution dans le user-land, qu'on contrôle. Parfait! Voici un petit schéma qui illustre ces propos :
 
-[![Screen-Shot-2016-07-05-at-21.28.07]({{ site.baseurl }}assets/uploads/2016/06/Screen-Shot-2016-07-05-at-21.28.07.png)]({{ site.baseurl }}assets/uploads/2016/06/Screen-Shot-2016-07-05-at-21.28.07.png)
+[![Screen-Shot-2016-07-05-at-21.28.07](/assets/uploads/2016/06/Screen-Shot-2016-07-05-at-21.28.07.png)](/assets/uploads/2016/06/Screen-Shot-2016-07-05-at-21.28.07.png)
 
 Comme la mémoire du kernel est répliquée pour tous les processus, on peut créer notre processus à nous. On peut alors exploiter la vulnérabilité dans le kernel qui nous permet de rediriger le flot d'exécution du kernel vers une partie de code qu'on a préparée. Il suffit alors que ce code change les infos de notre processus en cours pour lui donner des droits plus élevés, et le tour est joué.
 
 * * *
 
-Alors, prêts à plonger dans ce nouveau monde ? La suite avec [les failles kernel]({{ site.baseurl }}les-failles-kernel)
+Alors, prêts à plonger dans ce nouveau monde ? La suite avec [les failles kernel](/les-failles-kernel)

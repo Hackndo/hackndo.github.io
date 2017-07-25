@@ -26,11 +26,11 @@ Je vous propose alors de partir d'une vision large du sujet pour comprendre glob
 
 Cette technique est à la fois très simple à comprendre, relativement puissante mais assez compliquée à mettre en place sans se tromper (l'expérience parle). L'idée, c'est que l'algorithme de hachage sha1 fonctionne de la manière suivante : Lorsqu'on lui demande de hacher une chaîne de caractères, il découpe cette chaîne en blocs de taille fixe, 64 octets pour sha1. Une fois cette découpe faite, le dernier bloc doit être rempli pour faire également 64 octets. C'est l'algorithme de hachage qui s'en occupe, nous verrons les détails ensuite.
 
-[![Screenshot-2015-09-13-at-15.11.36]({{ site.baseurl }}assets/uploads/2015/09/Screenshot-2015-09-13-at-15.11.36.png)]({{ site.baseurl }}assets/uploads/2015/09/Screenshot-2015-09-13-at-15.11.36.png)
+[![Screenshot-2015-09-13-at-15.11.36](/assets/uploads/2015/09/Screenshot-2015-09-13-at-15.11.36.png)](/assets/uploads/2015/09/Screenshot-2015-09-13-at-15.11.36.png)
 
 Une fois ceci fait, il hache le premier bloc, puis **avec le résultat de cette empreinte, il hache le second bloc**, et ainsi de suite. La dernière empreinte trouvée est alors l'empreinte de la chaîne hachée. Le bloc **n** est donc haché avec la seule connaissance de l'empreinte du bloc **n-1**.
 
-[![Screenshot-2015-09-13-at-15.13.30]({{ site.baseurl }}assets/uploads/2015/09/Screenshot-2015-09-13-at-15.13.30.png)]({{ site.baseurl }}assets/uploads/2015/09/Screenshot-2015-09-13-at-15.13.30.png)
+[![Screenshot-2015-09-13-at-15.13.30](/assets/uploads/2015/09/Screenshot-2015-09-13-at-15.13.30.png)](/assets/uploads/2015/09/Screenshot-2015-09-13-at-15.13.30.png)
 
 Ainsi, il est très simple de comprendre que si nous avons haché une chaîne composée de 3 blocs, il est possible d'ajouter une information supplémentaire, **sans connaitre les résultats intermédiaires**. Pour cela, il suffit de prendre le résultat du hachage des 3 premiers blocs, ajouter un 4ème bloc, et calculer la nouvelle empreinte à partir de l'empreinte précédente, qui sera l'empreinte des 4 blocs.
 
@@ -58,7 +58,7 @@ http://beta.hackndo.com?name=hackndo&admin=0&check=3e1dc496d50661d476139ee7e936d
 
 L'utilisateur charge la page, le serveur reçoit tous les paramètres de l'URL précédant la variable _check_ (`name=hackndo&admin=0`), effectue un sha1 avec le secret en préfixe, et vérifie l'égalité avec le paramètre `check`. Comme tout est correct, il charge la page.
 
-[![Screenshot-2015-09-13-at-15.33.46]({{ site.baseurl }}assets/uploads/2015/09/Screenshot-2015-09-13-at-15.33.46.png)]({{ site.baseurl }}assets/uploads/2015/09/Screenshot-2015-09-13-at-15.33.46.png)
+[![Screenshot-2015-09-13-at-15.33.46](/assets/uploads/2015/09/Screenshot-2015-09-13-at-15.33.46.png)](/assets/uploads/2015/09/Screenshot-2015-09-13-at-15.33.46.png)
 
 Maintenant, l'utilisateur (qui a très envie de devenir administrateur !) change le paramètre `admin=0` en `admin=1`. Mais comme il ne connait pas la valeur du secret, il n'est pas en mesure de trouver la valeur de `check`. Le serveur reçoit à nouveau les paramètres, mais cette fois-ci il détectera que le sha1 des paramètres est différent du sha1 du `check` qu'il avait précédemment calculé. Il refusera donc de donner les informations.
 
@@ -70,7 +70,7 @@ Sachant que le dernier paramètre fait foi, nous serions administrateur, pourvu 
 
 &nbsp;
 
-[![Screenshot-2015-09-13-at-15.33.53]({{ site.baseurl }}assets/uploads/2015/09/Screenshot-2015-09-13-at-15.33.53.png)]({{ site.baseurl }}assets/uploads/2015/09/Screenshot-2015-09-13-at-15.33.53.png)La nouvelle empreinte ainsi calculée est parfaitement valide, et nous n'avons pas eu besoin d'utiliser la valeur secrète gardée par le serveur ! So far, so good.
+[![Screenshot-2015-09-13-at-15.33.53](/assets/uploads/2015/09/Screenshot-2015-09-13-at-15.33.53.png)](/assets/uploads/2015/09/Screenshot-2015-09-13-at-15.33.53.png)La nouvelle empreinte ainsi calculée est parfaitement valide, et nous n'avons pas eu besoin d'utiliser la valeur secrète gardée par le serveur ! So far, so good.
 
 Si vous avez suivi jusque là, c'est bien. Vous aurez remarqué cependant un petit détail : Le nouveau bloc de 64 octets est ajouté après le bloc précédent, donc après les informations originales, mais également après le padding normalement effectué par sha1. Ceci est nécessaire, et nous allons voir pourquoi avec une explication succincte du fonctionnement de sha1.
 
@@ -92,7 +92,7 @@ Le premier bloc est haché avec ces valeurs, ce qui fournit un sha1 intermédiai
 
 &nbsp;
 
-[![Screenshot-2015-09-13-at-15.13.30]({{ site.baseurl }}assets/uploads/2015/09/Screenshot-2015-09-13-at-15.13.30.png)]({{ site.baseurl }}assets/uploads/2015/09/Screenshot-2015-09-13-at-15.13.30.png)
+[![Screenshot-2015-09-13-at-15.13.30](/assets/uploads/2015/09/Screenshot-2015-09-13-at-15.13.30.png)](/assets/uploads/2015/09/Screenshot-2015-09-13-at-15.13.30.png)
 
 Vous devriez mieux le comprendre, à présent.
 
@@ -104,7 +104,7 @@ Voici ce qui se passe réellement, quand le dernier bloc est rempli pour faire 6
 
 La chaîne est reçue, et la première opération effectuée est qu'un bit égal à **1** est ajouté en fin de chaîne, puis une série de zéros, et enfin la taille totale de la chaîne **en bits** (sans le bit ajouté, et sans les zéros), et en **[big endian](https://fr.wikipedia.org/wiki/Endianness)**. Cette taille est enregistrée sur 8 octets. La série de zéros est de taille variable et permet de faire en sorte que le bloc fasse bien 64 octets.
 
-[![Screenshot-2015-09-13-at-16.01.46]({{ site.baseurl }}assets/uploads/2015/09/Screenshot-2015-09-13-at-16.01.46.png)]({{ site.baseurl }}assets/uploads/2015/09/Screenshot-2015-09-13-at-16.01.46.png)
+[![Screenshot-2015-09-13-at-16.01.46](/assets/uploads/2015/09/Screenshot-2015-09-13-at-16.01.46.png)](/assets/uploads/2015/09/Screenshot-2015-09-13-at-16.01.46.png)
 
 Ici la taille de notre chaîne est de 28 octets, donc 224 bits, donc 0xE0 bits.
 

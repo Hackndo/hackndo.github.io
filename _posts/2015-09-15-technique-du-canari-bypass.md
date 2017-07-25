@@ -17,9 +17,9 @@ Salut, aujourd'hui j'ai travaillé sur un binaire qui avait une technique qui p
 Les figures suivantes illustrent les deux issues possibles.
 
 
-![Canary ok]({{ site.baseurl }}assets/uploads/2015/09/canari_ok.png)
+![Canary ok](/assets/uploads/2015/09/canari_ok.png)
 
-![Canary ko]({{ site.baseurl }}assets/uploads/2015/09/canari_ko.png)
+![Canary ko](/assets/uploads/2015/09/canari_ko.png)
 
 
 ## Exemple
@@ -206,10 +206,10 @@ Pour des systèmes 32 bits, le canari a une taille de 4 octets, tandis que pour 
 
 Voici un schéma qui résume ce brute force pour un système 32 bits :
 
-![Bruteforce Canari]({{ site.baseurl }}assets/uploads/2015/09/bf_canari1.png)
+![Bruteforce Canari](/assets/uploads/2015/09/bf_canari1.png)
 
 Dans le premier dessin en haut à gauche, nous voyons le buffer qui s'arrête juste avant le canari, ce dernier ayant une valeur qui nous est encore inconnue. Nous ajoutons alors un octet au buffer `\x00` pour écraser le premier octet du canari. Mais comme ce n'est pas le bon octet, le programme se ferme. Nous essayons alors l'octet suivant `\x01` mais le programme se ferme à nouveau. Lorsque nous essayons `\xCA`, cette fois-ci tout va bien. Nous avons découvert le premier octet secret ! Nous passons alors au deuxième octet (deuxième colonne dans ce schéma), et ainsi de suite jusqu'à découvrir le Canari dans sa totalité !
 
-Une fois cette valeur découverte, il ne reste plus qu'à faire une exploitation de buffer overflow classique. Pour cela, je vous conseille de lire l'article sur [les buffer overflows]({{ site.baseurl }}buffer-overflow/) ou celui sur [le retour à la libc]({{ site.baseurl }}retour-a-la-libc/)
+Une fois cette valeur découverte, il ne reste plus qu'à faire une exploitation de buffer overflow classique. Pour cela, je vous conseille de lire l'article sur [les buffer overflows](/buffer-overflow/) ou celui sur [le retour à la libc](/retour-a-la-libc/)
 
 À vos claviers !

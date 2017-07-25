@@ -22,7 +22,7 @@ Tout d'abord, commençons par une petite illustration :
 
 Vous connaissez sans doute ce jeu :
 
-![enigme des points]({{ site.baseurl }}assets/uploads/2014/07/150px-9dots.svg_.png)
+![enigme des points](/assets/uploads/2014/07/150px-9dots.svg_.png)
 
 
 Le principe est de passer par tous les points, sans lever le crayon, avec un maximum de 4 segments. Essayez-donc !
@@ -74,4 +74,4 @@ Si je devais résumer le hacking, en une phrase, ce serait : _Think out of the
 
 PS : Voici la solution du problème posé au début de cet article. Vous aviez trouvé ? Félicitations !
 
-[![hacking_dots]({{ site.baseurl }}assets/uploads/2014/07/hacking_dots.png)]({{ site.baseurl }}assets/uploads/2014/07/hacking_dots.png)
+[![hacking_dots](/assets/uploads/2014/07/hacking_dots.png)](/assets/uploads/2014/07/hacking_dots.png)

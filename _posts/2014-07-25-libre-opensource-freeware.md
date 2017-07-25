@@ -16,7 +16,7 @@ Mais alors quelles sont les différences ? Tout ça, ça veut dire quoi, en fait
 
 <!--more-->
 
-![gpl]({{ site.baseurl }}assets/uploads/2014/07/gpl.png)
+![gpl](/assets/uploads/2014/07/gpl.png)
 
 Pas d'amalgame, pas de confusion, soyons clairs, soyons précis.
 
@@ -33,7 +33,7 @@ Il me semble important de remettre le cadre en place en introduisant la licence 
 
 L'unique (mais forte) contrainte étant que toute version modifiée d'un logiciel sous licence GPL doit également être sous licence GPL. C'est donc une réelle viralité qui en découle.
 
-![opensource]({{ site.baseurl }}assets/uploads/2014/07/opensource1.png)
+![opensource](/assets/uploads/2014/07/opensource1.png)
 
 Les quatre points de cette licence sont les quatre contraintes qui définissent le logiciel libre. Ils garantissent la **liberté de l'utilisateur**. Techniquement parlant, l'open source est similaire au logiciel libre puisqu'il répond également à ces quatre exigences. La différence est plus subtile :
 

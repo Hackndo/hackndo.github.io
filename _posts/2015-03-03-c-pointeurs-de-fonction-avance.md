@@ -19,7 +19,7 @@ Lorsqu'on compile un programme, le code est en fait transformé en instructions 
 
 Voici un schéma d'une portion du segment _text_ de la mémoire vive allouée à l'exécutable :
 
-[![img_54f50475e7615]({{ site.baseurl }}assets/uploads/2015/03/img_54f50475e7615.png)]({{ site.baseurl }}assets/uploads/2015/03/img_54f50475e7615.png)
+[![img_54f50475e7615](/assets/uploads/2015/03/img_54f50475e7615.png)](/assets/uploads/2015/03/img_54f50475e7615.png)
 
 Je disais donc qu'un pointeur pouvait contenir l'adresse d'une fonction. Comment déclare-t-on cela ?
 
@@ -30,7 +30,7 @@ int (*ptr)(float, int);
 En fait, cette déclaration est composée de trois partie. La première **int** signifie que la valeur de retour de la fonction qui sera pointée devra être de type int. Ensuite **ptr** est le nom du pointeur. Enfin **float, int** représente les types d'argument que doit prendre en paramètre la fonction qui sera pointée.
 
 
-[![img_54f577a2f3431]({{ site.baseurl }}assets/uploads/2015/03/img_54f577a2f3431.png)]({{ site.baseurl }}assets/uploads/2015/03/img_54f577a2f3431.png)
+[![img_54f577a2f3431](/assets/uploads/2015/03/img_54f577a2f3431.png)](/assets/uploads/2015/03/img_54f577a2f3431.png)
 
 
 Ainsi :

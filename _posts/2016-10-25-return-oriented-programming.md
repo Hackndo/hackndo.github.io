@@ -156,7 +156,7 @@ Revenons à notre buffer overflow. Nous avons réécrit la valeur de la sauvegar
 
 Nous allons donc rediriger le flux d'exécution vers la première instruction que nous souhaitons exécuter, qui est le `XOR EAX, EAX`. La pile ressemblera alors à ceci
 
-[![first_gadget]({{ site.baseurl }}assets/uploads/2016/10/first_gadget.png)]({{ site.baseurl }}assets/uploads/2016/10/first_gadget.png)
+[![first_gadget](/assets/uploads/2016/10/first_gadget.png)](/assets/uploads/2016/10/first_gadget.png)
 
 Le flux d'exécution va être redirigé vers les instructions
 
@@ -168,17 +168,17 @@ RET
 
 Une fois le `XOR` effectué, c'est l'instruction `RET` qui va être exécutée. Pour rappel, un `RET` n'est rien d'autre qu'un `POP EIP`. L'adresse sur le dessus de la pile va donc être mis dans le registre `EIP`. Comme l'adresse sur le dessus de la pile est juste après le sEIP que nous avons écrasé (et qui a déjà été `POP` par le `RET` de la fonction), il suffit de mettre l'adresse du deuxième gadget sur le sommet de la pile, comme suit :
 
-[![second_gadget]({{ site.baseurl }}assets/uploads/2016/10/second_gadget.png)]({{ site.baseurl }}assets/uploads/2016/10/second_gadget.png)
+[![second_gadget](/assets/uploads/2016/10/second_gadget.png)](/assets/uploads/2016/10/second_gadget.png)
 
 
 Suivi ensuite du gadget qui permet de faire le `POP EBX`. Cependant ce gadget a besoin d'une valeur spécifique sur la pile, puisque le gadget va "popper" une valeur pour la mettre dans `EBX`. Nous aurons alors la pile suivante
 
-[![third_gadget]({{ site.baseurl }}assets/uploads/2016/10/third_gadget.png)]({{ site.baseurl }}assets/uploads/2016/10/third_gadget.png)
+[![third_gadget](/assets/uploads/2016/10/third_gadget.png)](/assets/uploads/2016/10/third_gadget.png)
 
 
 Le `POP EBX` va alors retirer la valeur `0x00000003` de la pile. Tous nos registres sont prêts, il ne reste plus qu'à rediriger le flux vers l'instruction `int 0x80` qui effectue l'appel système
 
-[![fourth_gadget]({{ site.baseurl }}assets/uploads/2016/10/fourth_gadget.png)]({{ site.baseurl }}assets/uploads/2016/10/fourth_gadget.png)
+[![fourth_gadget](/assets/uploads/2016/10/fourth_gadget.png)](/assets/uploads/2016/10/fourth_gadget.png)
 
 
 En organisant la pile de cette manière, nous aurons nos gadgets qui vont s'enchaîner, remplir les registres tel que nous le shouaitons avant d'effectuer l'appel système qui nous intéresse.

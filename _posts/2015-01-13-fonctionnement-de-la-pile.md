@@ -10,7 +10,7 @@ tags:
   - tuto
   - userland
 ---
-La pile (dont on a parlé dans l'article sur la [gestion de la mémoire]({{ site.baseurl }}gestion-de-la-memoire/) a une structure **LIFO** (Last In, First Out).
+La pile (dont on a parlé dans l'article sur la [gestion de la mémoire](/gestion-de-la-memoire/) a une structure **LIFO** (Last In, First Out).
 
 <!--more-->
 
@@ -21,25 +21,25 @@ Cela veut dire que le dernier élément qui est placé sur la pile sera le premi
 
 Contrairement à la pile d'assiette, la stack empile ses éléments vers le bas. Donc ce qu'on appelle le haut de la stack, c'est finalement l'adresse la plus basse de la stack. **Plus on empile des valeurs dans la stack, plus les adresses diminuent**. C'est déroutant, mais on s'y fait rapidement !
 
-![img]({{ site.baseurl }}assets/uploads/2015/03/img_54f6e3d3da5b8.png?w=640" alt="" data-recalc-dims="1)
+![img](/assets/uploads/2015/03/img_54f6e3d3da5b8.png?w=640" alt="" data-recalc-dims="1)
 
 ## Stackframe
 
 Cette structure LIFO est finalement extrêmement utile. En effet, lors de l'appel d'une fonction, toutes les données nécessaires pour l'exécution de la fonction, ainsi que pour le retour à l'état initial sont empilées. Une fois la fonction terminée, il faut donc retourner à la ligne suivant son appel, et ceci se fait en dépilant tout ce qui a été précédemment empilé, laissant intact le reste de la pile et les autres éventuelles stack frames. Voici un schéma qui tente de résumer mes propos :
 
-[![img_54b4159f5c27f]({{ site.baseurl }}assets/uploads/2015/01/img_54b4159f5c27f.png)]({{ site.baseurl }}assets/uploads/2015/01/img_54b4159f5c27f.png)
+[![img_54b4159f5c27f](/assets/uploads/2015/01/img_54b4159f5c27f.png)](/assets/uploads/2015/01/img_54b4159f5c27f.png)
 
-Nous avons vu dans un article sur la [gestion de la mémoire]({{ site.baseurl }}gestion-de-la-memoire/) ce qu'étaient les stack frame (vous savez, ces informations stockées sur la pile lors de l'appel d'une fonction pour enregistrer le contexte d'exécution ainsi que les variables passées à la fonction). Et bien le registre `ESP` garde en mémoire l'adresse du haut de la pile (donc l'adresse la plus basse, puisque plus la pile grandit, plus les nouvelles adresses sont basses). Il est donc mis à jour à chaque modification de la pile (ajout d'une valeur ou suppression de la dernière valeur). Le registre `EBP` garde en mémoire l'adresse du début de la stack frame. Ainsi, la stack frame courante se situe entre l'adresse contenue dans `EBP` et l'adresse contenue dans `ESP`.
+Nous avons vu dans un article sur la [gestion de la mémoire](/gestion-de-la-memoire/) ce qu'étaient les stack frame (vous savez, ces informations stockées sur la pile lors de l'appel d'une fonction pour enregistrer le contexte d'exécution ainsi que les variables passées à la fonction). Et bien le registre `ESP` garde en mémoire l'adresse du haut de la pile (donc l'adresse la plus basse, puisque plus la pile grandit, plus les nouvelles adresses sont basses). Il est donc mis à jour à chaque modification de la pile (ajout d'une valeur ou suppression de la dernière valeur). Le registre `EBP` garde en mémoire l'adresse du début de la stack frame. Ainsi, la stack frame courante se situe entre l'adresse contenue dans `EBP` et l'adresse contenue dans `ESP`.
 
 Voici un schéma qui illustre le rôle des registres `EBP` et `ESP` :
 
-![img]({{ site.baseurl }}assets/uploads/2015/01/LIFO_EBP_ESP.jpg)
+![img](/assets/uploads/2015/01/LIFO_EBP_ESP.jpg)
 
 Ce que nous venons de voir est vrai tant qu'on reste dans la même stack frame. Cependant, que se passe-t-il lorsqu'il y a un appel à une nouvelle fonction ? Une fois cette nouvelle fonction terminée, comment le processeur revient-il à l'état précédent ? C'est ce que nous allons voir tout de suite.
 
 ## Prologue - Épilogue
 
-_Pour être en mesure de bien comprendre la suite de cet article, des notions de base d'assembleur sont utiles. Même s'il est possible de suivre sans aucune connaissance, il est fortement conseillé de lire l'article [Notions de base sur l'assembleur]({{ site.baseurl }}assembleur-notions-de-base/) qui vous donnera les bases nécessaires pour une meilleure compréhension._
+_Pour être en mesure de bien comprendre la suite de cet article, des notions de base d'assembleur sont utiles. Même s'il est possible de suivre sans aucune connaissance, il est fortement conseillé de lire l'article [Notions de base sur l'assembleur](/assembleur-notions-de-base/) qui vous donnera les bases nécessaires pour une meilleure compréhension._
 
 Considérons le programme fonction.c suivant :
 
@@ -82,7 +82,7 @@ Si vous n'avez pas eu le temps de regarder l'article sur les notions de base d'a
 
 La commande `gcc` (**G**NU **C**ompiler **C**ollection) est une commande sous Linux qui permettait de compiler des programmes écrits en C historiquement, mais qui maintenant permet de compiler des programmes dans différents langages (C, C++, Java...).
 
-**gdb** (**G**NU Project **D**e**b**ugger) est un debugger puissant, totalement en ligne de commande. Il permet, entre autre, de désassembler un programme, de le lancer, de le mettre en pause pendant son exécution, de lire la mémoire, la modifier pendant l'exécution et j'en passe. Vous pouvez également lire l'article [Introduction à GDB]({{ site.baseurl }}introduction-a-gdb/) pour mieux comprendre son fonctionnement.
+**gdb** (**G**NU Project **D**e**b**ugger) est un debugger puissant, totalement en ligne de commande. Il permet, entre autre, de désassembler un programme, de le lancer, de le mettre en pause pendant son exécution, de lire la mémoire, la modifier pendant l'exécution et j'en passe. Vous pouvez également lire l'article [Introduction à GDB](/introduction-a-gdb/) pour mieux comprendre son fonctionnement.
 
 **Astuce**: Lorsque nous sommes dans une session gdb, il est possible de lui passer un grand nombre de commandes. Comme certaines d'entre elles peuvent avoir des noms très longs, ou peuvent être appelées extrêmement souvent, certaines abréviations peuvent être utilisées. Par exemple, la commande permettant d'avoir des informations sur les registres est **info registers** mais elle peut être lancée en utilisant la simple commande **i r**.
 
@@ -104,7 +104,7 @@ Le registre ESP pointe vers le "haut" de la pile, donc vers l'adresse `0xbffffc9
 
 La pile est donc dans l'état suivant :
 
-[![img_54f6274496d0a]({{ site.baseurl }}assets/uploads/2015/03/img_54f6274496d0a.png)]({{ site.baseurl }}assets/uploads/2015/03/img_54f6274496d0a.png)
+[![img_54f6274496d0a](/assets/uploads/2015/03/img_54f6274496d0a.png)](/assets/uploads/2015/03/img_54f6274496d0a.png)
 
 Les arguments sont donc enregistrés sur la pile. Mais une fois que le programme rentre dans la fonction, il va devoir se souvenir d'où il vient. Et pour cela, il va falloir qu'il enregistre le registre `EIP` (c'est le registre qui a en mémoire l'adresse de l'instruction courante). On ne voit cependant pas d'instruction `PUSH EIP` dans le code, tout simplement pour la raison suivante (qu'il est impératif de retenir)
 
@@ -123,7 +123,7 @@ On voit arriver l'adresse `0x080483c7` en haut de la pile.  Vous remarquez ce q
         
 Avec cette sauvegarde de l'EIP, nous avons donc une représentation de la pile comme suit :
         
-[![img_54f6289eaa721]({{ site.baseurl }}assets/uploads/2015/03/img_54f6289eaa721.png)]({{ site.baseurl }}assets/uploads/2015/03/img_54f6289eaa721.png)
+[![img_54f6289eaa721](/assets/uploads/2015/03/img_54f6289eaa721.png)](/assets/uploads/2015/03/img_54f6289eaa721.png)
         
 Voilà, nous avons fait le `jump`. Nous sommes à la première instruction de la fonction `reponse()`
 
@@ -200,16 +200,16 @@ esp            0xbffffc94    0xbffffc94
     
 Reprenons ce code pas à pas : Nous sommes au début des instructions de la fonction, près à exécuter le `push ebp`. On voit que `EBP` contient l'adresse `0xbffffcb8` et esp contient `0xbffffc98`. On retrouve bien le `ESP` qu'on avait représenté sur le dernier schéma. Ensuite, nous avançons de deux instructions. On regarde alors `EBP` et `ESP`. Ils sont bien égaux, comme prévus. On a poussé l'ancienne valeur de `EBP` sur la pile, ce qui a décalé de le haut de la pile de 4 octets. Le haut de la pile vaut donc `0xbffffc98 - 4` donc `0xbffffc94`. Ensuite, on affecte `ESP` à `EBP`. `ESP` valant maintenant `0xbffffc94`, `EBP` prend la même valeur, comme le montre la dernière commande de cette séquence. Voici un dernier schéma qui représente l'état actuel de la pile :
 
-[![img_54f6c6cbaed67]({{ site.baseurl }}assets/uploads/2015/03/img_54f6c6cbaed67.png)]({{ site.baseurl }}assets/uploads/2015/03/img_54f6c6cbaed67.png)
+[![img_54f6c6cbaed67](/assets/uploads/2015/03/img_54f6c6cbaed67.png)](/assets/uploads/2015/03/img_54f6c6cbaed67.png)
 
 Voilà pour l'explication de ces lignes dans gdb. Ensuite nous avons quelques instructions qui permettent d'effectuer le calcul demandé, puis nous arrivons aux deux dernières lignes, qui sont `pop ebp` et `ret`.
 
 La première va permettre de replacer le pointeur `EBP` sur le début de la stack frame de la fonction appelante, tandis que le deuxième permet de `POP EIP` (donc renvoyer la sauvegarde de `EIP` dans le registre `EIP`) pour reprendre le cours de l'instruction qui était à la suite de l'appel de fonction. Cette routine peut se résumer très sommairement au schéma suivant :
 
-[![img_54f62a66a6700]({{ site.baseurl }}assets/uploads/2015/03/img_54f62a66a6700.png)]({{ site.baseurl }}assets/uploads/2015/03/img_54f62a66a6700.png)
+[![img_54f62a66a6700](/assets/uploads/2015/03/img_54f62a66a6700.png)](/assets/uploads/2015/03/img_54f62a66a6700.png)
     
 Le programme est lu instruction par instruction (**1**). Lors d'un `call` (**2**), on empile l'instruction en cours (`EIP` est pushée sur la pile), puis on saute à l'adresse donnée par le `call`. Ici, les instructions de la fonction sont exécutées les unes à la suite des autres jusqu'au `RET` (**3**) qui va récupérer la valeur de `EIP` enregistrée précédemment, afin de revenir à là où le programme en était (**4**), sans perdre le fil !
         
 Magique, non ?
         
-Avec cette compréhension un peu plus détaillée, vous êtes à même de comprendre le concept du buffer overflow, expliqué dans l'article [Buffer Overflow]({{ site.baseurl }}buffer-overflow/)
+Avec cette compréhension un peu plus détaillée, vous êtes à même de comprendre le concept du buffer overflow, expliqué dans l'article [Buffer Overflow](/buffer-overflow/)
