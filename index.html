@@ -16,7 +16,7 @@ title: Home
 
     <div class="post-info">
       <p class="alignleft"><span class="google-icon-date">{{ post.date | date_to_string }}</span> <a class="post-comments-count" href="{{ site.url }}{{ post.url }}#disqus_thread" data-disqus-identifier="{{ post.disqus_identifier }}"></a></p>
-      <p class="alignright">Auteur : <strong>{{ post.author }}</strong></p>
+      <p class="alignright">Auteur : <strong><a href="https://twitter.com/intent/user?screen_name=hackanddo">{{ post.author }}</a></strong></p>
     </div>
 
     {{ post.excerpt }}
