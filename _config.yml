@@ -8,7 +8,7 @@
 # Site settings
 title: hackndo
 email: hackndo@gmail.com
-description: Ce blog francophone est dédié à la sécurité informatique. Tuto sur le fonctionnement de la pile, les buffer overflow, différents sujets sont abordés de manière théorique avec des exemples concrets.
+description: Ce blog est dédié à la sécurité informatique. Tutos sur le fonctionnement de la pile, les buffers overflow, on explique tout avec des exemples concrets.
 tagline: Think out of the box
 baseurl: "/" # the subpath of your site, e.g. /blog
 root: /
