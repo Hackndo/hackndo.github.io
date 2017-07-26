@@ -11,7 +11,7 @@ tags:
   - kernelland
 ---
 
-Bonjour à tous. Aujourd'hui, je commence une série d'articles qui va concerner le monde du kernel. Je signale maintenant que le livre [A guide to kernel exploitation - Exploiting the core](https://github.com/isislovecruft/library/raw/master/computer%20science%20theory/exploit%20development/A%20Guide%20to%20Kernel%20Exploitation%20Attacking%20the%20Core%20(2011).pdf) est la source principale de cette série.
+Bonjour à tous. Aujourd'hui, je commence une série d'articles qui va concerner le monde du kernel. Je signale maintenant que le livre "A guide to kernel exploitation - Exploiting the core" est la source principale de cette série.
 
 Je l'ai lu en long, large et travers, mais il est en anglais et relativement long, donc je tente ici d'en faire une synthèse claire et digérable en français pour en faire profiter le plus de monde. J'espère qu'à la suite de cette lecture, vous aurez une compréhension suffisamment globale et profonde des rouages du kernel pour passer la barrière du copier/coller lors de lectures de tutoriaux pratiques.
 
