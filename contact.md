@@ -18,4 +18,4 @@ Ou me trouver sur IRC sur le channel de [newbiecontest](http://newbiecontest.org
 **Channel** | #newbiecontest
 **Pseudo**  | Pixis
 <script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
-<div class="LI-profile-badge"  data-version="v1" data-size="medium" data-locale="fr_FR" data-type="vertical" data-theme="dark" data-vanity="romainbentz"><a class="LI-simple-link" href='https://fr.linkedin.com/in/romainbentz?trk=profile-badge'>Romain Bentz</a></div>
+<div class="LI-profile-badge"  data-version="v1" data-size="medium" data-locale="fr_FR" data-type="vertical" data-theme="dark" data-vanity="romainbentz"><a class="LI-simple-link" href='https://fr.linkedin.com/in/romainbentz?trk=profile-badge'>Mon LinkedIn</a></div>
