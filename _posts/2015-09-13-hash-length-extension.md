@@ -191,7 +191,7 @@ Enfin, les 8 derniers octets
 00 00 00 00 00 00 00 E8
 ```
 
-sont utilisés pour la taille du message original en bits, en big endian (29 octets, 252 bits, donc 0xE8 bits).
+sont utilisés pour la taille du message original en bits, en big endian (29 octets, 232 bits, donc 0xE8 bits).
 
 ## Comment le reproduire ?
 
