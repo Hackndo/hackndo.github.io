@@ -30,7 +30,7 @@ Voici un exemple très simple : L'utilisateur peut uploader une image sur un sit
 ```
 
 Cependant, imaginons alors que l'utilisateur choisisse comme description `Une image" /><script>alert('hackndo');</script><p class="`
-Dans ce cas, nous aurrons comme code html dans notre page
+Dans ce cas, nous aurons comme code html dans notre page
 
 ```html
 <img src="./chat.jpg" title="Une image" /><script>alert('hackndo');</script><p class="" />
