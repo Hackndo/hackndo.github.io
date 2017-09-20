@@ -21,7 +21,7 @@ Pour comprendre le principe de l'attaque XSS, je rappelle que la grande majorit�
 
 ## Premiers pas
 
-L'attaque XSS repose sur ces problématiques. Elles sont possibles lorsqu'une valeur qui peut être contrôlée par l'utilisateur est injectée dans une page web sans suffisamment de contrôl, et que cette valeur peut être du code html/javascript valide, qui sera alors interprété par le navigateur.
+L'attaque XSS repose sur ces problématiques. Elle est possible lorsqu'une valeur qui peut être contrôlée par l'utilisateur est injectée dans une page web sans suffisamment de contrôls, et que cette valeur peut être du code html/javascript valide, qui sera alors interprété par le navigateur.
 
 Voici un exemple très simple : L'utilisateur peut uploader une image sur un site, et remplir un champ de description. S'il upload l'image `chat.jpg` et qu'il met en description `Une image de mon chat`, nous afficherons (par exemple) sur le site le code html suivant :
 
