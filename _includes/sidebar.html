@@ -10,19 +10,27 @@
       <p class="lead">{{ site.tagline }}</p>
     </div>
 
-    <nav class="sidebar-nav">
-      <a class="sidebar-nav-item{% if page.url == site.baseurl %} active{% endif %}" href="/">Home</a>
+    <div class="sidebar-section">
+        <p>Menu</p>
+        <nav class="sidebar-nav">
+          <a class="sidebar-nav-item{% if page.url == site.baseurl %} active{% endif %}" href="/">Home</a>
+    
+          {% assign pages_list = site.pages %}
+          {% for node in pages_list %}
+            {% if node.title != null %}
+              {% if node.layout == "page" or node.layout == "archive" %}
+                <a class="sidebar-nav-item{% if page.url == node.url %} active{% endif %}" href="{{ node.url }}">{{ node.title }}</a>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          <a class="sidebar-nav-item" href="/feed.xml">RSS</a>
+        </nav>
+    </div>
 
-      {% assign pages_list = site.pages %}
-      {% for node in pages_list %}
-        {% if node.title != null %}
-          {% if node.layout == "page" or node.layout == "archive" %}
-            <a class="sidebar-nav-item{% if page.url == node.url %} active{% endif %}" href="{{ node.url }}">{{ node.title }}</a>
-          {% endif %}
-        {% endif %}
-      {% endfor %}
-      <a class="sidebar-nav-item" href="/feed.xml">RSS</a>
-    </nav>
+    <div class="sidebar-section">
+        <p>Liens</p>
+        <a href="https://www.dailysecurity.fr/">Blog de Geluchat</a>
+    </div>
 
     <p>&copy; {{ site.time | date: '%Y' }}. Tous droits réservés.</p>
   </div>
