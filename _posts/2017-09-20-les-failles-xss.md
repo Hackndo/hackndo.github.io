@@ -11,7 +11,7 @@ tags:
   - web
 ---
 
-Dans cet article, nous allons parler de l'attaque XSS (Cross Site Scripting) en expliquant leur fonctionnement, et en quoi elles peuvent être réellement dangereuses. Pour cela, nous allons expliquer de manière très simple comment cette attaque fonctionne, puis nous ferons un exemple complet, concret, permettant de prendre la main sur la machine d'une victime.
+Dans cet article, nous allons parler de l'attaque XSS (Cross Site Scripting) en expliquant son fonctionnement, et en quoi elle peut être réellement dangereuse. Pour cela, nous allons expliquer de manière très simple comment cette attaque fonctionne, puis nous ferons un exemple complet, concret, permettant de prendre la main sur la machine d'une victime.
 
 <!--more-->
 
