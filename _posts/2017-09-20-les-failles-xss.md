@@ -1,5 +1,5 @@
 ---
-title: "La faille XSS"
+title: "L'attaque XSS"
 date: 2017-09-19  15:36:12
 author: "Pixis"
 layout: post
@@ -11,17 +11,17 @@ tags:
   - web
 ---
 
-Dans cet article, nous allons parler des failles XSS (Cross Site Scripting) en expliquant leur fonctionnement, et en quoi elles peuvent être réellement dangereuses. Pour cela, nous allons expliquer de manière très simple comment cette vulnérabilité fonctionne, puis nous ferons un exemple complet, concret, permettant de prendre la main sur la machine d'une victime.
+Dans cet article, nous allons parler de l'attaque XSS (Cross Site Scripting) en expliquant leur fonctionnement, et en quoi elles peuvent être réellement dangereuses. Pour cela, nous allons expliquer de manière très simple comment cette attaque fonctionne, puis nous ferons un exemple complet, concret, permettant de prendre la main sur la machine d'une victime.
 
 <!--more-->
 
 ## Introduction
 
-Pour comprendre le principe de la faille XSS, je rappelle que la grande majorité des failles informatiques sont dûes à une utilisation non prévue d'une application, d'un exécutable ou toute autre entité. Quand l'utilisateur envoie une information plus longue que prévue (buffer overflow), ou une valeur non gérée (négative, quand on attend une valeur positive), ou quand il ajoute des symboles non attendus (des guillemets, des cheverons quand on attendait seulement des lettres), si les contrôls ne sont pas soigneusements fait, alors le programme ou l'application peut être détournée.
+Pour comprendre le principe de l'attaque XSS, je rappelle que la grande majorité des failles informatiques sont dûes à une utilisation non prévue d'une application, d'un exécutable ou toute autre entité. Quand l'utilisateur envoie une information plus longue que prévue (buffer overflow), ou une valeur non gérée (négative, quand on attend une valeur positive), ou quand il ajoute des symboles non attendus (des guillemets, des cheverons quand on attendait seulement des lettres), si les contrôls ne sont pas soigneusements fait, alors le programme ou l'application peut être détournée.
 
 ## Premiers pas
 
-Les failles XSS sont exactement sujettes à ce type de problèmes. Elles sont présentes lorsqu'une valeur qui peut être contrôlée par l'utilisateur est injectée dans une page web sans suffisamment de contrôl, et que cette valeur peut être du code html/javascript valide, qui sera alors interprété par le navigateur.
+L'attaque XSS repose sur ces problématiques. Elles sont possibles lorsqu'une valeur qui peut être contrôlée par l'utilisateur est injectée dans une page web sans suffisamment de contrôl, et que cette valeur peut être du code html/javascript valide, qui sera alors interprété par le navigateur.
 
 Voici un exemple très simple : L'utilisateur peut uploader une image sur un site, et remplir un champ de description. S'il upload l'image `chat.jpg` et qu'il met en description `Une image de mon chat`, nous afficherons (par exemple) sur le site le code html suivant :
 
@@ -38,9 +38,9 @@ Dans ce cas, nous aurons comme code html dans notre page
 
 Ce code html est valide et exécute du javascript au sein du navigateur de l'utilisateur alors que ce n'était pas voulu par le développeur à l'origine.
 
-Il suffit alors d'envoyer la page contenant l'image à une autre personne pour exécuter du javascript dans le navigateur de l'autre utilisateur. Comme le code injecté est enregistré par le serveur, et qu'il ne disparait pas au rafraichissement de la page, on appelle cela une faille XSS persistante.
+Il suffit alors d'envoyer la page contenant l'image à une autre personne pour exécuter du javascript dans le navigateur de l'autre utilisateur. Comme le code injecté est enregistré par le serveur, et qu'il ne disparait pas au rafraichissement de la page, on appelle cela une attaque XSS persistante.
 
-Lorsque le code injecté n'est pas persistant, alors c'est une faille XSS non persistante. C'est par exemple le cas dans un formulaire de recherche, et que le contenu de la recherche est affiché à l'écran
+Lorsque le code injecté n'est pas persistant, alors c'est une attaque XSS non persistante. C'est par exemple le cas dans un formulaire de recherche, et que le contenu de la recherche est affiché à l'écran
 
 ```html
 <p>L'utilisateur Pixis n'existe pas.</p>
@@ -107,24 +107,24 @@ Lorsque la victime accède à la page piégée, alors elle sera redirigée vers 
 
 ## Allons plus loin
 
-Quand beaucoup de sites s'arrêtent ici pour l'explication des failles XSS, nous allons voir comment une personne mal intentionnée prendre le contrôl total de la machine de la victime à l'aide d'une faille XSS et d'un peu de social engineering.
+Quand beaucoup de sites s'arrêtent ici pour l'explication des attaques XSS, nous allons voir comment une personne mal intentionnée prendre le contrôl total de la machine de la victime à l'aide d'une faille permettant cette attaque et d'un peu de social engineering.
 
 Voici l'environnement de test que j'ai mis en place pour cet exemple
 
 [![configuration](/assets/uploads/2017/09/configuration.png)](/assets/uploads/2017/09/configuration.png)
 
-Un attaquant a trouvé une vulnérabilité XSS persistante sur un site internet, et il va piéger un utilisateur.
+Un attaquant a trouvé une vulnérabilité permettant une attaque XSS persistante sur un site internet, et il va piéger un utilisateur.
 
 Une petite application web (pas sécurisée du tout !) a été créée pour illustrer cette démonstration. C'est une application de galerie d'images qui permet d'envoyer sur le serveur une image avec une description, et cette image est ensuite affichée pour tous les utilisateurs, avec une bulle d'info qui dévoile sa description quand on survole l'image. Le code est disponible [sur mon github](https://github.com/Hackndo/blog/tree/master/20170920_XSS).
 
-Nous l'avons vu dans la première partie de cet article, une faille XSS est présente dans la description de l'image (mais pas seulement, le nom de l'image peut être également utilisé pour exploiter la vulnérabilité par exemple).
+Nous l'avons vu dans la première partie de cet article, une faille permettant une XSS est présente dans la description de l'image (mais pas seulement, le nom de l'image peut être également utilisé pour exploiter la vulnérabilité par exemple).
 
 Voici le plan d'action que l'attaquant peut suivre
 
 1. Création d'un exécutable qui se connectera au serveur de l'attaquant lorsqu'il est lancé
 2. Mise à disposition de cet exécutable sur un serveur de l'attaquant
 3. Mise en écoute du serveur de l'attaquant
-4. Exploitation simple de la faille XSS
+4. Exploitation simple de la faille via une XSS
 5. Création d'une charge utile faisant croire à un plugin Flash manquant dans le navigateur de la victime
 6. Exploitation
 
@@ -146,9 +146,9 @@ Pour que la victime puisse télécharger cet exécutable, il faut qu'il soit dis
 
 Lorsque la victime lancera cet exécutable, une connexion vers l'adresse de l'attaquant sur le port 6666 sera initiée. Il suffit alors d'attendre cette connexion du côté de l'attaquant, soit très simplement via une commande netcat, soit via le SET ou Metasploit afin d'ouvrir une session Meterpreter lors de la connexion de la victime. Nous utiliserons le SET dans notre exemple.
 
-### Exploitation de la faille XSS
+### Attaque XSS
 
-Comme vu précédemment, il est possible d'exploiter la faille XSS avec la description de l'image en utilisant la charge utile `Une image' /><script>alert('hackndo');</script><p class='`
+Comme vu précédemment, il est possible d'exploiter la faille avec la description de l'image en utilisant la charge utile `Une image' /><script>alert('hackndo');</script><p class='`
 
 [![chargeutile](/assets/uploads/2017/09/chargeutile.png)](/assets/uploads/2017/09/chargeutile.png)
 
@@ -204,13 +204,13 @@ L'attaquant peut alors ouvrir la session et lancer un shell sur la machine de la
 
 ## Conclusion
 
-Nous avons vu dans cet article le fonctionnement basique d'une faille XSS et à quel point cela peut devenir dangereux. Evidemment, beaucoup de site sont au courant de ce type de faille et filtrent les entrées utilisateurs. Il existe alors un jeu du chat et de la souris pour passer outre les protections mises en place. Il suffit d'aller jeter un oeil au [site de l'OWASP](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet) pour s'en convaincre.
+Nous avons vu dans cet article le fonctionnement basique d'une attaque XSS et à quel point cela peut devenir dangereux. Evidemment, beaucoup de site sont au courant de ce type de faille et filtrent les entrées utilisateurs. Il existe alors un jeu du chat et de la souris pour passer outre les protections mises en place. Il suffit d'aller jeter un oeil au [site de l'OWASP](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet) pour s'en convaincre.
 
 Si vous êtes développeur de sites internet, pensez bien à protéger toutes les variables qu'un utilisateur peut modifier directement ou indirectement, c'est la clé pour un début de protection.
 
 Par ailleurs, concernant les cookies, il existe des flags pour les protéger tels que [HttpOnly](https://www.owasp.org/index.php/HttpOnly) et le flag [Secure](https://www.owasp.org/index.php/SecureFlag).
 
-Pour aller plus loin, je vous invite à vous renseigner sur le projet [BeEF](http://beefproject.com/) qui permet encore plus d'actions en utilisant une vulnérabilité XSS, ainsi que toutes les techniques de protection et de bypass qui peuvent exister (ou du moins, un maximum). Ainsi, vous saurez contre quoi vous protéger lorsque vous développerez votre site.
+Pour aller plus loin, je vous invite à vous renseigner sur le projet [BeEF](http://beefproject.com/) qui permet encore plus d'actions avec des attaques XSS, ainsi que toutes les techniques de protection et de bypass qui peuvent exister (ou du moins, un maximum). Ainsi, vous saurez contre quoi vous protéger lorsque vous développerez votre site.
 
 J'espère que cet article vous a plu, si vous avez des questions ou des remarques, n'hésitez pas à les poser dans les commentaires !
 
