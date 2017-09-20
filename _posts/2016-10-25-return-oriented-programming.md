@@ -476,6 +476,6 @@ ret
 
 Donc je ne pouvais pas enchaîner les appels systèmes. Mais si vous avez ça dans un autre binaire, alors vous pouvez enchaîner presque autant d'appels systèmes que vous le souhaitez, et vous pouvez ainsi construire une chaine d'exécution complexe, seulement en utilisant des bouts de codes à droite et à gauche.
 
-Have fun !
+Par ailleurs, si vous êtes intéressés pour aller un peu plus loin, je vous conseille vivement la lecture de l'excellent article de Geluchat [Petit Manuel du ROP à l'usage des débutants](https://www.dailysecurity.fr/return_oriented_programming/).
 
-Remerciements spéciaux à **laxa** pour sa patience et ses explications
+Have fun !
