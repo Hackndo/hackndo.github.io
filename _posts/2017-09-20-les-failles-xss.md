@@ -17,7 +17,7 @@ Dans cet article, nous allons parler de l'attaque XSS (Cross Site Scripting) en 
 
 ## Introduction
 
-Pour comprendre le principe de l'attaque XSS, je rappelle que la grande majorité des failles informatiques sont dûes à une utilisation non prévue d'une application, d'un exécutable ou toute autre entité. Quand l'utilisateur envoie une information plus longue que prévue (buffer overflow), ou une valeur non gérée (négative, quand on attend une valeur positive), ou quand il ajoute des symboles non attendus (des guillemets, des cheverons quand on attendait seulement des lettres), si les contrôls ne sont pas soigneusements fait, alors le programme ou l'application peut être détournée.
+Pour comprendre le principe de l'attaque XSS, je rappelle que la grande majorité des failles informatiques sont dûes à une utilisation non prévue d'une application, d'un exécutable ou toute autre entité. Quand l'utilisateur envoie une information plus longue que prévue (buffer overflow), ou une valeur non gérée (négative, quand on attend une valeur positive), ou quand il ajoute des symboles non attendus (des guillemets, des cheverons quand on attendait seulement des lettres), si les contrôls ne sont pas soigneusements faits, alors le programme ou l'application peut être détournée.
 
 ## Premiers pas
 
