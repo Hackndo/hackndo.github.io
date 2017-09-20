@@ -17,7 +17,7 @@ Dans cet article, nous allons parler des failles XSS (Cross Site Scripting) en e
 
 ## Introduction
 
-Pour comprendre le principe de la faille XSS, je rappelle que la grande majorité des failles informatiques sont dûes à une utilisation non prévue d'une application, d'un exécutable ou toute autre entité. Quand l'utilisateur envoie une information plus longue que prévue (buffer overflow), ou une valeur non gérée (négative, quand on attend une valeur positive), ou quand il ajoute des symboles non attendus (des guillemets, des cheverons quand on attendait seulement des lettres), si les contrôles ne sont pas soigneusements fait, alors le programme ou l'application peut être détournée.
+Pour comprendre le principe de la faille XSS, je rappelle que la grande majorité des failles informatiques sont dûes à une utilisation non prévue d'une application, d'un exécutable ou toute autre entité. Quand l'utilisateur envoie une information plus longue que prévue (buffer overflow), ou une valeur non gérée (négative, quand on attend une valeur positive), ou quand il ajoute des symboles non attendus (des guillemets, des cheverons quand on attendait seulement des lettres), si les contrôls ne sont pas soigneusements fait, alors le programme ou l'application peut être détournée.
 
 ## Premiers pas
 
@@ -107,7 +107,7 @@ Lorsque la victime accède à la page piégée, alors elle sera redirigée vers 
 
 ## Allons plus loin
 
-Quand beaucoup de sites s'arrêtent ici pour l'explication des failles XSS, nous allons voir comment nous pouvons prendre le contrôle total de la machine de la victime à l'aide d'une faille XSS et d'un peu de social engineering.
+Quand beaucoup de sites s'arrêtent ici pour l'explication des failles XSS, nous allons voir comment nous pouvons prendre le contrôl total de la machine de la victime à l'aide d'une faille XSS et d'un peu de social engineering.
 
 Voici l'environnement de test que j'ai mis en place pour cet exemple
 
