@@ -208,6 +208,8 @@ Nous avons vu dans cet article le fonctionnement basique d'une faille XSS et à 
 
 Si vous êtes développeur de sites internet, pensez bien à protéger toutes les variables qu'un utilisateur peut modifier directement ou indirectement, c'est la clé pour un début de protection.
 
+Par ailleurs, concernant les cookies, il existe des flags pour les protéger tels que [HttpOnly](https://www.owasp.org/index.php/HttpOnly) et le flag [Secure](https://www.owasp.org/index.php/SecureFlag).
+
 Pour aller plus loin, je vous invite à vous renseigner sur le projet [BeEF](http://beefproject.com/) qui permet encore plus d'actions en utilisant une vulnérabilité XSS, ainsi que toutes les techniques de protection et de bypass qui peuvent exister (ou du moins, un maximum). Ainsi, vous saurez contre quoi vous protéger lorsque vous développerez votre site.
 
 J'espère que cet article vous a plu, si vous avez des questions ou des remarques, n'hésitez pas à les poser dans les commentaires !
