@@ -5,7 +5,7 @@ author: "Pixis"
 layout: post
 permalink: /la-faille-xss/
 disqus_identifier: 0000-0000-0000-001a
-cover: assets/uploads/2017/09/xss_cover.jpg
+cover: assets/uploads/2017/09/cover.jpg
 tags:
   - tuto
   - web
