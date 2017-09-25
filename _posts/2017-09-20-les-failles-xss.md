@@ -17,11 +17,11 @@ Dans cet article, nous allons parler de l'attaque XSS (Cross Site Scripting) en 
 
 ## Introduction
 
-Pour comprendre le principe de l'attaque XSS, je rappelle que la grande majorité des failles informatiques sont dûes à une utilisation non prévue d'une application, d'un exécutable ou toute autre entité. Quand l'utilisateur envoie une information plus longue que prévue (buffer overflow), ou une valeur non gérée (négative, quand on attend une valeur positive), ou quand il ajoute des symboles non attendus (des guillemets, des cheverons quand on attendait seulement des lettres), si les contrôls ne sont pas soigneusements faits, alors le programme ou l'application peut être détournée.
+Pour comprendre le principe de l'attaque XSS, je rappelle que la grande majorité des failles informatiques sont dûes à une utilisation non prévue d'une application, d'un exécutable ou toute autre entité. Quand l'utilisateur envoie une information plus longue que prévue (buffer overflow), ou une valeur non gérée (négative, quand on attend une valeur positive), ou quand il ajoute des symboles non attendus (des guillemets, des cheverons quand on attendait seulement des lettres), si les contrôles ne sont pas soigneusements faits, alors le programme ou l'application peut être détournée.
 
 ## Premiers pas
 
-L'attaque XSS repose sur ces problématiques. Elle est possible lorsqu'une valeur qui peut être contrôlée par l'utilisateur est injectée dans une page web sans suffisamment de contrôls, et que cette valeur peut être du code html/javascript valide, qui sera alors interprété par le navigateur.
+L'attaque XSS repose sur ces problématiques. Elle est possible lorsqu'une valeur qui peut être contrôlée par l'utilisateur est injectée dans une page web sans suffisamment de contrôles, et que cette valeur peut être du code html/javascript valide, qui sera alors interprété par le navigateur.
 
 Voici un exemple très simple : L'utilisateur peut uploader une image sur un site, et remplir un champ de description. S'il upload l'image `chat.jpg` et qu'il met en description `Une image de mon chat`, nous afficherons (par exemple) sur le site le code html suivant :
 
@@ -107,7 +107,7 @@ Lorsque la victime accède à la page piégée, alors elle sera redirigée vers 
 
 ## Allons plus loin
 
-Quand beaucoup de sites s'arrêtent ici pour l'explication des attaques XSS, nous allons voir comment une personne mal intentionnée prendre le contrôl total de la machine de la victime à l'aide d'une faille permettant cette attaque et d'un peu de social engineering.
+Quand beaucoup de sites s'arrêtent ici pour l'explication des attaques XSS, nous allons voir comment une personne mal intentionnée peut prendre le contrôle total de la machine de la victime à l'aide d'une faille permettant cette attaque et d'un peu de social engineering.
 
 Voici l'environnement de test que j'ai mis en place pour cet exemple
 
