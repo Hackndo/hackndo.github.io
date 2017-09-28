@@ -158,7 +158,7 @@ name=hackndo&admin=0
 Et une empreinte pour vérifier qu'elle n'a pas été modifiée
 
 ```python
-sha1("MyS3cret" + "name=hackndo&admin=0")
+sha1("MonS3cret" + "name=hackndo&admin=0")
 ```
 
 Le serveur prend donc la chaîne que nous avons en main, la concatène avec sa valeur secrète, et produit le sha1.
@@ -166,8 +166,8 @@ Le serveur prend donc la chaîne que nous avons en main, la concatène avec sa v
 Comment ce sha1 est-il calculé ? Voici à quoi il ressemble en hexadécimal
 
 ```text
-00000000  4d 79 53 33 63 72 65 74  6e 61 6d 65 3d 68 61 63  |MyS3cretname=hac|
-00000010  6b 6e 64 6f 26 61 64 6d  69 6e 3d 30              |kndo&admin=0|
+00000000  4d 6f 6e 53 33 63 72 65  74 6e 61 6d 65 3d 68 61  |MonS3cretname=ha|
+00000010  63 6b 6e 64 6f 26 61 64  6d 69 6e 3d 30           |ckndo&admin=0|
 ```
 
 Ce bloc fait moins de 64 octets. Donc, comme vu dans le paragraphe sur sha1, un bit égal à 1 va être ajouté, puis des bits à zéro, puis la taille de la chaîne en bits, en big endian. Voilà le résultat :
