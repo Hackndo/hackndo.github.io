@@ -49,7 +49,7 @@ End of assembler dump.
 
 Mais diantres, que veut dire ce charabia ? Et puis pourquoi la même commande a produit deux résultats différents ? C'est ce que nous allons voir maintenant, ce code n'aura plus de secrets pour vous...;
 
-# Syntaxe
+## Syntaxe
 
 Dans une premier temps, nous allons expliquer pourquoi la même commande a produit deux résultats (pas vraiment) différents. C'est tout simplement une question de syntaxe. Il existe deux principales syntaxes pour représenter du langage assembleur x86 : La syntaxe Intel (plutôt retrouvée dans les environnements Windows) et la syntaxe AT&T (retrouvée dans les environnements Unix). Les différences entre ces deux syntaxes sont minimes. Avant de les lister, voyons la structure commune de ces deux syntaxes :
 
@@ -61,11 +61,11 @@ L'opération est le nom de l'opération à effectuer. Les opérations prennent 0
 
 Pour supprimer toutes ambiguïtés entre les deux syntaxes, voici les différences :
 
-## Ordre des paramètres
+### Ordre des paramètres
 
 Lorsqu'une opération prend deux paramètres et que l'opération n'est pas commutative (i.e. **a OP b** et **b OP a** ne donnent pas le même résultat), il est important de connaître l'ordre de ces paramètres. Si nous voulions par exemple copier le nombre 42 dans le registre `EAX`, voici les deux syntaxes que nous retrouverions :
 
-### Intel :
+#### Intel :
 
 ```nasm
 OPERATION DESTINATION, SOURCE
@@ -77,7 +77,7 @@ Exemple :
 mov eax, 42
 ```
 
-### AT&T :
+#### AT&T :
 
 ```nasm
 OPERATION SOURCE, DESTINATION
@@ -89,15 +89,15 @@ Exemple :
 mov $42, %eax
 ```
 
-## Taille des paramètres
+### Taille des paramètres
 
-### Intel :
+#### Intel :
 
 Comme la taille des paramètres ne doit être indiquée que pour les paramètres non immédiats (non constant, donc avec une taille inconnue) c'est à dire les registres, elle est tout simplement intégrée au nom du registre :
 
 `RAX`, `EAX`, `AX`, `AL` impliquent respectivement qword (64 bits), long (double word, 32 bits), word (16 bits) et byte (octet 8 bits).
 
-### AT&T :
+#### AT&T :
 
 Les noms des opérations sont suffixées avec une lettre correspondant à la taille des paramètres manipulés.
 
@@ -109,9 +109,9 @@ movl $42, %eax
 
 42 sera copié dans `EAX`, sur une taille de 32 bits (l'espace non occupé sera mis à zéro)
 
-## Préfixe de variable
+### Préfixe de variable
 
-### Intel :
+#### Intel :
 
 Les variables ne sont pas préfixées comme nous avons pu le voir :
 
@@ -119,7 +119,7 @@ Les variables ne sont pas préfixées comme nous avons pu le voir :
 mov eax, 42
 ```
 
-### AT&T :
+#### AT&T :
 
 En revanche, en ce qui concerne la syntaxe AT&T, nous trouvons un `$` devant les valeurs immédiates (i.e. les constantes) et un `%` devant les registres, comme dans cet exemple :
 
@@ -127,7 +127,7 @@ En revanche, en ce qui concerne la syntaxe AT&T, nous trouvons un `$` devant les
 movl $42, %eax
 ```
 
-## Adresse effective
+### Adresse effective
 
 Lorsqu'on parle de variables en mémoire, l'adresse effective représente l'adresse de la case mémoire où est stockée la variable. En assembleur x86, nous avons différents éléments pour définir une adresse mémoire
 
@@ -137,7 +137,7 @@ Lorsqu'on parle de variables en mémoire, l'adresse effective représente l'adre
   * **disp** _(Optionnel)_ : Déplacement (_displacement_), ajouté ou déduit à la fin du calcul
   * **segreg** _(Optionnel)_ : Segment mémoire (_Segment Register_) indiquant le segment dans lequel se trouve la donnée
 
-### Intel :
+#### Intel :
 
 ```text
 segreg:[base+index*scale+disp]
@@ -178,7 +178,7 @@ Puis on ajoute l'offset
 
 Ensuite, on cherche ce qu'il y a en mémoire à l'adresse `0x8000000e`, et ce qu'on y trouve, on le met dans `EAX`.
 
-### AT&T :
+#### AT&T :
 
 La syntaxe est particulière et assez peu intuitive comparée à celle d'Intel. Sa forme générique est
 
@@ -198,11 +198,11 @@ Voilà la fin d'un rapide résumé des différences entre les deux syntaxes les 
 
 Nous allons voir maintenant les instructions les plus rencontrées lorsque l'on désassemble un programme. Cette liste est loin d'être exhaustive, mais elle permettra de s'y retrouver dans la majorité des exemples que j'ai donnés ou que je fournirai plus tard.
 
-# Instructions communes
+## Instructions communes
 
-## Opérations mathématiques
+### Opérations mathématiques
 
-### SUB
+#### SUB
 
 Permet de soustraire une valeur à une autre
 
@@ -212,7 +212,7 @@ sub eax, 42
 
 eax = eax - 42
 
-### ADD
+#### ADD
 
 Permet d'additionner deux valeurs
 
@@ -222,9 +222,9 @@ add eax, 42
 
 eax = eax + 42
 
-## Opérations logiques
+### Opérations logiques
 
-### AND
+#### AND
 
 Effectue un ET logique
 
@@ -234,7 +234,7 @@ AND 0x5, 0x3
 
 5 est représenté en binaire par `101` et 3 par `011` donc un ET logique donne `001 = 0x1`. Ce code n'est pas utile, puisque le résultat n'est sauvé nulle part, on fera cette opération avec au moins un des deux paramètre qui est un registre.
 
-### XOR
+#### XOR
 
 Effectue un XOR logique. Souvent utilisé pour initialiser une variable à 0 via `XOR var, var`
 
@@ -244,9 +244,9 @@ XOR eax, eax
 
 Ce code est très souvent retrouvé pour initialiser le registre eax à zéro, puisqu'un xor ne donne 1 que si les bits sont différents.
 
-## Assignations
+### Assignations
 
-### MOV
+#### MOV
 
 Assigne une valeur à une variable
 
@@ -256,7 +256,7 @@ mov eax, 0x00000042
 
 `EAX` va contenir la valeur `0x00000042`
 
-### LEA
+#### LEA
 
 Assigne l'adresse d'une variable à une variable. `LEA` a une particularité, c'est que le deuxième argument est entre crochets, mais contrairement à d'habitude, cela ne veut pas dire qu'il sera déréférencé (c'est à dire que ça ne signifie pas que le résultat sera la variable située à l'adresse entre crochets).
 
@@ -266,9 +266,9 @@ LEA eax, [ebp - 0xc]
 
 Si `EBP` avait pour valeur `0xbffff484`, alors `ebp - 0xc` a pour valeur `0xbffff478`, et c'est bien cette adresse (et non la valeur contenu à cette adresse) qui sera stockée dans `EAX`.
 
-## Manipulation de la pile
+### Manipulation de la pile
 
-### PUSH
+#### PUSH
 
 Pousse l'argument passé à `PUSH` au sommet de la pile
 
@@ -278,7 +278,7 @@ PUSH ebp
 
 La valeur contenue dans `EBP` est mise sur le dessus de la pile
 
-### POP
+#### POP
 
 Retire l'élément au sommet de la pile, et l'assigne à la valeur passée en argument. (Si nous voulons être plus exacts, l'élément au sommet de la pile reste là où il est, et le registre `ESP` qui pointe sur le sommet de la pile est mis à jour en pointant vers la valeur précédente sur la pile)
 
@@ -288,9 +288,9 @@ POP ebp
 
 L'élément qui était au sommet de la pile est assigné à `EBP`, et est retiré de la pile
 
-## Tests
+### Tests
 
-### CMP
+#### CMP
 
 Compare les deux valeurs passées en argument
 
@@ -300,7 +300,7 @@ CMP ecx, 0x10
 
 Pour comparer ces deux éléments, une soustraction signée `ecx - 0x10` est effectuée
 
-### TEST EAX, EAX
+#### TEST EAX, EAX
 
 Cette opération est logiquement équivalente à
 
@@ -310,7 +310,7 @@ cmp eax, 0
 
 Donc ce test permet de savoir si eax est positif ou non. Cependant, `CMP` effectue une soustraction, ce qui est plus lent que `TEST` qui effectue un `AND`. Mais le résultat est le même.
 
-### Jumps
+#### Jumps
 
 Il existe de nombreuses instruction qui sautent à un autre endroit du code. Une instruction qui saute quelque soit la condition, et d'autres qui dépendent du résultat d'un test précédemment effectué. Sans condition, nous avons l'instruction
 
@@ -344,9 +344,9 @@ Supérieur ou égal (Above or Equal)/Inférieur ou égal (Below or Equal) - Stri
 
 Supérieur (Greater)/ Inférieur (Lower)
 
-## Fonctions
+### Fonctions
 
-### CALL adresse
+#### CALL adresse
 
 L'instruction `call` permet de faire appel au code d'une autre fonction située à un espace mémoire différent. L'adresse qui lui est passée en argument permet de trouver ce code. Cet appel est en fait un condensé de deux instructions. La première permet de sauvegarder l'instruction qui suit le call (pour le retour de la fonction, afin de reprendre le fil d'exécution du programme) et la deuxième permet d'effectivement sauter à la fonction recherchée. Comme nous l'avons vu dans un article précédent sur le [fonctionnement de la pile](/fonctionnement-de-la-pile/), le registre qui contient l'instruction suivante est `EIP`. Un call est donc finalement la suite de ces deux instructions :
 
@@ -355,7 +355,7 @@ PUSH EIP
 JMP adresse
 ```
 
-### LEAVE
+#### LEAVE
 
 A l'inverse `LEAVE` permet de préparer la sortie d'une fonction en récupérant les variables enregistrée lors du début de la fonction afin de retrouver le contexte d'exécution tel qu'il avait été enregistré juste avant d'exécuter le code de la fonction, tout détruisant ce qu'il restait du stackframe :
 
@@ -364,7 +364,7 @@ MOV ESP, EBP
 POP EBP
 ```
 
-## RET
+### RET
 
 Enfin, l'instruction `RET` permet de finaliser le travail de `LEAVE` en récupérant l'adresse de l'instruction à exécuter après le call, adresse qui avait été enregistrée sur la pile lors de l'instruction `CALL`, et de sauter à cette adresse
 
@@ -374,7 +374,7 @@ POP EIP
 
 `EIP` a été modifiée et c'est l'instruction qui se situe à l'adresse contenue dans `EIP` qui sera ensuite traitée.
 
-## Misc
+### Misc
 
 Pour finir, une instruction qui peut paraître anodine comme ça, mais qui a sont importance certaine : L'instruction `NOP` (No OPeration). Cette instruction ... ne fait rien. Si le processeur tombe sur cette instruction, il va tout simplement ne rien faire, et passer à l'instruction suivante.
 
@@ -382,7 +382,7 @@ Voilà, vous avez tous les éléments en main pour comprendre le programme désa
 
 Comme je suis de bonne humeur et que je n'aime pas faire les choses à moitié, nous allons le faire ensemble ! Retroussez vos manches, c'est parti !
 
-# Mise en pratique
+## Mise en pratique
 
 Rappelons le code du début de l'article, et ne prenons que la version dans la syntaxe Intel.
 
@@ -544,7 +544,7 @@ Parfait ! Nous avons tout vu !
 Avez-vous deviné le code C du programme après cette étude ? Deux nombres `0x2` (2) et `0x28` (40) sont envoyés à la fonction `add`, qui retourne leur somme, que retourne également la fonction `main` :
 
 ```c
-#include <stdio.h>
+##include <stdio.h>
 int add(int a, int b)
 {
     int result = a + b;
