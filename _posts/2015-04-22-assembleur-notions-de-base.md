@@ -51,7 +51,7 @@ Mais diantres, que veut dire ce charabia ? Et puis pourquoi la même commande a 
 
 ## Syntaxe
 
-Dans une premier temps, nous allons expliquer pourquoi la même commande a produit deux résultats (pas vraiment) différents. C'est tout simplement une question de syntaxe. Il existe deux principales syntaxes pour représenter du langage assembleur x86 : La syntaxe Intel (plutôt retrouvée dans les environnements Windows) et la syntaxe AT&T (retrouvée dans les environnements Unix). Les différences entre ces deux syntaxes sont minimes. Avant de les lister, voyons la structure commune de ces deux syntaxes :
+Dans un premier temps, nous allons expliquer pourquoi la même commande a produit deux résultats (pas vraiment) différents. C'est tout simplement une question de syntaxe. Il existe deux principales syntaxes pour représenter du langage assembleur x86 : La syntaxe Intel (plutôt retrouvée dans les environnements Windows) et la syntaxe AT&T (retrouvée dans les environnements Unix). Les différences entre ces deux syntaxes sont minimes. Avant de les lister, voyons la structure commune de ces deux syntaxes :
 
 ```text
 OPERATION [ARG1 [, ARG2]]
