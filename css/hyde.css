@@ -77,6 +77,25 @@ html {
   margin-right: auto;
 }
 
+.sidebar-social {
+  text-align: center;
+}
+
+.sidebar-social img {
+  display: inline;
+  width:1.7em;
+}
+
+.sidebar-social ul {
+  padding: 0;
+}
+
+.sidebar-social li {
+  display: inline;
+  list-style: none; /* pour enlever les puces sur IE7 */
+  margin: 0.15em;
+}
+
 
 
 @media (min-width: 48em) {
