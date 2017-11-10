@@ -77,9 +77,6 @@ html {
   margin-right: auto;
 }
 
-.sidebar-social {
-  text-align: center;
-}
 
 .sidebar-social img {
   display: inline;
@@ -94,6 +91,10 @@ html {
   display: inline;
   list-style: none; /* pour enlever les puces sur IE7 */
   margin: 0.15em;
+}
+
+.sidebar-social li:first-child {
+  margin-left: 0;
 }
 
 
