@@ -81,6 +81,13 @@ html {
 .sidebar-social img {
   display: inline;
   width:1.7em;
+  opacity: 0.7;
+  filter: alpha(opacity=50);
+}
+
+.sidebar-social img:hover {
+  opacity: 1;
+  filter: alpha(opacity=100);
 }
 
 .sidebar-social ul {
