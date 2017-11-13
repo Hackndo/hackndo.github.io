@@ -4,7 +4,13 @@ title: Me contacter
 permalink: /contact/
 ---
 
-Pour me contacter, vous pouvez passer par ces différentes plate-formes
+Pour me contacter, il y a différentes solutions
+
+Il y a un serveur Discord sur lequel je suis tout le temps connecté
+
+[Hackndo sur Discord](https://discord.gg/9At6SUZ)
+
+Vous pouvez également passer par ces différentes plate-formes
 
 |[Github](http://www.github.com/hackndo)|
 |[Twitter](http://www.twitter.com/hackanddo)|
