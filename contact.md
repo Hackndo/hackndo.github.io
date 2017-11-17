@@ -20,8 +20,10 @@ Vous pouvez également passer par ces différentes plate-formes
 
 Ou me trouver sur IRC sur le channel de [newbiecontest](http://newbiecontest.org)
 
-**Serveur** | irc.worldnet.net
-**Channel** | #newbiecontest
-**Pseudo**  | Pixis
-<script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
-<div class="LI-profile-badge"  data-version="v1" data-size="medium" data-locale="fr_FR" data-type="vertical" data-theme="dark" data-vanity="romainbentz"><a class="LI-simple-link" href='https://fr.linkedin.com/in/romainbentz?trk=profile-badge'>Mon LinkedIn</a></div>
+|**Serveur** :   irc.worldnet.net|
+|**Channel** :    #newbiecontest|
+|**Pseudo** :    Pixis|
+
+[CV (fr)](https://cv.hackndo.com/)
+
+[CV (en)](https://resume.hackndo.com/)
