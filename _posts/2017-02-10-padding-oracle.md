@@ -185,12 +185,6 @@ Nous avons donc le schéma suivant :
 
 Maintenant, prenons un nouveau bloc `X` totalement aléatoire. C'est un bloc que nous créons, que nous maitrisons, qu'on peut changer, frapper, manger. Prenons avec lui le dernier bloc chiffré de notre exemple, `C_5`, et concaténons les.
 
-En utilisant la notation cryptographique, leur concaténation s'écrit `X || C_5`. Appelons alors `P'1` et `P'2` les deux blocs plaintext issus de `déchiffrement(X || C_5)`
-
-```
-déchiffrement(X || C_5) = P'1 || P'2
-```
-
 Nous avons alors le schéma suivant :
 
 [![notation pour la concaténation](/assets/uploads/2017/02/sc3.png)](/assets/uploads/2017/02/sc3.png)
