@@ -84,7 +84,7 @@ html {
 
 .sidebar-social img {
   display: inline;
-  width:1.7em;
+  width:1.5em;
   opacity: 0.7;
   filter: alpha(opacity=50);
 }
@@ -101,7 +101,7 @@ html {
 .sidebar-social li {
   display: inline;
   list-style: none; /* pour enlever les puces sur IE7 */
-  margin: 0.15em;
+  margin: 0.1em;
 }
 
 .sidebar-social li:first-child {
