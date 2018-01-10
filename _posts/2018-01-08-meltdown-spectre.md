@@ -380,6 +380,6 @@ En ce qui concerne Spectre, il est beaucoup plus compliqué de trouver un moyen 
 
 Je vous invite à lire [le billet](http://blogmotion.fr/internet/securite/metldown-spectre-comprendre-16865) de [@xhark](https://twitter.com/xhark) sur le sujet pour plus d'information sur les solutions et mises à jour. Il a fait un très bon travail de synthèse, je ne vais donc pas reprendre son travail.
 
-Pour plus de détails sur les attaques, je vous mets également les whitepapers ici pour [meltdown](https://meltdownattack.com/meltdown.pdf) et [spectre](https://spectrenattack.com/spectre.pdf).
+Pour plus de détails sur les attaques, je vous mets également les whitepapers ici pour [meltdown](https://meltdownattack.com/meltdown.pdf) et [spectre](https://spectreattack.com/spectre.pdf).
 
 J'espère que cet article vous aide à y voir plus clair, n'hésitez toujours pas à commenter ou à me retrouver sur [Discord](https://discord.gg/9At6SUZ) pour plus d'informations, des remarques, des corrections, etc.
