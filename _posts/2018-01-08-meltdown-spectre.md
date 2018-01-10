@@ -218,7 +218,7 @@ Comme le processeur va ensuite voir qu'il y a eu une erreur, les assignations de
 
 C'est un exemple qui s'approche de l'attaque Meltdown, démontrant que ces optimisations laissent finalement des traces, et risquent alors de faire fuiter des informations.
 
-Nous avons le même type de trace dans le cache lorsqu'une prédiction de branche est fausse, et que les instructions qui ont été exécutées à tord laissent des traces dans le cache.
+Nous avons le même type de trace dans le cache lorsqu'une prédiction de branche est fausse, et que les instructions qui ont été exécutées à tort laissent des traces dans le cache.
 
 Nous allons alors voir dans les chapitres suivants les deux attaques qui exploitent ce problème.
 
