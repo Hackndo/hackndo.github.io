@@ -238,7 +238,7 @@ Un buffer est construit en amont, avec plusieurs *sections* qui sont cachées in
 
 L'idée ensuite est de récupérer 3 bits d'information (ce qui donne 8 possibilités) dans le kernel-land à une adresse donnée. Disons pour l'exemple qu'à l'adresse `0xfff7` de la zone mémoire du kernel, il y a les 3 bits `100`, ou `4` en décimal. C'est l'appel (**1**) sur le schéma. Cette valeur sera utilisée pour l'instruction suivante (**2**).
 
-Evidemment, l'accès à la zone kernel est interdite, donc une exception va se lever de type `SIGSEV` (Segmentation Fault), mais comme nous avons vu que les processeurs effectuaient les instructions en parallèle, les instructions suivantes peuvent être exécutées en même temps.
+Evidemment, l'accès à la zone kernel est interdite, donc une exception va se lever de type `SIGSEGV` (Segmentation Fault), mais comme nous avons vu que les processeurs effectuaient les instructions en parallèle, les instructions suivantes peuvent être exécutées en même temps.
 
 Ainsi, l'instruction qui suit va accéder à la `4`ème section du buffer (**3** sur le schéma) que nous avons préparé en amont (`4` étant la valeur trouvée dans la mémoire du noyau). Cette section du buffer sera alors mise en cache par le processeur (**4** sur le schéma).
 
