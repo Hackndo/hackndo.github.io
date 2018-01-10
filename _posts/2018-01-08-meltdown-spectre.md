@@ -39,7 +39,7 @@ C'est pourquoi les constructeurs se sont penchés sur le sujet afin d'optimiser 
 Pour entrer un peu plus dans les détails et comprendre les optimisations, il faut savoir qu'un processeur Intel se découpe en 3 parties :
 
 1. Le *Front-end*, qui récupère les instructions en mémoire, et qui les découpe en micro-instructions
-2. L'*Execution Engine*, qui possède différentes Execution Units, qui ne sont rien d'autre que des petits centres de calculs, spécialisés pour différentes tâches
+2. L'*Execution Engine* possède différentes unités d'exécution, *Execution Units*, qui ne sont rien d'autre que des petits centres de calculs, spécialisés pour différentes tâches
 3. Le *Memory Subsystem* permettant d'enregistrer en cache des données traitées par le processeur afin d'optimiser les futurs accès.
 
 Voici une vision (simplifiée) de ces 3 parties
@@ -54,7 +54,7 @@ Le premier mécanisme d'optimisation dont nous allons parler est le cache. L'id�
 
 C'est très souvent le cas, que ce soit lors de la lecture d'un fichier, ou le parcours d'un tableau de données. La plupart du temps, la lecture se fait dans l'ordre, et les zones mémoires sont contigües.
 
-Prenons l'exemple suivant qui illustre ce principe
+Prenons l'exemple suivant qui illustre ce principe :
 
 **cache.c**
 
@@ -97,7 +97,7 @@ int main(int c, char **v) {
 }
 ```
 
-Une chaîne de caractères `"hackndo"` est enregistrée en mémoire. En cas, nous effaçons le cache, puis nous accédons une première fois à la chaîne. Elle est alors cherchée en mémoire, puis elle est mise en cache pour les prochains accès. Nous y accédons donc une deuxième fois. Voici le résultat de ce programme :
+Une chaîne de caractères `"hackndo"` est enregistrée en mémoire vive. Nous vidons le cache par précaution, puis nous accédons une première fois à la chaîne. Elle est alors cherchée en mémoire vive, puis elle est mise en cache pour les prochains accès. Nous y accédons donc une deuxième fois. Voici le résultat de ce programme :
 
 ```sh
 pixis@hackndo:~/spectre-meltdown $ make cache
@@ -188,9 +188,9 @@ alors le processeur va se retrouver plusieurs fois devant une condition `if`. Il
 
 La plupart du temps, la condition sera vraie donc les instructions `INSTRUCTIONS` seront effectuées. Le *Branch Target Buffer* (BTB) enregistre toutes les branches prises lors de conditions, et le processeur s'en sert pour essayer de deviner la bonne branche à choisir pour la prochaîne apparition de la condition. 
 
-Une fois la branche prédite, le processeur va effectuer les instructions de cette branche avant même de savoir si sa branche est **réellement** la bonne branche. Bien sûr, le calcul de la condition va finir par être terminé. Si la branche était la bonne, alors les instructions continuent, et les changements effectués par les instructions exécutées en avance sont gardés.
+Une fois qu'il a prédit la branche, le processeur va effectuer les instructions de cette branche avant même de savoir si sa branche est **réellement** la bonne branche. Bien sûr, le calcul de la condition va finir par se terminer. Si la branche était la bonne, alors les instructions continuent, et les changements effectués par les instructions exécutées en avance sont gardés.
 
-En revanche, si la branche prédite n'était pas la bonne, alors les changement en mémoire sont annulés, et le processeur revient en arrière pour prendre la bonne branche.
+En revanche, si la branche prédite n'était pas la bonne, alors les changements en mémoire sont annulés, et le processeur revient en arrière pour prendre la bonne branche.
 
 Dans notre exemple, le processeur va prédire que la condition est vraie presque 1000 fois, et lorsque `i` sera égal à `999`, il se trompera probablement mais il aura gagné tellement de temps pour les 998 autres fois que ce mécanisme est largement payant.
 
@@ -212,35 +212,35 @@ junk = buffer[value]
 
 Une erreur va être levée, mais les instructions suivantes vont tout de même être exécutées.
 
-Si le `buffer` n'était pas dans le cache, mais que les deux instructions précédentes se sont exécutées en même temps, alors la mémoire qui se trouve à l'index `value` du buffer va être mis en cache puisqu'il y a eu un accès à cette zone, et que le processeur met en cache les zones mémoire accédées pour des ques les accès futurs soient plus rapides.
+Si le `buffer` n'était pas dans le cache, mais que les deux instructions précédentes se sont exécutées en même temps, alors la mémoire qui se trouve à l'index `value` du buffer va être mis en cache puisqu'il y a eu un accès à cette zone, et que le processeur met en cache les zones mémoire accédées pour des que les accès futurs soient plus rapides.
 
 Comme le processeur va ensuite voir qu'il y a eu une erreur, les assignations de `value` et de `junk` seront annulées, mais la mise en cache de la valeur à l'index `value` de `buffer` ne le sera pas. On a donc une trace qui est laissée.
 
 C'est un exemple qui s'approche de l'attaque Meltdown, démontrant que ces optimisations laissent finalement des traces, et risquent alors de faire fuiter des informations.
 
-Nous avons le même type de trace dans le cache lorsqu'une prédiction de branche est fausse, et que les instructions qui ont été exécutées à tord laissaient des traces dans le cache.
+Nous avons le même type de trace dans le cache lorsqu'une prédiction de branche est fausse, et que les instructions qui ont été exécutées à tord laissent des traces dans le cache.
 
 Nous allons alors voir dans les chapitres suivants les deux attaques qui exploitent ce problème.
 
 ## Meltdown
 
-La particularité de Meltdown est que cette attaque exploite une vulnérabilité sur certains processeurs. En effet, les instruction *out-of-order* peuvent accéder à la mémoire du noyau, alors que cela devrait être interdit. C'est donc en utilisant cette faille que l'attaque permet de récupérer les information contenues dans l'espace d'adressage du noyau.
+La particularité de Meltdown est que cette attaque exploite une vulnérabilité sur certains processeurs. En effet, les instructions *out-of-order* peuvent accéder à la mémoire du noyau, alors que cela devrait être interdit. C'est donc en utilisant cette faille que l'attaque permet de récupérer les informations contenues dans l'espace d'adressage du noyau.
 
-Ensuite, la difficulté concernant les attaques qui touchent à la microarchitecture (tout ce qui est matériel) est de sortir les informations qui ont été fuitées.
+Ensuite, la difficulté concernant les attaques qui touchent à la microarchitecture (tout ce qui est matériel) est de sortir les informations qui ont fuité.
 
-L'approche de l'attaque Meltdown se découpe en deux parties : L'exfiltration de la donnée secrète, puis la récupération de cette donnée.
+L'approche de l'attaque Meltdown se découpe en deux parties : L'exfiltration de la donnée secrète, puis la récupération de celle-ci.
 
 ### Exfiltrer l'information de la mémoire réservée au noyau
 
-La première permet de sortir l'information secrète du kernel
+La première permet de sortir l'information secrète du kernel.
 
 [![Meltdown caching](/assets/uploads/2018/01/meltdown-caching.png)](/assets/uploads/2018/01/meltdown-caching.png)
 
 Un buffer est construit en amont, avec plusieurs *sections* qui sont cachées indépendamment les unes des autres. Nous allons prendre dans l'exemple 8 sections.
 
-L'idée ensuite est de récupérer 3 bits d'information (ce qui donne 8 possibilités) dans le kernel-land à une adresse donnée. Disons pour l'exemple qu'à l'adresse `0xfff7` de la zone mémoire du kernel, il y a les 3 bits `100`, ou `4` en décimal. C'est l'appel (**1**) sur le schéma. Cette valeur sera utilisée pour l'instruction suivant (**2**).
+L'idée ensuite est de récupérer 3 bits d'information (ce qui donne 8 possibilités) dans le kernel-land à une adresse donnée. Disons pour l'exemple qu'à l'adresse `0xfff7` de la zone mémoire du kernel, il y a les 3 bits `100`, ou `4` en décimal. C'est l'appel (**1**) sur le schéma. Cette valeur sera utilisée pour l'instruction suivante (**2**).
 
-Evidemment, l'accès à la zone kernel est interdite, donc une exception va se lever de type `SIGSEV` (Segmentation Fault), mais comme nous avons vu que les processeurs effectuaient les instruction en parallèle, les instructions suivantes peuvent être exécutées en même temps.
+Evidemment, l'accès à la zone kernel est interdite, donc une exception va se lever de type `SIGSEV` (Segmentation Fault), mais comme nous avons vu que les processeurs effectuaient les instructions en parallèle, les instructions suivantes peuvent être exécutées en même temps.
 
 Ainsi, l'instruction qui suit va accéder à la `4`ème section du buffer (**3** sur le schéma) que nous avons préparé en amont (`4` étant la valeur trouvée dans la mémoire du noyau). Cette section du buffer sera alors mise en cache par le processeur (**4** sur le schéma).
 
@@ -248,7 +248,7 @@ Le processeur va alors se rendre compte que l'accès à la zone kernel était in
 
 ### Lire l'information exfiltrée
 
-La deuxième partie consiste à sortir cette valeur pour que l'attaquant la connaisse. En effet, pour le moment, il n'y a eu qu'une mise en cache, et il n'est pas possible de lire directement ce cache. C'est avec une technique appelée `flush + reload` qu'il est possible de retrouver cette information. (Il en existe d'autres, mais nous utiliserons celle-là ici)
+La deuxième partie consiste à sortir cette valeur pour que l'attaquant la connaisse. En effet, pour le moment, il n'y a eu qu'une mise en cache, et il n'est pas possible de lire directement ce cache. C'est avec une technique appelée `flush + reload` qu'il est possible de retrouver cette information. (Il en existe d'autres, mais nous utiliserons celle-là ici.)
 
 L'attaquant va alors simplement vider le cache, puis procéder à l'attaque, pour enfin accéder à toutes les sections du buffer qu'il avait préparé en mesurant les temps d'accès à chaque section.
 
@@ -298,7 +298,7 @@ pixis@hackndo:~/spectre-meltdown $ getconf PAGESIZE
 4096
 ```
 
-Par ailleurs, il est plus intéressant de sortir les information octet par octet, donc récupérer 8 bits à la fois. Chaque octet pouvant prendre 256 valeurs, il convient de créer un buffer d'une taille de 256 pages. Voici un exemple d'initialisation de buffer avec ces paramètres 
+Par ailleurs, il est plus intéressant de sortir les informations octet par octet, donc récupérer 8 bits à la fois. Chaque octet pouvant prendre 256 valeurs, il convient de créer un buffer d'une taille de 256 pages. Voici un exemple d'initialisation de buffer avec ces paramètres 
 
 ```c
 #define PAGE_SIZE 4096
@@ -311,7 +311,7 @@ Le principe reste exactement le même avec ces paramètres.
 
 ## Spectre
 
-Tandis que Meltdown utilisait une faille de certains processeurs permettant de lire les adresses du noyau, l'attaque Spectre quant à elle n'utilise pas de faille, mais seulement l'optimisation de prédiction (*speculative*) et de cache dont nous avons parlé en début d'article pour pouvoir lire n'importe n'importe quelle valeur dans le *user-land* d'un processus victime.
+Tandis que Meltdown utilisait une faille de certains processeurs permettant de lire les adresses du noyau, l'attaque Spectre quant à elle n'utilise pas de faille, mais seulement l'optimisation de prédiction (*speculative*) et de cache dont nous avons parlé en début d'article pour pouvoir lire n'importe quelle valeur dans le *user-land* d'un processus victime.
 
 L'idée de Spectre est d'entraîner le processeur à suivre un certain chemin lorsqu'une décision doit être prise en utilisant l'optimisation de prédiction, puis de profiter de cette prise de décision *entraînée* pour que le processeur prenne la branche voulue même si la condition n'est plus respectée.
 
