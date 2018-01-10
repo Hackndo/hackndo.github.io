@@ -319,14 +319,14 @@ L'idée de Spectre est d'entraîner le processeur à suivre un certain chemin lo
 > 
 > ```c
 > char array[] = "Hello";
-> array = &(array[0]);
+> array == &(array[0]);
 > ```
 > 
 > *Par ailleurs, je rappelle que accéder au `ième` élément d'un tableau en écrivant `array[i]`, c'est strictement équivalent à écrire `*(array + i)`. En effet, le `ième` élément est à l'adresse `adresse_premier_element + i`, or `array = adresse_premier_element` donc le `ième` élément est à l'adresse `array + i`, et pour récupérer cet élément, on déréférence ceci, donnant `*(array + i)`. D'où l'égalité suivante :*
 > 
 > ```c
 > char array[] = "Hello";
-> array[2] = *(array + 2);
+> array[2] == *(array + 2);
 > ```
 
 
