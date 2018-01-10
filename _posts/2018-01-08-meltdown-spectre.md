@@ -28,7 +28,7 @@ Un processeur, ce n'est rien d'autre qu'une calculatrice. A ses débuts, des cal
 
 Lorsqu'un programme est exécuté, les données à traiter sont dans la mémoire vive (qu'on appelle aussi simplemement *mémoire*), ou RAM. Pour traiter une instruction, les données nécessaires au traitement doivent être envoyées depuis la mémoire vive vers la mémoire interne du processeur pour qu'il les traite. Ensuite, le résultat est enregistré à nouveau en mémoire.
 
-Si le temps de traitement des données par le processeur est environ le même que le temps de récupération des données en mémoire, tout ça se coordonne très bien. En effet, pendant que le processeur traite une instruction, les données de la prochaîne instruction sont rapatriée, permettant d'avoir un flux tendu.
+Si le temps de traitement des données par le processeur est environ le même que le temps de récupération des données en mémoire, tout ça se coordonne très bien. En effet, pendant que le processeur traite une instruction, les données de la prochaîne instruction sont rapatriées, permettant d'avoir un flux tendu.
 
 Avec le temps, le matériel a évolué, et les processeurs sont devenus très, très rapides. Tellement rapides qu'ils ont largement devancé les accès en mémoire. Ainsi, aujourd'hui, le traitement d'une instruction se fait environ en 0.5 nano-seconde, tandis qu'un accès mémoire se fait en 20 nano-secondes.
 
