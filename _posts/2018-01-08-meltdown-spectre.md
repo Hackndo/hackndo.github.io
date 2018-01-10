@@ -48,6 +48,8 @@ Voici une vision (simplifiée) de ces 3 parties
 
 Avec ces précisions en tête, nous allons voir les 3 mécanismes d'optimisation qui entrent en jeu dans les deux attaques Meltdown et Spectre, en s'intéressant principalement au fonctionnement des processeurs Intel qui sont vulnérables pour les deux attaques.
 
+*Ces optimisations existent sur la plupart des processeurs récents. Certains cependant ne les mettent pas toutes en pratiques.*
+
 ### Cache
 
 Le premier mécanisme d'optimisation dont nous allons parler est le cache. L'idée étant qu'en principe, lorsqu'une zone mémoire est lue, il y a des grandes chances pour qu'elle soit lue à nouveau, ou qu'une zone mémoire adjacente soit lue rapidement après.
