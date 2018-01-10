@@ -113,24 +113,22 @@ Les deux valeurs sont le nombre de cycles qui se sont passés au moment de l'acc
 
 Comme nous l'avons expliqué, un processeur calcule très vite, tellement vite qu'il risque d'attendre beaucoup de temps s'il devait exécuter les instructions les unes à la suite des autres.
 
-Pour pallier à ce problème, une deuxième optimisation a été pensée : les processeurs aujourd'hui exécutent des instructions **en parallèle** avec leurs différentes unités d'exécution, ou *Execution Unit*, sous condition que les instructions traitées en même temps ne soient pas dépendantes entre elles.
+Pour pallier à ce problème, une deuxième optimisation a été pensée : les processeurs aujourd'hui exécutent des instructions **en parallèle** avec leurs différentes unités d'exécution, ou *Execution Unit*.
 
 Prenons un exemple simplifié :
 
 ```python
-var_A = a + b     # Ne dépend de personne
-var_B = c + d     # Ne dépend de personne
-var_C = e + f     # Ne dépend de personne
-var_D = var_C + g # Dépend de var_C
+var_A = a + b
+var_B = c + d
+var_C = e + f
 ```
 
-Dans ce cas, le processeur peut calculer en même temps `var_A`, `var_B` et `var_C` dans l'ordre qu'il veut, mais il ne peut pas calculer `var_D` en parallèle, puisqu'il n'a pas encore la valeur de `var_C`.
+Dans ce cas, le processeur peut calculer en même temps `var_A`, `var_B` et `var_C` dans l'ordre qu'il veut.
 
-Ainsi, il peut optimiser ces 4 instructions en 2 instructions :
+Ainsi, il peut optimiser ces 3 instructions en 1 instruction :
 
 ```python
 var_C, var_A, var_B = e + f, a + b, c + d # Calcul dans le désordre, ce qui n'a pas d'importance
-var_D = g + var_C 
 ```
 
 Le processeur a ainsi optimisé ses ressources en faisant travailler 3 unités d'exécution en même temps pour effectuer 3 calculs indépendants, au lieu de les effectuer un par un en attendant les accès mémoire pour chaque calcul.
@@ -141,17 +139,15 @@ Il arrivera parfois que des instructions soient interdites, comme l'exemple suiv
 var_A = a/0
 var_B = c + d
 var_C = e + f
-var_D = var_C + g
 ```
 
-De la même manière, les 3 premières instructions seront potentiellement exécutées dans le désordre
+De la même manière, les 3 instructions seront potentiellement exécutées dans le désordre
 
 ```python
-var_C, var_A, var_B = e + f, a/0, c + d # Calcul dans le désordre, ce qui n'a pas d'importance
-var_D = g + var_C 
+var_C, var_A, var_B = e + f, a/0, c + d
 ```
 
-donc les variables `var_B` et `var_C` seront calculées avant que le processeur se rende compte qu'il y a une erreur avec `var_A`.
+donc les variables `var_B` et `var_C` seront potentiellement calculées avant que le processeur se rende compte qu'il y a une erreur avec `var_A`.
 
 Quand le processeur s'en rend compte, il va alors annuler les changements effectués par les instructions qui devaient suivre et qui ont été exécutées en parallèle. Cette annulation fait croire que les calculs de `var_B` et `var_C` n'ont jamais été faits. Ni vu, ni connu. A priori.
 
