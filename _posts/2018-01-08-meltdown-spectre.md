@@ -246,7 +246,9 @@ Le processeur va alors se rendre compte que l'accès à la zone kernel était in
 
 ### Lire l'information exfiltrée
 
-La deuxième partie consiste à sortir cette valeur pour que l'attaquant la connaisse. En effet, pour le moment, il n'y a eu qu'une mise en cache, et il n'est pas possible de lire directement ce cache. C'est avec une technique appelée `flush + reload` qu'il est possible de retrouver cette information. (Il en existe d'autres, mais nous utiliserons celle-là ici.)
+La deuxième partie consiste à sortir cette valeur pour que l'attaquant la connaisse. En effet, pour le moment, il n'y a eu qu'une mise en cache, et il n'est pas possible de lire directement ce cache.
+
+Pour cela, on utilise des techniques appelées *cache side-channel attacks*. Nous utiliserons celle appelée `flush + reload` pour retrouver l'information.  Il en existe d'autres comme *Evict+Time* ou *Prime+Probe* que nous ne verrons pas dans cet article, mais vous pouvez aller voir [cet article](http://www.cryptofails.com/post/70097430253/crypto-noobs-2-side-channel-attacks) qui en parle si vous êtes curieux.
 
 L'attaquant va alors simplement vider le cache, puis procéder à l'attaque, pour enfin accéder à toutes les sections du buffer qu'il avait préparé en mesurant les temps d'accès à chaque section.
 
