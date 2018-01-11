@@ -190,7 +190,7 @@ Une fois qu'il a prédit la branche, le processeur va effectuer les instructions
 
 En revanche, si la branche prédite n'était pas la bonne, alors les changements en mémoire sont annulés, et le processeur revient en arrière pour prendre la bonne branche.
 
-Dans notre exemple, le processeur va prédire que la condition est vraie presque 1000 fois, et lorsque `i` sera égal à `999`, il se trompera probablement mais il aura gagné tellement de temps pour les 998 autres fois que ce mécanisme est largement payant.
+Dans notre exemple, le processeur va prédire que la condition est vraie presque 1000 fois, et lorsque `i` sera égal à `999`, il se trompera probablement mais il aura gagné tellement de temps pour les 999 autres fois que ce mécanisme est largement payant.
 
 
 ## Les vulnérabilités
