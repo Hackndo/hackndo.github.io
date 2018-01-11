@@ -24,7 +24,7 @@ Ces deux attaques sont différentes de celles dont nous entendons parler majorit
 
 ### Fonctionnement d'un processeur
 
-Un processeur, ce n'est rien d'autre qu'une calculatrice. A ses débuts, des calculs étaient envoyés à un processeur, celui-ci effectuait les calculs qu'on lui envoyait dans l'ordre, les uns après les autres, puis il retournait les résultats.
+Un processeur, ce n'est rien d'autre qu'une calculatrice. Au début, des calculs étaient envoyés à un processeur, celui-ci effectuait les calculs qu'on lui envoyait dans l'ordre, les uns après les autres, puis il retournait les résultats.
 
 Lorsqu'un programme est exécuté, les données à traiter sont dans la mémoire vive (qu'on appelle aussi simplemement *mémoire*), ou RAM. Pour traiter une instruction, les données nécessaires au traitement doivent être envoyées depuis la mémoire vive vers la mémoire interne du processeur pour qu'il les traite. Ensuite, le résultat est enregistré à nouveau en mémoire.
 
@@ -48,7 +48,7 @@ Voici une vision (simplifiée) de ces 3 parties
 
 Avec ces précisions en tête, nous allons voir les 3 mécanismes d'optimisation qui entrent en jeu dans les deux attaques Meltdown et Spectre, en s'intéressant principalement au fonctionnement des processeurs Intel qui sont vulnérables pour les deux attaques.
 
-*Ces optimisations existent sur la plupart des processeurs récents. Certains cependant ne les mettent pas toutes en pratiques.*
+*Ces optimisations existent sur la plupart des processeurs récents. Certains cependant ne les mettent pas toutes en pratique.*
 
 ### Cache
 
@@ -109,7 +109,7 @@ Avant la mise en cache : 1024
 Après la mise en cache : 230
 ```
 
-Les deux valeurs sont le nombre de cycles qui se sont passés au moment de l'accès à la variable. Nous voyons les bénéfices immenses du cache !
+Les deux valeurs sont le nombre de cycles qui se sont passés au moment de l'accès à la variable. Nous voyons les bénéfices immenses du cache qui a divisé par presque 5 le temps d'accès !
 
 ### Out-of-order
 
@@ -125,7 +125,7 @@ var_B = c + d
 var_C = e + f
 ```
 
-Dans ce cas, le processeur peut calculer en même temps `var_A`, `var_B` et `var_C` dans l'ordre qu'il veut.
+Dans ce cas, au lieu de faire 3 calculs les uns après les autres, avec 3 accès mémoire, le processeur peut calculer en même temps `var_A`, `var_B` et `var_C` dans l'ordre qu'il veut.
 
 Ainsi, il peut optimiser ces 3 instructions en 1 instruction :
 
@@ -133,7 +133,7 @@ Ainsi, il peut optimiser ces 3 instructions en 1 instruction :
 var_C, var_A, var_B = e + f, a + b, c + d # Calcul dans le désordre, ce qui n'a pas d'importance
 ```
 
-Le processeur a ainsi optimisé ses ressources en faisant travailler 3 unités d'exécution en même temps pour effectuer 3 calculs indépendants, au lieu de les effectuer un par un en attendant les accès mémoire pour chaque calcul.
+Le processeur a ainsi optimisé ses ressources en faisant travailler 3 unités d'exécution en même temps pour effectuer 3 calculs indépendants, au lieu de les effectuer un par un en attendant les accès mémoire.
 
 Il arrivera parfois que des instructions soient interdites, comme l'exemple suivant 
 
@@ -151,7 +151,7 @@ var_C, var_A, var_B = e + f, a/0, c + d
 
 donc les variables `var_B` et `var_C` seront potentiellement calculées avant que le processeur se rende compte qu'il y a une erreur avec `var_A`.
 
-Quand le processeur s'en rend compte, il va alors annuler les changements effectués par les instructions qui devaient suivre et qui ont été exécutées en parallèle. Cette annulation fait croire que les calculs de `var_B` et `var_C` n'ont jamais été faits. Ni vu, ni connu. A priori.
+Quand le processeur s'en rend compte, il va alors annuler les changements effectués par les instructions qui devaient suivre et qui ont été exécutées en parallèle. Cette annulation fait croire que les calculs de `var_B` et `var_C` n'ont jamais été faits. Ni vu, ni connu. À priori.
 
 ### Prédiction
 
@@ -197,7 +197,7 @@ Dans notre exemple, le processeur va prédire que la condition est vraie presque
 
 Avec les trois principes évoqués ci-dessus, les processeurs peuvent aller plus vite que les limites matérielles imposées. Cependant, la course à la rapidité a un prix. 
 
-Ces optimisations sont faites pour ne pas laisser de trace en mémoire RAM en cas de mauvaises prédictions, ou en cas d'erreur quand les instructions ne sont pas exécutées dans l'ordre. Seulement voilà, elles laissent tout de même des traces dans le cache.
+Ces optimisations sont faites pour ne pas laisser de trace en mémoire RAM en cas de mauvaises prédictions, ou en cas d'erreur quand les instructions ne sont pas exécutées dans l'ordre. Seulement voilà, elles laissent tout de même des informations dans le cache.
 
 Ainsi, dans le cas suivant les instructions peuvent être exécutées en parallèle, comme nous l'avons vu dans l'optimisation *out-of-order*
 
@@ -210,13 +210,13 @@ junk = buffer[value]
 
 Une erreur va être levée, mais les instructions suivantes vont tout de même être exécutées.
 
-Si le `buffer` n'était pas dans le cache, mais que les deux instructions précédentes se sont exécutées en même temps, alors la mémoire qui se trouve à l'index `value` du buffer va être mis en cache puisqu'il y a eu un accès à cette zone, et que le processeur met en cache les zones mémoire accédées pour des que les accès futurs soient plus rapides.
+Si le `buffer` n'était pas dans le cache, mais que les deux instructions sont exécutées, alors la mémoire qui se trouve à l'index `value` du buffer va être mise en cache puisqu'il y a eu un accès à cette zone, et que le processeur met en cache les zones mémoire accédées pour que les accès futurs soient plus rapides.
 
 Comme le processeur va ensuite voir qu'il y a eu une erreur, les assignations de `value` et de `junk` seront annulées, mais la mise en cache de la valeur à l'index `value` de `buffer` ne le sera pas. On a donc une trace qui est laissée.
 
-C'est un exemple qui s'approche de l'attaque Meltdown, démontrant que ces optimisations laissent finalement des traces, et risquent alors de faire fuiter des informations.
+C'est un exemple qui s'approche de l'attaque Meltdown, démontrant que ces optimisations laissent finalement des informations, et risquent alors de faire fuiter des données sensibles.
 
-Nous avons le même type de trace dans le cache lorsqu'une prédiction de branche est fausse, et que les instructions qui ont été exécutées à tort laissent des traces dans le cache.
+Nous avons le même type de trace dans le cache lorsqu'une prédiction de branche est fausse, et que les instructions qui ont été exécutées à tort écrivent dans le cache.
 
 Nous allons alors voir dans les chapitres suivants les deux attaques qui exploitent ce problème.
 
@@ -321,14 +321,14 @@ L'idée de Spectre est d'entraîner le processeur à suivre un certain chemin lo
 > 
 > ```c
 > char array[] = "Hello";
-> array = &(array[0]);
+> array == &(array[0]);
 > ```
 > 
 > *Par ailleurs, je rappelle que accéder au `ième` élément d'un tableau en écrivant `array[i]`, c'est strictement équivalent à écrire `*(array + i)`. En effet, le `ième` élément est à l'adresse `adresse_premier_element + i`, or `array = adresse_premier_element` donc le `ième` élément est à l'adresse `array + i`, et pour récupérer cet élément, on déréférence ceci, donnant `*(array + i)`. D'où l'égalité suivante :*
 > 
 > ```c
 > char array[] = "Hello";
-> array[2] = *(array + 2);
+> array[2] == *(array + 2);
 > ```
 
 
