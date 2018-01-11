@@ -15,7 +15,7 @@ comments: true
   {{ content }}
   </article>
 </div>
-
+{% if page.author == "Pixis" %}
 <div class="box">
   <div class="dash">
     <div class="picture">
@@ -28,6 +28,7 @@ comments: true
     
   </div>
 </div>
+{% endif %}
 
 <div class="related">
   <h2>Articles similaires</h2>
