@@ -244,6 +244,13 @@ Ainsi, l'instruction qui suit va accéder à la `4`ème section du buffer (**3**
 
 Le processeur va alors se rendre compte que l'accès à la zone kernel était interdit, et va annuler l'instruction que nous venons de faire, mais la trace dans le cache n'est pas supprimée.
 
+Le pseudo-code qui peut-être associé à cette attaque est le suivant :
+
+```c
+var_secrete = kernel_space[0xfff7]; // var_secrete == 4 dans l'exemple
+junk = buffer[var_secrete]; // Accès à l'index du buffer correspondant à la valeur récupérée
+```
+
 ### Lire l'information exfiltrée
 
 La deuxième partie consiste à sortir cette valeur pour que l'attaquant la connaisse. En effet, pour le moment, il n'y a eu qu'une mise en cache, et il n'est pas possible de lire directement ce cache.
@@ -306,6 +313,19 @@ Par ailleurs, il est plus intéressant de sortir les informations octet par octe
 
 char buffer[PAGE_SIZE*BYTE_SIZE];
 ```
+
+
+Le buffer ressemblera donc à ce schéma :
+
+[![Buffer with pages](/assets/uploads/2018/01/buffer-pages.png)](/assets/uploads/2018/01/buffer-pages.png)
+
+Le pseudo-code que nous avions précédemment devient alors
+
+```c
+var_secrete = kernel_space[0xfff7]; // var_secrete == 4 dans l'exemple précédant
+junk = buffer[var_secrete * PAGE_SIZE]; // La page à l'index 4*4kB sera mise en cache 
+```
+
 
 Le principe reste exactement le même avec ces paramètres.
 
