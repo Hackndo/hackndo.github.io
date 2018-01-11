@@ -27,7 +27,7 @@ Les figures suivantes illustrent les deux issues possibles.
 
 Nous allons voir ici un exemple de ce type de protection. Pour cela, nous allons reprendre le programme utilisé dans l'[article sur le buffer overflow](../buffer-overflow/)
 
-{% highlight c %}
+```c
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -45,36 +45,36 @@ int main(int argc, char *argv[])
     else func(argv[1]);
     return 0;
 }
-{% endhighlight %}
+```
 
 Cependant, cette fois-ci, nous allons le compiler d'une différente manière, pour que cette protection soit mise en place
 
-{% highlight sh %}
+```sh
 $ gcc -Wall -m32 -fstack-protector -o canari canari.c
-{% endhighlight %}
+```
 
-Nous avons maintenant un binaire qui possède cette protection. L'outil [check.sh](http://www.trapkit.de/tools/checksec.sh) nous permet de nous en assurer :
+Nous avons maintenant un binaire qui possède cette protection. L'outil [check.sh](http://www.trapkit.de/tools/checksec.sh){:target="blank"} nous permet de nous en assurer :
 
-{% highlight sh %}
+```sh
 $ ./checksec.sh --file canari
 RELRO      STACK CANARY   NX           PIE      RPATH      RUNPATH      FILE
 No RELRO   Canary found   NX enabled   No PIE   No RPATH   No RUNPATH   canari
-{% endhighlight %}
+```
 
 Essayons alors de provoquer un bête overflow
 
-{% highlight sh %}
+```sh
 $ ./canari $(perl -e 'print "A"x100')
 
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 *** stack smashing detected ***: ./canari terminated
-{% endhighlight %}
+```
 
 Ouch. Voilà, on s'est pris la tomate. Au moins, c'est clair, nous ne pouvons plus badiner avec la pile. Snif.
 
 Mais alors, il s'est passé quoi exactement ? Regardons à quoi ressemble notre nouveau binaire dans gdb
 
-{% highlight sh %}
+```sh
 $ gdb -q canari
 Reading symbols from /home/betezed/blog/exemples/canari...(no debugging symbols found)...done.
 gdb-peda$ disas main
@@ -123,20 +123,20 @@ Dump of assembler code for function func:
  0x080484f2 <+70>: ret 
 End of assembler dump.
 gdb-peda$ 
-{% endhighlight %}
+```
 
 Bon, nous avons les versions désassemblées de la fonction `main` et de la fonction `func`. La fonction `main` ne semble pas avoir été modifiée. En revanche, la fonction `func` a une fin assez étrange :
 
-{% highlight sh %}
+```sh
 0x080484e0 <+52>: mov eax,DWORD PTR [ebp-0xc]
 0x080484e3 <+55>: xor eax,DWORD PTR gs:0x14
 0x080484ea <+62>: je 0x80484f1 <func+69>
 0x080484ec <+64>: call 0x8048360 <__stack_chk_fail@plt>
-{% endhighlight %}
+```
 
 Nous remarquons ces 4 lignes qui ne sont pas habituelles. Une valeur est prise sur la pile, juste avant `EBP`, puis elle est comparée à une valeur située sur le segment gs à l'adresse `0x14`. Ce segment est propre au processus en cours d'exécution. C'est en fait la valeur secrète dont nous parlions tout à l'heure, générée aléatoirement à chaque exécution. Pour nous en convaincre, plaçons un breakpoint à l'adresse `0x080484e3` pour voir le contenu de `EAX` lorsque le comportement est normal (Donc que nous n'avons pas réécrit le canari)
 
-{% highlight sh %}
+```sh
 gdb-peda$ r
 ...
 gdb-peda$ i r eax
@@ -146,30 +146,30 @@ gdb-peda$ r
 ...
 gdb-peda$ i r eax
 eax 0x9a9c0100 0x9a9c0100
-{% endhighlight %}
+```
 
 On voit que deux canaris sont générés d'une exécution à l'autre, et n'ont aucun rapport entre eux. Mais comme nous n'avons rien modifié à ce niveau là, les instructions suivantes :
 
-{% highlight sh %}
+```sh
 0x080484e3 <+55>: xor eax,DWORD PTR gs:0x14
  0x080484ea <+62>: je 0x80484f1 <func+69>
-{% endhighlight %}
+```
 
 comparent ce canari avec la valeur originale. Comme elle n'est pas modifiée, le xor donne la valeur 0 et le jump `JE` est pris, sautant l'appel à `__stack_chk_fail`, donc évitant le lancé de tomates.
 
 Maintenant, tentons un buffer overflow
 
-{% highlight sh %}
+```sh
 gdb-peda$ r $(perl -e 'print "A"x100')
 ...
 
 gdb-peda$ i r eax
 eax 0x41414141 0x41414141
-{% endhighlight %}
+```
 
 Et voilà, nous avons remplacé le canari. Malheur ! Si nous exécutons les quelques instructions qui suivent
 
-{% highlight sh %}
+```sh
 gdb-peda$ ni
 gdb-peda$ ni
 
@@ -182,9 +182,9 @@ gdb-peda$ ni
    0x80484f2 <func+70>: ret 
    0x80484f3 :    push ebp
    0x80484f4 <main+1>:  mov ebp,esp
-{% endhighlight %}
+```
 
-Comme attendu, nous ne prenons pas le saut `JE` à la ligne `func+62` et tombons tout droit dans le `call` à ``__stack_chk_fail` qui termine notre programme.
+Comme attendu, nous ne prenons pas le saut `JE` à la ligne `func+62` et tombons tout droit dans le `call` à `__stack_chk_fail` qui termine notre programme.
 
 ## Exploitation
 
@@ -203,7 +203,7 @@ Dans le premier cas, nous comprenons bien ce que cela implique : Le canari a ét
 
 Il suffit alors de remplir le buffer suffisamment pour ne remplacer que la première valeur du canari. Les chances sont faibles pour que ce soit la bonne valeur. Cependant, il n'y a que 256 possibilités (valeur maximale d'un octet). Donc en un maximum de 256 essais, nous pouvons trouver le premier caractère du canari.
 
-Pour des systèmes 32 bits, le canari a une taille de 4 octets, tandis que pour les systèmes 64 bits, le canari a une taille de 8 octets. Cela signifie que pour un système 32 bits, il faut un maximum de 4*256 = 1024 tentatives pour trouver le canari, et 2048 tentatives pour un système 64 bits. Et ça, c'est très faisable !
+Pour des systèmes 32 bits, le canari a une taille de 4 octets, tandis que pour les systèmes 64 bits, le canari a une taille de 8 octets. Cela signifie que pour un système 32 bits, il faut un maximum de 4\*256 = 1024 tentatives pour trouver le canari, et 2048 tentatives pour un système 64 bits. Et ça, c'est très faisable !
 
 Voici un schéma qui résume ce brute force pour un système 32 bits :
 

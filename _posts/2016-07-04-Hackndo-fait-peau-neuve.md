@@ -19,7 +19,7 @@ Anciennement hosté sur un dédié, j'en avais marre de payer tous les mois un s
 
 Je n'ai aucun regret, ça donne exactement ce que je voulais, et je n'ai plus à me soucier d'une panne de disque ou d'une inondation qui mettrait en péril toutes mes données.
 
-Oui, je sais, j'aurais pu faire un `cron` couplé avec un Hubic et tout ça, mais j'étais également curieux de découvrir le système de pages de Github ainsi que [Jekyll](https://jekyllrb.com/), et j'en suis vraiment content.
+Oui, je sais, j'aurais pu faire un `cron` couplé avec un Hubic et tout ça, mais j'étais également curieux de découvrir le système de pages de Github ainsi que [Jekyll](https://jekyllrb.com/){:target="blank"}, et j'en suis vraiment content.
 
 Je suis toujours en tour du monde, mais ça ne m'empêche pas de me renseigner sur différents sujets. Dans les tuyaux, quelques articles sur l'exploitation kernel, avec pas mal de théorie résumée et vulgarisée, ainsi que des articles pratiques parce que sinon, c'est pas très drôle.
 

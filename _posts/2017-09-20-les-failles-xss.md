@@ -58,7 +58,7 @@ Le javascript `alert` sera exécuté, mais seulement pour nous, puisqu'il faut l
 
 Contrairement à ce que nous pourrions penser, le fait que la charge utile soit exécutée côté client est bel et bien un risque pour l'utilisateur. En effet, le client possède plusieurs informations secrètes et utiles pour l'attaquant, il a également des extensions dans son navigateur qui peuvent avoir des vulnérabilités.
 
-Jusque-là, nous avons seulement affiché une pop-up dans la navigateur de la victime, mais nous allons aller un peu plus loin et voler les cookies de l'utilisateur sur le site vulnérable. Pour cela, nous utiliserons la propriété [cookie](https://developer.mozilla.org/fr/docs/Web/API/Document/cookie) du document (sous réserve que les cookies ne soient pas [protégés](https://www.information-security.fr/securite-sites-web-lutilite-flags-secure-httponly/))
+Jusque-là, nous avons seulement affiché une pop-up dans la navigateur de la victime, mais nous allons aller un peu plus loin et voler les cookies de l'utilisateur sur le site vulnérable. Pour cela, nous utiliserons la propriété [cookie](https://developer.mozilla.org/fr/docs/Web/API/Document/cookie){:target="blank"} du document (sous réserve que les cookies ne soient pas [protégés](https://www.information-security.fr/securite-sites-web-lutilite-flags-secure-httponly/){:target="blank"})
 
 ```javascript
 document.cookie
@@ -115,7 +115,7 @@ Voici l'environnement de test que j'ai mis en place pour cet exemple
 
 Un attaquant a trouvé une vulnérabilité permettant une attaque XSS persistante sur un site internet, et il va piéger un utilisateur.
 
-Une petite application web (pas sécurisée du tout !) a été créée pour illustrer cette démonstration. C'est une application de galerie d'images qui permet d'envoyer sur le serveur une image avec une description, et cette image est ensuite affichée pour tous les utilisateurs, avec une bulle d'info qui dévoile sa description quand on survole l'image. Le code est disponible [sur mon github](https://github.com/Hackndo/blog/tree/master/20170920_XSS).
+Une petite application web (pas sécurisée du tout !) a été créée pour illustrer cette démonstration. C'est une application de galerie d'images qui permet d'envoyer sur le serveur une image avec une description, et cette image est ensuite affichée pour tous les utilisateurs, avec une bulle d'info qui dévoile sa description quand on survole l'image. Le code est disponible [sur mon github](https://github.com/Hackndo/blog/tree/master/20170920_XSS){:target="blank"}.
 
 Nous l'avons vu dans la première partie de cet article, une faille permettant une XSS est présente dans la description de l'image (mais pas seulement, le nom de l'image peut être également utilisé pour exploiter la vulnérabilité par exemple).
 
@@ -204,13 +204,13 @@ L'attaquant peut alors ouvrir la session et lancer un shell sur la machine de la
 
 ## Conclusion
 
-Nous avons vu dans cet article le fonctionnement basique d'une attaque XSS et à quel point cela peut devenir dangereux. Evidemment, beaucoup de site sont au courant de ce type de faille et filtrent les entrées utilisateurs. Il existe alors un jeu du chat et de la souris pour passer outre les protections mises en place. Il suffit d'aller jeter un oeil au [site de l'OWASP](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet) pour s'en convaincre.
+Nous avons vu dans cet article le fonctionnement basique d'une attaque XSS et à quel point cela peut devenir dangereux. Evidemment, beaucoup de site sont au courant de ce type de faille et filtrent les entrées utilisateurs. Il existe alors un jeu du chat et de la souris pour passer outre les protections mises en place. Il suffit d'aller jeter un oeil au [site de l'OWASP](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet){:target="blank"} pour s'en convaincre.
 
 Si vous êtes développeur de sites internet, pensez bien à protéger toutes les variables qu'un utilisateur peut modifier directement ou indirectement, c'est la clé pour un début de protection.
 
-Par ailleurs, concernant les cookies, il existe des flags pour les protéger tels que [HttpOnly](https://www.owasp.org/index.php/HttpOnly) et le flag [Secure](https://www.owasp.org/index.php/SecureFlag).
+Par ailleurs, concernant les cookies, il existe des flags pour les protéger tels que [HttpOnly](https://www.owasp.org/index.php/HttpOnly){:target="blank"} et le flag [Secure](https://www.owasp.org/index.php/SecureFlag){:target="blank"}.
 
-Pour aller plus loin, je vous invite à vous renseigner sur le projet [BeEF](http://beefproject.com/) qui permet encore plus d'actions avec des attaques XSS, ainsi que toutes les techniques de protection et de bypass qui peuvent exister (ou du moins, un maximum). Ainsi, vous saurez contre quoi vous protéger lorsque vous développerez votre site.
+Pour aller plus loin, je vous invite à vous renseigner sur le projet [BeEF](http://beefproject.com/){:target="blank"} qui permet encore plus d'actions avec des attaques XSS, ainsi que toutes les techniques de protection et de bypass qui peuvent exister (ou du moins, un maximum). Ainsi, vous saurez contre quoi vous protéger lorsque vous développerez votre site.
 
 J'espère que cet article vous a plu, si vous avez des questions ou des remarques, n'hésitez pas à les poser dans les commentaires !
 

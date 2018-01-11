@@ -248,7 +248,7 @@ Le processeur va alors se rendre compte que l'accès à la zone kernel était in
 
 La deuxième partie consiste à sortir cette valeur pour que l'attaquant la connaisse. En effet, pour le moment, il n'y a eu qu'une mise en cache, et il n'est pas possible de lire directement ce cache.
 
-Pour cela, on utilise des techniques appelées *cache side-channel attacks*. Nous utiliserons celle appelée `flush + reload` pour retrouver l'information.  Il en existe d'autres comme *Evict+Time* ou *Prime+Probe* que nous ne verrons pas dans cet article, mais vous pouvez aller voir [cet article](http://www.cryptofails.com/post/70097430253/crypto-noobs-2-side-channel-attacks) qui en parle si vous êtes curieux.
+Pour cela, on utilise des techniques appelées *cache side-channel attacks*. Nous utiliserons celle appelée `flush + reload` pour retrouver l'information.  Il en existe d'autres comme *Evict+Time* ou *Prime+Probe* que nous ne verrons pas dans cet article, mais vous pouvez aller voir [cet article](http://www.cryptofails.com/post/70097430253/crypto-noobs-2-side-channel-attacks){:target="blank"} qui en parle si vous êtes curieux.
 
 L'attaquant va alors simplement vider le cache, puis procéder à l'attaque, pour enfin accéder à toutes les sections du buffer qu'il avait préparé en mesurant les temps d'accès à chaque section.
 
@@ -380,8 +380,8 @@ Evidemment, le processeur devra souvent changer de contexte d'exécution (user -
 
 En ce qui concerne Spectre, il est beaucoup plus compliqué de trouver un moyen de s'en protéger. En effet, l'attaque utilise des éléments intrinsèques à l'architecture de l'ordinateur, sans utiliser de vulnérabilité, et sans accéder à des zones mémoire interdites par le matériel. Il faut donc revoir en profondeur le fonctionnement des optimisations.
 
-Je vous invite à lire [le billet](http://blogmotion.fr/internet/securite/metldown-spectre-comprendre-16865) de [@xhark](https://twitter.com/xhark) sur le sujet pour plus d'information sur les solutions et mises à jour. Il a fait un très bon travail de synthèse, je ne vais donc pas reprendre son travail.
+Je vous invite à lire [le billet](http://blogmotion.fr/internet/securite/metldown-spectre-comprendre-16865){:target="blank"} de [@xhark](https://twitter.com/xhark){:target="blank"} sur le sujet pour plus d'information sur les solutions et mises à jour. Il a fait un très bon travail de synthèse, je ne vais donc pas reprendre son travail.
 
-Pour plus de détails sur les attaques, je vous mets également les whitepapers ici pour [meltdown](https://meltdownattack.com/meltdown.pdf) et [spectre](https://spectreattack.com/spectre.pdf).
+Pour plus de détails sur les attaques, je vous mets également les whitepapers ici pour [meltdown](https://meltdownattack.com/meltdown.pdf){:target="blank"} et [spectre](https://spectreattack.com/spectre.pdf){:target="blank"}.
 
-J'espère que cet article vous aide à y voir plus clair, n'hésitez toujours pas à commenter ou à me retrouver sur [Discord](https://discord.gg/9At6SUZ) pour plus d'informations, des remarques, des corrections, etc.
+J'espère que cet article vous aide à y voir plus clair, n'hésitez toujours pas à commenter ou à me retrouver sur [Discord](https://discord.gg/9At6SUZ){:target="blank"} pour plus d'informations, des remarques, des corrections, etc.

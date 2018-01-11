@@ -18,7 +18,7 @@ Je sais que ça fait quelques temps que je n'ai rien posté, mais promis j'ai pl
 
 En attendant, j'ai passé le temps en montant un petit site qui ne cesse de se développer. Saurez-vous arriver au bout ?
 
-Attention, le nom de ce site, qui s'inscrit dans [une lignée très connue](http://estcequecestbientot.fr/), peut choquer les jeunes enfants. Vous trouverez ce site ici :
+Attention, le nom de ce site, qui s'inscrit dans [une lignée très connue](http://estcequecestbientot.fr/){:target="blank"}, peut choquer les jeunes enfants. Vous trouverez ce site ici :
 
 <p style="text-align: center;">
   <a href="http://estcequecestbientotlheuredeniquer.com">estcequecestbientotlheurede******</a>
@@ -30,7 +30,7 @@ Non ce n'est pas une simple question (stupide, certes) avec une simple réponse.
 
 Bonne chasse !
 
-PS : Allez, parce que quand même, pour montrer que [ce n'est pas impossible](http://www.estcequecestbientotlheuredeniquer.com/?scoreboard)
+PS : Allez, parce que quand même, pour montrer que [ce n'est pas impossible](http://www.estcequecestbientotlheuredeniquer.com/?scoreboard){:target="blank"}
 
 <!--
 

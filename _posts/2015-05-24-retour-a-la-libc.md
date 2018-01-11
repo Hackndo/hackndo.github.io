@@ -202,7 +202,7 @@ Pour pouvoir mettre la pile dans cet état, il faudra donc envoyer au programme 
 
 C'était un long préambule, mais il était nécessaire pour pouvoir bien comprendre les rouages de cette technique. Sans plus attendre, nous allons l'exploiter avec un exemple simple
 
-Je précise que j'ai fait [une vidéo](https://www.youtube.com/watch?v=M7NQfGobQNo) qui permet d'illustrer ce même exemple !
+Je précise que j'ai fait [une vidéo](https://www.youtube.com/watch?v=M7NQfGobQNo){:target="blank"} qui permet d'illustrer ce même exemple !
 
 {% highlight c %}
 #include <stdio.h>
@@ -407,4 +407,4 @@ J'espère que cet article aura été utile et clair. Rappelez-vous que ce ne son
 Pour ouvrir une perspective, sachez que pour les binaires 64bits, les paramètres des fonctions sont passés par les registres (du moins les 6 premiers. S'il y en a plus, ils sont mis sur la pile). Ainsi, il ne faut plus créer une fausse pile pour rendre l'appel valide, mais il faut initialiser les bons registres avec les bonnes valeurs !
 
 
-Je vous invite également à vous renseigner sur l'[ASLR](http://fr.wikipedia.org/wiki/Address_space_layout_randomization), qui est une technique permettant de se prémunir (partiellement) de ces attaques.
+Je vous invite également à vous renseigner sur l'[ASLR](http://fr.wikipedia.org/wiki/Address_space_layout_randomization){:target="blank"}, qui est une technique permettant de se prémunir (partiellement) de ces attaques.

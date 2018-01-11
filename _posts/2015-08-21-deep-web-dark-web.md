@@ -24,13 +24,13 @@ Pendant longtemps, les moteurs de recherche ne comprenaient que les pages écrit
 
 Cependant, il existe une multitude de pages ou documents que les moteurs de recherche classiques ne peuvent pas référencer, soit parce qu'ils n'ont tout simplement **pas accès** à la page, soit parce qu'ils ne **peuvent pas la comprendre**.
 
-On trouve dans le lot les pages avec des liens dynamiques (i.e. qui changent en fonction de chaque utilisateur), celles protégées par un mot de passe ou un captcha, les pages sur lesquelles aucun lien ne pointe, les documents non compris par les moteurs de recherche, ou encore les noms de domaines dont la résolution DNS n'est pas standard, avec par exemple une racine qui n'est pas enregistrée chez l'[ICANN](https://www.icann.org/fr). J'entends par là que les racine de nom de domaine connus par l'ICANN sont les .com, .fr, .co, .gouv etc. mais qu'il en existe des non standards, seulement accessibles via des serveurs DNS non standards (Un serveur DNS est grosso modo un serveur qui traduit un nom de domaine comme hackndo.com, newbiecontest.org en l'adresse IP correspondante). Un exemple connu est la racine .onion donc la résolution n'est possible que via le réseau [TOR](https://www.torproject.org/).
+On trouve dans le lot les pages avec des liens dynamiques (i.e. qui changent en fonction de chaque utilisateur), celles protégées par un mot de passe ou un captcha, les pages sur lesquelles aucun lien ne pointe, les documents non compris par les moteurs de recherche, ou encore les noms de domaines dont la résolution DNS n'est pas standard, avec par exemple une racine qui n'est pas enregistrée chez l'[ICANN](https://www.icann.org/fr){:target="blank"}. J'entends par là que les racine de nom de domaine connus par l'ICANN sont les .com, .fr, .co, .gouv etc. mais qu'il en existe des non standards, seulement accessibles via des serveurs DNS non standards (Un serveur DNS est grosso modo un serveur qui traduit un nom de domaine comme hackndo.com, newbiecontest.org en l'adresse IP correspondante). Un exemple connu est la racine .onion donc la résolution n'est possible que via le réseau [TOR](https://www.torproject.org/){:target="blank"}.
 
 Vous voyez, il existe de nombreux, **très** nombreux cas pour lesquels les moteurs de recherches tels que nous les connaissons sont incapables d'indexer une ressource. Toutes ces ressources classiquement inaccessibles forment ce qu'on appelle le _deep web_.
 
 ## Dark Web
 
-Une grande confusion existe entre le _dark web_ et le _deep web._ **Non**, le _dark web_ **n'est pas** le _deep web_. Le _dark web_ est une partie du _deep web_. Le _dark web_ repose sur les _darknets_, et un darknet n'est rien d'autre qu'un réseau P2P (_peer-to-peer_, ami-à-ami) dans lequel les utilisateurs sont considérés commes des personnes de confiance, et les échanges sont anonymes, donc les IP ne sont pas publiquement partagées. Un exemple connu de _dark web_ est [Freenet](https://freenetproject.org/), qui n'est finalement rien de plus qu'un **réseau anonyme** et **distribué** fondé sur l'internet.
+Une grande confusion existe entre le _dark web_ et le _deep web._ **Non**, le _dark web_ **n'est pas** le _deep web_. Le _dark web_ est une partie du _deep web_. Le _dark web_ repose sur les _darknets_, et un darknet n'est rien d'autre qu'un réseau P2P (_peer-to-peer_, ami-à-ami) dans lequel les utilisateurs sont considérés commes des personnes de confiance, et les échanges sont anonymes, donc les IP ne sont pas publiquement partagées. Un exemple connu de _dark web_ est [Freenet](https://freenetproject.org/){:target="blank"}, qui n'est finalement rien de plus qu'un **réseau anonyme** et **distribué** fondé sur l'internet.
 
 * * *
 
@@ -38,10 +38,10 @@ J'espère que ces petites lignes vous permettent d'avoir une compréhension un p
 
 **Ressources**
 
-  * [Reddit : Deep Web](https://www.reddit.com/r/deepweb/)
-  * [Wikipédia : Darknet](https://fr.wikipedia.org/wiki/Darknet)
-  * [Wikipédia : Dark Web](https://en.wikipedia.org/wiki/Dark_web)
-  * [Wikipédia : Deep Web](https://en.wikipedia.org/wiki/Deep_web)
-  * [Exploring the deep web: Below the surface (PDF)](https://www.trendmicro.com/cloud-content/us/pdfs/security-intelligence/white-papers/wp_below_the_surface.pdf)
+  * [Reddit : Deep Web](https://www.reddit.com/r/deepweb/){:target="blank"}
+  * [Wikipédia : Darknet](https://fr.wikipedia.org/wiki/Darknet){:target="blank"}
+  * [Wikipédia : Dark Web](https://en.wikipedia.org/wiki/Dark_web){:target="blank"}
+  * [Wikipédia : Deep Web](https://en.wikipedia.org/wiki/Deep_web){:target="blank"}
+  * [Exploring the deep web: Below the surface (PDF)](https://www.trendmicro.com/cloud-content/us/pdfs/security-intelligence/white-papers/wp_below_the_surface.pdf){:target="blank"}
 
   

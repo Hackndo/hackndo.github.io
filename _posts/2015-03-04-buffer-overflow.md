@@ -64,7 +64,7 @@ Comme promis, nous allons nous intéresser à deux cas pratiques.
 
 ### Cas 1
 
-J'ai illustré un cas similaire en vidéo, vous le [trouverez ici](https://www.youtube.com/watch?v=V7Gdc32XRhA).
+J'ai illustré un cas similaire en vidéo, vous le [trouverez ici](https://www.youtube.com/watch?v=V7Gdc32XRhA){:target="blank"}.
 
 ```c
 #include <stdio.h>
@@ -629,7 +629,7 @@ $
 
 Voilà, nous avons également ouvert un shell avec le binaire en exploitant le buffer overflow.
 
-J'ai également enregistré une vidéo avec une exploitation de buffer overflow comme dans le cas 1, vous la [trouverez ici](https://www.youtube.com/watch?v=V7Gdc32XRhA).
+J'ai également enregistré une vidéo avec une exploitation de buffer overflow comme dans le cas 1, vous la [trouverez ici](https://www.youtube.com/watch?v=V7Gdc32XRhA){:target="blank"}.
 
 J'espère que cet article **tuto buffer overflow** vous aura été utile. Des protections contre ce type d'exploitation existent cependant, comme le fait de rendre la pile non exécutable. À ce moment là, pas de panique, vous pouvez toujours récupérer un shell, avec par exemple la technique du [retour à la libc](/retour-a-la-libc/). Have fun !
 

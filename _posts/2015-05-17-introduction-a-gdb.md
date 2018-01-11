@@ -432,8 +432,8 @@ Voilà, avec cette introduction à gdb, vous devriez pouvoir l'utiliser et profi
 
 Si vous sentez que gdb est trop morne, qu'il manque de couleurs, de fonctionnalités, sachez que de nombreuses initiatives existent dans le monde open source afin de vous rendre la vie plus agréable, en vous proposant des `.gdbinit` remarquablement complets et utiles. (_Merci à yaap pour les liens_) Nous pouvons citer, entre autre :\`
 
-* [peda](https://github.com/longld/peda)
-* [dotgdb](https://github.com/dholm/dotgdb)
+* [peda](https://github.com/longld/peda){:target="blank"}
+* [dotgdb](https://github.com/dholm/dotgdb){:target="blank"}
 
 N'hésitez pas à les installer, et les modifier selon vos besoins, vous avez (presque) toutes les clés en main pour comprendre comment ils fonctionnent. Notez cependant que ces outils ne sont pas exempts de bugs ou de comportements inattendus. Utilisez les avec discernement, n'hésitez pas à être bon critique !
 

@@ -77,7 +77,7 @@ Si vous avez suivi jusque là, c'est bien. Vous aurez remarqué cependant un pet
 
 ## SHA1
 
-Pour l'origine de SHA1 je vous invite à lire [la page wikipedia](https://fr.wikipedia.org/wiki/SHA-1). Nous allons ici expliquer sommairement comment cet algorithme fonctionne.
+Pour l'origine de SHA1 je vous invite à lire [la page wikipedia](https://fr.wikipedia.org/wiki/SHA-1){:target="blank"}. Nous allons ici expliquer sommairement comment cet algorithme fonctionne.
 
 Comme expliqué en début d'article, lorsqu'une chaîne va être hachée par sha1, elle est dans un premier temps découpée en blocs de 64 octets. Le dernier bloc subit un remplissage pour avoir également une taille de 64 octets. Une fois la chaîne découpée en blocs, et que le dernier bloc fait également 64 octets, ce n'est qu'à ce moment là que les calculs sur ces différents blocs vont être effectués.
 
@@ -103,7 +103,7 @@ Comme il est primordiale de la conserver, il est primordiale de savoir calculer 
 
 Voici ce qui se passe réellement, quand le dernier bloc est rempli pour faire 64 octets :
 
-La chaîne est reçue, et la première opération effectuée est qu'un bit égal à **1** est ajouté en fin de chaîne, puis une série de zéros, et enfin la taille totale de la chaîne **en bits** (sans le bit ajouté, et sans les zéros), et en **[big endian](https://fr.wikipedia.org/wiki/Endianness)**. Cette taille est enregistrée sur 8 octets. La série de zéros est de taille variable et permet de faire en sorte que le bloc fasse bien 64 octets.
+La chaîne est reçue, et la première opération effectuée est qu'un bit égal à **1** est ajouté en fin de chaîne, puis une série de zéros, et enfin la taille totale de la chaîne **en bits** (sans le bit ajouté, et sans les zéros), et en **[big endian](https://fr.wikipedia.org/wiki/Endianness){:target="blank"}**. Cette taille est enregistrée sur 8 octets. La série de zéros est de taille variable et permet de faire en sorte que le bloc fasse bien 64 octets.
 
 [![Screenshot-2015-09-13-at-16.01.46](/assets/uploads/2015/09/Screenshot-2015-09-13-at-16.01.46.png)](/assets/uploads/2015/09/Screenshot-2015-09-13-at-16.01.46.png)
 

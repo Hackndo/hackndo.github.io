@@ -138,7 +138,7 @@ INT   0x80
 
 Vous voyez que nous avons les adresses de ces 4 gadgets (suites d'instructions) `0x08041234`, `0x08046666`, `0x08041337` et `0x08044242`.
 
-Pour que l'exemple reste simple, nous allons effectuer un appel système `sys_exit` avec comme argument la valeur `3` (Pour tous les appels systèmes vous pouvez jeter un oeil à mon github pour les architectures [32 bits](https://github.com/Hackndo/misc/blob/master/syscalls32.md) et les [64 bits](https://github.com/Hackndo/misc/blob/master/syscalls64.md)).
+Pour que l'exemple reste simple, nous allons effectuer un appel système `sys_exit` avec comme argument la valeur `3` (Pour tous les appels systèmes vous pouvez jeter un oeil à mon github pour les architectures [32 bits](https://github.com/Hackndo/misc/blob/master/syscalls32.md){:target="blank"} et les [64 bits](https://github.com/Hackndo/misc/blob/master/syscalls64.md){:target="blank"}).
 
 D'après le tableau 32 bits, pour faire un appel système à `sys_exit`, `EAX` doit prendre la valeur **1** et `EBX` la valeur du code de retour, ici **3** comme nous l'avons décidé.
 
@@ -217,7 +217,7 @@ int main(int argc, char ** argv) {
 }
 ```
 
-J'utilise ici le compilateur `clang` car `gcc` [produit un prologue et un épilogue](http://reverseengineering.stackexchange.com/questions/13811/what-is-this-protection-that-seems-to-prevent-rop-when-aslr-in-on) qui rendent l'exploitation plus compliquée. Comme le but de cet article est de faire une démonstration simple et classique du ROP, nous utilisons clang qui produit un binaire "classique".
+J'utilise ici le compilateur `clang` car `gcc` [produit un prologue et un épilogue](http://reverseengineering.stackexchange.com/questions/13811/what-is-this-protection-that-seems-to-prevent-rop-when-aslr-in-on){:target="blank"} qui rendent l'exploitation plus compliquée. Comme le but de cet article est de faire une démonstration simple et classique du ROP, nous utilisons clang qui produit un binaire "classique".
 
 Vous remarquez l'évident buffer overflow, si nous passons à ce binaire un gros buffer, il va normalement nous renvoyer une erreur de segmentation.
 
@@ -262,7 +262,7 @@ echo 2 | sudo tee /proc/sys/kernel/randomize_va_space
 
 Vous pourrez toujours revenir à votre configuration d'origine en remettant le numéro que vous aviez initialement.
 
-Nous allons essayer de lancer un shell avec ce programme, malgré les protections mises en place. Pour cela, nous allons avoir besoin de gadgets. Un outil extrêmement connu pour cette recherche s'appelle [ROPgadget](http://shell-storm.org/project/ROPgadget/), je vous laisse l'installer. Il est très puissant et possède tout un tas d'options.
+Nous allons essayer de lancer un shell avec ce programme, malgré les protections mises en place. Pour cela, nous allons avoir besoin de gadgets. Un outil extrêmement connu pour cette recherche s'appelle [ROPgadget](http://shell-storm.org/project/ROPgadget/){:target="blank"}, je vous laisse l'installer. Il est très puissant et possède tout un tas d'options.
 
 Une commande de base est 
 
@@ -299,7 +299,7 @@ Parfait. Nous avons notre premier gadget qui nous sera utile.
 
 Je vous rappelle que nous voulons exécuter un shell. Il nous faut alors lancer `sys_execve("/bin/sh", NULL, NULL)`.
 
-D'après la table des appels systèmes [32 bits](https://github.com/Hackndo/misc/blob/master/syscalls32.md), la valeur de `EAX` pour un `execve` est de 11. Maintenant qu'on a un gadget qui initialise `EAX` à zéro, il faut par exemple l'incrémenter.
+D'après la table des appels systèmes [32 bits](https://github.com/Hackndo/misc/blob/master/syscalls32.md){:target="blank"}, la valeur de `EAX` pour un `execve` est de 11. Maintenant qu'on a un gadget qui initialise `EAX` à zéro, il faut par exemple l'incrémenter.
 
 ```sh
 $ ROPgadget --binary rop | grep "inc eax"
@@ -476,6 +476,6 @@ ret
 
 Donc je ne pouvais pas enchaîner les appels systèmes. Mais si vous avez ça dans un autre binaire, alors vous pouvez enchaîner presque autant d'appels systèmes que vous le souhaitez, et vous pouvez ainsi construire une chaine d'exécution complexe, seulement en utilisant des bouts de codes à droite et à gauche.
 
-Par ailleurs, si vous êtes intéressés pour aller un peu plus loin, je vous conseille vivement la lecture de l'excellent article de Geluchat [Petit Manuel du ROP à l'usage des débutants](https://www.dailysecurity.fr/return_oriented_programming/).
+Par ailleurs, si vous êtes intéressés pour aller un peu plus loin, je vous conseille vivement la lecture de l'excellent article de Geluchat [Petit Manuel du ROP à l'usage des débutants](https://www.dailysecurity.fr/return_oriented_programming/){:target="blank"}.
 
 Have fun !

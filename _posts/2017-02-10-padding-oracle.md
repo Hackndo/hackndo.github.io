@@ -33,7 +33,7 @@ Nous allons dans cet article nous intéresser au mode CBC du chiffrement par blo
 
 ### Padding
 
-Alors que nous avons parlé du padding utilisé par les fonctions de hashage dans l'article sur le [Hash Length Extension](http://beta.hackndo.com/hash-length-extension), nous allons ici nous intéresser à une technique de padding majoritairement utilisée dans les chiffrements par blocs, [PKCS](https://en.wikipedia.org/wiki/PKCS)7 dont le fonctionnement est décrit dans la [RFC 5652](https://tools.ietf.org/html/rfc5652#section-6.3).
+Alors que nous avons parlé du padding utilisé par les fonctions de hashage dans l'article sur le [Hash Length Extension](http://beta.hackndo.com/hash-length-extension){:target="blank"}, nous allons ici nous intéresser à une technique de padding majoritairement utilisée dans les chiffrements par blocs, [PKCS](https://en.wikipedia.org/wiki/PKCS){:target="blank"}7 dont le fonctionnement est décrit dans la [RFC 5652](https://tools.ietf.org/html/rfc5652#section-6.3){:target="blank"}.
 
 Soit N octets la taille d'un bloc. S'il manque M octets dans le dernier bloc, alors on ajoutera le charactère '0xM' M fois à la fin du bloc.
 

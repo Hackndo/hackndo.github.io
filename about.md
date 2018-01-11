@@ -13,15 +13,15 @@ Si jamais vous êtes tombé(e) ici par hasard, sachez que je ne prétends pas ê
 
 # Qui suis-je
 
-Connu sous le pseudo **Pixis**, je suis un fervent utilisateur du site [newbiecontest](https://www.newbiecontest.org/index.php) ([mon profil](https://www.newbiecontest.org/index.php?page=info_membre&nick=pixis)) dont je suis administrateur, également membre de la team française de CTF [0x90r00t](https://0x90r00t.com) et un vrai passionné qui passe ses jours et nuits sur différents sujets, que ce soit concernant la sécurité informatique, mais également bidouilleur raspberry/arduino/domotique, toujours curieux, et qui aime partager.
+Connu sous le pseudo **Pixis**, je suis un fervent utilisateur du site [newbiecontest](https://www.newbiecontest.org/index.php){:target="blank"} ([mon profil](https://www.newbiecontest.org/index.php?page=info_membre&nick=pixis){:target="blank"}) dont je suis administrateur, également membre de la team française de CTF [0x90r00t](https://0x90r00t.com){:target="blank"} et un vrai passionné qui passe ses jours et nuits sur différents sujets, que ce soit concernant la sécurité informatique, mais également bidouilleur raspberry/arduino/domotique, toujours curieux, et qui aime partager.
 
 Je vous souhaite donc la bienvenue sur mon humble blog, et j'espère que les articles que vous pourrez trouver vous seront utiles !
 
 Pour me suivre :
 
-|[Github](http://www.github.com/hackndo)|
-|[Twitter](http://www.twitter.com/hackanddo)|
-|[Youtube](https://www.youtube.com/channel/UC9WYWHLdu9TK-0Hu3wcHJ9g)|
-|[Newbiecontest](https://www.newbiecontest.org/index.php?page=info_membre&nick=pixis)|
-|[Root-me](https://www.root-me.org/Betezed)|
-|[0x90r00t](https://0x90r00t.com/author/hackndo/)|
+|[Github](http://www.github.com/hackndo){:target="blank"}|
+|[Twitter](http://www.twitter.com/hackanddo){:target="blank"}|
+|[Youtube](https://www.youtube.com/channel/UC9WYWHLdu9TK-0Hu3wcHJ9g){:target="blank"}|
+|[Newbiecontest](https://www.newbiecontest.org/index.php?page=info_membre&nick=pixis){:target="blank"}|
+|[Root-me](https://www.root-me.org/Betezed){:target="blank"}|
+|[0x90r00t](https://0x90r00t.com/author/hackndo/){:target="blank"}|

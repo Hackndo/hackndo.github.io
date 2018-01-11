@@ -189,4 +189,4 @@ Ce problème n'existe pas si le paramètre `-r` est omis, puisque cet oubli de v
 
 ## Correction du bug
 
-Nous avons envoyé un fix qui a été accepté et [est mergé dans la branche master](https://savannah.gnu.org/bugs/?45289#comment5) ! Voilà, une petite contribution au monde libre, ça fait plaisir 🙂
+Nous avons envoyé un fix qui a été accepté et [est mergé dans la branche master](https://savannah.gnu.org/bugs/?45289#comment5){:target="blank"} ! Voilà, une petite contribution au monde libre, ça fait plaisir 🙂
