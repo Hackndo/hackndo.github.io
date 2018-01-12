@@ -5,6 +5,7 @@ author: "Pixis"
 layout: post
 permalink: /le-hacking-cest-quoi/
 disqus_identifier: 0000-0000-0000-0001
+description: "Bonjour à tous, et bienvenue sur mon tout premier article."
 cover: assets/uploads/2014/07/hacking_nav.png
 image: assets/uploads/2014/07/hacking_nav.png
 tags:

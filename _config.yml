@@ -36,7 +36,7 @@ github:
   repo:
     "http://github.com/hackndo/hackndo.github.io"
 version: 1.1.0
-gems:
+plugins:
   - jekyll-paginate
   - jekyll-archives
   - jekyll-feed

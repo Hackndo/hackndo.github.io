@@ -5,6 +5,7 @@ author: "Pixis"
 layout: post
 permalink: /les-failles-kernel/
 disqus_identifier: 0000-0000-0000-0014
+description: "Quelles sont les failles relative au kernel ? Nous allons découvrir ça dans cet article"
 cover: assets/uploads/2016/07/kernel_2.jpg
 image: assets/uploads/2016/07/kernel_2.jpg
 tags:

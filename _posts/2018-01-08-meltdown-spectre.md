@@ -6,6 +6,7 @@ layout: post
 permalink: /meltdown-spectre/
 disqus_identifier: 0000-0000-0000-001e
 cover: assets/uploads/2018/01/spectre-meltdown.jpg
+description: "Ces derniers jours, il y a eu beaucoup de bruit dans la sphère de la sécurité informatique. Les mots Meltdown et Spectre ont fait la une de plusieurs journaux et sites d'information, qu'ils soient spécialisés ou généralistes."
 tags:
   - kernel
   - hardware

@@ -5,6 +5,7 @@ author: "Pixis"
 layout: post
 permalink: /fonctionnement-de-la-pile/
 disqus_identifier: 0000-0000-0000-000E
+description: "Article sur le fonctionnement de la pile, ou stack au sein des ordinateurs."
 cover: assets/uploads/2015/01/stack.jpg
 image: assets/uploads/2015/01/stack.jpg
 tags:

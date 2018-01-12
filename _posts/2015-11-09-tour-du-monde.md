@@ -5,6 +5,7 @@ author: "Pixis"
 layout: post
 permalink: /tour-du-monde/
 disqus_identifier: 0000-0000-0000-0011
+description: "Un petit post pour vous prévenir : Je pars faire le tour du monde !"
 cover: assets/uploads/2015/11/DSC00791-copie2.jpg
 image: assets/uploads/2015/11/DSC00791-copie2.jpg
 tags:

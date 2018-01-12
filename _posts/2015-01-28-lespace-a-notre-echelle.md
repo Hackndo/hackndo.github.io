@@ -5,6 +5,7 @@ author: "Pixis"
 layout: post
 permalink: /lespace-a-notre-echelle/
 disqus_identifier: 0000-0000-0000-000D
+description: "L'espace, c'est grand, très grand. Dès qu'on commence à parler d'univers, on arrive rapidement à parler en années-lumières, en millions, milliards, et plus. Mais finalement, on ne se rend compte de rien, on ne sait pas se représenter ça."
 cover: assets/uploads/2015/01/LH_95.jpg
 image: assets/uploads/2015/01/LH_95.jpg
 tags:

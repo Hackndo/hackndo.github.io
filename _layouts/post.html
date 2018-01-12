@@ -4,13 +4,17 @@ comments: true
 ---
 
 <div class="post">
+  {% if page.cover %}
+  <div class="post-cover">
+    <img src="/{{ page.cover }}" title="{{ page.title }}" />
+  </div>
+  {% endif %}
   <h1 class="post-title">{{ page.title }}</h1>
   <div class="post-info">
       <p class="alignleft">{{ page.date | date_to_string }} <a class="post-comments-count" href="http://{{ site.url }}{{ page.url }}#disqus_thread"></a></p>
       <p class="alignright">Auteur : <strong><a href="https://twitter.com/intent/user?screen_name=hackanddo">{{ page.author }}</a></strong></p>
-    </div>
-  <!-- <nav role="navigation" class="table-of-contents"> -->
-  </nav>
+  </div>
+
   <article>
   {{ content }}
   </article>

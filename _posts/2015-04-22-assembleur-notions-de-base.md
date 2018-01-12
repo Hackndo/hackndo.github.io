@@ -5,8 +5,8 @@ author: "Pixis"
 layout: post
 permalink: /assembleur-notions-de-base/
 disqus_identifier: 0000-0000-0000-000A
+description: "L'assembleur est obscur pour vous ? Voici un article qui vous permettra d'y voir plus clair."
 cover: assets/uploads/2015/04/BACKGROUND.jpg
-image: assets/uploads/2015/04/BACKGROUND.jpg
 tags:
   - tuto
 ---

@@ -5,8 +5,8 @@ author: "Pixis"
 layout: post
 permalink: /buffer-overflow/
 disqus_identifier: 0000-0000-0000-000B
+description: "Nous allons ici expliquer ce qui se cache derrière la notion de buffer overflow, avant de donner deux exemples différents d'exploitation dans ce tuto"
 cover: assets/uploads/2015/03/groot.jpg
-image: assets/uploads/2015/03/groot.jpg
 tags:
   - userland
   - tuto

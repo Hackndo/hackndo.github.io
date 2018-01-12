@@ -5,6 +5,7 @@ author: "Pixis"
 layout: post
 permalink: /introduction-a-gdb/
 disqus_identifier: 0000-0000-0000-0009
+description: "GDB est un outil extrêmement puissant. Voici un article qu l'introduit avec une mise en pratique."
 cover: assets/uploads/2015/05/gdb_visual.jpg
 image: assets/uploads/2015/05/gdb_visual.jpg
 tags:

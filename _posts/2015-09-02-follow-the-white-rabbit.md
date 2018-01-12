@@ -5,6 +5,7 @@ author: "Pixis"
 layout: post
 permalink: /follow-the-white-rabbit/
 disqus_identifier: 0000-0000-0000-0004
+description: "Envie de challenge ? Cet article est fait pour vous. Parviendrez-vous au bout des épreuves ?"
 cover: assets/uploads/2015/09/oui.png
 image: assets/uploads/2015/09/oui.png
 tags:
