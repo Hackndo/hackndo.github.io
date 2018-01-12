@@ -79,6 +79,5 @@ label + input[type=radio] + label {
   border: solid 2px #303030;
   display: inline-block;
 
-  border-radius: 10px;
   overflow: hidden;
 }
