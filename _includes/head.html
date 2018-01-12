@@ -50,9 +50,9 @@
   <meta name="twitter:title" content="{{ page.title }}" />
   <meta name="twitter:description" content="{{ page.description }}" />
   {% if page.cover %}
-  <meta name="twitter:image" content="/{{ page.cover }}" />
+  <meta name="twitter:image" content="{{ site.url }}/{{ page.cover }}" />
   {% else %}
-  <meta name="twitter:image" content="/assets/icones/logo.png" />
+  <meta name="twitter:image" content="{{ site.url }}/assets/icones/logo.png" />
   {% endif %}
 
   <!-- Google analytics -->
