@@ -47,3 +47,38 @@
 .dash .box_content strong {
     color: #F7EEEE;
 }
+
+/*
+  Radio button archives
+*/
+
+input[type=radio] {
+  position: absolute;
+  visibility: hidden;
+  display: none;
+}
+
+label {
+  color: #303030;
+  display: inline-block;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 5px 20px;
+}
+
+input[type=radio]:checked + label {
+  color: #fff;
+  background: #303030;
+}
+
+label + input[type=radio] + label {
+  border-left: solid 2px #303030;
+}
+
+.radio-group {
+  border: solid 2px #303030;
+  display: inline-block;
+
+  border-radius: 10px;
+  overflow: hidden;
+}
