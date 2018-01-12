@@ -33,6 +33,17 @@ title: Archives
   {% endfor %}
 {% endfor %}
 
+## Hardware
+
+{% for post in site.posts %}
+  {% for tag in post.tags %}
+    {% if tag == "hardware" %}
+  {{ post.date | date_to_string }} &raquo; [ {{ post.title }} ]({{ post.url }})
+    {% break %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+
 ## Crypto
 
 {% for post in site.posts %}
