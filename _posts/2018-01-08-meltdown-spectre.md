@@ -240,11 +240,13 @@ La première permet de sortir l'information secrète du kernel.
 
 [![Meltdown caching](/assets/uploads/2018/01/meltdown-caching.png)](/assets/uploads/2018/01/meltdown-caching.png)
 
-Un buffer est construit en amont, avec plusieurs *sections* qui sont cachées indépendamment les unes des autres. Nous allons prendre dans l'exemple 8 sections.
+Un buffer est construit en amont, avec plusieurs *sections* qui, quand elle sont mises en cache, le sont indépendamment les unes des autres. Nous allons prendre dans l'exemple 8 sections.
 
-L'idée ensuite est de récupérer 3 bits d'information (ce qui donne 8 possibilités) dans le kernel-land à une adresse donnée. Disons pour l'exemple qu'à l'adresse `0xfff7` de la zone mémoire du kernel, il y a les 3 bits `100`, ou `4` en décimal. C'est l'appel (**1**) sur le schéma. Cette valeur sera utilisée pour l'instruction suivante (**2**).
+L'idée est de trouver une valeur secrète dans le noyau entre 0 et 7, et d'accéder à l'index correspondant du buffer, pour que cet index soit mis en cache.
 
-Evidemment, l'accès à la zone kernel est interdite, donc une exception va se lever de type `SIGSEGV` (Segmentation Fault), mais comme nous avons vu que les processeurs effectuaient les instructions en parallèle, les instructions suivantes peuvent être exécutées en même temps.
+Dans notre exemple, pour récupérer une valeur entre 0 et 7, il faut récupérer 3 bits d'information (ce qui donne 8 possibilités 000, 001, 010, ..., 111) dans le kernel-land à une adresse donnée. Disons pour l'exemple qu'à l'adresse `0xfff7` de la zone mémoire du kernel, il y a les 3 bits `100`, ou `4` en décimal. C'est l'appel (**1**) sur le schéma. Cette valeur sera utilisée pour l'instruction suivante (**2**).
+
+Évidemment, l'accès à la zone kernel est interdite, donc une exception va se lever de type `SIGSEGV` (Segmentation Fault), mais comme nous avons vu que les processeurs effectuaient les instructions en parallèle, les instructions suivantes peuvent être exécutées en même temps.
 
 Ainsi, l'instruction qui suit va accéder à la `4`ème section du buffer (**3** sur le schéma) que nous avons préparé en amont (`4` étant la valeur trouvée dans la mémoire du noyau). Cette section du buffer sera alors mise en cache par le processeur (**4** sur le schéma).
 
@@ -304,14 +306,14 @@ En bouclant sur les adresses réservées au noyau, nous pouvons ainsi lire le co
 
 ### En réalité
 
-Dans notre exemple, nous avons choisi un buffer de 8 sections pour sortir les informations du noyaux 3 bits par 3 bits. Cependant, en réalité, il faut savoir que le processeur cache des *pages*, qui sont des blocs de données d'une certaine taille. Sur ma machine, une page représente 4096 octets
+Dans notre exemple, nous avons choisi un buffer de 8 sections pour sortir les informations du noyaux 3 bits par 3 bits. Cependant, en réalité, il faut savoir que le processeur cache des *cache line*, qui sont des blocs de données d'une certaine taille, de l'ordre de 64 octets. Ces lignes de cache sont incluses dans des *pages*. Sur ma machine, une page représente 4096 octets
 
 ```bash
 pixis@hackndo:~/spectre-meltdown $ getconf PAGESIZE
 4096
 ```
 
-Par ailleurs, il est plus intéressant de sortir les informations octet par octet, donc récupérer 8 bits à la fois. Chaque octet pouvant prendre 256 valeurs, il convient de créer un buffer d'une taille de 256 pages. Voici un exemple d'initialisation de buffer avec ces paramètres 
+Par ailleurs, il est plus intéressant de sortir les informations octet par octet, donc récupérer 8 bits à la fois. Chaque octet pouvant prendre 256 valeurs, il convient de créer un buffer d'une taille de 256 pages, chaque page représenter une donnée. Ainsi, les données sont toutes distantes d'au moins la taille d'une page. Voici un exemple d'initialisation de buffer avec ces paramètres 
 
 ```c
 #define PAGE_SIZE 4096
@@ -331,7 +333,6 @@ Le pseudo-code que nous avions précédemment devient alors
 var_secrete = kernel_space[0xfff7]; // var_secrete == 4 dans l'exemple précédant
 junk = buffer[var_secrete * PAGE_SIZE]; // La page à l'index 4*4kB sera mise en cache 
 ```
-
 
 Le principe reste exactement le même avec ces paramètres.
 
