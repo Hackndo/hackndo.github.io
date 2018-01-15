@@ -65,15 +65,20 @@ Prenons l'exemple suivant qui illustre ce principe :
 #include <stdio.h>
 #include <x86intrin.h>
 
-
-int get_access_time(char *addr)
+int get_access_time(volatile char *addr)
 {
-    int time1, time2, junk, j;
+    /*
+     * Une variable volatile est une variable sur laquelle aucune optimisation de compilation n'est appliquée
+     * permettant de s'assurer que les instructions suivantes seront effectuées telles qu'écrites, sans
+     * optimisation (changement dans l'ordre des opérations, par exemple).
+     */
+    int time1, time2, junk;
+    volatile int j;
 
     time1 = __rdtscp(&junk);
     j = *addr;
     time2 = __rdtscp(&junk);
-    
+
     return time2 - time1;
 }
 
