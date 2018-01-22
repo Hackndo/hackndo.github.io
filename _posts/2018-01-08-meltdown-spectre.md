@@ -14,7 +14,7 @@ tags:
 
 Ces derniers jours, il y a eu beaucoup de bruit dans la sphère de la sécurité informatique. Les mots **Meltdown** et **Spectre** ont fait la une de plusieurs journaux et sites d'information, qu'ils soient spécialisés ou généralistes.
 
-Cet article est une mise à plat de ma compréhension du sujet en espérant qu'il permette à d'autres de mieux comprendre les mécanismes et la portée de ces attaques.
+Cet article est une mise à plat de ma compréhension du sujet, une explication qui j'espère permettra à d'autres de mieux comprendre les mécanismes et la portée de ces attaques.
 
 <!--more-->
 
