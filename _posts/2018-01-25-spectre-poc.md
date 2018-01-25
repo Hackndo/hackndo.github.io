@@ -5,7 +5,7 @@ author: "Pixis"
 layout: post
 permalink: /construction-poc-spectre/
 disqus_identifier: 0000-0000-0000-001f
-cover: assets/uploads/2018/01/spectre.png
+cover: assets/uploads/2018/01/spectre_poc.png
 description: "Aujourd'hui, nous allons construire une preuve de concept de l'attaque Spectre afin de mettre en pratique la théorie de cette attaque présentée dans l'article précédant."
 tags:
   - kernelland
