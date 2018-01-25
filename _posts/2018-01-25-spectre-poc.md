@@ -24,12 +24,12 @@ Le développement de cet exemple va se dérouler en quatre parties.
 
 1. La première va mettre en évidence le temps d'accès à la mémoire vive lorsqu'on accède à des zones mémoires qui ne sont pas dans le cache.
 2. Nous verrons ensuite la différence de temps d'accès entre une zone mémoire cachée et une non cachée.
-3. La mise en cache d'une zone mémoire lors de prédiction de branche sera mise en avant
+3. La mise en cache d'une zone mémoire lors de prédiction de branche sera mise en avant.
 4. Nous finirons en divulguant un secret intrinsèque au programme que nous n'aurions jamais pu découvrir sans utiliser cette technique.
 
 ## PoC de temps d'accès à la RAM
 
-La structure du programme évoluera avec les chapitre. Ici, nous allons développer un programme simple qui va initialiser un buffer de 256 pages, le supprimer du cache, et nous allons accéder à toutes les pages de ce buffer en mesurant le nombre de cycles d'horloge qui se sont écoulés avant et après l'accès à chaque zone mémoire.
+La structure du programme évoluera avec les chapitres. Ici, nous allons développer un programme simple qui va initialiser un buffer de 256 pages, le supprimer du cache, et nous allons accéder à toutes les pages de ce buffer en mesurant le nombre de cycles d'horloge qui se sont écoulés avant et après l'accès à chaque zone mémoire.
 
 Le programme aura donc la structure suivante
 
@@ -55,7 +55,7 @@ int main(void) {
 }
 ```
 
-Ce code simplifié permet de comprendre l'idée que nous cherchons à montrer. Toutes les pages sont supprimées du cache, puis on mesure le nombre de cycles d'horloge nécessaires pour accéder à chacune de ces pages. L'ordre de grandeur pour une page en mémoire, c'est 300 cycles d'horloge, tandis que lorsqu'elle est en cache, c'est inférieur à 80 cycles d'horloge.
+Ce code simplifié permet de comprendre l'idée que nous cherchons à montrer. Toutes les pages sont supprimées du cache, puis on mesure le nombre de cycles d'horloge nécessaires pour accéder à chacunes de ces pages. L'ordre de grandeur pour accéder à une page en mémoire, c'est 300 cycles d'horloge, tandis que lorsqu'elle est en cache, c'est inférieur à 80 cycles d'horloge.
 
 Le programme complet et fonctionnel va faire une moyenne sur 100 accès, afin d'éviter les faux positifs. Le voici :
 
@@ -163,7 +163,7 @@ int main(void) {
 }
 ```
 
-Ce programme bien fourni en commentaire est fonctionnel. Voici un aperçu du résultat lorsqu'il est compilé sans optimisations
+Ce programme bien fourni en commentaires est fonctionnel. Voici un aperçu du résultat lorsqu'il est compilé sans optimisation
 
 ```
 pixis@hackndo:~/spectre$ gcc -O0 poc_no_cache.c -o poc_no_cache && ./poc_no_cache
@@ -182,13 +182,13 @@ pixis@hackndo:~/spectre$ gcc -O0 poc_no_cache.c -o poc_no_cache && ./poc_no_cach
 [...]
 ```
 
-Nous voyons que le nombre de cycles d'horloge moyen nécessaire à l'accès d'une page est d'environ 200 ou 300 cycles, et que la grande majorité des essais indiquent que les accès sont en RAM, sauf quelques très rares faux positifs (2 faux positifs pour 900 essais dans l'extrait ci-dessus).
+Nous voyons que le nombre de cycles d'horloge moyen nécessaires à l'accès d'une page est d'environ 200 ou 300 cycles, et que la grande majorité des essais indiquent que les accès sont en RAM, sauf quelques très rares faux positifs (2 faux positifs pour 900 essais dans l'extrait ci-dessus).
 
 Il est alors temps de mettre en évidence l'apport du cache sur ce type d'accès.
 
 ## PoC de mise en évidence de la mise en cache
 
-Pour mettre en évidence la mise en cache, nous allons compléter le code simplifié du premier exemple. Nous vidions le cache avant chaque accès en mémoire. Maintenant, nous allons choisir une page mémoire, et après avoir vidé le cache, nous allons accéder à cette page avant de mesurer le temps d'accès. Ainsi, en accédant à cette page, le processeur va la mettre en cache, et le temps d'accès que nous calculerons ensuite sera plus rapide pour cette zone mémoire.
+Pour mettre en évidence la mise en cache, nous allons compléter le code simplifié du premier exemple. Nous vidions le cache avant chaque accès en mémoire, tandis que maintenant, nous allons choisir une page mémoire, et après avoir vidé le cache, nous allons accéder à cette page avant de mesurer le temps d'accès. Ainsi, en accédant à cette page, le processeur va la mettre en cache, et le temps d'accès que nous calculerons ensuite sera plus rapide pour cette zone.
 
 Il suffit donc de rajouter un accès mémoire pour un index juste après avoir vidé le cache. Le code minimaliste devient ceci :
 
@@ -219,7 +219,7 @@ int main(void) {
 }
 ``` 
 
-Si vous avez compris ce code raccourci, cela vous permettra de mieux comprendre la différence entre le programme suivant, et celui que nous avons vu lors de l'absence de mise en case
+Si vous avez compris ce code raccourci, cela vous permettra de mieux comprendre la différence entre le programme suivant, et celui que nous avons vu lors de l'absence de mise en cache.
 
 **poc_cache.c**
 
@@ -343,7 +343,7 @@ int main(void) {
 }
 ```
 
-Voici donc un programme fonctionnel qui met en cache une page à l'index 72 (représenté par 'H' en ASCII). Nous avons réduit la boucle qui parcourt le tableau de pages car nous ne nous intéressons qu'à la mise en cache de l'index 72. La sortie du programme est la suivante
+Voici donc un programme fonctionnel qui met en cache une page à l'index 72 (représenté par 'H' en ASCII). Nous avons réduit la boucle qui parcourt le tableau de pages car nous ne nous intéressons qu'à la mise en cache de l'index 72. La sortie du programme est la suivante :
 
 ```
 pixis@hackndo:~/spectre$ gcc -O0 poc_cache.c -o poc_cache && ./poc_cache
@@ -385,7 +385,7 @@ Maintenant que nous arrivons à connaître l'index de la page du tableau qui a �
 
 Pour pouvoir mettre en pratique cet exemple, nous allons imaginer un cas (un peu) réel. Notre programme va être divisé en deux parties.
 
-La première partie représentera un programme cible, victime, qui ne propose à ses utilisateurs qu'une seule fonction. Cette fonction permet d'accéder aux pages d'un buffer en utilisant les variables d'un autre buffer. La fonction mise à disposition est la suivante
+La première partie représentera un programme cible, victime, qui ne propose à ses utilisateurs qu'une seule fonction. Cette fonction permet d'accéder aux pages d'un buffer en utilisant les variables d'un autre buffer. La fonction mise à disposition est la suivante :
 
 ```c
 /* Buffer maitrisé, des valeurs étant entre 0 et 255 */
@@ -407,7 +407,7 @@ void my_protected_function(int idx) {
 }
 ```
 
-Un attaquant n'ayant accès qu'à cette fonction ne pourra à priori pas faire de buffer overflow pour essayer de sortir de la donnée qui n'est pas dans le tableau `buffer`. En particulier, le contenu de la variable `secret` semble inatteignable. 
+Un attaquant n'ayant accès qu'à cette fonction ne pourra à priori pas faire de buffer overflow pour essayer de sortir des informations qui ne sont pas dans le tableau `buffer`. En particulier, le contenu de la variable `secret` semble inatteignable. 
 
 L'attaquant va utiliser la vulnérabilité présentée dans l'article sur [Meltdown et Spectre](/meltdown-spectre) qui explique en deux mots qu'il peut entraîner le processeur à suivre une branche lors d'une condition, puis, dans une optique d'optimisation, ce processeur exécutera le contenu de la branche en question la prochaine fois qu'il trouvera la condition, avant même d'avoir vérifié la validité de la condition. Bien entendu, si la condition s'avère fausse, le processeur annulera ses actions, sans pour autant effacer les mises en cache.
 
