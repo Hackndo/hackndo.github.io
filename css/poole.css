@@ -252,6 +252,10 @@ img {
   .post-cover img {
     max-width: 27em;
   }
+
+  img {
+    max-width: 50em;
+  }
 }
 
 /* Tables */
