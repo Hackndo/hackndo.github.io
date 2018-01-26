@@ -413,7 +413,7 @@ L'attaquant va utiliser la vulnérabilité présentée dans l'article sur [Meltd
 
 L'attaquant va donc entraîner le processeur à rentrer dans la condition de la fonction de la victime, donc l'habituer au fait que `0 <= idx < buffer_size`, puis une fois que le processeur est bien entraîné, l'attaquant va lui fournir une valeur qui n'est pas du tout dans cet intervalle. 
 
-Voilà le code simplifié complété pour réaliser cette opération
+Voilà le code simplifié complété pour réaliser cette opération :
 
 ```c
 /* Initialisation du buffer de 256 pages */
@@ -465,7 +465,7 @@ int main(void) {
 
 ```
 
-J'ai ajouté beaucoup de commentaires pour comprendre le fonctionnement de l'attaque dans ce programme. Normalement, ces commentaires suffisent à comprendre l'attaque. En les reportant dans un code fonctionnel, et en précisant des détails, voici le programme complet :
+J'ai ajouté beaucoup de commentaires pour comprendre le fonctionnement de l'attaque dans ce programme. Normalement, ces commentaires suffisent à comprendre le programme. En les reportant dans un code fonctionnel, et en précisant des détails, voici le programme complet :
 
 **poc_leak_one_byte.c**
 
