@@ -336,6 +336,7 @@ void get_all_access_time(int idx) {
 int main(void) {
     for (int i = 0; i < sizeof(paged_buffer); i++) {
         paged_buffer[i] = 1; /* Permet d'éviter une optimisation appelée lazy allocation */
+    } 
 
     get_all_access_time('H'); // 'H' est un char qui correspond à 72 en ASCII
     
