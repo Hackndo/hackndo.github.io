@@ -6,7 +6,9 @@ title: Home
   {% for post in paginator.posts %}
   <div class="post">
   {% if post.cover %}
-    <img src="/{{ post.cover }}" />
+    <p class="post-cover">
+      <img src="/{{ post.cover }}" />
+    </p>
   {% endif %}
     <h1 class="post-title">
       <a href="{{ post.url }}">

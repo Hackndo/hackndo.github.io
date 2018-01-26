@@ -249,7 +249,7 @@ img {
 }
 
 @media (min-width: 64em) {
-  img {
+  .post-cover img {
     max-width: 27em;
   }
 }
