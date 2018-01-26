@@ -154,7 +154,7 @@ void get_all_access_time() {
 
 int main(void) {
     for (int i = 0; i < sizeof(paged_buffer); i++) {
-        paged_buffer[i] = 1; /* Permet d'éviter une optimisation appelée copy-on-write ou COW */
+        paged_buffer[i] = 1; /* Permet d'éviter une optimisation appelée lazy allocation */
     }
 
     get_all_access_time();
@@ -334,8 +334,7 @@ void get_all_access_time(int idx) {
 
 int main(void) {
     for (int i = 0; i < sizeof(paged_buffer); i++) {
-        paged_buffer[i] = 1; /* Permet d'éviter une optimisation appelée copy-on-write ou COW */
-    }
+        paged_buffer[i] = 1; /* Permet d'éviter une optimisation appelée lazy allocation */
 
     get_all_access_time('H'); // 'H' est un char qui correspond à 72 en ASCII
     
@@ -644,7 +643,7 @@ void get_all_access_time(int idx) {
 
 int main(void) {
     for (int i = 0; i < sizeof(paged_buffer); i++) {
-        paged_buffer[i] = 1; /* Permet d'éviter une optimisation appelée copy-on-write ou COW */
+        paged_buffer[i] = 1; /* Permet d'éviter une optimisation appelée lazy allocation */
     }
 
     /*
@@ -804,9 +803,9 @@ La boucle est faite dans la fonction `main`, on incrémente l'index correspondan
 
 
 
-/*
- * Code public de la victime
- */
+/**
+ ** CODE DE LA VICTIME
+ **/
 volatile uint32_t buffer_size = BUFFER_SIZE;
 
 /* Buffer maitrisé, des valeurs étant entre 0 et 255 */
@@ -830,9 +829,9 @@ void my_protected_function(int idx) {
     }
 }
 
-/*
- * Code de l'attaquant
- */
+/**
+ ** CODE DE L'ATTAQUANT
+ **/
 void access_value(uint32_t x) {
     /* Wrapper pour éviter les optimisations */
     (void)x;
@@ -946,7 +945,7 @@ void get_all_access_time(int idx) {
 
 int main(void) {
     for (int i = 0; i < sizeof(paged_buffer); i++) {
-        paged_buffer[i] = 1; /* Permet d'éviter une optimisation appelée copy-on-write ou COW */
+        paged_buffer[i] = 1; /* Permet d'éviter une optimisation appelée lazy allocation */
     }
 
     int len = 7;
