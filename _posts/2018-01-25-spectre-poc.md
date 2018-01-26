@@ -8,8 +8,9 @@ disqus_identifier: 0000-0000-0000-001f
 cover: assets/uploads/2018/01/spectre_poc.png
 description: "Aujourd'hui, nous allons construire une preuve de concept de l'attaque Spectre afin de mettre en pratique la théorie de cette attaque présentée dans l'article précédant."
 tags:
-  - kernelland
+  - userland
   - hardware
+  - tuto
 ---
 
 Aujourd'hui, nous allons construire une preuve de concept (PoC - *Proof of Concept*) de l'attaque Spectre afin de mettre en pratique la théorie de cette attaque présentée dans l'article [Meltdown et Spectre](/meltdown-spectre).
