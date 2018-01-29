@@ -4,26 +4,12 @@ title: Me contacter
 permalink: /contact/
 ---
 
-Pour me contacter, il y a différentes solutions
-
-Il y a un serveur Discord sur lequel je suis tout le temps connecté
+Je suis disponible en permanence sur mon serveur Discord
 
 [Hackndo sur Discord](https://discord.gg/9At6SUZ){:target="blank"}
 
-Vous pouvez également passer par ces différentes plate-formes
+N'hésitez pas à venir pour discuter des articles, d'infosec, ou tout autre chose.
 
-|[Github](http://www.github.com/hackndo){:target="blank"}|
-|[Twitter](http://www.twitter.com/hackanddo){:target="blank"}|
-|[Newbiecontest](https://www.newbiecontest.org/index.php?page=info_membre&nick=pixis){:target="blank"}|
-|[Root-me](https://www.root-me.org/Betezed){:target="blank"}|
-|[0x90r00t](https://0x90r00t.com/author/hackndo/){:target="blank"}|
+Vous pouvez également me soutenir si le cœur vous en dit
 
-Ou me trouver sur IRC sur le channel de [newbiecontest](http://newbiecontest.org){:target="blank"}
-
-|**Serveur** :   irc.worldnet.net|
-|**Channel** :    #newbiecontest|
-|**Pseudo** :    Pixis|
-
-[CV (fr)](https://cv.hackndo.com/){:target="blank"}
-
-[CV (en)](https://resume.hackndo.com/){:target="blank"}
+<script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Buy Me a Coffee', '#202020', 'F1F78GI6');kofiwidget2.draw();</script>

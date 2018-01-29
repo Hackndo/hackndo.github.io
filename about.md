@@ -17,11 +17,6 @@ Connu sous le pseudo **Pixis**, je suis un fervent utilisateur du site [newbieco
 
 Je vous souhaite donc la bienvenue sur mon humble blog, et j'espère que les articles que vous pourrez trouver vous seront utiles !
 
-Pour me suivre :
+Pour me soutenir :
 
-|[Github](http://www.github.com/hackndo){:target="blank"}|
-|[Twitter](http://www.twitter.com/hackanddo){:target="blank"}|
-|[Youtube](https://www.youtube.com/channel/UC9WYWHLdu9TK-0Hu3wcHJ9g){:target="blank"}|
-|[Newbiecontest](https://www.newbiecontest.org/index.php?page=info_membre&nick=pixis){:target="blank"}|
-|[Root-me](https://www.root-me.org/Betezed){:target="blank"}|
-|[0x90r00t](https://0x90r00t.com/author/hackndo/){:target="blank"}|
+<script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Buy Me a Coffee', '#202020', 'F1F78GI6');kofiwidget2.draw();</script>
