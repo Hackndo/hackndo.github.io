@@ -6,7 +6,7 @@ comments: true
 <div class="post">
   {% if page.cover %}
   <div class="post-cover">
-    <img src="/{{ page.cover }}" title="{{ page.title }}" />
+    <img src="/{{ page.cover }}" alt="{{ page.title }}" title="{{ page.title }}" />
   </div>
   {% endif %}
   <h1 class="post-title">{{ page.title }}</h1>
@@ -23,7 +23,7 @@ comments: true
 <div class="box">
   <div class="dash">
     <div class="picture">
-      <img src="/assets/icones/pixis_logo.png" />
+      <img src="/assets/icones/pixis_logo.png" alt="logo" title="logo" />
     </div>
     <div class="box_content">
       <strong>Auteur</strong> : <a href="/contact" target="_blank">{{ page.author }}</a><br />
