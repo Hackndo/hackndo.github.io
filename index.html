@@ -7,7 +7,7 @@ title: Home
   <div class="post">
   {% if post.cover %}
     <p class="post-cover">
-      <img src="/{{ post.cover }}" />
+      <img src="/{{ post.cover }}" alt="{{ post.title }}" title="{{ post.title }}" />
     </p>
   {% endif %}
     <h1 class="post-title">
