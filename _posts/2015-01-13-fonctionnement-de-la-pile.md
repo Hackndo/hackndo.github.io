@@ -100,7 +100,7 @@ Une fois que nous arrivons à l'instruction `call`, regardons l'état de la pile
 0xbffffcac:    0xb7fd6ff4    0x080483e0    0x00000000    0xbffffd38
 ```
 
-Pour pouvoir lire ces informations, je vous rappelle que la pile grandit vers les adresses basses. La première ligne que nous pouvons lire commence par `0xbffffc9c` suivie de 4 groupes de 4 octets. Le premier groupe est bien à l'adresse `0xbffffc9c`, le groupe suivant 4 octets plus loin est donc à `0xbffffca`, ensuite le groupe est à `0xbffffca4` et enfin le dernier groupe de la première ligne est à l'adresse `0xbffffca8`. On passe alors à la ligne suivante, et on avance encore une fois de 4 octets, ce qui nous donne bien l'adresse `0xbffffcac` et ainsi de suite.
+Pour pouvoir lire ces informations, je vous rappelle que la pile grandit vers les adresses basses. La première ligne que nous pouvons lire commence par `0xbffffc9c` suivie de 4 groupes de 4 octets. Le premier groupe est bien à l'adresse `0xbffffc9c`, le groupe suivant 4 octets plus loin est donc à `0xbffffca0`, ensuite le groupe est à `0xbffffca4` et enfin le dernier groupe de la première ligne est à l'adresse `0xbffffca8`. On passe alors à la ligne suivante, et on avance encore une fois de 4 octets, ce qui nous donne bien l'adresse `0xbffffcac` et ainsi de suite.
 
 Le registre ESP pointe vers le "haut" de la pile, donc vers l'adresse `0xbffffc9c`. Comme nous nous sommes préparés à l'appel de la fonction, le sommet de la pile (pointé par `ESP`) est composé des arguments qui sont passés à la fonction. On voit bien les valeurs 4, 8 et 42 (`0x2a` en hexadécimal).
 
