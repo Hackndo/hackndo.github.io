@@ -31,7 +31,7 @@ Non ce n'est pas une simple question (stupide, certes) avec une simple réponse.
 
 Bonne chasse !
 
-PS : Allez, parce que quand même, pour montrer que [ce n'est pas impossible](http://www.estcequecestbientotlheuredeniquer.com/?scoreboard){:target="blank"}
+PS : Allez, parce que quand même, pour montrer que [ce n'est pas impossible](http://estcequecestbientotlheuredeniquer.com/?scoreboard){:target="blank"}
 
 <!--
 
