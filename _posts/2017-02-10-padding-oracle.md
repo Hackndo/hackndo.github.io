@@ -95,7 +95,7 @@ def set_padding(data, size_block=128):
     return data
 
 def del_padding(data):
-    return data[:-data[-1]]
+    return data[:-ord(data[-1])]
 
 # Exemple
 
