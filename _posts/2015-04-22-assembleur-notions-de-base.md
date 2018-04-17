@@ -484,7 +484,7 @@ Par ailleurs, le nom de la fonction étant `add`, il y a fort à parier que le b
 
 ![stack](/assets/uploads/2015/04/img_553826170a520.png)
 
-Avant l'appel de la fonction, les deux variables `0x2` et `0x28` ont été poussées sur la pile. Ensuite `EIP` a été poussé pendant le `call` et enfin `EBP`, ce qui explique le schéma précédent. Je vous rappelle que la pile part des adresses hautes et grandi en direction des adresses basses, mais qu'une variable en mémoire est lue dans le sens classique, donc des adresses basses vers les adresses hautes. La variable située à l'adresse `EBP - 0xc` a une taille de 4 octets. Ces 4 octets sont `EBP - 0xc + 0x0`, `EBP - 0xc + 0x1`, `EBP - 0xc + 0x2` et `EBP - 0xc + 0x3`. 
+Avant l'appel de la fonction, les deux variables `0x2` et `0x28` ont été poussées sur la pile. Ensuite `EIP` a été poussé pendant le `call` et enfin `EBP`, ce qui explique le schéma précédent. Je vous rappelle que la pile part des adresses hautes et grandit en direction des adresses basses, mais qu'une variable en mémoire est lue dans le sens classique, donc des adresses basses vers les adresses hautes. La variable située à l'adresse `EBP - 0xc` a une taille de 4 octets. Ces 4 octets sont `EBP - 0xc + 0x0`, `EBP - 0xc + 0x1`, `EBP - 0xc + 0x2` et `EBP - 0xc + 0x3`. 
 
 Dans le schéma précédent, à `EBP` on trouve la valeur de la sauvegarde du `EBP` de la fonction appelante. Puis à `EBP - 0x4` se trouve la sauvegarde de EIP, à `EBP - 0x8` se trouve une des valeurs poussées avant le `call` et à `EBP - 0xc` se trouve la deuxième valeur. On monte comme ça de 4 en 4 car ces variable sont des adresses (EBP et EIP) ou des entier donc il prennent 4 octets en mémoire.
 
