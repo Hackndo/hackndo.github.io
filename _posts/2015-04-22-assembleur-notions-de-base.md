@@ -99,7 +99,7 @@ Comme la taille des paramètres ne doit être indiquée que pour les paramètres
 
 #### AT&T :
 
-Les noms des opérations sont suffixées avec une lettre correspondant à la taille des paramètres manipulés.
+Les noms des opérations sont suffixés avec une lettre correspondant à la taille des paramètres manipulés.
 
 `q`, `l`, `w` et `b` (comme vus pour la syntaxe Intel)
 
@@ -149,7 +149,7 @@ Le calcul est effectué, puis les crochets indiquent que le résultat est une ad
 mov eax, [ ebx + ecx*2 + 0x80848c48 ]
 ```
 
-Dans cet exemple, le double du contenue de `ECX` est ajouté au contenu de `EBX`, auquel on ajoute l'offset indiquée (ici `0x8084c48`), ce qui nous donne une nouvelle adresse. La valeur contenue à cette adresse est assignée à `EAX`.
+Dans cet exemple, le double du contenu de `ECX` est ajouté au contenu de `EBX`, auquel on ajoute l'offset indiquée (ici `0x8084c48`), ce qui nous donne une nouvelle adresse. La valeur contenue à cette adresse est assignée à `EAX`.
 
 Prenons un cas plus simple, pour être certains de ne pas nous emmêler les pinceaux. Soient :
 
