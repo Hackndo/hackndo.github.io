@@ -106,7 +106,7 @@ Le registre ESP pointe vers le "haut" de la pile, donc vers l'adresse `0xbffffc9
 
 La pile est donc dans l'état suivant :
 
-[![img_54f6274496d0a](/assets/uploads/2015/03/img_54f6274496d0a.png)](/assets/uploads/2015/03/img_54f6274496d0a.png)
+[![etat de la pile](/assets/uploads/2015/03/gestion_pile1.png)](/assets/uploads/2015/03/gestion_pile1.png)
 
 Les arguments sont donc enregistrés sur la pile. Mais une fois que le programme rentre dans la fonction, il va devoir se souvenir d'où il vient. Et pour cela, il va falloir qu'il enregistre le registre `EIP` (c'est le registre qui a en mémoire l'adresse de l'instruction courante). On ne voit cependant pas d'instruction `PUSH EIP` dans le code, tout simplement pour la raison suivante (qu'il est impératif de retenir)
 
@@ -125,7 +125,7 @@ On voit arriver l'adresse `0x080483c7` en haut de la pile.  Vous remarquez ce q
         
 Avec cette sauvegarde de l'EIP, nous avons donc une représentation de la pile comme suit :
         
-[![img_54f6289eaa721](/assets/uploads/2015/03/img_54f6289eaa721.png)](/assets/uploads/2015/03/img_54f6289eaa721.png)
+[![etat de la pile](/assets/uploads/2015/03/gestion_pile2.png)](/assets/uploads/2015/03/gestion_pile2.png)
         
 Voilà, nous avons fait le `jump`. Nous sommes à la première instruction de la fonction `reponse()`
 
@@ -202,7 +202,7 @@ esp            0xbffffc94    0xbffffc94
     
 Reprenons ce code pas à pas : Nous sommes au début des instructions de la fonction, près à exécuter le `push ebp`. On voit que `EBP` contient l'adresse `0xbffffcb8` et esp contient `0xbffffc98`. On retrouve bien le `ESP` qu'on avait représenté sur le dernier schéma. Ensuite, nous avançons de deux instructions. On regarde alors `EBP` et `ESP`. Ils sont bien égaux, comme prévus. On a poussé l'ancienne valeur de `EBP` sur la pile, ce qui a décalé de le haut de la pile de 4 octets. Le haut de la pile vaut donc `0xbffffc98 - 4` donc `0xbffffc94`. Ensuite, on affecte `ESP` à `EBP`. `ESP` valant maintenant `0xbffffc94`, `EBP` prend la même valeur, comme le montre la dernière commande de cette séquence. Voici un dernier schéma qui représente l'état actuel de la pile :
 
-[![img_54f6c6cbaed67](/assets/uploads/2015/03/img_54f6c6cbaed67.png)](/assets/uploads/2015/03/img_54f6c6cbaed67.png)
+[![etat de la pile](/assets/uploads/2015/03/gestion_pile3.png)](/assets/uploads/2015/03/gestion_pile3.png)
 
 Voilà pour l'explication de ces lignes dans gdb. Ensuite nous avons quelques instructions qui permettent d'effectuer le calcul demandé, puis nous arrivons aux deux dernières lignes, qui sont `pop ebp` et `ret`.
 
