@@ -108,7 +108,12 @@ La pile est donc dans l'état suivant :
 
 [![etat de la pile](/assets/uploads/2015/03/gestion_pile1.png)](/assets/uploads/2015/03/gestion_pile1.png)
 
-Les arguments sont donc enregistrés sur la pile. Mais une fois que le programme rentre dans la fonction, il va devoir se souvenir d'où il vient. Et pour cela, il va falloir qu'il enregistre le registre `EIP` (c'est le registre qui a en mémoire l'adresse de l'instruction courante). On ne voit cependant pas d'instruction `PUSH EIP` dans le code, tout simplement pour la raison suivante (qu'il est impératif de retenir)
+Les arguments sont donc enregistrés sur la pile. Mais une fois que le programme rentre dans la fonction, il va devoir se souvenir d'où il vient. Et pour cela, il va falloir qu'il enregistre le registre `EIP` (c'est le registre qui a en mémoire l'adresse de l'instruction courante). On ne voit cependant pas d'instruction `PUSH EIP` dans le code, tout simplement pour la raison suivante (qu'il est impératif de retenir), c'est que l'instruction `call` est un alias des deux instructions suivantes :
+
+```nasm
+push EIP
+jmp <adresse de la fonction>
+```
 
 Donc si nous avançons d'une instruction pour entrer dans la fonction, la valeur de EIP est poussée sur la pile, et nous obtenons :
         
