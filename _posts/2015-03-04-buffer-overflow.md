@@ -31,7 +31,7 @@ void maFonction(char *uneChaine) {
 
 On obtenait alors le schéma suivant pour représenter la stack :
 
-[![img_54f6f98c7a1cb](/assets/uploads/2015/03/img_54f6f98c7a1cb.png)](/assets/uploads/2015/03/img_54f6f98c7a1cb.png)
+[![Stack](/assets/uploads/2015/03/stack1.png)](/assets/uploads/2015/03/stack1.png)
 
 Très bien. Maintenant, si nous allouons un tableau de caractères à cette variable locale de la manière suivante
 
@@ -44,11 +44,11 @@ void maFonction(char *uneChaine) {
 
 Alors `uneChaine` sera copié dans la pile dans l'espace alloué, et ce en partant de l'adresse pointée par `ESP` puis en descendant dans la pile (donc des adresses basses vers les adresses hautes, ou encore du haut de la pile vers le bas de la pile). Prenons un exemple d'une chaine remplie de `"A"` d'une longueur inférieure à 24 octets :
 
-![img](/assets/uploads/2015/03/img_54f6f970487b3.png?w=640" alt="Remplissage de la pile" data-recalc-dims="1)
+[![Stack](/assets/uploads/2015/03/stack2.png)](/assets/uploads/2015/03/stack2.png)
 
 Tout va bien, mais vous vous dites sûrement : Hey, mais si je mets plus de caractères que prévu, il se passe quoi ?
 
-[![img_54f6fa229ad43](/assets/uploads/2015/03/img_54f6fa229ad43.png)](/assets/uploads/2015/03/img_54f6fa229ad43.png)
+[![Stack](/assets/uploads/2015/03/stack3.png)](/assets/uploads/2015/03/stack3.png)
 
 C'est le drame... pour le développeur. Mais pour nous, c'est maintenant que nous allons commencer à nous amuser ! Vous avez deviné comment ?
 
@@ -319,7 +319,7 @@ Ce qu'il y a des ces 72 octets n'a pas d'importance puisqu'ils ne seront pas lus
 
 Vous avez suivi ? Allez, comme je suis sympa, je me suis fendu d'un beau schéma pour comprendre l'état de la pile juste avant d'appeler `strcpy` pour résumer l'état actuel.
 
-[![img_54f8601bb6166](/assets/uploads/2015/03/img_54f8601bb6166.png)](/assets/uploads/2015/03/img_54f8601bb6166.png)
+[![Stack](/assets/uploads/2015/03/stack4.png)](/assets/uploads/2015/03/stack4.png)
 
 C'est un peu plus clair ? Essayez de reprendre mes explications avec ce schéma en tête, ça sera surement plus facile de revenir une deuxième fois dessus.
 
