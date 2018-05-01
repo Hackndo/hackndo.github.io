@@ -264,7 +264,7 @@ Assigne l'adresse d'une variable à une variable. `LEA` a une particularité, c'
 LEA eax, [ebp - 0xc]
 ```
 
-Si `EBP` avait pour valeur `0xbffff484`, alors `ebp - 0xc` a pour valeur `0xbffff478`, et c'est bien cette adresse (et non la valeur contenu à cette adresse) qui sera stockée dans `EAX`.
+Si `EBP` avait pour valeur `0xbffff484`, alors `ebp - 0xc` a pour valeur `0xbffff478`, et c'est bien cette adresse (et non la valeur contenue à cette adresse) qui sera stockée dans `EAX`.
 
 ### Manipulation de la pile
 
