@@ -49,6 +49,12 @@ PS : Allez, parce que quand même, pour montrer que [ce n'est pas impossible](ht
    ##   ^C                                                                  ##
    ##   Connection closed.                                                  ##
    ##                                                                       ##
+   ##   ...                                                                 ##
+   ##                                                                       ##
+   ##   Pour passer à la suite, il faut concaténer ce flag avec le flag     ##
+   ##   précédant (celui qui commence par un "5").                          ##
+   ##   ?XXXX=<ce_flag><flag_précédant>                                     ##
+   ##                                                                       ##
    ###########################################################################
    ###########################################################################
  
