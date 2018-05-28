@@ -133,3 +133,6 @@ Voici les deux tableaux récapitulatifs qui permettent d'avoir une vision rapide
 | Convention  | Transmission des arguments   | Responsabilité maintenance pile |
 | ----------- |:----------------------------:|:-------------------------------:|
 | FASTCALL    | 4 registres puis sur la pile | Fonction appelée                |
+
+
+J'espère que cet article sur les conventions d'appel remettant les choses au clair, en restant concis et en allant à l'essentiel, vous permettra de vite trouver les informations que vous cherchez sur ce sujet.
