@@ -110,8 +110,8 @@ Les registres utilisés sont, dans l'ordre, `rcx`, `rdx`, `r8` et `r9`.
 caller:
     mov r9, 4
     mov r8, 3
-    mov edx, 2
-    mov ecx, 1
+    mov rdx, 2
+    mov rcx, 1
     call callee
 ```
 
