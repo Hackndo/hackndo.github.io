@@ -52,7 +52,7 @@ PS : Allez, parce que quand même, pour montrer que [ce n'est pas impossible](ht
    ##   ...                                                                 ##
    ##                                                                       ##
    ##   Pour passer à la suite, il faut concaténer ce flag avec le flag     ##
-   ##   précédant (celui qui commence par un "5").                          ##
+   ##   précédant (celui qui commence par "51").                          ##
    ##   ?XXXX=<ce_flag><flag_précédant>                                     ##
    ##                                                                       ##
    ###########################################################################
