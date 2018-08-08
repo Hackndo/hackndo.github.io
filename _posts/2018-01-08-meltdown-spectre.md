@@ -106,7 +106,7 @@ int main(int c, char **v) {
 
 Une chaîne de caractères `"hackndo"` est enregistrée en mémoire vive. Nous vidons le cache par précaution, puis nous accédons une première fois à la chaîne. Elle est alors cherchée en mémoire vive, puis elle est mise en cache pour les prochains accès. Nous y accédons donc une deuxième fois. Voici le résultat de ce programme :
 
-```sh
+```bash
 pixis@hackndo:~/spectre-meltdown $ make cache
 cc     cache.c   -o cache
 pixis@hackndo:~/spectre-meltdown $ ./cache 
