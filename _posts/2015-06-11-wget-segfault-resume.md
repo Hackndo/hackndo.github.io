@@ -13,7 +13,7 @@ tags:
 ---
 Salut à tous, **winw** m'a montré récemment un truc assez sympa. Dans un terminal, tapez la commande
 
-```sh
+```bash
 $ wget -r %3a
 Segmentation fault
 ```
@@ -32,7 +32,7 @@ Pour cela, nous nous sommes armés de ce bon vieux gdb, ainsi que des sources de
 
 Dans un premier temps, nous avons recompilé le binaire afin d'en avoir une version non strippée et donc avoir accès aux symboles. Dans le dossiers des sources de wget :
 
-```sh
+```bash
 $ ./configure --user-prefix=/home/hackndo/wget
 $ make && sudo make install
 ```
@@ -41,7 +41,7 @@ $ make && sudo make install
 
 Ensuite nous avons provoqué le segfault dans gdb puis affiché la backtrace pour trouver où se situe le problème
 
-```sh
+```bash
 gdb$ r -r %3a
 warning: no loadable sections found in added symbol-file system-supplied DSO at 0x7ffff7ffa000
 [Thread debugging using libthread_db enabled]
@@ -59,7 +59,7 @@ CS: 0033  DS: 0000  ES: 0000  FS: 0000  GS: 0000  SS: 002B
 
 ## Recherche de la cause
 
-```sh
+```bash
 => 0x421adb <getproxy+27>:  mov    esi,DWORD PTR [rbx+0x18]
    0x421ade <getproxy+30>:  mov    edi,0x44af12
    0x421ae3 <getproxy+35>:  xor    eax,eax

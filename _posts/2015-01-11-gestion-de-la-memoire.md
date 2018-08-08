@@ -65,7 +65,7 @@ int main(void) {
 }
 ```
 
-```sh
+```bash
 hackndo@becane:~/exemples$ gcc memory.c -o memory
 hackndo@becane:~/exemples$ size memory
 
@@ -86,7 +86,7 @@ int main(void) {
 }
 ```
 
-```sh
+```bash
 hackndo@becane:~/exemples$ gcc memory.c -o memory
 hackndo@becane:~/exemples$ size memory
 
@@ -107,7 +107,7 @@ int main(void) {
 }
 ```
 
-```sh
+```bash
 hackndo@becane:~/exemples$ gcc memory.c -o memory
 hackndo@becane:~/exemples$ size memory
 
@@ -128,7 +128,7 @@ int main(void) {
 }
 ```
 
-```sh
+```bash
 hackndo@becane:~/exemples$ gcc memory.c -o memory
 hackndo@becane:~/exemples$ size memory
 
@@ -149,7 +149,7 @@ int main(void) {
 }
 ```
 
-```sh
+```bash
 hackndo@becane:~/exemples$ gcc memory.c -o memory
 hackndo@becane:~/exemples$ size memory
 

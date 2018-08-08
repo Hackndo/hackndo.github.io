@@ -61,7 +61,7 @@ int main() {
 
 Après compilation, on désassemble la fonction `main` pour voir les instructions assembleur qui la compose
 
-```sh
+```bash
 hackndo@becane$ gcc fonction.c -o fonction
 hackndo@becane$ gdb -q fonction
 Reading symbols from /home/hackndo/fonction...(no debugging symbols found)...done.
@@ -94,7 +94,7 @@ On remarque différentes choses. Tout d'abord, on voit l'appel à la fonction `r
 
 Une fois que nous arrivons à l'instruction `call`, regardons l'état de la pile :
 
-```sh
+```bash
 (gdb) x/8xw $esp
 0xbffffc9c:    0x00000004    0x00000008    0x0000002a    0x080483eb
 0xbffffcac:    0xb7fd6ff4    0x080483e0    0x00000000    0xbffffd38
@@ -117,7 +117,7 @@ jmp <adresse de la fonction>
 
 Donc si nous avançons d'une instruction pour entrer dans la fonction, la valeur de EIP est poussée sur la pile, et nous obtenons :
         
-```sh
+```bash
 (gdb) stepi
 0x08048394 in reponse ()
 
@@ -142,7 +142,7 @@ Pour cela, chaque fonction possède ce qu'on appelle un **prologue** et un **ép
         
 Prenons le code de la fonction `reponse` pour voir en détail comment cela fonctionne.
         
-```sh
+```bash
 (gdb) disas reponse
 Dump of assembler code for function reponse:
     0x08048394 <+0>:    push   ebp
@@ -162,7 +162,7 @@ On voit dans l'ordre que `EBP` est poussé sur la pile avec `PUSH EBP`, permetta
 
 D'ailleurs, si on regarde l'évolution des registres `EBP` et `ESP` ainsi que de la pile lors de l'exécution des premières instructions de la fonction `reponse()` on obtient ceci :
         
-```sh
+```bash
 (gdb) disas reponse
 Dump of assembler code for function reponse:
 => 0x08048394 <+0>:     push   ebp

@@ -28,7 +28,7 @@ Il existe différentes manières de lancer gdb et de charger un binaire dans une
 
 Pour lancer gdb, rien de plus simple. Dans un shell/terminal/console, lancez la commande suivante
 
-```sh
+```bash
 $ gdb
 
 (gdb)
@@ -36,7 +36,7 @@ $ gdb
 
 Cette commande permet de lancer une session gdb. Pour l'instant, aucun programme n'est chargé dans gdb. Mais déjà, nous pouvons faire des choses qui nous serons utiles tout au long de nos debug. Pour avoir la liste des commandes disponibles, il suffit de lancer la commande **help**
 
-```sh
+```bash
 (gdb) help
 List of classes of commands:
 
@@ -63,7 +63,7 @@ Command name abbreviations are allowed if unambiguous.
 
 Voici d'autres commandes :
 
-```sh
+```bash
 # Charge le binaire "binary" dans gdb
 gdb binary
 
@@ -76,7 +76,7 @@ gdb --pid <PID> --symbols <binary>
 
 ## Dans gdb
 
-```sh
+```bash
 # Envoyer les arguments au binaire qui va être lancé
 (gdb) set args <args...>
 
@@ -94,7 +94,7 @@ gdb --pid <PID> --symbols <binary>
 
 Avant de s'occuper des binaires, gdb permet d'effectuer des calculs très simplement, dans différentes bases les plus utilisées (binaire, octale, hexa, décimale) et même d'afficher les caractères correspondants aux valeurs ASCII.
 
-```sh
+```bash
 # On peut afficher les variables sous différents formats, de la manière suivante : p/<format>
 # Les formats les plus employés sont
 # c    Caractère
@@ -122,7 +122,7 @@ $6 = 1100
 
 Quelques informations nécessaires lorsque vous avez chargé un binaire et que vous êtes en train de le déboguer
 
-```sh
+```bash
 #disassemble : Renvoie le code assembleur correspondant aux instructions hexadécimales du binaire
 (gdb) disas ma_fonction
 
@@ -141,7 +141,7 @@ Comme expliqué dans l'article sur les [notions de base d'assembleur](.././assem
 
 ### AT&T
 
-```sh
+```bash
 (gdb) set disassembly-flavor att
 (gdb) disass main
 Dump of assembler code for function main:
@@ -153,7 +153,7 @@ End of assembler dump.
 
 ### Intel
 
-```sh
+```bash
 (gdb) set disassembly-flavor intel
 (gdb) disass main
 Dump of assembler code for function main:
@@ -170,7 +170,7 @@ Lors d'une phase de debug, il peut être utile d'avoir sous les yeux le code mac
 
 _Notez cependant que si vous utilisez ces fenêtres, vous ne serez plus en mesure d'utiliser la flèche du haut pour revenir dans votre historique, puisque les flèches haut et bas servent à monter et descendre dans la fenêtre affichant le code assembleur._
 
-```sh
+```bash
 # Permet d'ouvrir deux fenêtre console.
 # L'une affiche le code assembleur
 (gdb) layout asm
@@ -181,7 +181,7 @@ _Notez cependant que si vous utilisez ces fenêtres, vous ne serez plus en mesur
 
 Voici un exemple du rendu :
 
-```sh
+```bash
 ┌──Register group: general─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │eax            0xbff73ef4       -1074315532         ecx            0x86c2e41d       -2034047971         edx            0x1      1                           ebx            0xb76f0ff4       -1217458188           │
 │esp            0xbff73e40       0xbff73e40          ebp            0xbff73e48       0xbff73e48          esi            0x0      0                           edi            0x0      0                             │
@@ -229,7 +229,7 @@ Les breakpoints sont extrêmement puissants. Ils permettent de mettre en pause l
 
 ## Sans conditions
 
-```sh
+```bash
 (gdb) break main
 Breakpoint 1 at 0x80483f8
 (gdb) break *0x08048400
@@ -263,7 +263,7 @@ int main(void) {
 
 Après compilation, nous le chargeons dans gdb, et nous le désassemblons
 
-```sh
+```bash
 $ gcc boucle.c -std=c99 -m32 -o boucle
 $ gdb boucle
 (gdb) set disassembly-flavor intel
@@ -288,7 +288,7 @@ End of assembler dump.
 
 A la ligne `+31`, nous voyons le compteur de notre programme qui s'incrémente. Ici, la boucle est répétée 10 fois, mais il est possible qu'elle soit répétée des millions de fois. Cependant, nous ne voulons voir la comparaison à la ligne `+36` que pour la dernière boucle. Pour cela, nous allons mettre un breakpoint conditionnel : Nous ne breakerons dessus que si le contenu de `esp+0x1c` vaut 10 (donc `0xa`)
 
-```sh
+```bash
 (gdb) b *0x08048430 if *(int*)($esp+0x1c) == 0xa
 Breakpoint 1 at 0x8048430
 (gdb) r
@@ -311,7 +311,7 @@ Breakpoint 1, 0x08048430 in main ()
 
 Ce qui aurait pu être fait également de la manière suivante :
 
-```sh
+```bash
 (gdb) b *0x08048430
 Breakpoint 1 at 0x8048430
 (gdb) cond 1 *(int*)($esp+0x1c) == 0xa
@@ -319,14 +319,14 @@ Breakpoint 1 at 0x8048430
 
 Et pour enlever les conditions sur un breakpoint :
 
-```sh
+```bash
 (gdb) cond 1
 Breakpoint 1 now unconditional.
 ```
 
 # Pas à pas
 
-```sh
+```bash
 # nexti : Permet d'avancer d'une (ou <step>) instruction(s), et si c'est un call, le call est exécuté
 # jusqu'à son retour.
 (gdb) ni <step>
@@ -340,7 +340,7 @@ Breakpoint 1 now unconditional.
 
 Il est possible de définir des fonctions au sein de gdb, permettant de simplifier la répétition d'un ensemble de commandes, ou encore de boucler jusqu'à ce qu'une condition soit vérifiée. Pour cela, il faut lancer la commande `define <ma_fonction>` puis indiquer les instructions voulues, et terminer par `end`. Comme les exemples valent toujours mieux que les beaux discours :
 
-```sh
+```bash
 (gdb) define init_mes_params
 Type commands for definition of "init_mes_params".
 End with a line saying just "end".
@@ -396,7 +396,7 @@ Bien sûr, avec toutes ces informations, vous pouvez vous créer votre petit env
 
 Pour cela, il vous suffit de créer un fichier `.gdbinit` dans le même dossier depuis lequel vous lancez gdb, et dans ce fichier, vous mettez ligne après ligne les commandes que vous souhaitez lancer. Par exemple :
 
-```sh
+```bash
 $ cat .gdbinit
 # Pour toujours avoir la syntaxe intel
 set disassembly-flavor intel
@@ -423,7 +423,7 @@ $
 
 Et pour finir, sachez que si vous avez votre `.gdbinit`, mais que vous ne voulez pas l'utiliser pour votre prochaine session gdb, il suffit de passer l'argument `-nx` à gdb pour lui demander d'ignorer ce fichier.
 
-```sh
+```bash
 $ gdb <binary> -nx
 ```
 

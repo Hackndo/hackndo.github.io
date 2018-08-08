@@ -16,7 +16,7 @@ Cet article à un but modeste : Comprendre la sortie d'un `disass main` sur un p
 
 <!--more-->
 
-```sh
+```bash
 (gdb) set disassembly-flavor intel
 (gdb) disass main
 Dump of assembler code for function main:
@@ -386,7 +386,7 @@ Comme je suis de bonne humeur et que je n'aime pas faire les choses à moitié, 
 
 Rappelons le code du début de l'article, et ne prenons que la version dans la syntaxe Intel.
 
-```sh
+```bash
 (gdb) disass main
 Dump of assembler code for function main:
    0x080483f2 <+0>:     push   ebp
@@ -451,7 +451,7 @@ call    0x80483dc <add>
 
 Une instruction `CALL` ! Elle fait appel à la fonction située à l'adresse `0x80483dc`, et gdb nous a même retrouvé le nom de cette fonction, qui s'appelle `add()`. Fort bien, nous allons pouvoir désassembler `add` pour voir de quoi il en retourne !
 
-```sh
+```bash
 (gdb) disass add
 Dump of assembler code for function add:
    0x080483dc <+0>:     push   ebp

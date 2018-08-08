@@ -50,13 +50,13 @@ int main(int argc, char *argv[])
 
 Cependant, cette fois-ci, nous allons le compiler d'une différente manière, pour que cette protection soit mise en place
 
-```sh
+```bash
 $ gcc -Wall -m32 -fstack-protector -o canari canari.c
 ```
 
 Nous avons maintenant un binaire qui possède cette protection. L'outil [check.sh](http://www.trapkit.de/tools/checksec.sh){:target="blank"} nous permet de nous en assurer :
 
-```sh
+```bash
 $ ./checksec.sh --file canari
 RELRO      STACK CANARY   NX           PIE      RPATH      RUNPATH      FILE
 No RELRO   Canary found   NX enabled   No PIE   No RPATH   No RUNPATH   canari
@@ -64,7 +64,7 @@ No RELRO   Canary found   NX enabled   No PIE   No RPATH   No RUNPATH   canari
 
 Essayons alors de provoquer un bête overflow
 
-```sh
+```bash
 $ ./canari $(perl -e 'print "A"x100')
 
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -75,7 +75,7 @@ Ouch. Voilà, on s'est pris la tomate. Au moins, c'est clair, nous ne pouvons pl
 
 Mais alors, il s'est passé quoi exactement ? Regardons à quoi ressemble notre nouveau binaire dans gdb
 
-```sh
+```bash
 $ gdb -q canari
 Reading symbols from /home/betezed/blog/exemples/canari...(no debugging symbols found)...done.
 gdb-peda$ disas main
@@ -128,7 +128,7 @@ gdb-peda$
 
 Bon, nous avons les versions désassemblées de la fonction `main` et de la fonction `func`. La fonction `main` ne semble pas avoir été modifiée. En revanche, la fonction `func` a une fin assez étrange :
 
-```sh
+```bash
 0x080484e0 <+52>: mov eax,DWORD PTR [ebp-0xc]
 0x080484e3 <+55>: xor eax,DWORD PTR gs:0x14
 0x080484ea <+62>: je 0x80484f1 <func+69>
@@ -137,7 +137,7 @@ Bon, nous avons les versions désassemblées de la fonction `main` et de la fon
 
 Nous remarquons ces 4 lignes qui ne sont pas habituelles. Une valeur est prise sur la pile, juste avant `EBP`, puis elle est comparée à une valeur située sur le segment gs à l'adresse `0x14`. Ce segment est propre au processus en cours d'exécution. C'est en fait la valeur secrète dont nous parlions tout à l'heure, générée aléatoirement à chaque exécution. Pour nous en convaincre, plaçons un breakpoint à l'adresse `0x080484e3` pour voir le contenu de `EAX` lorsque le comportement est normal (Donc que nous n'avons pas réécrit le canari)
 
-```sh
+```bash
 gdb-peda$ r
 ...
 gdb-peda$ i r eax
@@ -151,7 +151,7 @@ eax 0x9a9c0100 0x9a9c0100
 
 On voit que deux canaris sont générés d'une exécution à l'autre, et n'ont aucun rapport entre eux. Mais comme nous n'avons rien modifié à ce niveau là, les instructions suivantes :
 
-```sh
+```bash
 0x080484e3 <+55>: xor eax,DWORD PTR gs:0x14
  0x080484ea <+62>: je 0x80484f1 <func+69>
 ```
@@ -160,7 +160,7 @@ comparent ce canari avec la valeur originale. Comme elle n'est pas modifiée, le
 
 Maintenant, tentons un buffer overflow
 
-```sh
+```bash
 gdb-peda$ r $(perl -e 'print "A"x100')
 ...
 
@@ -170,7 +170,7 @@ eax 0x41414141 0x41414141
 
 Et voilà, nous avons remplacé le canari. Malheur ! Si nous exécutons les quelques instructions qui suivent
 
-```sh
+```bash
 gdb-peda$ ni
 gdb-peda$ ni
 
