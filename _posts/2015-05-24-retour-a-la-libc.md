@@ -23,7 +23,7 @@ Pour rappel, le buffer overflow est une vulnérabilité présente lorsque le pro
 
 Cela peut engendrer une erreur de segmentation car ce dépassement va probablement écraser la sauvegarde du registre EIP (sauvegarde effectuée afin que lorsque la fonction en cours se termine, le processeur retrouve l'adresse de l'instruction suivant l'appel de cette fonction), donc comme EIP est partiellement ou totalement écrasé, les chances sont fortes pour que cette nouvelle valeur pointe soit vers une zone mémoire non autorisée en lecture, soit vers une zone mémoire contenant des instructions non valides.
 
-Cependant, si l'attaquant fourni une adresse mémoire soigneusement choisie pour pointer vers un code malveillant (placé dans le buffer, dans nos exemples précédents, d'où le _stack based_), alors le flow d'exécution du programme peut être modifié, et l'attaquant peut faire ce qu'on appelle une **escalade de privilèges** (sous réserve que le programme en question appartenait à une utilisateur avec des droits plus élevés et que le programme était SUID, c'est à dire qu'il s'exécutait avec les droits du propriétaire de ce logiciel)
+Cependant, si l'attaquant fourni une adresse mémoire soigneusement choisie pour pointer vers un code malveillant (placé dans le buffer, dans nos exemples précédents, d'où le _stack based_), alors le flow d'exécution du programme peut être modifié, et l'attaquant peut faire ce qu'on appelle une **escalade de privilèges** (sous réserve que le programme en question appartenait à un utilisateur avec des droits plus élevés et que le programme était SUID, c'est à dire qu'il s'exécutait avec les droits du propriétaire de ce logiciel)
 
 ## Protections contre les BoF
 
