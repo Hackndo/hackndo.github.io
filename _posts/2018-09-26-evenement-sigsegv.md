@@ -6,7 +6,7 @@ layout: post
 permalink: /evenement-sigsegv1/
 disqus_identifier: 0000-0000-0000-00a2
 cover: assets/uploads/2018/09/rtfm.png
-description: "Notre association a pour objectif de créer un événement français sur le thème de la sécurité informatique le premier décembre 2018 à l'école 42."
+description: "Notre association a pour objectif de créer un événement français sur le thème du hacking le premier décembre 2018 à l'école 42."
 tags:
   - windows
   - reseau
