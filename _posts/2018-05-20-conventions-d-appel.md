@@ -124,8 +124,8 @@ Voici les deux tableaux récapitulatifs qui permettent d'avoir une vision rapide
 
 | Convention  | Transmission des arguments   | Responsabilité maintenance pile |
 | ----------- |:----------------------------:|:-------------------------------:|
-| CDECL       | Poussés sur la pile          | Fonction appelée                |
-| STDCALL     | Poussés sur la pile          | Fonction appelante              |
+| CDECL       | Poussés sur la pile          | Fonction appelante              |
+| STDCALL     | Poussés sur la pile          | Fonction appelée                |
 | FASTCALL    | 2 registres puis sur la pile | Fonction appelée                |
 
 ### 64 bits
