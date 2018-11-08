@@ -12,7 +12,7 @@ tags:
 ---
 Salut tout le monde, voici un nouvel article qui va permettre, je pense, d'éclaircir bon nombre de notions que j'ai déjà abordées dans mes articles précédents, et qui permettront également de faciliter la compréhension des articles à venir.
 
-Cet article a un but modeste : Comprendre la sortie d'un `disass main` sur un programme relativement simple (Mais si ! vous savez, cette commande dans gdb qui permet de désassembler un - i.e. produire le code assembleur d'un - binaire)
+Cet article a un but modeste : Comprendre la sortie d'un `disass main` sur un programme relativement simple (Mais si ! vous savez, cette commande dans gdb qui permet de désassembler - i.e. produire le code assembleur - un binaire)
 
 <!--more-->
 
