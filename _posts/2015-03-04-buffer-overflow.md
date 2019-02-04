@@ -9,6 +9,7 @@ description: "Nous allons ici expliquer ce qui se cache derrière la notion de b
 cover: assets/uploads/2015/03/groot.jpg
 tags:
   - userland
+  - linux
   - tuto
 ---
 

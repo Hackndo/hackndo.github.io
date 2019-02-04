@@ -10,6 +10,7 @@ cover: assets/uploads/2015/06/WGETSEGFAULT.jpg
 image: assets/uploads/2015/06/WGETSEGFAULT.jpg
 tags:
   - userland
+  - linux
 ---
 Salut à tous, **winw** m'a montré récemment un truc assez sympa. Dans un terminal, tapez la commande
 

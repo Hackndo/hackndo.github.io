@@ -10,6 +10,7 @@ cover: assets/uploads/2016/10/fourth_gadget.png
 image: assets/uploads/2016/10/fourth_gadget.png
 tags:
   - userland
+  - linux
   - tuto
 ---
 

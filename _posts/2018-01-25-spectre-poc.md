@@ -9,6 +9,7 @@ cover: assets/uploads/2018/01/spectre_poc.png
 description: "Aujourd'hui, nous allons construire une preuve de concept de l'attaque Spectre afin de mettre en pratique la théorie de cette attaque présentée dans l'article précédant."
 tags:
   - userland
+  - linux
   - hardware
   - tuto
 ---

@@ -10,6 +10,7 @@ cover: assets/uploads/2015/09/9537298100_c67c2e1071_b.jpg
 image: assets/uploads/2015/09/9537298100_c67c2e1071_b.jpg
 tags:
   - userland
+  - linux
 ---
 
 Salut, aujourd'hui j'ai travaillé sur un binaire qui avait une technique qui permettait de limiter les dégâts causés par un buffer overflow. Cela s'appelle **Stack-Smashing Protector** (appelée aussi SSP). C'est une extention de gcc. Dans le cas du binaire que j'ai étudié, pour se protéger des buffer overflows, gcc ajoute une valeur secrète sur la stack, appelée **canari**, juste avant l'adresse contenue dans EBP. Un dépassement de tampon est en général utilisé pour réécrire EIP, qui se trouve être juste derrière l'adresse contenue dans EBP. Donc si jamais cela se passait, la valeur secrète serait également réécrite. Une vérification de cette valeur est effectuée avant de sortir de la fonction, et si elle a été modifiée, alors le programme s'arrête brutalement et nous jette des tomates à la figure.

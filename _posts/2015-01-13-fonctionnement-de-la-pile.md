@@ -11,6 +11,7 @@ image: assets/uploads/2015/01/stack.jpg
 tags:
   - tuto
   - userland
+  - linux
 ---
 La pile (dont on a parlé dans l'article sur la [gestion de la mémoire](/gestion-de-la-memoire/) a une structure **LIFO** (Last In, First Out).
 
