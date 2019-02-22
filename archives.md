@@ -33,6 +33,17 @@ title: Archives
   {% endfor %}
 {% endfor %}
 
+## Active Directory
+
+{% for post in site.posts %}
+  {% for tag in post.tags %}
+    {% if tag == "activedirectory" %}
+  {{ post.date | date_to_string }} &raquo; [ {{ post.title }} ]({{ post.url }})
+    {% break %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+
 ## Hardware
 
 {% for post in site.posts %}
