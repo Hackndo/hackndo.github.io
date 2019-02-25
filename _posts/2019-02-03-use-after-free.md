@@ -12,7 +12,7 @@ tags:
   - userland
 ---
 
-Nous nous sommes intéressés à différentes vulnérabilités qui mettaient en jeu la pile suite à des overflows ([Buffer Overflow](/buffer-overflow/), [Ret2Libc](retour-a-la-libc/), [ROP](/return-oriented-programming)). Aujourd'hui, nous allons découvrir ensemble une nouvelle zone mémoire, le tas (ou la Heap), en explicitant une vulnérabilité relativement commune dans les programmes récents, appelée "use-after-free".
+Nous nous sommes intéressés à différentes vulnérabilités qui mettaient en jeu la pile suite à des overflows ([Buffer Overflow](/buffer-overflow/), [Ret2Libc](/retour-a-la-libc/), [ROP](/return-oriented-programming)). Aujourd'hui, nous allons découvrir ensemble une nouvelle zone mémoire, le tas (ou la Heap), en explicitant une vulnérabilité relativement commune dans les programmes récents, appelée "use-after-free".
 
 <!--more-->
 
