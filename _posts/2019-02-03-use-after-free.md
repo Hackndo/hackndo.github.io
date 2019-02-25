@@ -114,7 +114,7 @@ La zone mémoire a été libérée !
 La variable pointeurB pointe vers 0x55e703641010
 ```
 
-On remarque une chose importante : Après libération du bloc mémoire pointé par `pointeurA`, lors de la nouvelle allocation, la même adresse est utilisée (`0x55f8d82d1010`) et assignée à `pointeurB`, puisque ce bloc mémoire éyait à nouveau libre. 
+On remarque une chose importante : Après libération du bloc mémoire pointé par `pointeurA`, lors de la nouvelle allocation, la même adresse est utilisée (`0x55f8d82d1010`) et assignée à `pointeurB`, puisque ce bloc mémoire était à nouveau libre. 
 
 ## Use-After-Free
 
