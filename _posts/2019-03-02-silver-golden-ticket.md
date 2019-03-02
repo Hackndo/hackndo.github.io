@@ -150,3 +150,9 @@ C'est ce TGT forgé qui est appelé **Golden Ticket**. Le schéma de l'attaque e
 Cet article permet de clarifier les notions de PAC, Silver Ticket et de Golden Ticket. Ces notions sont essentielles pour comprendre les attaques Kerberos dans un Active Directory.
 
 N'hésitez pas à laisser un commentaire ou à me retrouver sur le [serveur Discord](https://discord.gg/9At6SUZ) du blog si vous avez des questions ou des idées !
+
+## Ressources
+
+* [Secrets d’authentification épisode II Kerberos contre-attaque - Aurélien Bordes](https://www.sstic.org/media/SSTIC2014/SSTIC-actes/secrets_dauthentification_pisode_ii__kerberos_cont/SSTIC2014-Article-secrets_dauthentification_pisode_ii__kerberos_contre-attaque-bordes_2.pdf)
+* [ADSecurity - Pyrotek3](http://adsecurity.org/)
+* [Kerberos Exploration - Rémi Vernier](http://remivernier.com/index.php/2018/07/07/kerberos-exploration/)
