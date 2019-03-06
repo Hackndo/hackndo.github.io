@@ -165,7 +165,7 @@ Une fois ce ticket en mémoire, notre session est en mesure de demander un TGS p
 
 [![GT granted](/assets/uploads/2019/03/golden_ticket_access_granted.png)](/assets/uploads/2019/03/golden_ticket_access_granted.png)
 
-Remarquons que plusieurs types de clés sont disponibles pour le client et pour le contrôleur de domaine. RC4 (Hash NT), AES128, AES256. Il est possible d'utiliser la clé souhaitée pour générer le TGT. Lors du contrôle côté contrôleur de domaine, les différentes clés seront testées pour lire le TGT. Voici un exemple avec l'utilisation de la clé AES256.
+Remarquons que plusieurs types de clés sont disponibles pour le client et pour le contrôleur de domaine. RC4 (Hash NT), AES128, AES256, ... Ce ne sont que des évolutions qui sont disponibles pour la rétrocompatibilité. Il est possible d'utiliser la clé souhaitée pour générer le TGT. Lors du contrôle côté contrôleur de domaine, les différentes clés seront testées pour lire le TGT. Voici un exemple avec l'utilisation de la clé AES256.
 
 [![GT AES](/assets/uploads/2019/03/golden_ticket_access_granted_aes.png)](/assets/uploads/2019/03/golden_ticket_access_granted_aes.png)
 
