@@ -146,7 +146,7 @@ C'est ce TGT forgé qui est appelé **Golden Ticket**. Le schéma de l'attaque e
 
 [![Golden Ticket](/assets/uploads/2019/02/goldenticket.png)](/assets/uploads/2019/02/goldenticket.png)
 
-En pratique, voici la démonstration de la création d'un **Golden Ticket**. D'abord, nous sommes dans une session qui ne possède pas de ticket en cache, et n'a pas les droits d'accéder à `\\DC-01.adsec.local\$`.
+En pratique, voici la démonstration de la création d'un **Golden Ticket**. D'abord, nous sommes dans une session qui ne possède pas de ticket en cache, et n'a pas les droits pour accéder à `\\DC-01.adsec.local\c$`.
 
 [![CIFS Example](/assets/uploads/2019/03/golden_ticket_access_denied.png)](/assets/uploads/2019/03/golden_ticket_access_denied.png)
 
