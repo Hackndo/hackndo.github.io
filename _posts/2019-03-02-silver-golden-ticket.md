@@ -148,11 +148,11 @@ C'est ce TGT forgé qui est appelé **Golden Ticket**. Le schéma de l'attaque e
 
 En pratique, voici la démonstration de la création d'un **Golden Ticket**. D'abord, nous sommes dans une session qui ne possède pas de ticket en cache, et n'a pas les droits pour accéder à `\\DC-01.adsec.local\c$`.
 
-[![CIFS Example](/assets/uploads/2019/03/golden_ticket_access_denied.png)](/assets/uploads/2019/03/golden_ticket_access_denied.png)
+[![Access denied](/assets/uploads/2019/03/golden_ticket_access_denied.png)](/assets/uploads/2019/03/golden_ticket_access_denied.png)
 
 On génère alors le **Golden Ticket** en utilisant le hash NTLM du compte `krbtgt`
 
-[![CIFS Example](/assets/uploads/2019/03/golden_ticket_generated.png)](/assets/uploads/2019/03/golden_ticket_generated.png)
+[![GT Generation](/assets/uploads/2019/03/golden_ticket_generated.png)](/assets/uploads/2019/03/golden_ticket_generated.png)
 
 La ligne de commande utilisée dans Mimikatz est la suivante :
 
@@ -163,11 +163,11 @@ Cela veut dire qu'on crée un ticket pour le domaine `adsec.local` avec un nom d
 
 Une fois ce ticket en mémoire, notre session est en mesure de demander un TGS pour n'importe quel SPN, par exemple pour `CIFS\DC-01.adsec.local` permettant de lire le contenu du partage `\\DC-01.adsec.local\$`
 
-[![CIFS Example](/assets/uploads/2019/03/golden_ticket_access_granted.png)](/assets/uploads/2019/03/golden_ticket_access_granted.png)
+[![GT granted](/assets/uploads/2019/03/golden_ticket_access_granted.png)](/assets/uploads/2019/03/golden_ticket_access_granted.png)
 
 Remarquons que plusieurs types de clés sont disponibles pour le client et pour le contrôleur de domaine. RC4 (Hash NT), AES128, AES256. Il est possible d'utiliser la clé souhaitée pour générer le TGT. Lors du contrôle côté contrôleur de domaine, les différentes clés seront testées pour lire le TGT. Voici un exemple avec l'utilisation de la clé AES256.
 
-[![CIFS Example](/assets/uploads/2019/03/golden_ticket_access_granted_aes.png)](/assets/uploads/2019/03/golden_ticket_access_granted_aes.png)
+[![GT AES](/assets/uploads/2019/03/golden_ticket_access_granted_aes.png)](/assets/uploads/2019/03/golden_ticket_access_granted_aes.png)
 
 Par ailleurs, d'après la présentation [Evading Microsoft ATA for 
 Active Directory Domination](https://www.blackhat.com/docs/us-17/thursday/us-17-Mittal-Evading-MicrosoftATA-for-ActiveDirectory-Domination.pdf) de [Nikhil Mittal](https://twitter.com/nikhil_mitt) à la Black Hat, cela permettrait de ne pas être détecté par Microsoft ATA, pour le moment.
