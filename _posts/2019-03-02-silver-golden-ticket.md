@@ -129,7 +129,7 @@ La ligne de commande utilisée dans Mimikatz est la suivante :
 /kerberos::golden /domain:adsec.local /user:ANY /sid:S-1-5-21-1423455951-1752654185-1824483205 /rc4:ceaxxxxxxxxxxxxxxxxxxxxxxxxxxxxx /target:DESKTOP-01.adsec.local /service:cifs /ptt
 ```
 
-Cela veut dire qu'on crée un ticket pour le domaine `adsec.local` avec un nom d'utilisateur arbitraire (`ANY`), et que l'on vise le service `CIFS` de la machine `DESKTOP-01` en fournissant son hash NTLM.
+Cela veut dire qu'on crée un ticket pour le domaine `adsec.local` avec un nom d'utilisateur **arbitraire** (`ANY`), et que l'on vise le service `CIFS` de la machine `DESKTOP-01` en fournissant son hash NTLM.
 
 
 ## Golden Ticket
@@ -153,6 +153,13 @@ En pratique, voici la démonstration de la création d'un **Golden Ticket**. D'a
 On génère alors le **Golden Ticket** en utilisant le hash NTLM du compte `krbtgt`
 
 [![CIFS Example](/assets/uploads/2019/03/golden_ticket_generated.png)](/assets/uploads/2019/03/golden_ticket_generated.png)
+
+La ligne de commande utilisée dans Mimikatz est la suivante :
+
+```
+/kerberos::golden /domain:adsec.local /user:ANYUSER /sid:S-1-5-21-1423455951-1752654185-1824483205 /krbtgt:ceaxxxxxxxxxxxxxxxxxxxxxxxxxxxxx /ptt
+```
+Cela veut dire qu'on crée un ticket pour le domaine `adsec.local` avec un nom d'utilisateur **arbitraire** (`ANYUSER`), en fournissant le hash NTLM de l'utilisateur `krbtgt`. Cette commande crée un TGT avec une PAC indiquant que nous sommes administrateur du domaine (entre autre), et que nous nous appelons ANYUSER (choisi arbitrairement).
 
 Une fois ce ticket en mémoire, notre session est en mesure de demander un TGS pour n'importe quel SPN, par exemple pour `CIFS\DC-01.adsec.local` permettant de lire le contenu du partage `\\DC-01.adsec.local\$`
 
