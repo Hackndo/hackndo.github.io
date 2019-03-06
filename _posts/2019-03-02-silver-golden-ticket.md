@@ -165,6 +165,13 @@ Une fois ce ticket en mémoire, notre session est en mesure de demander un TGS p
 
 [![CIFS Example](/assets/uploads/2019/03/golden_ticket_access_granted.png)](/assets/uploads/2019/03/golden_ticket_access_granted.png)
 
+Remarquons que plusieurs types de clés sont disponibles pour le client et pour le contrôleur de domaine. RC4 (Hash NT), AES128, AES256. Il est possible d'utiliser la clé souhaitée pour générer le TGT. Lors du contrôle côté contrôleur de domaine, les différentes clés seront testées pour lire le TGT. Voici un exemple avec l'utilisation de la clé AES256.
+
+[![CIFS Example](/assets/uploads/2019/03/golden_ticket_access_granted_aes.png)](/assets/uploads/2019/03/golden_ticket_access_granted_aes.png)
+
+Par ailleurs, d'après la présentation [Evading Microsoft ATA for 
+Active Directory Domination](https://www.blackhat.com/docs/us-17/thursday/us-17-Mittal-Evading-MicrosoftATA-for-ActiveDirectory-Domination.pdf) de [Nikhil Mittal](https://twitter.com/nikhil_mitt) à la Black Hat, cela permettrait de ne pas être détecté par Microsoft ATA, pour le moment.
+
 
 ## Conclusion
 
