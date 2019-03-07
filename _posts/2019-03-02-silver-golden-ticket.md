@@ -165,12 +165,12 @@ Une fois ce ticket en mémoire, notre session est en mesure de demander un TGS p
 
 [![GT granted](/assets/uploads/2019/03/golden_ticket_access_granted.png)](/assets/uploads/2019/03/golden_ticket_access_granted.png)
 
-Remarquons que plusieurs types de clés sont disponibles pour le client et pour le contrôleur de domaine. RC4 (Hash NT), AES128, AES256, ... Ce ne sont que des évolutions qui sont disponibles pour la rétrocompatibilité. Il est possible d'utiliser la clé souhaitée pour générer le TGT. Lors du contrôle côté contrôleur de domaine, les différentes clés seront testées pour lire le TGT. Voici un exemple avec l'utilisation de la clé AES256.
+Remarquons que plusieurs types de méthodes de chiffrement sont disponibles pour le client et pour le contrôleur de domaine. RC4 (Hash NT), AES128, AES256, ... Ce ne sont que des évolutions qui sont disponibles pour la rétrocompatibilité. Il est possible d'utiliser la méthode de chiffrement souhaitée pour générer le TGT. Il suffira de la préciser dans les futures requêtes avec le contrôleur de domaine (dans le champ `EType` associé au TGT). Voici un exemple avec l'utilisation du chiffrement AES256.
 
 [![GT AES](/assets/uploads/2019/03/golden_ticket_access_granted_aes.png)](/assets/uploads/2019/03/golden_ticket_access_granted_aes.png)
 
 Par ailleurs, d'après la présentation [Evading Microsoft ATA for 
-Active Directory Domination](https://www.blackhat.com/docs/us-17/thursday/us-17-Mittal-Evading-MicrosoftATA-for-ActiveDirectory-Domination.pdf) de [Nikhil Mittal](https://twitter.com/nikhil_mitt) à la Black Hat, cela permettrait de ne pas être détecté par Microsoft ATA, pour le moment.
+Active Directory Domination](https://www.blackhat.com/docs/us-17/thursday/us-17-Mittal-Evading-MicrosoftATA-for-ActiveDirectory-Domination.pdf) de [Nikhil Mittal](https://twitter.com/nikhil_mitt) à la Black Hat, cela permettrait de ne pas être détecté par Microsoft ATA, pour le moment, puisqu'on évite de faire un *downgade* de méthode de chiffrement. En effet, par défaut, la méthode de chiffrement utilisée est la plus forte supportée par le client.
 
 
 ## Conclusion
