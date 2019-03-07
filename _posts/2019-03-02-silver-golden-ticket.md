@@ -165,7 +165,14 @@ Une fois ce ticket en mémoire, notre session est en mesure de demander un TGS p
 
 [![GT granted](/assets/uploads/2019/03/golden_ticket_access_granted.png)](/assets/uploads/2019/03/golden_ticket_access_granted.png)
 
-Remarquons que plusieurs types de méthodes de chiffrement sont disponibles pour le client et pour le contrôleur de domaine. RC4 (Hash NT), AES128, AES256, ... Ce ne sont que des évolutions qui sont disponibles pour la rétrocompatibilité. Il est possible d'utiliser la méthode de chiffrement souhaitée pour générer le TGT. Il suffira de la préciser dans les futures requêtes avec le contrôleur de domaine (dans le champ `EType` associé au TGT). Voici un exemple avec l'utilisation du chiffrement AES256.
+
+## Méthodes de chiffrement
+
+Jusqu'ici, nous utilisions les hashs `NT` pour créer les Silver/Golden Tickets. En réalité, cela signifie que nous utilisions la méthode de chiffrement `RC4_HMAC_MD5`, mais ce n'est pas la seule qui existe. En effet, aujourd'hui, plusieurs méthodes de chiffrement sont possibles au sein d'un Active Directory car elles ont évolué avec les versions de Windows. Voici un tableau récapitulatif issu de la [documentation Microsoft](https://docs.microsoft.com/fr-fr/windows/security/threat-protection/security-policy-settings/network-security-configure-encryption-types-allowed-for-kerberos)
+
+[![Encryption types](/assets/uploads/2019/03/encryption_types.png)](/assets/uploads/2019/03/encryption_types.png)
+
+Il est possible d'utiliser la méthode de chiffrement souhaitée pour générer le TGT. Il suffira de la préciser dans les futures requêtes avec le contrôleur de domaine (l'information se trouvera dans le champ `EType` associé au TGT). Voici un exemple avec l'utilisation du chiffrement AES256.
 
 [![GT AES](/assets/uploads/2019/03/golden_ticket_access_granted_aes.png)](/assets/uploads/2019/03/golden_ticket_access_granted_aes.png)
 
