@@ -191,3 +191,5 @@ N'hésitez pas à laisser un commentaire ou à me retrouver sur le [serveur Disc
 * [Secrets d’authentification épisode II Kerberos contre-attaque - Aurélien Bordes](https://www.sstic.org/media/SSTIC2014/SSTIC-actes/secrets_dauthentification_pisode_ii__kerberos_cont/SSTIC2014-Article-secrets_dauthentification_pisode_ii__kerberos_contre-attaque-bordes_2.pdf)
 * [ADSecurity - Pyrotek3](http://adsecurity.org/)
 * [Kerberos Exploration - Rémi Vernier](http://remivernier.com/index.php/2018/07/07/kerberos-exploration/)
+* [Sécurité réseau: configurer les types de chiffrement autorisés pour Kerberos - Microsoft](https://docs.microsoft.com/fr-fr/windows/security/threat-protection/security-policy-settings/network-security-configure-encryption-types-allowed-for-kerberos)
+* [Encryption Type Selection in Kerberos Exchanges - Microsoft](https://blogs.msdn.microsoft.com/openspecification/2010/11/17/encryption-type-selection-in-kerberos-exchanges/)
