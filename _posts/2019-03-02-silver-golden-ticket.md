@@ -100,7 +100,7 @@ Pour rappel, voici à quoi ressemble schématiquement un TGS.
 
 Il est chiffré avec le hash NTLM du compte responsable du service (compte machine ou compte utilisateur). Ainsi, si un attaquant parvient à extraire le mot de passe ou le hash NTLM d'un compte de service, il peut alors forger un ticket de service (TGS) en choisissant les informations qu'il veut mettre dedans afin d'accéder à ce service, sans passer par le KDC. C'est l'attaquant qui construit ce ticket dans son coin, comme un grand. C'est ce ticket forgé qui est appelé **Silver Ticket**.
 
-Prenons en exemple un attaquant qui trouve le hash NTLM du compte de la machine `DESKTOP-01`. Le compte machine est alors `DESKTOP-01$`. L'attaquant peut créer un bloc de données correspondant à un ticket comme celui trouvé dans `KRB_TGS_REP`, Il indiquera le nom du domaine, le nom du service demandé sous sa forme SPN (Service Principal Name), le nom d'un utilisateur (qu'il peut choisir arbitrairement), son PAC (qu'il peut également forger). Voici un exemple simpliste de ticket que l'attaquant peut créer :
+Prenons en exemple un attaquant qui trouve le hash NTLM du compte de la machine `DESKTOP-01`. Le compte machine est alors `DESKTOP-01$`. L'attaquant peut créer un bloc de données correspondant à un ticket comme celui trouvé dans `KRB_TGS_REP`, Il indiquera le nom du domaine, le nom du service demandé sous sa forme [SPN](/service-principal-name-spn) (Service Principal Name), le nom d'un utilisateur (qu'il peut choisir arbitrairement), son PAC (qu'il peut également forger). Voici un exemple simpliste de ticket que l'attaquant peut créer :
 
 * **realm** : adsec.local
 * **sname** : cifs\desktop-01.adsec.local
@@ -161,7 +161,7 @@ La ligne de commande utilisée dans Mimikatz est la suivante :
 ```
 Cela veut dire qu'on crée un ticket pour le domaine `adsec.local` avec un nom d'utilisateur **arbitraire** (`ANYUSER`), en fournissant le hash NTLM de l'utilisateur `krbtgt`. Cette commande crée un TGT avec une PAC indiquant que nous sommes administrateur du domaine (entre autre), et que nous nous appelons ANYUSER (choisi arbitrairement).
 
-Une fois ce ticket en mémoire, notre session est en mesure de demander un TGS pour n'importe quel SPN, par exemple pour `CIFS\DC-01.adsec.local` permettant de lire le contenu du partage `\\DC-01.adsec.local\$`
+Une fois ce ticket en mémoire, notre session est en mesure de demander un TGS pour n'importe quel [SPN](/service-principal-name-spn), par exemple pour `CIFS\DC-01.adsec.local` permettant de lire le contenu du partage `\\DC-01.adsec.local\$`
 
 [![GT granted](/assets/uploads/2019/03/golden_ticket_access_granted.png)](/assets/uploads/2019/03/golden_ticket_access_granted.png)
 
