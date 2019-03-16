@@ -513,3 +513,22 @@ a.pagination-item:hover {
     border-color: #a6a6a6;
     text-decoration: none;
 }
+
+/**
+ * Table of Contents
+ */
+
+.table-of-contents ul {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 1em;
+    text-indent: -0.4em;
+}
+
+.table-of-contents .title {
+    margin-bottom: .5rem;
+    font-weight: bold;
+    line-height: 1.25;
+    color: #313131;
+    text-rendering: optimizeLegibility;
+}

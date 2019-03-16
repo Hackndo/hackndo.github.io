@@ -6,7 +6,7 @@ anchors.add('h2, h3, h4, h5, h6');
 
 var ToC =
   "<nav role='navigation' class='table-of-contents'>" +
-    "<h2>Dans cet article</h2>" +
+    "<div class=\"title\">Dans cet article</div>" +
     "<ul>";
 
 if($("article h2").length > 0) {
@@ -18,8 +18,8 @@ if($("article h2").length > 0) {
 
       newLine =
         "<li>" +
-          "<a href='" + link + "'>" +
-            title +
+          "» <a href='" + link + "'>" +
+          title +
           "</a>" +
         "</li>";
 
