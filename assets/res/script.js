@@ -9,6 +9,12 @@ var ToC =
     "<div class=\"title\">Dans cet article</div>" +
     "<ul>";
 
+var siteLogo = document.getElementById("site-logo");
+var height = siteLogo.getBoundingClientRect().top;
+if(height <= 0) {
+    siteLogo.style.display="none";
+}
+
 if($("article h2").length > 0) {
     $("article h2").each(function() {
 
