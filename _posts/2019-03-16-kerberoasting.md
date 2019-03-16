@@ -19,7 +19,7 @@ A l'aide des notions abordées précédemment, nous avons tous les éléments en
 
 ## Principe
 
-L'article sur le [fonctionnement de kerberos](/kerberos) a permis de comprendre comment un utilisateur demandait un TGS auprès du contrôleur de domaine. La réponse `KRB_TGS_REP` est composée de deux parties. Une première partie est le TGS dont le contenu est chiffré avec le secret du service demandé, et une deuxième partie est une clé de session qui sera utilisée entre l'utilisateur et le service. Le tout est chiffré avec le secret de l'utilisateur.
+L'article sur le [fonctionnement de kerberos](/kerberos) a permis de comprendre comment un utilisateur demandait un TGS auprès du contrôleur de domaine. La réponse [KRB_TGS_REP](/kerberos/#krb_tgs_rep) est composée de deux parties. Une première partie est le TGS dont le contenu est chiffré avec le secret du service demandé, et une deuxième partie est une clé de session qui sera utilisée entre l'utilisateur et le service. Le tout est chiffré avec le secret de l'utilisateur.
 
 [![Ticket pour le service](/assets/uploads/2018/05/tgsrep.png)](/assets/uploads/2018/05/tgsrep.png)
 
