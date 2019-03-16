@@ -2,18 +2,19 @@
 anchors.options.visible = 'hover';
 anchors.add('h2, h3, h4, h5, h6');
 
+/* Do not display logo of screen height is too small and logo is not completly displayed */
+var siteLogo = document.getElementById("site-logo");
+var height = siteLogo.getBoundingClientRect().top;
+if(height <= 0) {
+    siteLogo.style.display="none";
+}
+
 /* Table of content */
 
 var ToC =
   "<nav role='navigation' class='table-of-contents'>" +
     "<div class=\"title\">Dans cet article</div>" +
     "<ul>";
-
-var siteLogo = document.getElementById("site-logo");
-var height = siteLogo.getBoundingClientRect().top;
-if(height <= 0) {
-    siteLogo.style.display="none";
-}
 
 if($("article h2").length > 0) {
     $("article h2").each(function() {
