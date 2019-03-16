@@ -8,26 +8,25 @@ disqus_identifier: 0000-0000-0000-00a1
 cover: assets/uploads/2018/05/conventions-d-appel.png
 description: "Voici un article qui n'est pas vraiment technique, pas vraiment compliqué, et pour lequel on trouve de la doc un peu partout, mais c'est le genre d'information que je lis un jour, que j'oublie quelques semaines plus tard, donc que j'ai envie de résumer avec mes mots une bonne fois pour toute"
 tags:
-  - Windows
-  - Network
+  - Misc
 ---
 
 
-Voici un article qui n'est pas vraiment technique, pas vraiment compliqu&eacute;, et pour lequel on trouve de la doc un peu partout, mais c'est le genre d'information que je lis un jour, que j'oublie quelques semaines plus tard, donc que j'ai envie de r&eacute;sumer avec mes mots une bonne fois pour toute. Allons donc (re)d&eacute;couvrir les conventions d'appel dans le monde x86.
+Voici un article qui n'est pas vraiment technique, pas vraiment compliqué, et pour lequel on trouve de la doc un peu partout, mais c'est le genre d'information que je lis un jour, que j'oublie quelques semaines plus tard, donc que j'ai envie de résumer avec mes mots une bonne fois pour toute. Allons donc (re)découvrir les conventions d'appel dans le monde x86.
 
 <!--more-->
 
 ## Introduction
 
-Lorsqu'un programme est compil&eacute; (i.e. quand le code haut niveau utilis&eacute; par le programmeur est traduit en code machine), il existe diff&eacute;rentes conventions pour les appels de fonctions. Certaines d&eacute;cident que la fonction appelante prend ses responsabilit&eacute;s en nettoyant la pile apr&egrave;s l'appel d'une fonction (CDECL, FASTCALL).
+Lorsqu'un programme est compilé (i.e. quand le code haut niveau utilisé par le programmeur est traduit en code machine), il existe différentes conventions pour les appels de fonctions. Certaines décident que la fonction appelante prend ses responsabilités en nettoyant la pile après l'appel d'une fonction (CDECL, FASTCALL).
 
-D'autres cependant responsabilisent les fonctions en leur demandant de s'occuper de leur espace m&eacute;moire, et de tout bien nettoyer quand elles ont termin&eacute; (STDCALL).
+D'autres cependant responsabilisent les fonctions en leur demandant de s'occuper de leur espace mémoire, et de tout bien nettoyer quand elles ont terminé (STDCALL).
 
-Il y a &eacute;galement diff&eacute;rentes mani&egrave;res de passer des arguments &agrave; une fonction, par la pile ou par les registres.
+Il y a également différentes manières de passer des arguments à; une fonction, par la pile ou par les registres.
 
-Voici alors un article qui permet de clarifier tous ces points, permettant &agrave; chacun d'avoir une rapide synth&egrave;se des diff&eacute;rentes conventions d'appel.
+Voici alors un article qui permet de clarifier tous ces points, permettant à; chacun d'avoir une rapide synthèse des différentes conventions d'appel.
 
-Il est alors n&eacute;cessaire de d&eacute;couper cet article en deux. Une premi&egrave;re partie historique qui &eacute;num&egrave;re les principales conventions d'appel pour les architectures 32 bits, puis une deuxi&egrave;me qui pr&eacute;sente la convention par d&eacute;faut sur les architectures 64 bits.
+Il est alors nécessaire de découper cet article en deux. Une première partie historique qui énumère les principales conventions d'appel pour les architectures 32 bits, puis une deuxième qui présente la convention par défaut sur les architectures 64 bits.
 
 ## 32 bits
 
@@ -51,11 +50,11 @@ caller:
 
 ### STDCALL (Standard Call)
 
-Les arguments sont pouss&eacute;s sur la pile avant l'appel de la fonction, et la fonction appel&eacute;e est responsable du nettoyage de la pile, de telle sorte que lorsque la fonction est termin&eacute;e et que le programme reprend son ex&eacute;cution apr&egrave;s l'appel de la fonction, la pile semble ne pas avoir &eacute;t&eacute; modifi&eacute;e.
+Les arguments sont poussés sur la pile avant l'appel de la fonction, et la fonction appelée est responsable du nettoyage de la pile, de telle sorte que lorsque la fonction est terminée et que le programme reprend son exécution après l'appel de la fonction, la pile semble ne pas avoir été modifiée.
 
-Il y a donc un prologue et un &eacute;pilogue dans chaque fonction pour g&eacute;rer la construction et la destruction de la pile n&eacute;cessaire au bon fonctionnement de cette fonction.
+Il y a donc un prologue et un épilogue dans chaque fonction pour gérer la construction et la destruction de la pile nécessaire au bon fonctionnement de cette fonction.
 
-Lorsque la fonction appel&eacute;e se termine, il y aura un appel &agrave; l'instruction return avec un argument qui lui sera pass&eacute;, argument correspondant au nombre d'octets &agrave; lib&eacute;rer au moment du retour &agrave; la fonction appelante.
+Lorsque la fonction appelée se termine, il y aura un appel à; l'instruction return avec un argument qui lui sera passé, argument correspondant au nombre d'octets à; libérer au moment du retour à; la fonction appelante.
 
 ```nasm
 caller:
@@ -76,11 +75,11 @@ callee:
 
 ### FASTCALL (Fast Calling Convention)
 
-Dans cette convention d'appel, les arguments ne sont plus pouss&eacute;s sur la pile, mais enregistr&eacute;s dans des registres. Cependant, dans une architecture 32 bits, seuls 2 registres sont utilisables pour cette convention. S'il y a plus de deux arguments &agrave; passer &agrave; la fonction, les suivants seront pouss&eacute;s sur la pile, comme dans les deux conventions d'appel vues pr&eacute;c&eacute;demment.
+Dans cette convention d'appel, les arguments ne sont plus poussés sur la pile, mais enregistrés dans des registres. Cependant, dans une architecture 32 bits, seuls 2 registres sont utilisables pour cette convention. S'il y a plus de deux arguments à; passer à; la fonction, les suivants seront poussés sur la pile, comme dans les deux conventions d'appel vues précédemment.
 
-Par ailleurs, c'est la fonction appel&eacute;e qui est responsable du nettoyage de la pile.
+Par ailleurs, c'est la fonction appelée qui est responsable du nettoyage de la pile.
 
-Cette convention est th&eacute;oriquement plus rapide &agrave; l'ex&eacute;cution car elle r&eacute;duit le nombre de cycles d'instructions.
+Cette convention est théoriquement plus rapide à; l'exécution car elle réduit le nombre de cycles d'instructions.
 
 ```nasm
 caller:

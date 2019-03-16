@@ -488,30 +488,38 @@ a.pagination-item:hover {
 /**
  * Post Tags
  */
-.post-tags {
-    margin: 0 0 1.125em;
+
+.keywords {
     font-size: 70%;
 }
-.post-tags ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+
+.keywords .tags-title {
+    margin-right: 1em;
 }
-.post-tags li {
-    display: inline-block;
-    margin: 0 0.75em 0.375em 0;
+.keywords .post-tags {
+    margin: 1em 0 1.125em;
 }
-.post-tags a {
+
+
+
+.keywords .post-tags a {
     display: inline-block;
     padding: 8px 12px;
-    border: solid 1px #E6E6E6;
+    border: solid 1px #CCC;
     border-radius: 3px;
-    color: #9a9a9a;
+    color: #888;
+    margin: 0 0.75em 0.375em 0;
 }
-.post-tags a:hover, .post-tags a:active, .post-tags a:focus {
+.keywords .post-tags a:hover, .keywords  .post-tags a:active, .keywords  .post-tags a:focus {
     outline: none;
     border-color: #a6a6a6;
     text-decoration: none;
+    color: #6a6a6a;
+    background-color: #fcfcfc;
+}
+
+.keywords .post-tags a:hover .fas, .keywords .post-tags a:active.fas, .keywords .post-tags a:focus .fas {
+    color: #AA2222;
 }
 
 /**

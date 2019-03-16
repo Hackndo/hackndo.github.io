@@ -13,14 +13,18 @@ comments: true
   <div class="post-info">
       <p class="alignleft">{{ page.date | date_to_string }} <a class="post-comments-count" href="http://{{ site.url }}{{ page.url }}#disqus_thread"></a></p>
       <p class="alignright">Auteur : <strong><a href="https://twitter.com/HackAndDo">{{ page.author }}</a></strong></p>
-      <div class="post-tags"><ul>{% for tag in page.tags %}<li><a href="/archives/#{{ tag | slugify }}">{{ tag }}</a></li>{% endfor %}</ul></div>
-  </div>
+      <div class="keywords">
+        <span class="post-tags">{% for tag in page.tags %}<a href="/archives/#{{ tag | slugify }}"><i class="fas fa-tags"></i> {{ tag }}</a>{% endfor %}</span>
+      </div>
+</div>
 
   <article>
   {{ content }}
   </article>
 </div>
-<div class="post-tags"><ul>{% for tag in page.tags %}<li><a href="/archives/#{{ tag | slugify }}">{{ tag }}</a></li>{% endfor %}</ul></div>
+<div class="keywords">
+    <span class="post-tags">{% for tag in page.tags %}<a href="/archives/#{{ tag | slugify }}"><i class="fas fa-tags"></i> {{ tag }}</a>{% endfor %}</span>
+  </div>
 
 {% if page.author == "Pixis" %}
 <br />
