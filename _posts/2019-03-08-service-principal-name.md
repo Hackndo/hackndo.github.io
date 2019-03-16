@@ -10,7 +10,6 @@ description: "Pour la suite des articles, la notion de SPN (Service Principal Na
 tags:
   - "Active Directory"
   - Windows
-  - Network
 ---
 
 Pour la suite des articles, la notion de SPN (Service Principal Name) va être abordée. Cet article permet de faire un point sur cette notion afin de comprendre ce que sont ces "SPN", à quoi ils servent et comment ils sont utilisés.
