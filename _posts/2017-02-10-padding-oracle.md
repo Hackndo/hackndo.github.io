@@ -9,8 +9,8 @@ description: "Nous allons dans cet article parler de la technique d'attaque du p
 cover: assets/uploads/2017/02/sc1.png
 image: assets/uploads/2017/02/sc1.png
 tags:
-  - crypto
-  - tuto
+  - Crypto
+  - Tuto
 ---
 
 Nous allons dans cet article parler de la technique d'attaque du padding oracle, en utilisant le padding d'un message chiffré suite à un chiffrement par bloc utilisant le mode CBC.

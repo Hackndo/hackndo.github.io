@@ -483,3 +483,33 @@ a.pagination-item:hover {
     border-bottom-right-radius: 4px;
   }
 }
+
+
+/**
+ * Post Tags
+ */
+.post-tags {
+    margin: 0 0 1.125em;
+    font-size: 70%;
+}
+.post-tags ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.post-tags li {
+    display: inline-block;
+    margin: 0 0.75em 0.375em 0;
+}
+.post-tags a {
+    display: inline-block;
+    padding: 8px 12px;
+    border: solid 1px #E6E6E6;
+    border-radius: 3px;
+    color: #9a9a9a;
+}
+.post-tags a:hover, .post-tags a:active, .post-tags a:focus {
+    outline: none;
+    border-color: #a6a6a6;
+    text-decoration: none;
+}

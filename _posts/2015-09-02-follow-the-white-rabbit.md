@@ -9,7 +9,7 @@ description: "Envie de challenge ? Cet article est fait pour vous. Parviendrez-v
 cover: assets/uploads/2015/09/oui.png
 image: assets/uploads/2015/09/oui.png
 tags:
-  - other
+  - Misc
 ---
 Hey there,
   

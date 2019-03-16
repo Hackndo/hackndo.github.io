@@ -9,9 +9,9 @@ description: "Aujourd'hui, je vais tenter de rassembler tout ce que j'ai pu comp
 cover: assets/uploads/2015/01/hacking.jpg
 image: assets/uploads/2015/01/hacking.jpg
 tags:
-  - tuto
-  - userland
-  - linux
+  - Tuto
+  - "User Land"
+  - Linux
 ---
 Aujourd'hui, je vais tenter de rassembler tout ce que j'ai pu comprendre sur la gestion de la mémoire lors de l'exécution d'un programme. Cet article est écrit en vu de comprendre l'exploitation de certaines failles applicatives, telles que le _buffer overflow_, le _heap overflow_ ou encore la _format string_, failles que je décrirai dans les prochains articles.
 

@@ -9,9 +9,9 @@ description: "Article sur le retour à la libc, avec la théorie et des exemples
 cover: assets/uploads/2015/05/retli.jpg
 image: assets/uploads/2015/05/retli.jpg
 tags:
-  - userland
-  - linux
-  - tuto
+  - "User Land"
+  - Linux
+  - Tuto
 ---
 
 Bonjour, nous avons vu dans la série d'articles précédents comment fonctionnait la mémoire d'un processus au sein d'un système Unix. Grâce à cette compréhension, nous avons exposé une vulnérabilité très connue qu'est le dépassement de tampon en utilisant la pile (_buffer overflow stack based_).

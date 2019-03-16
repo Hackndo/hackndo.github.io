@@ -9,9 +9,9 @@ description: "Article sur le fonctionnement de la pile, ou stack au sein des ord
 cover: assets/uploads/2015/01/stack.jpg
 image: assets/uploads/2015/01/stack.jpg
 tags:
-  - tuto
-  - userland
-  - linux
+  - Tuto
+  - "User Land"
+  - Linux
 ---
 La pile (dont on a parlé dans l'article sur la [gestion de la mémoire](/gestion-de-la-memoire/) a une structure **LIFO** (Last In, First Out).
 

@@ -9,7 +9,7 @@ description: "Logiciel libre, open source, freeware, ça vous dit quelque chose 
 cover: assets/uploads/2014/07/lock.png
 image: assets/uploads/2014/07/lock.png
 tags:
-  - other
+  - Misc
 ---
 
 Logiciel libre, open source, freeware, ça vous dit quelque chose ? Sûrement, car ces termes sont au cœur des technologies actuelles et sont enracinés dans le marché du logiciel.

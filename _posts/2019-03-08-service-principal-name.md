@@ -8,9 +8,9 @@ disqus_identifier: 0000-0000-0000-00a9
 cover: assets/uploads/2019/02/spn.png
 description: "Pour la suite des articles, la notion de SPN (Service Principal Name) va être abordée. Cet article permet de faire un point sur cette notion afin de comprendre ce que sont ces SPN, à quoi ils servent et comment ils sont utilisés."
 tags:
-  - windows
-  - reseau
-  - activedirectory
+  - "Active Directory"
+  - Windows
+  - Network
 ---
 
 Pour la suite des articles, la notion de SPN (Service Principal Name) va être abordée. Cet article permet de faire un point sur cette notion afin de comprendre ce que sont ces "SPN", à quoi ils servent et comment ils sont utilisés.

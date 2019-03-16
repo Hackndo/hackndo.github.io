@@ -9,8 +9,8 @@ description: "Je vous propose alors de partir d'une vision large du sujet pour c
 cover: assets/uploads/2015/09/hash_length_extension.jpg
 image: assets/uploads/2015/09/hash_length_extension.jpg
 tags:
-  - crypto
-  - tuto
+  - Crypto
+  - Tuto
 ---
 Salut à tous,
 

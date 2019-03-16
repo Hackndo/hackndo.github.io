@@ -8,9 +8,9 @@ disqus_identifier: 0000-0000-0000-00aa
 cover: assets/uploads/2019/02/kerberoasting.png
 description: "A l'aide des notions abordées précédemment, nous avons tous les éléments en main pour expliquer le principe de l'attaque Kerberoasting, basée sur la demande de TGS et sur les attributs SPN de comptes d'Active Directory."
 tags:
-  - windows
-  - reseau
-  - activedirectory
+  - "Active Directory"
+  - Windows
+  - Network
 ---
 
 A l'aide des notions abordées précédemment, nous avons tous les éléments en main pour expliquer le principe de l'attaque **Kerberoasting**, basée sur la demande de TGS et sur les attributs [SPN](/service-principal-name-spn) de comptes d'Active Directory.

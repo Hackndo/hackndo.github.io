@@ -8,8 +8,8 @@ disqus_identifier: 0000-0000-0000-00a2
 cover: assets/uploads/2018/09/rtfm.png
 description: "Notre association a pour objectif de créer un événement français sur le thème du hacking le premier décembre 2018 à l'école 42."
 tags:
-  - windows
-  - reseau
+  - Windows
+  - Network
 ---
 
 Je voudrais vous parler d'un gros projet que nous avons monté avec des amis autour du hacking. Depuis un an, nous travaillons à l'organisation d'un événement de hacking sur 24 heures qui aura lieu le 1er décembre 2018.

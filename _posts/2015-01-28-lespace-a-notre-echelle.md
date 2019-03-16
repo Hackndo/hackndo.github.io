@@ -9,7 +9,7 @@ description: "L'espace, c'est grand, très grand. Dès qu'on commence à parler 
 cover: assets/uploads/2015/01/LH_95.jpg
 image: assets/uploads/2015/01/LH_95.jpg
 tags:
-  - other
+  - Misc
 ---
 
 L'espace, c'est grand, très grand. Dès qu'on commence à parler d'univers, on arrive rapidement à parler en années-lumières, en millions, milliards, et plus. Mais finalement, on ne se rend compte de rien, on ne sait pas se représenter ça. Ca veut dire quoi 15 milliards d'années lumière ? Et d'ailleurs, c'est quoi une année lumière ? Pour avoir une idée plus précise, il suffit de diviser les distances par un milliard, et on se rend rapidement compte de tout ça. Pour information, une année lumière, c'est une distance qui vaut à la distance parcourue par la lumière en une année, ou 9461 milliards de kilomètres.

@@ -9,8 +9,8 @@ description: "Dans cet article, nous allons parler de l'attaque XSS (Cross Site 
 cover: assets/uploads/2017/09/xss_cover.png
 image: assets/uploads/2017/09/xss_cover.png
 tags:
-  - tuto
-  - web
+  - Tuto
+  - Web
 ---
 
 Dans cet article, nous allons parler de l'attaque XSS (Cross Site Scripting) en expliquant son fonctionnement, et en quoi elle peut être réellement dangereuse. Pour cela, nous allons expliquer de manière très simple comment cette attaque fonctionne, puis nous ferons un exemple complet, concret, permettant de prendre la main sur la machine d'une victime.

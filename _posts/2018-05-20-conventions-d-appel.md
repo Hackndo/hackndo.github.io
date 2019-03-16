@@ -8,8 +8,8 @@ disqus_identifier: 0000-0000-0000-00a1
 cover: assets/uploads/2018/05/conventions-d-appel.png
 description: "Voici un article qui n'est pas vraiment technique, pas vraiment compliqué, et pour lequel on trouve de la doc un peu partout, mais c'est le genre d'information que je lis un jour, que j'oublie quelques semaines plus tard, donc que j'ai envie de résumer avec mes mots une bonne fois pour toute"
 tags:
-  - windows
-  - reseau
+  - Windows
+  - Network
 ---
 
 

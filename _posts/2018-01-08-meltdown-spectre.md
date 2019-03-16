@@ -8,9 +8,9 @@ disqus_identifier: 0000-0000-0000-001e
 cover: assets/uploads/2018/01/spectre-meltdown.jpg
 description: "Cet article est une explication technique abordable des attaques Meltdown et Spectre qui j'espère permettra à d'autres de mieux comprendre les mécanismes et la portée de ces attaques."
 tags:
-  - kernelland
-  - linux
-  - hardware
+  - "Kernel Land"
+  - Linux
+  - Hardware
 ---
 
 Cet article est une explication technique abordable des attaques **Meltdown** et **Spectre** qui j'espère permettra à d'autres de mieux comprendre les mécanismes et la portée de ces attaques.
