@@ -1,5 +1,5 @@
 ---
-title: '[C] Pointeurs de fonction'
+title: 'Pointeurs de fonction en C'
 date: 2015-03-03
 author: "Pixis"
 layout: post
