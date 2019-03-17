@@ -9,6 +9,7 @@ description: "GDB est un outil extrêmement puissant. Voici un article qu l'intr
 cover: assets/uploads/2015/05/gdb_visual.jpg
 image: assets/uploads/2015/05/gdb_visual.jpg
 tags:
+    - Linux
 ---
 
 Que le programmeur qui n'a jamais mis des `printf`, `var_dump`, `echo`, `print`, `System.out`, `console.log`, `cout` plein son code pour savoir d'où venait un bug se dénonce. Que le programmeur qui ne s'est jamais arraché les cheveux pour un programme qui plantait violemment sans crier garde me jette la pierre (C'est une expression, hein !). Heureusement, il existe pléthore de débogueurs (_debuggers_), libres ou non, dont un qui est particulièrement reconnu, le débogueur de GNU nommé **GDB** (GNU Project Debugger), que nous allons introduire dans cette introduction.
