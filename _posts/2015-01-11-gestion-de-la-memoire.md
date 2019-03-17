@@ -9,7 +9,6 @@ description: "Aujourd'hui, je vais tenter de rassembler tout ce que j'ai pu comp
 cover: assets/uploads/2015/01/hacking.jpg
 image: assets/uploads/2015/01/hacking.jpg
 tags:
-  - Tuto
   - "User Land"
   - Linux
 ---

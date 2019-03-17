@@ -8,7 +8,6 @@ disqus_identifier: 0000-0000-0000-000A
 description: "L'assembleur est obscur pour vous ? Voici un article qui vous permettra d'y voir plus clair."
 cover: assets/uploads/2015/04/BACKGROUND.jpg
 tags:
-  - Tuto
 ---
 Salut tout le monde, voici un nouvel article qui va permettre, je pense, d'éclaircir bon nombre de notions que j'ai déjà abordées dans mes articles précédents, et qui permettront également de faciliter la compréhension des articles à venir.
 

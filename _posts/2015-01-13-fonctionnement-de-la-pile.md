@@ -9,7 +9,6 @@ description: "Article sur le fonctionnement de la pile, ou stack au sein des ord
 cover: assets/uploads/2015/01/stack.jpg
 image: assets/uploads/2015/01/stack.jpg
 tags:
-  - Tuto
   - "User Land"
   - Linux
 ---

@@ -9,7 +9,6 @@ description: "Dans cet article, nous allons parler de l'attaque XSS (Cross Site 
 cover: assets/uploads/2017/09/xss_cover.png
 image: assets/uploads/2017/09/xss_cover.png
 tags:
-  - Tuto
   - Web
 ---
 

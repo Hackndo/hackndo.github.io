@@ -11,7 +11,6 @@ image: assets/uploads/2016/10/fourth_gadget.png
 tags:
   - "User Land"
   - Linux
-  - Tuto
 ---
 
 Cet article a pour but d'expliquer clairement ce qu'est le ROP ou Return Oriented Programming. Qu'est-ce que cette technique ? Pourquoi est-elle utile ? Quelles sont les limites ? Comment la mettre en place ? Nous allons répondre ensemble à ces différentes questions.
