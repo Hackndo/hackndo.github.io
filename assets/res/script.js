@@ -2,15 +2,6 @@
 anchors.options.visible = 'hover';
 anchors.add('h2, h3, h4, h5, h6');
 
-/* Do not display logo of screen height is too small and logo is not completly displayed */
-window.onload = function () {
-    var siteLogo = document.getElementById("site-logo");
-    var height = siteLogo.getBoundingClientRect().top;
-    if(height > 0) {
-        siteLogo.style.opacity="1";
-    }
-};
-
 /* Table of content */
 
 var ToC =
