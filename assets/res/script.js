@@ -42,3 +42,10 @@ if($("article h2").length > 0) {
 
     $("article").prepend(ToC);
 }
+
+var a = new StickySidebar('#sidebar', {
+    topSpacing: 0,
+    bottomSpacing: 0,
+    containerSelector: '.container',
+    innerWrapperSelector: '.sidebar__inner'
+});

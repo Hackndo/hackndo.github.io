@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="fr-fr">
 
-  {% include head.html %}
+    {% include head.html %}
 
-  <body>
+    <body>
+        <div class="container clearfix" style="position: relative;">
+            <div id="sidebar">
+            {% include sidebar.html %}
+            </div>
+            <div id="content">
+            {{ content }}
+            </div>
+        </div>
+        <script src="/assets/res/anchor.min.js"></script>
+        <script type="text/javascript" src="/assets/res/rAF.js"></script>
+        <script type="text/javascript" src="/assets/res/ResizeSensor.js"></script>
+        <script type="text/javascript" src="/assets/res/sticky-sidebar.js"></script>
+        <script src="/assets/res/script.js"></script>
 
-    {% include sidebar.html %}
-
-    <div class="content container">
-      {{ content }}
-    </div>
-  <script src="/assets/res/anchor.min.js"></script>
-  <script src="/assets/res/script.js"></script>
-  <script id="dsq-count-scr" src="//hackndo.disqus.com/count.js" async></script>
-  </body>
+        <script id="dsq-count-scr" src="//hackndo.disqus.com/count.js" async></script>
+    </body>
 </html>
