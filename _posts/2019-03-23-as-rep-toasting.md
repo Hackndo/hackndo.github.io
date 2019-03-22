@@ -40,7 +40,7 @@ Cependant, pour différentes raisons (obscures quand même), il est possible de 
 
 [![Preauthentication Setting](/assets/uploads/2019/02/preauthsettings.png)](/assets/uploads/2019/02/preauthsettings.png)
 
-Par exemple dans [cet article](https://laurentschneider.com/wordpress/2014/01/the-long-long-route-to-kerberos.html), l'auteur indique que pour bénéficier du SSO sur une base de données hébergée sur un serveur Unix, il doit désactiver la pré-authentification sur l'utilisateur. Cela reste un cas très rare, car même [cptjesus](https://twitter.com/cptjesus) et [Harmj0y](https://twitter.com/harmj0y) n'ont pas vraiment de réponse.
+Par exemple dans [cet article](https://laurentschneider.com/wordpress/2014/01/the-long-long-route-to-kerberos.html), l'auteur indique que pour bénéficier du SSO sur une base de données hébergée sur un serveur Unix, il doit désactiver la pré-authentification sur l'utilisateur. Cela reste un cas très rare, et même [cptjesus](https://twitter.com/cptjesus) et [Harmj0y](https://twitter.com/harmj0y) n'ont pas vraiment de réponse.
 
 > cptjesus > As far as why its disabled, I couldn't tell you
 
