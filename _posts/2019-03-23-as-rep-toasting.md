@@ -18,17 +18,17 @@ Lors d'une demande de TGT, l'utilisateur doit, par défaut, s'authentifier aupr�
 
 ## Préambule
 
-Lorsque nous parlons de la notion de TGT, c'est souvent un abus de langage, car nous parlons en fait du [KRB_TGS_REP](/kerberos/#krb_tgs_rep) qui contient le TGT (chiffré par le secret du KDC) et la clé de session (chiffrée avec le secret du compte utilisateur).
+Lorsque nous parlons de la notion de TGT, c'est souvent un abus de langage, car nous parlons en fait du [KRB_AS_REP](/kerberos/#krb_tgs_rep) qui contient le TGT (chiffré par le secret du KDC) et la clé de session (chiffrée avec le secret du compte utilisateur).
 
-Ainsi, dans cet article, la notion de TGT fait seulement référence au TGT contenu dans la réponse [KRB_TGS_REP](/kerberos/#krb_tgs_rep). 
+Ainsi, dans cet article, la notion de TGT fait seulement référence au TGT contenu dans la réponse [KRB_AS_REP](/kerberos/#krb_tgs_rep). 
 
 ## Pré-authentification
 
-Lorsque nous avons parlé du [fonctionnement de Kerberos](https://beta.hackndo.com/kerberos), il a été mis en évidence que dans le premier échange ([KRB_TGS_REQ](/kerberos/#krb_tgs_req) - [KRB_TGS_REP](/kerberos/#krb_tgs_rep)), le client doit d'abord s'authentifier auprès du KDC avant d'obtenir un TGT. Une partie de la réponse du KDC étant chiffrée avec le secret du compte client (la clé de session), il est important que cette information ne soit pas accessible sans authentification. Dans le cas échéant n'importe qui pourrait demander un TGT pour un compte donné, et tenter de décrypter  la partie chiffrée de la réponse [KRB_TGS_REP](/kerberos/#krb_tgs_rep) pour retrouver le mot de passe de l'utilisateur ciblé.
+Lorsque nous avons parlé du [fonctionnement de Kerberos](https://beta.hackndo.com/kerberos), il a été mis en évidence que dans le premier échange ([KRB_AS_REQ](/kerberos/#krb_tgs_req) - [KRB_AS_REP](/kerberos/#krb_tgs_rep)), le client doit d'abord s'authentifier auprès du KDC avant d'obtenir un TGT. Une partie de la réponse du KDC étant chiffrée avec le secret du compte client (la clé de session), il est important que cette information ne soit pas accessible sans authentification. Dans le cas échéant n'importe qui pourrait demander un TGT pour un compte donné, et tenter de décrypter  la partie chiffrée de la réponse [KRB_AS_REP](/kerberos/#krb_tgs_rep) pour retrouver le mot de passe de l'utilisateur ciblé.
 
 [![KRB_AS_REP](/assets/uploads/2018/05/asrep.png)](/assets/uploads/2018/05/asrep.png)
 
-C'est pourquoi le client doit, dans sa requête [KRB_TGS_REQ](/kerberos/#krb_tgs_req), envoyer un authentifiant qu'il chiffre avec son secret afin que le KDC le déchiffre et renvoie le [KRB_TGS_REP](/kerberos/#krb_tgs_rep) en cas de succès. Si jamais un attaquant demande un TGT pour un compte qu'il ne contrôle pas, il ne sera pas en mesure de chiffrer l'authentifiant de la bonne façon, donc le KDC ne renverra pas les informations attendues.
+C'est pourquoi le client doit, dans sa requête [KRB_AS_REQ](/kerberos/#krb_tgs_req), envoyer un authentifiant qu'il chiffre avec son secret afin que le KDC le déchiffre et renvoie le [KRB_AS_REP](/kerberos/#krb_tgs_rep) en cas de succès. Si jamais un attaquant demande un TGT pour un compte qu'il ne contrôle pas, il ne sera pas en mesure de chiffrer l'authentifiant de la bonne façon, donc le KDC ne renverra pas les informations attendues.
 
 [![Authentication Required](/assets/uploads/2019/02/asreqroast_auth.png)](/assets/uploads/2019/02/asreqroast_auth.png)
 
@@ -46,7 +46,7 @@ Par exemple dans [cet article](https://laurentschneider.com/wordpress/2014/01/th
 
 > Harmj0y > I honestly don’t really know why it would be disabled, just have heard from a people about the linux/“old” angle.
 
-Quoiqu'il en soit, si cette option est désactivée, n'importe qui peut demander un TGT au nom d'un de ces comptes, sans envoyer d'authentifiant, et le KDC renverra un [KRB_TGS_REP](/kerberos/#krb_tgs_rep) au demandeur.
+Quoiqu'il en soit, si cette option est désactivée, n'importe qui peut demander un TGT au nom d'un de ces comptes, sans envoyer d'authentifiant, et le KDC renverra un [KRB_AS_REP](/kerberos/#krb_tgs_rep) au demandeur.
 
 [![Authentication Required](/assets/uploads/2019/02/asreqroast_no_auth.png)](/assets/uploads/2019/02/asreqroast_no_auth.png)
 
@@ -54,7 +54,7 @@ Cela peut se faire avec l'outil [ASREPRoast](https://github.com/HarmJ0y/ASREPRoa
 
 [![ASREPRoast](/assets/uploads/2019/02/attackasrep.png)](/assets/uploads/2019/02/attackasrep.png)
 
-Une fois en possession de la réponse du KDC [KRB_TGS_REP](/kerberos/#krb_tgs_rep), l'attaquant peut tenter de trouver en mode hors-ligne le mot de passe en clair de la victime ciblée, par exemple en utilisant John The Ripper avec le format `krb5tgs`.
+Une fois en possession de la réponse du KDC [KRB_AS_REP](/kerberos/#krb_tgs_rep), l'attaquant peut tenter de trouver en mode hors-ligne le mot de passe en clair de la victime ciblée, par exemple en utilisant John The Ripper avec le format `krb5tgs`.
 
 ## Conclusion
 
