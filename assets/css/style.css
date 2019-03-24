@@ -596,7 +596,7 @@ Header
     z-index: 2;
     top: 0;
     left: 0;
-    height: 45px;
+    height: 55px;
     width: 100%;
     background: #202020;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -619,7 +619,7 @@ Header
 .cd-logo {
     float: left;
     display: flex;
-    margin: 3px 0 0 7%;
+    margin: 8px 0 0 7%;
 }
 
 .cd-logo:hover {
@@ -653,6 +653,7 @@ Header
     display: block;
     width: 34px;
     height: 44px;
+    margin-top: 5px;
     margin-right: 5%;
     /* hide text */
     overflow: hidden;
