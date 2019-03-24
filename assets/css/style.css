@@ -792,6 +792,10 @@ Sidebar
     font-size: 1em;
 }
 
+.cd-side-nav .sidebar-copyright {
+    text-align: center;
+}
+
 .cd-side-nav ul a {
     position: relative;
     color: #ffffff;
