@@ -622,6 +622,10 @@ Header
     margin: 3px 0 0 7%;
 }
 
+.cd-logo:hover {
+    text-decoration: none;
+}
+
 .cd-logo img {
     display: inline-block;
     vertical-align: middle;
