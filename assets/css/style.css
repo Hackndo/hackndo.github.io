@@ -780,7 +780,7 @@ Sidebar
     transition: opacity 0.2s 0s, visibility 0s 0s;
     max-height: none;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    padding-top: 2em;
+    padding-top: 3em;
 }
 
 .cd-side-nav ol, .cd-side-nav ul {
