@@ -1,17 +1,22 @@
-<!DOCTYPE html>
-<html lang="fr-fr">
+<!doctype html>
+<html lang="fr-fr" class="no-js">
 
   {% include head.html %}
 
   <body>
+    {% include header.html %}
+    <main class="cd-main-content">
+		<nav class="cd-side-nav">
+            {% include sidebar.html %}
+        </nav>
 
-    {% include sidebar.html %}
-
-    <div class="content container">
-      {{ content }}
-    </div>
-  <script src="/assets/res/anchor.min.js"></script>
-  <script src="/assets/res/script.js"></script>
-  <script id="dsq-count-scr" src="//hackndo.disqus.com/count.js" async></script>
+        <div class="content-wrapper">
+            {{ content }}
+        </div>
+    </main>
+    <script src="/assets/js/jquery-2.1.4.js"></script>
+    <script src="/assets/js/jquery.menu-aim.js"></script>
+    <script src="/assets/js/anchor.min.js"></script>
+    <script src="/assets/js/main.js"></script> <!-- Resource jQuery -->
   </body>
 </html>
