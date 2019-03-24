@@ -104,6 +104,13 @@ h1, h2, h3, h4, h5, h6 {
   p {
     margin-top: 0;
     margin-bottom: 1rem;
+    font-size: 80%;
+  }
+
+  @media only screen and (min-width: 768px) {
+    p {
+        font-size: 100%;
+    }
   }
   
   strong {
@@ -521,6 +528,7 @@ h1, h2, h3, h4, h5, h6 {
       margin-left: 0;
       padding-left: 1em;
       text-indent: -0.4em;
+      font-size: 0.8em;
   }
   
   .table-of-contents .title {
@@ -529,6 +537,17 @@ h1, h2, h3, h4, h5, h6 {
       line-height: 1.25;
       color: #313131;
       text-rendering: optimizeLegibility;
+      font-size: 0.9em;
+  }
+
+  @media only screen and (min-width: 768px) {
+    .table-of-contents ul {
+        font-size: 1em;
+    }
+    
+    .table-of-contents .title {
+        font-size: 1em;
+    }
   }
 
 
@@ -698,16 +717,17 @@ Sidebar
   transition: opacity 0.2s 0s, visibility 0s 0s;
   max-height: none;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  padding-top: 1em;
 }
 .cd-side-nav > ul {
-  padding: 0.6em 0;
+  padding-top: 1em;
 }
 .cd-side-nav > ul:last-of-type {
   padding-bottom: 0;
 }
 .cd-side-nav .cd-label, .cd-side-nav a {
   display: block;
-  padding: 1em 5%;
+  padding: 0.3em 5%;
 }
 .cd-side-nav .cd-label {
   text-transform: uppercase;
@@ -860,7 +880,7 @@ Sidebar
   .sidebar-social ul {
     padding: 0;
   }
-  
+
   .sidebar-social li {
     display: inline;
     list-style: none; /* pour enlever les puces sur IE7 */
@@ -873,132 +893,22 @@ Sidebar
   
 }
 
-.has-children ul {
-  position: relative;
-  width: 100%;
-  display: none;
-  background-color: #1c1f22;
-}
-.has-children > a::after {
-  /* arrow icon */
-  position: absolute;
-  content: '';
-  height: 16px;
-  width: 16px;
-  right: 5%;
-  top: 50%;
-  bottom: auto;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  transform: translateY(-50%);
-  background: url(../img/cd-arrow.svg);
-}
-.has-children.selected > ul {
-  display: block;
-}
-.has-children.selected > a::after {
-  -webkit-transform: translateY(-50%) rotate(180deg);
-  -moz-transform: translateY(-50%) rotate(180deg);
-  -ms-transform: translateY(-50%) rotate(180deg);
-  -o-transform: translateY(-50%) rotate(180deg);
-  transform: translateY(-50%) rotate(180deg);
-}
-@media only screen and (min-width: 768px) {
-  .has-children {
-    position: relative;
-  }
-  .has-children ul {
-    position: absolute;
-    top: 0;
-    left: 100%;
-    width: 160px;
-    padding: 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  }
-  .has-children ul a {
-    text-align: left;
-    border: none;
-    padding: 1em;
-  }
-  .no-touch .has-children ul a:hover {
-    color: #1784c7;
-  }
-  .has-children > a::after {
+.box {
     display: none;
-  }
-  .cd-side-nav .has-children.selected > a {
-    /* focus state -> show sub pages */
-    background-color: #33383e;
-  }
-  .cd-top-nav .has-children {
-    position: relative;
-    background-color: #2c3136;
-  }
-  .cd-top-nav .has-children > a {
-    height: 100%;
-    padding: 0 calc(1.8em + 22px) 0 calc(1.8em + 26px) !important;
-    line-height: 55px;
-  }
-  .cd-top-nav .has-children > a::after {
-    display: block;
-    right: 1.8em;
-  }
-  .cd-top-nav .has-children ul {
-    background-color: #1c1f22;
-    width: 25vw;
-    top: 100%;
-    right: 0;
-    left: auto;
-    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
-  }
-  .cd-top-nav .has-children ul a {
-    padding-left: 18px !important;
-  }
-}
-@media only screen and (min-width: 1170px) {
-  .has-children > ul {
-    width: 100%;
-    z-index: 1;
-  }
-  .has-children ul a {
-    padding-left: 18px;
-  }
-  .has-children.active > ul {
-    /* if the item is active, make the subnavigation visible */
-    position: relative;
-    display: block;
-    /* reset style */
-    left: 0;
-    box-shadow: none;
-  }
-  .no-touch .cd-side-nav .has-children:hover > ul, .cd-side-nav .has-children.hover > ul {
-    /* show subnavigation on hover */
-    display: block;
-    opacity: 1;
-    visibility: visible;
-  }
 }
 
-
-
-.box{
-    padding: 25px;
-    width:100%;
-    height:150px;
-    margin: auto;
-    background-color: #202020;
-    padding-top:20px;
-    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.1) inset;
-    margin-bottom: 2em;
-  }
-  
-  @media (min-width: 64em) {
+@media only screen and (min-width: 768px) {
     .box{
-      max-width:40em;
+        padding: 25px;
+        width:100%;
+        height:150px;
+        margin: auto;
+        background-color: #202020;
+        padding-top:20px;
+        box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.1) inset;
+        margin-bottom: 2em;
     }
-  }
+}
   
   
   /*****************************************************************d
