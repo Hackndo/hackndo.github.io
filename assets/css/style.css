@@ -42,7 +42,7 @@ Main Page Content
 }
 @media only screen and (min-width: 768px) {
   .cd-main-content .content-wrapper {
-    margin-left: 25vw;
+    margin-left: 22%;
     padding-top: 55px;
   }
 
@@ -713,7 +713,7 @@ Sidebar
   text-transform: uppercase;
   font-weight: bold;
   color: #646a6f;
-  font-size: 1.5vw;
+  font-size: 1em;
 }
 .cd-side-nav ul a {
   position: relative;
@@ -769,7 +769,7 @@ Sidebar
     opacity: 1;
     overflow: visible;
     max-height: none;
-    width: 25vw;
+    width: 22%;
   }
   .cd-side-nav.nav-is-visible {
     box-shadow: none;
@@ -787,12 +787,12 @@ Sidebar
   
   .cd-side-nav .cd-label, .cd-side-nav .sidebar-copyright {
     display: block;
-    padding: 1vw 1vw;
+    padding: 0.7em 0.7em;
     color: rgba(255,255,255,.5);
   }
   
   .cd-side-nav ul a {
-    font-size: 1.5vw;
+    font-size: 1em;
   }
   .cd-side-nav > ul > li > a {
     padding: 0.5em 1.2em;
@@ -816,13 +816,13 @@ Sidebar
     margin: 1rem;
     padding: 0 !important;
     font-family: "Signika", serif;
-    font-size: 5.25vw;
+    font-size: 2em;
     text-align: center;
   }
 
   .cd-side-nav .sidebar-about .lead {
     color: rgba(255,255,255,.5);
-    font-size: 2.25vw;
+    font-size: 1.2em;
     font-weight: 300;
     text-align: center;
     margin: 1rem;
@@ -830,24 +830,24 @@ Sidebar
 
   .cd-side-nav .sidebar-copyright {
     text-align: center;
-    font-size: 1.5vw;
-    margin: 1vw 0;
+    font-size: 0.9em;
+    margin: 0.2em 0;
   }
 
   .sidebar-social {
       display: block;
-      padding-top: 2vw;
+      padding-top: 0.5em;
   }
   .sidebar-social ul {
     text-align: center;
   }
   .sidebar-social a {
       display: inline;
-      padding: 0 0.1vw;
+      padding: 0 0.1em;
   }
   .sidebar-social img {
     display: inline;
-    width:2vw;
+    width: 1.2em;
     opacity: 0.7;
     filter: alpha(opacity=50);
   }
