@@ -982,6 +982,65 @@ Sidebar
 }
 
 
+
+.box{
+    padding: 25px;
+    width:100%;
+    height:150px;
+    margin: auto;
+    background-color: #202020;
+    padding-top:20px;
+    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.1) inset;
+    margin-bottom: 2em;
+  }
+  
+  @media (min-width: 64em) {
+    .box{
+      max-width:40em;
+    }
+  }
+  
+  
+  /*****************************************************************d
+  
+  Dashed border
+  
+  ****************************************************************/
+  .dash {
+    width:100%;
+    height:100px;
+    margin: auto;
+    padding: 10px;
+    border:1px dashed #F7EEEE;
+    border-radius:5px;
+    color:#F7EEEE;
+  }
+  
+  .dash .picture {
+      float: left;
+      margin-right: 20px;
+      margin-left: 10px;
+  }
+  
+  .dash .picture img {
+      height: 80px;
+  }
+  
+  .dash .box_content {
+      margin-top: 10px;
+      color:#F7EEEE;
+      line-height: 150%;
+  }
+  
+  .dash .box_content a {
+      color: #E70D0D;
+  }
+  
+  .dash .box_content strong {
+      color: #F7EEEE;
+  }
+
+
 /*
   Radio button archives
 */
