@@ -47,7 +47,7 @@ Main Page Content
 
 @media only screen and (min-width: 768px) {
     .cd-main-content .content-wrapper {
-        margin-left: 22%;
+        margin-left: 310px;
         padding-top: 55px;
     }
     .cd-main-content::before {
@@ -618,12 +618,22 @@ Header
 
 .cd-logo {
     float: left;
-    display: block;
-    margin: 11px 0 0 5%;
+    display: flex;
+    margin: 3px 0 0 7%;
 }
 
 .cd-logo img {
-    display: block;
+    display: inline-block;
+    vertical-align: middle;
+    width: 39px;
+    height: 39px;
+}
+
+.cd-logo .cd-logo-title {
+    font-family: "Signika", serif;
+    height: 44px;
+    color: white;
+    padding: 7px 0 2px 8px;
 }
 
 @media only screen and (min-width: 768px) {
@@ -857,7 +867,7 @@ Sidebar
         opacity: 1;
         overflow: visible;
         max-height: none;
-        width: 22%;
+        width: 310px;
     }
     .cd-side-nav.nav-is-visible {
         box-shadow: none;
