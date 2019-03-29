@@ -75,7 +75,7 @@ Si ma compréhension est incorrecte, n'hésitez pas à me le remonter dans les c
 
 ### Resource Based Kerberos Constrained Delegation - RBKCD
 
-Enfin, nous avons le cas de la **Resource Based Constrained Delegation** (RBKCD). Apparue avec Windows Server 2012, cette solution permet de palier à quelques problèmes liés à la **KCD** (Responsabilité, délégation inter-domaines, ...). Sans trop aller dans les détails, la responsabilité de la délégation est déplacée. Alors que dans **KDC**, c'est au niveau du serveur qui délègue qu'on indique les [SPN](/service-principal-name-spn) autorisés, dans le cas du **RBKCD**, c'est au niveau des services finaux qu'on indique la liste des services qui peuvent communiquer avec eux via délégation. Ainsi, le schéma est le suivant :
+Enfin, nous avons le cas de la **Resource Based Constrained Delegation** (RBKCD). Apparue avec Windows Server 2012, cette solution permet de palier à quelques problèmes liés à la **KCD** (Responsabilité, délégation inter-domaines, ...). Sans trop aller dans les détails, la responsabilité de la délégation est déplacée. Alors que dans **KCD**, c'est au niveau du serveur qui délègue qu'on indique les [SPN](/service-principal-name-spn) autorisés, dans le cas du **RBKCD**, c'est au niveau des services finaux qu'on indique la liste des services qui peuvent communiquer avec eux via délégation. Ainsi, le schéma est le suivant :
 
 [![Resource Based Constrained Delegation](/assets/uploads/2019/02/resource_based_constrained_delegation_schema.png)](/assets/uploads/2019/02/resource_based_constrained_delegation_schema.png)
 
