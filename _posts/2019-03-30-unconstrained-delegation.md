@@ -1,6 +1,6 @@
 ---
 title: "Délégation Kerberos - Fonctionnement"
-date: 2019-03-18 12:17:22
+date: 2019-03-29 12:17:22
 author: "Pixis"
 layout: post
 permalink: /constrained-unconstrained-delegation/
