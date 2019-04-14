@@ -6,13 +6,13 @@ layout: post
 permalink: /unconstrained-delegation-attack/
 disqus_identifier: 0000-0000-0000-00ac
 cover: assets/uploads/2019/04/unconstrained_admin.png
-description: "Cet article montre comment abuser de la délégation sans contrainte (Unconstrained Delegation) afin de récupérer le TGT d'un utilisateur, permettant ainsi de s'authentifier auprès de n'importe quel service en son nom."
+description: "Cet article montre comment abuser de la délégation complète (Unconstrained Delegation) afin de récupérer le TGT d'un utilisateur, permettant ainsi de s'authentifier auprès de n'importe quel service en son nom."
 tags:
   - "Active Directory"
   - Windows
 ---
 
-Suite à l'article sur la [délégation Kerberos](/constrained-unconstrained-delegation), nous allons maintenant voir comment abuser de la délégation sans contrainte (Unconstrained Delegation) afin de récupérer le TGT d'un utilisateur, nous permettant ainsi de nous authentifier auprès de n'importe quel service en son nom.
+Suite à l'article sur la [délégation Kerberos](/constrained-unconstrained-delegation), nous allons maintenant voir comment abuser de la délégation complète (Unconstrained Delegation) afin de récupérer le TGT d'un utilisateur, nous permettant ainsi de nous authentifier auprès de n'importe quel service en son nom.
 
 <!--more-->
 
@@ -39,7 +39,7 @@ Du coup, si l'utilisateur en question possède des droits d'administration pour 
 
 Et bien l'attaquant possède maintenant une copie du TGT de cet utilisateur, et peut se faire passer pour lui auprès du contrôleur de domaine, donc être administrateur local de celui-ci.
 
-Ainsi, les comptes ayant la délégation sans contrainte sont des cibles prioritaires pour les attaquants, puisqu'une fois un de ces comptes compromis, il suffit d'attendre des authentifications d'utilisateurs pour pouvoir s'authentifier n'importe où en leur nom. Si un administrateur de domaine s'authentifie auprès d'un service proposé par ce compte, alors l'attaquant a gagné, le domaine est totalement compromis.
+Ainsi, les comptes ayant la délégation complète sont des cibles prioritaires pour les attaquants, puisqu'une fois un de ces comptes compromis, il suffit d'attendre des authentifications d'utilisateurs pour pouvoir s'authentifier n'importe où en leur nom. Si un administrateur de domaine s'authentifie auprès d'un service proposé par ce compte, alors l'attaquant a gagné, le domaine est totalement compromis.
 
 ## Par l'exemple
 
@@ -92,7 +92,7 @@ Cette démonstration montre l'impact immense que peut avoir la compromission d'u
 
 [![DCSync](/assets/uploads/2019/04/account_sensitive.png)](/assets/uploads/2019/04/account_sensitive.png)
 
-Si l'option est activée pour ce compte, alors le contrôleur de domaine saura qu'aucun service n'aura le droit de relayer les informations d'authentification de cet utilisateur. Ainsi, concernant la délégation sans contrainte, le contrôleur de domaine ne vas pas inclure une copie du TGT lors de la demande de TGS.
+Si l'option est activée pour ce compte, alors le contrôleur de domaine saura qu'aucun service n'aura le droit de relayer les informations d'authentification de cet utilisateur. Ainsi, concernant la délégation complète, le contrôleur de domaine ne vas pas inclure une copie du TGT lors de la demande de TGS.
 
 Il y aura toujours un événement 4624 sur le serveur, mais aucune copie de TGT ne sera disponible.
 
