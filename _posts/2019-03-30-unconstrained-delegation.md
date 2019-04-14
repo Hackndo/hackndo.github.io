@@ -156,7 +156,7 @@ Si vous êtes encore là et que vous avez bien suivi, vous aurez remarqué que n
 
 C'est pourquoi il y a une étape supplémentaire, possible grâce à l'extension [S4U2Self](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/02636893-7a1f-4357-af9a-b672e3e3de13), que `Service A` doit effectuer. Cette étape lui permet d'obtenir un TGS pour un utilisateur **choisi arbitrairement**. Pour cela, il effectue une demande de TGS classique ([KRB_TGS_REQ](/kerberos/#krb_tgs_req)) sauf qu'au lieu de mettre son nom à lui dans le bloc `PA-FOR-USER` (présent dans la partie préauthentification), il met le nom d'un utilisateur **qu'il choisit**.
 
-Evidemment, on pourrait croire que c'est une capacité très puissante et dangereuse puisqu'en fait, pour tous services `S` et `T` pour lesquels il y aurait une délégation possible de `S` vers `T`, le `Service S` pourrait se faire passer pour n'importe quel utilisateur auprès de `Service T`. Heureusement, ce n'est pas le cas. En effet, si le drapeau [ADS_UF_TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION](https://docs.microsoft.com/en-us/windows/desktop/api/iads/ne-iads-ads_user_flag) n'est pas positionné sur l'objet associé au `Service S`, alors le ticket qu'il récupèrera ne sera pas tranférable (*forwardable*) et ne pourra donc pas être utilisé pour une délégation contrainte (classique ou resource based).
+Evidemment, on pourrait croire que c'est une capacité très puissante et dangereuse puisqu'en fait, pour tous services `S` et `T` pour lesquels il y aurait une délégation possible de `S` vers `T`, le `Service S` pourrait se faire passer pour n'importe quel utilisateur auprès de `Service T`. Heureusement, ce n'est pas le cas. En effet, si le drapeau [ADS_UF_TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION](https://docs.microsoft.com/en-us/windows/desktop/api/iads/ne-iads-ads_user_flag) n'est pas positionné sur l'objet associé au `Service S`, alors le ticket qu'il récupèrera ne sera pas tranférable (*forwardable*) et ne pourra donc pas être utilisé pour une délégation contrainte classique. Il existe un cas particulier pour la délégation Resource-Based, dont nous parlerons dans un autre article.
 
 Pour que le compte puisse avoir ce drapeau, il faut le préciser ici dans l'interface graphique :
 
@@ -172,6 +172,8 @@ D'expérience, il est rare de trouver des comptes au sein d'un domaine qui poss�
 ## Conclusion
 
 Je pensais faire un article qui allait décrire le principe de Constrained et Unconstrained Delegation ainsi que les attaques associées, cependant les explications sont beaucoup plus denses que prévues, ainsi cet article reste consacré à l'explication. Les attaques associées seront présentées dans d'autres articles, que je citerai ici, au fil de leurs sorties.
+
+* [Unconstrained Delegation - Risques](/unconstrained-delegation-attack)
 
 Si vous avez des questions ou remarques, n'hésitez pas, je suis tout ouïe.
 
