@@ -94,7 +94,7 @@ On a vu au-dessus qu'il y avait trois niveaux de délégation :
 * Edit Settings
 * Edit Settings, delete, modify security
 
-Le troisième niveau est pris en charge dans la collecte BloodHound. Cependant, que se passe-t-il si un utilisateur ne possède que le droit de modifier la GPO, mais pas les ACL associées ? C'est la question que je me suis posé. 
+Le troisième niveau est pris en charge dans la collecte BloodHound. Cependant, que se passe-t-il si un utilisateur ne possède que le droit de modifier la GPO, mais pas les ACL associées ? C'est la question que je me suis posée. 
 
 Pour y répondre, j'ai créé une GPO d'exemple, appelée "TestGPO Abuse", s'appliquant à l'ensemble des utilisateurs appartenant à l'OU "Domain Users". Comme dans l'exemple précédant, j'ai ajouté l'utilisateur "jdoe" dans la délégation de la gestion de cette GPO, en indiquant qu'il ne pouvait que modifier les paramètres de cette GPO, mais pas les ACL associées ("Edit Settings").
 
