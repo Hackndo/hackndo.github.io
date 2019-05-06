@@ -16,7 +16,7 @@ Cet article montre comment abuser de la délégation contrainte basée sur les r
 
 <!--more-->
 
-Il repose sur du contenu d'excellente qualité. J'ai tenté de résumer avec des mots simples une petite partie du travail de [Elad Shamir](https://twitter.com/elad_shamir). Son article [Wagging the Dog: Abusing Resource-Based Constrained Delegation to Attack Active Directory](https://shenaniganslabs.io/2019/01/28/Wagging-the-Dog.html) est incroyable de détails et de recherches. D'autres articles ont suivi, notamment celui de [Dirk-jan](https://twitter.com/_dirkjan) ([The worst of both worlds: Combining NTLM Relaying and Kerberos delegation ](https://dirkjanm.io/worst-of-both-worlds-ntlm-relaying-and-kerberos-delegation/)) ou celui de [Harmj0y](https://twitter.com/harmj0y) ([A Case Study in Wagging the Dog: Computer Takeover](https://www.harmj0y.net/blog/activedirectory/a-case-study-in-wagging-the-dog-computer-takeover/)), me permettant d'assembler toutes les pièces et de rédiger cet article.
+Il repose sur du contenu d'excellente qualité. J'ai tenté de résumer avec des mots simples une petite partie du travail de [Elad Shamir](https://twitter.com/elad_shamir). Son article [Wagging the Dog: Abusing Resource-Based Constrained Delegation to Attack Active Directory](https://shenaniganslabs.io/2019/01/28/Wagging-the-Dog.html) est incroyable de par ses recherches. D'autres articles ont suivi, notamment celui de [Dirk-jan](https://twitter.com/_dirkjan) ([The worst of both worlds: Combining NTLM Relaying and Kerberos delegation ](https://dirkjanm.io/worst-of-both-worlds-ntlm-relaying-and-kerberos-delegation/)) ou celui de [Harmj0y](https://twitter.com/harmj0y) ([A Case Study in Wagging the Dog: Computer Takeover](https://www.harmj0y.net/blog/activedirectory/a-case-study-in-wagging-the-dog-computer-takeover/)), me permettant d'assembler toutes les pièces et de rédiger cet article.
 
 Vous êtes prêts ? Let's dive in.
 
@@ -66,7 +66,7 @@ Et ouais.
 
 ## Attribut Machine-Account-Quota
 
-Pour pouvoir décrire un chemin d'attaque complet, il faut également parler de l'attribut [msds-MachineAccountQuota](https://docs.microsoft.com/en-us/windows/desktop/adschema/a-ms-ds-machineaccountquota) qui est positionné sur le domaine. Cet attribut décrit le nombre de comptes machines qu'un utilisateur du domaine peut créer. Cet attribut vaut 10 par défaut. Cela signifie que, par défaut, un utilisateur peut joindre 10 machines au domaine, ou qu'il peut créer 10 comptes machine, en choisissant notamment leur nom et leur mot de passe.
+Pour pouvoir décrire un chemin d'attaque complet, il faut également parler de l'attribut [msds-MachineAccountQuota](https://docs.microsoft.com/en-us/windows/desktop/adschema/a-ms-ds-machineaccountquota) qui est positionné sur le domaine. Cet attribut décrit le nombre de comptes machine qu'un utilisateur du domaine peut créer. Cet attribut vaut 10 par défaut. Cela signifie que, par défaut, un utilisateur peut joindre 10 machines au domaine, ou qu'il peut créer 10 comptes machine, en choisissant notamment leur nom et leur mot de passe.
 
 Ce comportement peut être modifié [par GPO](https://social.technet.microsoft.com/wiki/contents/articles/5446.active-directory-how-to-prevent-authenticated-users-from-joining-workstations-to-a-domain.aspx), mais voilà, par défaut, c'est 10.
 
@@ -82,7 +82,7 @@ Cette fonctionnalité est importante parce que dans les histoires de délégatio
 
 Nous avons maintenant tous les éléments en main pour décrire un chemin d'attaque. Il en existe d'autres, bien sûr, mais ce chemin permet d'assembler toutes les pièces du puzzle.
 
-Nous nous plaçons dans le cas d'une position *man-in-the-middle* en utilisant le fait que IPv6 est majoritairement activé dans les réseaux d'entreprise, et que d'un point de vue OS, c'est ce protocole qu'il faut utiliser en priorité, avant IPv4. Un attaquant peut alors se positionner en serveur DHCP IPv6 et répondre aux équipements alentours.
+Nous nous plaçons dans le cas d'une position *man-in-the-middle* en utilisant le fait que IPv6 est majoritairement activé dans les réseaux d'entreprise, et que d'un point de vue OS, c'est ce protocole qu'il faut utiliser en priorité, avant IPv4. Un attaquant peut alors se positionner en serveur DHCP IPv6 et répondre aux équipements environnants.
 
 [![MITM6 Wpad](/assets/uploads/2019/04/mitm6_wpad.png)](/assets/uploads/2019/04/mitm6_wpad.png)
 
@@ -93,14 +93,14 @@ Lorsque la machine `DESKTOP-01` va se connecter au réseau (reboot, branchement 
 
 Deux actions vont être effectuées via LDAPS, en utilisant cette authentification relayée, en tant que `DESKTOP-01$`.
 
-1. Un compte machine `HACKNDO$` va être créé, puisque le compte `DESKTOP-01$` est un compte du domaine, et a le droit d'ajouter 10 comptes machines au domaine, par défaut.
+1. Un compte machine `HACKNDO$` va être créé, puisque le compte `DESKTOP-01$` est un compte du domaine, et a le droit d'ajouter 10 comptes machine au domaine, par défaut.
 2. Le compte machine `DESKTOP-01$` a le droit de modifier certains de ses attributs, dont l'attribut `msDS-AllowedToActOnBehalfOfOtherIdentity`, qui est la liste des machines de confiance pour la délégation "Resource-Based". On va donc modifier cet attribut pour ajouter `HACKNDO$` à cette liste de confiance.
 
 [![Relai LDAP](/assets/uploads/2019/04/relai_ldap.png)](/assets/uploads/2019/04/relai_ldap.png)
 
 Maintenant, nous avons la main sur le compte `HACKNDO$`, puisque nous avons choisi son nom et son mot de passe lors de la création, et ce compte a la confiance de `DESKTOP-01$`.
 
-Il suffit alors de se connecter en tant que `HACKNDO$`, faire une demande de TGS au nom d'un administrateur via `S4U2Self`. Le contrôleur de domaine va nous répondre avec un TGS **non transférable**. Nous demandons ensuite un TGS pour utiliser le service `CIFS` de `DESKTOP-01` (`CIFS/DESKTOP-01`) en fournissant le TGS précédemment demandé (S4U2Proxy). Comme nous l'avons vu au début, bien qu'il ne soit pas transférable, il est tout de même accepté, et le contrôleur de domaine nous envoie un TGS en tant que l'administrateur pour utiliser le service `CIFS` de `DESKTOP-01`.
+Il suffit alors de se connecter en tant que `HACKNDO$`, faire une demande de TGS au nom d'un administrateur via `S4U2Self`. Le contrôleur de domaine va nous répondre avec un TGS **non transférable**. Nous demandons ensuite un TGS pour utiliser le service `CIFS` de `DESKTOP-01` (`CIFS/DESKTOP-01`) en fournissant le TGS précédemment demandé (S4U2Proxy). Comme nous l'avons vu au début, bien qu'il ne soit pas transférable, il est tout de même accepté, et le contrôleur de domaine nous envoie un TGS en tant qu'administrateur pour utiliser le service `CIFS` de `DESKTOP-01`.
 
 Voici un petit schéma récapitulatif :
 
@@ -124,7 +124,7 @@ La délégation "Resource-Based" est un procédé complexe, tellement complexe q
 
 Ce qu'il faut finalement retenir, c'est qu'il est possible de prendre la main sur une machine lorsqu'on a la possibilité de modifier sa liste de confiance dans le cadre de la délégation basée sur les ressources.
 
-Pour s'en prémunir, plusieurs actions sont possibles. Tout d'abord, il faut implémenter le [channel binding](https://support.microsoft.com/en-us/help/4034879/how-to-add-the-ldapenforcechannelbinding-registry-entry) au niveau de LDAP afin d'empêcher le relai vers LDAPS. Ensuite, il faut limiter la possibilité de création de comptes machines sur le domaine à des groupes définis d'utilisateurs. Enfin, en lien avec cet exemple, IPv6 devrait être désactivé dans les réseaux d'entreprise, puisqu'il ne répond à aucun besoin.
+Pour s'en prémunir, plusieurs actions sont possibles. Tout d'abord, il faut implémenter le [channel binding](https://support.microsoft.com/en-us/help/4034879/how-to-add-the-ldapenforcechannelbinding-registry-entry) au niveau de LDAP afin d'empêcher le relai vers LDAPS. Ensuite, il faut limiter la possibilité de création de comptes machine sur le domaine à des groupes définis d'utilisateurs. Enfin, en lien avec cet exemple, IPv6 devrait être désactivé dans les réseaux d'entreprise, puisqu'il ne répond à aucun besoin.
 
 Cet article étant relativement dense, il serait tout à fait normal que des points ne soient pas tout à fait clairs. Si vous avez des questions, n'hésitez pas à les poser en commentaire ou sur [Discord](https://discord.gg/9At6SUZ){:target="blank"}. Vous pouvez toujours suivre la sortie de nouveaux articles sur mon twitter [@hackanddo](https://twitter.com/HackAndDo){:target="blank"}.
 
