@@ -43,7 +43,7 @@ pointeur = malloc(32);
 # D'après le schéma ci-dessus, la valeur de "pointeur" sera 0x55e700000010
 ```
 
-L'OS va donc trouver 32 octets disponibles, et renvoyer l'adresse de ce bloc mémoire qui sera ici assigné à la variable `pointer`. Le développeur peut alors utiliser cet espace mémoire pour stocker de l'information, par exemple une chaine de caractères, de la façon suivante :
+L'OS va donc trouver 32 octets disponibles, et renvoyer l'adresse de ce bloc mémoire qui sera ici assigné à la variable `pointeur`. Le développeur peut alors utiliser cet espace mémoire pour stocker de l'information, par exemple une chaine de caractères, de la façon suivante :
 
 ```c
 strncpy(pointeur, "Hello World!", 13);
