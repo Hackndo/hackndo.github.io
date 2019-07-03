@@ -88,7 +88,7 @@ int main(int argc, char ** argv) {
 
         // Nous n'avons plus besoin de pointeurA, nous allons donc libérer la zone mémoire
         free(pointeurA);
-        pointeurA = NLL;
+        pointeurA = NULL;
         printf("La zone mémoire a été libérée !\n");
 
         /*
