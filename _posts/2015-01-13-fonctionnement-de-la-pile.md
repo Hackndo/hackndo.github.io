@@ -158,7 +158,7 @@ End of assembler dump.
     
 Le prologue de cette fonction est constitué des lignes `+0` et `+1`.
 
-On voit dans l'ordre que `EBP` est poussé sur la pile avec `PUSH EBP`, permettant de sauvegarder le registre `EB`P sur la pile, registre qui pointait vers le début de la stack frame précédente. A la ligne `+1`, la valeur de `ESP` est copiée dans `EBP`. A ce moment là, `EBP` et `ESP` pointent vers la même case mémoire. C'est normal, nous venons de commencer la stack frame de la fonction appelée, et elle n'a encore rien mis dessus. Donc le début et la fin sont confondus !
+On voit dans l'ordre que `EBP` est poussé sur la pile avec `PUSH EBP`, permettant de sauvegarder le registre `EBP` sur la pile, registre qui pointait vers le début de la stack frame précédente. A la ligne `+1`, la valeur de `ESP` est copiée dans `EBP`. A ce moment là, `EBP` et `ESP` pointent vers la même case mémoire. C'est normal, nous venons de commencer la stack frame de la fonction appelée, et elle n'a encore rien mis dessus. Donc le début et la fin sont confondus !
 
 D'ailleurs, si on regarde l'évolution des registres `EBP` et `ESP` ainsi que de la pile lors de l'exécution des premières instructions de la fonction `reponse()` on obtient ceci :
         
