@@ -108,14 +108,13 @@ Voici un petit script PowerShell qui permet de lister les SPNs présents dans l'
 $search = New-Object DirectoryServices.DirectorySearcher([ADSI]"")
 $search.filter = "(servicePrincipalName=*)"
 $results = $search.Findall()
-foreach($result in $results)
-{
+foreach($result in $results) {
 	$userEntry = $result.GetDirectoryEntry()
-	Write-host "User : " $userEntry.name "(" $userEntry.distinguishedName ")"
-	Write-host "SPNs"        
+	Write-host "Object : " $userEntry.name "(" $userEntry.distinguishedName ")"
+	Write-host "List SPN :"        
 	foreach($SPN in $userEntry.servicePrincipalName)
 	{
-		$SPN       
+		Write-Host $SPN       
 	}
 	Write-host ""
 }
