@@ -166,7 +166,7 @@ La première, et de loin la plus importante, c'est le mode sombre de l'interface
 
 [![dark_mode](/assets/uploads/2019/07/dark_mode.png)](/assets/uploads/2019/07/dark_mode.png)
 
-Ce mode permet d'avoir une interface sombre et classe, ce qui est super agréable. Voilà, c'est tout.
+Ce mode permet d'avoir une interface sombre et classe, ce qui est super agréable. Voilà, c'est beau, mais c'est tout.
 
 ### Clic droit
 
