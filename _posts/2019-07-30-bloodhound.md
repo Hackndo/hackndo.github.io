@@ -196,6 +196,28 @@ Si vous tentez de compromettre un objet en particulier, vous pouvez maintenant d
 
 [![shortestpath_owned](/assets/uploads/2019/07/shortestpath_owned.png)](/assets/uploads/2019/07/shortestpath_owned.png)
 
+### Filtres
+
+Si vous ne voulez pas afficher certains chemins parce qu'il y a des relations que vous ne savez pas exploiter, ou parce que vous n'avez pas le temps, ou toutes autres raisons, vous pouvez décider de décocher les relations pour qu'elles n'apparaissent plus dans vos requêtes. Pour cela, il suffit de cliquer sur le bouton de filtre, à droite de la barre de recherche, et de cocher et décocher les éléments qui vous intéressent.
+
+[![Edge Filtering](/assets/uploads/2019/07/edge_filtering.png)](/assets/uploads/2019/07/edge_filtering.png)
+
+### Raccourcis
+
+Il existe quelques raccourcis qui peuvent être utiles lors de l'utilisation de BloodHound. Si vous en connaissez d'autres, n'hésitez pas à les partager.
+
+* **CTRL** : Permet de changer le mode d'affichage du nom des noeuds. En appuyant sur la touche, soit vous afficherez toujours les noeuds, soit vous les afficherez lorsqu'il n'y en a pas trop (la limite peut être définie dans les réglages), soit vous les cachez en permanence, ce qui peut être utile pour anonymiser les captures d'écran.
+* **CTRL+SHIFT+I** : Affiche les outils développeurs. Si vous avez un bug dans l'interface, la console javascript permettra souvent de comprendre l'origine du problème.
+* **CTRL+R** : Recharge l'affichage.
+
+### Edition
+
+Lors de la collecte, votre machine a été collectée et vous ne souhaitez pas la voir apparaitre ? Vous vous êtes connecté sur une machine, mais le lien "HasSession" de l'administrateur de domaine n'est plus effectif puisque cette machine a redémarré, effaçant les identifiants tant attendus ? Au contraire, un autre utilisateur s'est connecté sur cette machine ?
+
+Une fois que les données ont été importées dans BloodHound, elles ne sont pas figées. Vous pouvez les modifier à votre guise, soit via un clic droit sur un objet ou une relation pour les supprimer, soit via un clic droit dans l'arrière plan pour ajouter un noeud ou une relation.
+
+[![Add edge](/assets/uploads/2019/07/add_edge.png)](/assets/uploads/2019/07/add_edge.png)
+
 ### Notes & Captures d'écran
 
 De la même manière, vous pouvez sauvegarder des informations sur des objets de l'Active Directory en cliquant sur ceux-ci et en allant dans la section "Notes" dans l'interface de BloodHound.
