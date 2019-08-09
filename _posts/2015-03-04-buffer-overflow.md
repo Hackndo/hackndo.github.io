@@ -323,7 +323,7 @@ Vous avez suivi ? Allez, comme je suis sympa, je me suis fendu d'un beau schéma
 
 C'est un peu plus clair ? Essayez de reprendre mes explications avec ce schéma en tête, ça sera surement plus facile de revenir une deuxième fois dessus.
 
-Un peu de mathématiques font que nous avons finalement un décalage total de 88 octets, ce qui signifie qu'il y un décalage de 22 `quadri-octets` appelés `word` (taille d'une adresse). Donc si nous avons un décalage de 22 `words`, et que nous affichons les 24 premiers éléments de la pile, nous devrions retomber sur nos pattes et trouver en dernières positions notre sauvegarde de `EBP` et `EIP`.
+Un peu de mathématiques font que nous avons finalement un décalage total de 88 octets, ce qui signifie qu'il y un décalage de 22 `quadri-octets` appelés `dword` (taille d'une adresse). Donc si nous avons un décalage de 22 `dwords`, et que nous affichons les 24 premiers éléments de la pile, nous devrions retomber sur nos pattes et trouver en dernières positions notre sauvegarde de `EBP` et `EIP`.
 
 ```bash
 (gdb) x/24xw $esp
