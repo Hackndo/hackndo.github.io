@@ -22,7 +22,7 @@ L'article sur le [fonctionnement de kerberos](/kerberos) a permis de comprendre 
 
 [![Ticket pour le service](/assets/uploads/2018/05/tgsrep.png)](/assets/uploads/2018/05/tgsrep.png)
 
-Un utilisateur de l'Active Directory peut demander un TGS pour n'importe quel service auprès du KDC. En effet, ce dernier n'a pas pour rôle de vérifier les droits du demandeur. Il a seulement pour rôle de fournir les informations de sécurité liées à l'utilisateur (via le [PAC](/kerberos-silver-golden-ticket/#pac)). C'est le service qui doit vérifier les droits de l'utilisateur en lisant son PAC dont une copie est fournie dans le TGS.
+Un utilisateur de l'Active Directory peut demander un TGS pour n'importe quel service auprès du KDC. En effet, ce dernier n'a pas pour rôle de vérifier les droits du demandeur. Il a seulement pour rôle de fournir les informations de sécurité liées à l'utilisateur (via le [PAC](/kerberos-silver-golden-tickets/#pac)). C'est le service qui doit vérifier les droits de l'utilisateur en lisant son PAC dont une copie est fournie dans le TGS.
 
 Ainsi, il est possible d'effectuer des demandes de TGS en indiquant des [SPN](/service-principal-name-spn) arbitraires, et si ces [SPN](/service-principal-name-spn) sont enregistrés dans l'Active Directory, le KDC fournira un morceau d'information chiffré avec la clé secrète du compte exécutant le service. L'attaquant peut, avec cette information, tenter de trouver le mot de passe en clair du compte via une attaque par exhausitivité (brute force).
 
