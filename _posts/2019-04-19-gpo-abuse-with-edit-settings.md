@@ -94,7 +94,7 @@ On a vu au-dessus qu'il y avait trois niveaux de délégation :
 * Edit Settings
 * Edit Settings, delete, modify security
 
-Le troisième niveau est pris en charge dans la collecte BloodHound. Cependant, que se passe-t-il si un utilisateur ne possède que le droit de modifier la GPO, mais pas les ACL associées ? C'est la question que je me suis posée. 
+Il n'y a que le troisième niveau qui est pris en charge dans la collecte BloodHound. Cependant, que se passe-t-il si un utilisateur ne possède que le droit de modifier la GPO, mais pas les ACL associées ? BloodHound ne remontant pas ce lien, c'est la question que je me suis posée. 
 
 Pour y répondre, j'ai créé une GPO d'exemple, appelée "TestGPO Abuse", s'appliquant à l'ensemble des utilisateurs appartenant à l'OU "Domain Users". Comme dans l'exemple précédant, j'ai ajouté l'utilisateur "jdoe" dans la délégation de la gestion de cette GPO, en indiquant qu'il ne pouvait que modifier les paramètres de cette GPO, mais pas les ACL associées ("Edit Settings").
 
@@ -132,7 +132,7 @@ Ce code est transormé en base 64 pour le passer à la commande `powershell -enc
 
 [![Abuse Task Powershell](/assets/uploads/2019/04/abusetask_pwsh.png)](/assets/uploads/2019/04/abusetask_pwsh.png)
 
-Une fois cette tâche créée, lors de la mise à jour des GPO sur un client, par exempe sur le compte `support-account`, elle sera exécutée sur la machine, et l'attaquant récupère un shell.
+Une fois cette tâche créée, lors de la mise à jour des GPO sur un client, par exemple sur le compte `support-account` qui est administrateur du domaine dans ce lab, elle est exécutée sur la machine, et l'attaquant récupère un shell en tant qu'administrateur du domaine.
 
 [![Reverse Shell Worked](/assets/uploads/2019/04/re_shell_worked.png)](/assets/uploads/2019/04/re_shell_worked.png)
 
