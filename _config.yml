@@ -42,5 +42,6 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jekyll-redirect-from
 
 excerpt_separator: <!--more-->
