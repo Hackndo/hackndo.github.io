@@ -26,3 +26,13 @@ Jusque là, j'étais plutôt tourné appsys, tandis que lui se penchera sur l'as
 Allez, à vos claviers, et à dans 10 mois !
 
 Love pisse flex.
+
+<--!
+
+Voici le token à m'envoyer en MP sur Discord pour gagner ta précieuse place à Sigsegv2 !
+
+65d95a04ec8028dad25d1a506713266d
+
+See you then :)
+
+-->
