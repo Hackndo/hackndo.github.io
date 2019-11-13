@@ -27,7 +27,7 @@ Allez, à vos claviers, et à dans 10 mois !
 
 Love pisse flex.
 
-<--!
+<!--
 
 Voici le token à m'envoyer en MP sur Discord pour gagner ta précieuse place à Sigsegv2 !
 
