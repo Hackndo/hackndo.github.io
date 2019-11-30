@@ -3,7 +3,10 @@ title: "Extraction des secrets de lsass à distance"
 date: 2019-11-28 22:40:00
 author: "Pixis"
 layout: post
-permalink: /remote-lass-dump-passwords/
+permalink: /remote-lsass-dump-passwords/
+redirect_from:
+  - "/remote-lass-dump-passwords"
+  - "/remote-lass-dump-passwords/"
 disqus_identifier: 0000-0000-0000-00b3
 cover: assets/uploads/2019/11/procdump.png
 description: "Cet article présente la modification d'un outil pour extraire à distance les mots de passe présents dans un dump de lsass, évitant ainsi d'utiliser Mimikatz et d'être détecté par les Antivirus"
