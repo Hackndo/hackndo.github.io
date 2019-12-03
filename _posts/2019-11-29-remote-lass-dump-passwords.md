@@ -408,10 +408,18 @@ Comme pypykatz et minidump ne fonctionnent que sous python3.6+ et que CrackMapEx
 
 [mpgn](https://twitter.com/mpgn_x64) est en train de travailler sur le [port de CrackMapexec vers python 3](https://github.com/byt3bl33d3r/CrackMapExec/pull/323), et quand ce sera fait, je proposerai ce module à Byt3bl33d3r pour intégration dans l'outil.
 
+## Nouveaux outils
+
+En attendant tout ça, voici deux outils que j'ai développés pour concrétiser ces recherches :
+
+[lsassy](https://github.com/Hackndo/lsassy) est disponible sur mon [Github](https://github.com/Hackndo/lsassy) ou sur [Pypi](https://pypi.org/project/lsassy/). C'est l'interface entre Pypykatz et la cible, qui permet de lire le dump de lsass à distance, avec les optimisations dont on a parlé dans cet article.
+
+[Le module CrackMapExec](https://gist.github.com/Hackndo/4326c724ef1e9b71b12f8d104973a799) permet d'automatiser tout le processus en faisant un dump de lsass sur les machines distantes, et en extrayant les identifiants des personnes connectées en utilisant **lsassy**.
+
 ## Conclusion
 
 Il reste du travail à faire pour intégrer ces changements à CrackMapExec, que ce soit au niveau compatibilité des versions de python, propreté et maintenabilité du code, mais ces recherches me sont très utiles pour mieux comprendre les outils que j'utilise au quotidien.
 
-J'ai aujourd'hui un outil qui fonctionne bien, rapidement, et qui peut être intégré à CrackMapExec en utilisant quelques tricks, donc qui me sert grandement dans mes tests internes, mais j'attends de pouvoir l'intégrer proprement pour partager le code complet.
+J'ai aujourd'hui un outil qui fonctionne bien, rapidement, et qui peut être intégré à CrackMapExec en utilisant quelques tricks, donc qui me sert grandement dans mes tests internes, et j'espère que ça pourra vous être utile.
 
 J'espère que cet article vous donnera de nouvelles idées pour faire évoluer les outils d'infosec que nous utilisons au quotidien, à plus tard pour un nouvel article !
