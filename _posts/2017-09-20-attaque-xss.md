@@ -4,6 +4,10 @@ date: 2017-09-19  15:36:12
 author: "Pixis"
 layout: post
 permalink: /la-faille-xss/
+permalink: /attaque-xss/
+redirect_from:
+  - "/la-faille-xss"
+  - "/la-faille-xss/"
 disqus_identifier: 0000-0000-0000-001a
 description: "Dans cet article, nous allons parler de l'attaque XSS (Cross Site Scripting) en expliquant son fonctionnement, et en quoi elle peut être réellement dangereuse."
 cover: assets/uploads/2017/09/xss_cover.png
