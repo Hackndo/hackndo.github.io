@@ -12,7 +12,7 @@ description: Ce blog est dédié à la sécurité informatique. Tutos sur les bu
 tagline: Think out of the box
 baseurl: "/" # the subpath of your site, e.g. /blog
 root: /
-url: "http://beta.hackndo.com" # the base hostname & protocol for your site
+url: "https://beta.hackndo.com" # the base hostname & protocol for your site
 author: Pixis
 twitter_username: hackanddo
 github_username:  hackndo
@@ -34,7 +34,7 @@ paginate: 8
 paginate_path: "page/:num"
 github:
   repo:
-    "http://github.com/hackndo/hackndo.github.io"
+    "https://github.com/hackndo/hackndo.github.io"
 version: 1.1.0
 plugins:
   - jekyll-paginate
