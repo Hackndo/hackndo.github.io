@@ -4,6 +4,14 @@ title: Projets
 permalink: /projects/
 ---
 
+### [lsassy](https://github.com/Hackndo/lsassy){:target="blank"}
+
+**Python3.6+** library to remotely parse lsass dump and extract credentials. Also contains CrackMapExec module to automatically
+execute procdump on remote hosts before extracting credentials.
+
+![lsassy](https://raw.githubusercontent.com/Hackndo/lsassy/master/assets/cme_lsassy.gif){:target="blank"}
+
+***
 
 ### [Discord/IRC Synchronization](https://github.com/Hackndo/discord-irc-sync){:target="blank"}
 
