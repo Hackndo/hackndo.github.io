@@ -1,0 +1,7 @@
+source 'https://rubygems.org'
+gem 'jekyll-paginate'
+gem 'jekyll-archives'
+gem 'jekyll-feed'
+gem 'jekyll-sitemap'
+gem 'jekyll-seo-tag'
+gem 'jekyll-redirect-from'
