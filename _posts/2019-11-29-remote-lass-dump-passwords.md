@@ -414,7 +414,7 @@ En attendant tout ça, voici deux outils que j'ai développés pour concrétiser
 
 [lsassy](https://github.com/Hackndo/lsassy) est disponible sur mon [Github](https://github.com/Hackndo/lsassy) ou sur [Pypi](https://pypi.org/project/lsassy/). C'est l'interface entre Pypykatz et la cible, qui permet de lire le dump de lsass à distance, avec les optimisations dont on a parlé dans cet article.
 
-[Le module CrackMapExec](https://gist.github.com/Hackndo/4326c724ef1e9b71b12f8d104973a799) permet d'automatiser tout le processus en faisant un dump de lsass sur les machines distantes, et en extrayant les identifiants des personnes connectées en utilisant **lsassy**.
+	[Le module CrackMapExec](https://github.com/Hackndo/lsassy/tree/master/cme) permet d'automatiser tout le processus en faisant un dump de lsass sur les machines distantes, et en extrayant les identifiants des personnes connectées en utilisant **lsassy**. Il permet également de détecter les comptes ayant un chemin d'attaque pour devenir administrateur du domaine, en s'appuyant sur les données collectées avec l'outil [Bloodhound](/bloodhound)
 
 ## Conclusion
 
