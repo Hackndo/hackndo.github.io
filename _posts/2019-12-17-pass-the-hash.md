@@ -82,7 +82,25 @@ psexec.exe -i -s regedit.exe
 
 Une copie se trouve également sur disque à l'emplacement `C:\Windows\System32\SAM`.
 
-Elle contient donc les utilisateurs locaux et le condensat de leur mot de passe, mais aussi la liste des groupes locaux. Enfin si on veut être précis, elle contient une version chiffrée des condensats. Mais comme toutes les informations pour les déchiffrer sont également dans la SAM (BootKey, RID des utilisateurs), on peut faire le raccourci, et dire que c'est bien le condensat qui est stocké. Si vous voulez voir comment le déchiffrement fonctionne, vous pouvez aller voir [le code de secretsdump.py](https://github.com/SecureAuthCorp/impacket/blob/master/impacket/examples/secretsdump.py#L1124).
+Elle contient donc les utilisateurs locaux et le condensat de leur mot de passe, mais aussi la liste des groupes locaux. Enfin si on veut être précis, elle contient une version chiffrée des condensats. Mais comme toutes les informations pour les déchiffrer sont également dans la base de registres (SAM et SYSTEM), on peut faire le raccourci, et dire que c'est bien le condensat qui est stocké. Si vous voulez voir comment le déchiffrement fonctionne, vous pouvez aller voir [le code de secretsdump.py](https://github.com/SecureAuthCorp/impacket/blob/master/impacket/examples/secretsdump.py#L1124) ou [celui de Mimikatz](https://github.com/gentilkiwi/mimikatz/blob/master/mimikatz/modules/kuhl_m_lsadump.c).
+
+On peut d'ailleurs très bien sauvegarder les bases de données SAM et SYSTEM pour extraire la base des condensats des utilisateurs.
+
+D'abord on enregistre les deux bases de données dans un fichier
+
+```
+reg.exe save hklm\sam save.save
+reg.exe save hklm\system system.save
+```
+
+Ensuite, on peut utiliser [secretsdump.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/secretsdump.py) pour extraire les hash
+
+```bash
+secretsdump.py -sam sam.save -system system.save LOCAL
+```
+
+[![SAM verification](/assets/uploads/2019/11/extract_nt_hashes.png)](/assets/uploads/2019/11/extract_nt_hashes.png)
+
 
 Donc pour résumer, voici le processus de vérification.
 
