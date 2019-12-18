@@ -66,7 +66,7 @@ Donc pour résumer, lorsque le client s'authentifie, il utilise l'emprunte MD4 d
 
 ## Authentification
 
-Comme expliqué tout à l'heure, il existe deux scénarii différents. Le premier est que le compte utilisé pour l'authentification est un compte local, c'est à dire que le serveur a connaissance de ce compte, et il a une copie du secret du compte. Le deuxième est qu'un compte de domaine est utilisé, auquel cas le serveur n'a pas connaissance de ce compte ou son secret. Il devra déléguer l'authentification au contrôleur de domaine.
+Comme expliqué tout à l'heure, il existe deux scenari différents. Le premier est que le compte utilisé pour l'authentification est un compte local, c'est à dire que le serveur a connaissance de ce compte, et il a une copie du secret du compte. Le deuxième est qu'un compte de domaine est utilisé, auquel cas le serveur n'a pas connaissance de ce compte ou son secret. Il devra déléguer l'authentification au contrôleur de domaine.
 
 ### Compte local
 
