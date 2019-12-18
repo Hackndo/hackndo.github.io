@@ -56,7 +56,7 @@ Pour finaliser l'authentification, il ne reste plus au serveur qu'à vérifier l
 
 ### Secret d'authentification
 
-Nous avons dit que le client utilise comme clé une version hashée de son mot de passe, et ce pour la raison suivante : Eviter de stocker les mots de passe des utilisateurs en clair sur le serveur. C'est donc un condensat du mot de passe qui est enregistrée à la place. Ce condensat est aujourd'hui le **hash NT**, qui n'est rien d'autre que le résultat de la fonction [MD4](https://fr.wikipedia.org/wiki/MD4), sans sel, rien.
+Nous avons dit que le client utilise comme clé une version hashée de son mot de passe, et ce pour la raison suivante : Eviter de stocker les mots de passe des utilisateurs en clair sur le serveur. C'est donc un condensat du mot de passe qui est enregistré à la place. Ce condensat est aujourd'hui le **hash NT**, qui n'est rien d'autre que le résultat de la fonction [MD4](https://fr.wikipedia.org/wiki/MD4), sans sel, rien.
 
 ```
 hashNT = MD4(password)
@@ -206,7 +206,7 @@ Voici un exemple dans lequel l'utilisateur `simba` est administrateur de tous le
 
 [![SAM verification](/assets/uploads/2019/11/crackmapexec.png)](/assets/uploads/2019/11/crackmapexec.png)
 
-Le Pass the hash a été effectué sur une quelques machines qui sont alors compromises. Un argument a été passé à CrackMapExec pour énumérer les utilisateurs actuellement connectés sur ces machines.
+Le Pass the hash a été effectué sur quelques machines qui sont alors compromises. Un argument a été passé à CrackMapExec pour énumérer les utilisateurs actuellement connectés sur ces machines.
 
 Avoir la liste des utilisateurs connectés, c'est bien, mais avoir leur mot de passe ou leur hash NT (ce qui est pareil), c'est mieux ! Pour ça, j'ai développé l'outil [lsassy](https://github.com/hackndo/lsassy) dont je parle dans l'article [Extraction des secrets de lsass à distance](/remote-lsass-dump-passwords/#nouveaux-outils). Et en pratique, et bien ça donne ça :
 
