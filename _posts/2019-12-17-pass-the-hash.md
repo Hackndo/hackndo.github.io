@@ -35,7 +35,7 @@ Dans les deux cas, l'authentification commence par une phase de **challenge/rép
 
 Le principe du challenge/réponse est utilisé pour que le serveur vérifie que l'utilisateur connaisse le secret du compte avec lequel il s'authentifie, sans pour autant faire transiter le mot de passe sur le réseau. Trois étapes composent cet échange :
 
-1. **Négotiation** : Le client indique au serveur qu'il veut s'authentifier auprès de lui ([NETOGIATE_MESSAGE](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-nlmp/b34032e5-3aae-4bc6-84c3-c6d80eadf7f2)).
+1. **Négotiation** : Le client indique au serveur qu'il veut s'authentifier auprès de lui ([NEGOTIATE_MESSAGE](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-nlmp/b34032e5-3aae-4bc6-84c3-c6d80eadf7f2)).
 2. **Challenge** : Le serveur envoie un challenge au client. Ce n'est rien d'autre qu'une valeur aléatoire de 64 bits qui change à chaque demande d'authentification ([CHALLENGE_MESSAGE](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-nlmp/801a4681-8809-4be9-ab0d-61dcfe762786)).
 3. **Réponse** : Le client chiffre le challenge précédemment reçu en utilisant une version hashée de son mot de passe comme clé, et renvoie cette version chiffrée au serveur, avec son nom d'utilisateur et éventuellement son domaine ([AUTHENTICATE_MESSAGE](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-nlmp/033d32cc-88f9-4483-9bf2-b273055038ce)).
 
@@ -66,7 +66,7 @@ Donc pour résumer, lorsque le client s'authentifie, il utilise l'emprunte MD4 d
 
 ## Authentification
 
-Comme expliqué tout à l'heure, il existe deux scenari différents. Le premier est que le compte utilisé pour l'authentification est un compte local, c'est à dire que le serveur a connaissance de ce compte, et il a une copie du secret du compte. Le deuxième est qu'un compte de domaine est utilisé, auquel cas le serveur n'a pas connaissance de ce compte ou son secret. Il devra déléguer l'authentification au contrôleur de domaine.
+Comme expliqué tout à l'heure, il existe deux scénarios différents. Le premier est que le compte utilisé pour l'authentification est un compte local, c'est à dire que le serveur a connaissance de ce compte, et il a une copie du secret du compte. Le deuxième est qu'un compte de domaine est utilisé, auquel cas le serveur n'a pas connaissance de ce compte ou son secret. Il devra déléguer l'authentification au contrôleur de domaine.
 
 ### Compte local
 
