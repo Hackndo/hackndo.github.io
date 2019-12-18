@@ -208,7 +208,7 @@ Voici un exemple dans lequel l'utilisateur `simba` est administrateur de tous le
 
 Le Pass the hash a été effectué sur une quelques machines qui sont alors compromises. Un argument a été passé à CrackMapExec pour énumérer les utilisateurs actuellement connectés sur ces machines.
 
-Avoir la liste des utilisateurs connectés, c'est bien, mais avoir leur mot de passe ou leur hash NT (ce qui est pareil), c'est mieux ! Pour ça, j'ai développé l'outil [lsassy](github.com/hackndo/lsassy) dont je parle dans l'article [Extraction des secrets de lsass à distance](/remote-lsass-dump-passwords/#nouveaux-outils). Et en pratique, et bien ça donne ça :
+Avoir la liste des utilisateurs connectés, c'est bien, mais avoir leur mot de passe ou leur hash NT (ce qui est pareil), c'est mieux ! Pour ça, j'ai développé l'outil [lsassy](https://github.com/hackndo/lsassy) dont je parle dans l'article [Extraction des secrets de lsass à distance](/remote-lsass-dump-passwords/#nouveaux-outils). Et en pratique, et bien ça donne ça :
 
 [![Lsassy verification](/assets/uploads/2019/11/crackmapexec_lsassy.png)](/assets/uploads/2019/11/crackmapexec_lsassy.png)
 
