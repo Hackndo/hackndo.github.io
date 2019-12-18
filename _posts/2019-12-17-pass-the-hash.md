@@ -35,7 +35,7 @@ Dans les deux cas, l'authentification commence par une phase de **challenge/rép
 
 Le principe du challenge/réponse est utilisé pour que le serveur vérifie que l'utilisateur connaisse le secret du compte avec lequel il s'authentifie, sans pour autant faire transiter le mot de passe sur le réseau. C'est ce qu'on appelle une [preuve à divulgation nulle de connaissance](https://fr.wikipedia.org/wiki/Preuve_%C3%A0_divulgation_nulle_de_connaissance). Trois étapes composent cet échange :
 
-1. **Négotiation** : Le client indique au serveur qu'il veut s'authentifier auprès de lui ([NEGOTIATE_MESSAGE](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-nlmp/b34032e5-3aae-4bc6-84c3-c6d80eadf7f2)).
+1. **Négociation** : Le client indique au serveur qu'il veut s'authentifier auprès de lui ([NEGOTIATE_MESSAGE](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-nlmp/b34032e5-3aae-4bc6-84c3-c6d80eadf7f2)).
 2. **Challenge** : Le serveur envoie un challenge au client. Ce n'est rien d'autre qu'une valeur aléatoire de 64 bits qui change à chaque demande d'authentification ([CHALLENGE_MESSAGE](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-nlmp/801a4681-8809-4be9-ab0d-61dcfe762786)).
 3. **Réponse** : Le client chiffre le challenge précédemment reçu en utilisant une version hashée de son mot de passe comme clé, et renvoie cette version chiffrée au serveur, avec son nom d'utilisateur et éventuellement son domaine ([AUTHENTICATE_MESSAGE](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-nlmp/033d32cc-88f9-4483-9bf2-b273055038ce)).
 
