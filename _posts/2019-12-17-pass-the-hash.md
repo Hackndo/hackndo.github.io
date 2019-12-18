@@ -72,7 +72,7 @@ Comme expliqué tout à l'heure, il existe deux scénarios différents. Le premi
 
 Dans le cas où l'authentification se fait avec un compte local, le serveur va chiffrer le challenge qu'il a envoyé au client avec la clé secrète de l'utilisateur, ou plutôt avec le hash MD4 du secret de l'utilisateur. Il vérifiera ainsi si le résultat de son opération est égal à la réponse du client, prouvant que l'utilisateur possède le bon secret. Le cas contraire, la clé utilisée par l'utilisateur n'est pas la bonne puisque le chiffrement du challenge ne donne pas celui attendu.
 
-Pour pouvoir effectuer cette opération, le serveur a besoin de stocker les utilisateurs locaux et le condensat de leur secret. Le nom de cette base de donnée est la **SAM** (Security Accounts Manager). La SAM peut être trouvée dans la base de registre, notamment avec l'outil `regedit` mais uniquement lorsqu'on y accède en tant que **SYSTEM**. On peut l'ouvrir en tant que **SYSTEM** avec psexec :
+Pour pouvoir effectuer cette opération, le serveur a besoin de stocker les utilisateurs locaux et le condensat de leur secret. Le nom de cette base de donnée est la **SAM** (Security Accounts Manager). La SAM peut être trouvée dans la base de registre, notamment avec l'outil `regedit` mais uniquement lorsqu'on y accède en tant que **SYSTEM**. On peut l'ouvrir en tant que **SYSTEM** avec [psexec](https://docs.microsoft.com/en-us/sysinternals/downloads/psexec) :
 
 ```
 psexec.exe -i -s regedit.exe
@@ -82,7 +82,7 @@ psexec.exe -i -s regedit.exe
 
 Une copie se trouve également sur disque à l'emplacement `C:\Windows\System32\SAM`.
 
-Elle contient donc les utilisateurs locaux et le condensat de leur mot de passe, mais aussi la liste des groupes locaux.
+Elle contient donc les utilisateurs locaux et le condensat de leur mot de passe, mais aussi la liste des groupes locaux. Enfin si on veut être précis, elle contient une version chiffrée des condensats. Mais comme toutes les informations pour les déchiffrer sont également dans la SAM (BootKey, RID des utilisateurs), on peut faire le raccourci, et dire que c'est bien le condensat qui est stocké. Si vous voulez voir comment le déchiffrement fonctionne, vous pouvez aller voir [le code de secretsdump.py](https://github.com/SecureAuthCorp/impacket/blob/master/impacket/examples/secretsdump.py#L1124).
 
 Donc pour résumer, voici le processus de vérification.
 
@@ -140,7 +140,7 @@ C'est ce qu'on appelle passer le hash, ou plus communément la technique du **Pa
 
 [![Pass the hash](/assets/uploads/2019/11/pass-the-hash-schema.png)](/assets/uploads/2019/11/pass-the-hash-schema.png)
 
-Prenons un exemple, nous avons trouvé que le hash NT de l'utilisateur `Administrateur` est `20cc650a5ac276a1cfc22fbc23beada1`. Nous pouvons le rejouer sur une autre machine en espérant que cette machine ait été configurée de la même manière.
+Prenons un exemple, nous avons trouvé que le hash NT de l'utilisateur `Administrateur` est `20cc650a5ac276a1cfc22fbc23beada1`. Nous pouvons le rejouer sur une autre machine en espérant que cette machine ait été configurée de la même manière. Cet exemple utilise l'outil [psexec.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/psexec.py) de la suite [Impacket](https://github.com/SecureAuthCorp/impacket).
 
 [![PTH Local](/assets/uploads/2019/11/pass-the-hash-local.png)](/assets/uploads/2019/11/pass-the-hash-local.png)
 
