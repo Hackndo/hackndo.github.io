@@ -62,7 +62,7 @@ Nous avons dit que le client utilise comme clé une version hashée de son mot d
 hashNT = MD4(password)
 ```
 
-Donc pour résumer, lorsque le client s'authentifie, il utilise l'emprunte MD4 de son mot de passe pour chiffrer le challenge. Voyons alors ce qu'il se passe du côté du serveur, une fois cette réponse reçue.
+Donc pour résumer, lorsque le client s'authentifie, il utilise l'empreinte MD4 de son mot de passe pour chiffrer le challenge. Voyons alors ce qu'il se passe du côté du serveur, une fois cette réponse reçue.
 
 ## Authentification
 
