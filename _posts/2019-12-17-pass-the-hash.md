@@ -33,7 +33,7 @@ Dans les deux cas, l'authentification commence par une phase de **challenge/rép
 
 ### Challenge - Réponse
 
-Le principe du challenge/réponse est utilisé pour que le serveur vérifie que l'utilisateur connaisse le secret du compte avec lequel il s'authentifie, sans pour autant faire transiter le mot de passe sur le réseau. Trois étapes composent cet échange :
+Le principe du challenge/réponse est utilisé pour que le serveur vérifie que l'utilisateur connaisse le secret du compte avec lequel il s'authentifie, sans pour autant faire transiter le mot de passe sur le réseau. C'est ce qu'on appelle une [preuve à divulgation nulle de connaissance](https://fr.wikipedia.org/wiki/Preuve_%C3%A0_divulgation_nulle_de_connaissance). Trois étapes composent cet échange :
 
 1. **Négotiation** : Le client indique au serveur qu'il veut s'authentifier auprès de lui ([NEGOTIATE_MESSAGE](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-nlmp/b34032e5-3aae-4bc6-84c3-c6d80eadf7f2)).
 2. **Challenge** : Le serveur envoie un challenge au client. Ce n'est rien d'autre qu'une valeur aléatoire de 64 bits qui change à chaque demande d'authentification ([CHALLENGE_MESSAGE](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-nlmp/801a4681-8809-4be9-ab0d-61dcfe762786)).
@@ -232,13 +232,124 @@ Avoir la liste des utilisateurs connectés, c'est bien, mais avoir leur mot de p
 
 Nous récupérons tous les hash NT des utilisateurs connectés. Ceux des comptes machine ne sont pas affichés puisque nous sommes déjà administrateur de ces machines, ils ne nous sont donc pas utiles.
 
+## Limites du Pass the hash
+
+Le Pass the hash est une technique qui fonctionne toujours lorsque l'authentification NTLM est acceptée par le serveur. Cependant, il existe des méchanismes dans Windows qui limitent ou peuvent limiter les actions d'administration.
+
+En effet, sur Windows, la gestion des droits est effectuée à l'aide de jetons de sécurité (*Access tokens*) qui permettent de savoir qui a le droit de faire quoi. Les membres du groupe "Administrateurs" possèdent deux tokens. Un avec les droits d'un utilisateur standard, et un autre avec les droits administrateur. Par défaut, lorsqu'un administrateur exécute une tâche, elle est effectuée dans le contexte limité, standard. Si en revanche des actions d'administration doivent être exécutées, alors Windows affiche cette fenêtre très connue appelée **UAC** (*User Account Control* ou Contrôle de Compte Utilisateur)
+
+[![Lsassy verification](/assets/uploads/2019/11/uac_prompt.png)](/assets/uploads/2019/11/uac_prompt.png)
+
+L'utilisateur est averti que les droits d'administration sont demandés par l'application.
+
+Quid alors des actions d'administration effectuées à distance ? Et bien deux cas sont possibles.
+
+* Soit elles sont demandées par un compte **du domaine** qui fait partie du groupe "Administrateurs" de la machine, auquel cas l'UAC n'est pas activé pour ce compte, et il peut faire ses tâches d'administration.
+* Soit elles sont demandées par un compte **local** qui fait partie du groupe "Administrateurs" de la machine, et dans ce cas, l'UAC est activé dans certains cas, mais pas tous.
+
+Pour comprendre le deuxième cas, faisons le point sur deux clés de registre un peu méconnues, mais qui ont pourtant un rôle essentiel lorsque des actions d'administration tentent d'être effectuées suite à une authentification NTLM avec un compte local d'administration.
+
+### LocalAccountTokenFilterPolicy
+
+Cette première clé de registre se trouve ici dans la base :
+
+> HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
+
+Elle peut avoir deux valeurs, `0` ou `1`.
+
+Par défaut, elle n'est pas présente, ce qui implique qu'elle vaut `0`.
+
+* Si elle vaut `0`, valeur par défaut donc, alors seul le compte administrateur natif (RID 500) est en mesure d'effectuer des actions d'administration sans que l'UAC ne l'embête. Les autres comptes d'administration, donc ceux créés par les utilisateurs et ensuite ajoutés en tant qu'administrateurs locaux, ne pourront pas faire d'action d'administration à distance puisque l'UAC sera activée, et ils ne pourront pas valider la boite de dialogue à distance.
+* Si elle vaut `1`, alors **tous** les comptes dans le groupe "Administrateurs" peuvent faire des actions d'administration à distance, natif ou non.
+
+Donc pour résumer, voici les deux cas :
+
+* **LocalAccountTokenFilterPolicy = 0** : Seul le compte "Administrateur" RID 500 peut faire des actions d'administration à distance
+* **LocalAccountTokenFilterPolicy = 1** : Tous les comptes dans le groupe "Administrateurs" peuvent faire des actions d'administration à distance
+
+### FilterAdministratorToken
+
+Cette deuxième clé de registre se trouve au même endroit dans la base de registre :
+
+> HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
+
+Elle peut également avoir les valeurs `0` ou `1`
+
+Par défault, elle vaut aussi `0`.
+
+* Si elle vaut `0`, valeur par défaut donc, alors le compte administrateur natif (RID 500) est en mesure d'effectuer des actions d'administration sans que l'UAC ne l'embête. Cette clé ne concerne pas les autres comptes.
+* Si elle vaut `1`, alors le compte administrateur natif (RID 500) est également soumis à l'UAC, et il n'est plus en mesure d'effectuer des tâches d'administration à distance, **sauf** si la première clé dont on a parlé vaut `1`.
+
+Donc pour résumer, voici les deux cas :
+
+* **FilterAdministratorToken = 0** : Le compte natif Administrateur peut faire des actions d'administration à distance
+* **FilterAdministratorToken = 1** : Le compte natif Administrateur **ne peut pas** faire des actions d'administration à distance, sauf si `LocalAccountTokenFilterPolicy` vaut `1`
+
+
+### Résumé
+
+Voici un petit tableau résumé. Pour chaque combinaison des deux clés de registre, ce tableau indique si les actions d'administration à distance sont possibles avec un compte administrateur natif et avec un compte administrateur non natif. Les valeurs en gras sont les valeurs par défaut.
+
+| LocalAccountTokenFilterPolicy | FilterAdministratorToken | Administrateuf natif (RID 500) | Administrateuf non natif |
+|:-----------------------------:|:------------------------:|:------------------------------:|:------------------------:|
+|             **0**             |           **0**          |                1               |             0            |
+|             **0**             |             1            |                0               |             0            |
+|               1               |           **0**          |                1               |             1            |
+|               1               |             1            |                1               |             1            |
+
+Je précise encore une fois que ces informations concernent les actions d'administration. En effet, il est toujours possible de s'authentifier auprès de la machine, quelles que soient les valeurs des clés de registres. Voici un petit programme utilisant la librairie impacket qui permet de comprendre ce point :
+
+```python
+from impacket.smbconnection import SMBConnection, SMB_DIALECT
+
+conn = SMBConnection("192.168.1.122", "192.168.1.122")
+
+"""
+Dans un premier temps, nous nous authentifions en tant que
+"Administrateur" sur la machine distante. Une authentification
+NTLM va être effectuée, et comme se sont les bonnes informations,
+nous serons authentifiés sur la machine distante.
+"""
+try:
+    conn.login("Administrateur", "S3cUr3d+")
+    print("Logged in !")
+except:
+    print("Loggon failure")
+    exit()
+
+"""
+Nous nous plaçons dans le cas où :
+LocalAccountTokenFilterPolicy = 0
+FilterAdministratorToken = 1
+D'après le tableau précédant, le compte administrateur natif
+n'est pas en mesure d'effectuer des actions d'administration,
+telle qu'accéder au partage réseau C$.
+"""
+try:
+    conn.connectTree("C$")
+    print("Access granted !")
+except:
+    print("Access denied")
+    exit()
+```
+
+Si nous le lançons, voici le résultat :
+
+[![Lsassy verification](/assets/uploads/2019/11/test_admin_access.png)](/assets/uploads/2019/11/test_admin_access.png)
+
+Cela confirme bien que l'authentification a fonctionné, mais que le contexte d'administration demandé a été refusé puisque l'UAC est activé pour le compte, puisqu'imposé par la clé **FilterAdministratorToken** dans cet exemple.
+
 ## Conclusion
 
 L'authentification NTLM est aujourd'hui encore beaucoup utilisée en entreprise. D'expérience, je n'ai encore jamais vu d'environnement ayant réussi à désactiver NTLM sur l'ensemble de son parc. La technique du Pass the hash reste donc très efficace.
 
 Cette technique est inhérente au protocole NTLM, cependant il est possible de limiter les dégats en évitant d'avoir le même mot de passe d'administration locale sur tous les postes. La solution [LAPS](https://blogs.technet.microsoft.com/arnaud/2015/11/25/local-admin-password-solution-laps/) de Microsoft est une solution parmi d'autres pour gérer automatiquement les mots de passe des administrateurs en faisant en sorte que ce mot de passe (donc aussi le hash NT) soit différent sur tous les postes.
 
-Par ailleurs, mettre en place une [administration en SILO](https://www.sstic.org/media/SSTIC2017/SSTIC-actes/administration_en_silo/SSTIC2017-Article-administration_en_silo-bordes.pdf) permet d'éviter les élévations de privilèges au sein du système d'information. Des administrateurs dédiés à des zones de criticité différentes (bueautique, serveur, contrôleurs de domaine, ...) se connectent uniquement sur leur zone, et ne peuvent pas accéder à une zone différente. Si ce type d'administration est mise en place et qu'une machine d'une zone est compromise, l'attaquant ne pourra pas utiliser les identifiants trouvés pour atteindre une autre zone.
+Par ailleurs, mettre en place une [administration en SILO](https://www.sstic.org/media/SSTIC2017/SSTIC-actes/administration_en_silo/SSTIC2017-Article-administration_en_silo-bordes.pdf) permet d'éviter les élévations de privilèges au sein du système d'information. Des administrateurs dédiés à des zones de criticité différentes (bureautique, serveur, contrôleurs de domaine, ...) se connectent uniquement sur leur zone, et ne peuvent pas accéder à une zone différente. Si ce type d'administration est mise en place et qu'une machine d'une zone est compromise, l'attaquant ne pourra pas utiliser les identifiants trouvés pour atteindre une autre zone.
+
+Enfin, bien positionner les clés de registre dont nous avons parlé dans le dernier paragraphe permet de limiter les actions des administrateurs.
+
+Une partie de ces recommandations est indiquée dans le [Guide d'hygiène informatique](https://www.ssi.gouv.fr/uploads/2017/01/guide_hygiene_informatique_anssi.pdf) publié par l'ANSSI.
 
 En attendant, cette technique a encore de beaux jours devant elle !
 
