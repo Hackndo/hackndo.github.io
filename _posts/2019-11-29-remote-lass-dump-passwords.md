@@ -13,6 +13,8 @@ description: "Cet article présente la modification d'un outil pour extraire à 
 tags:
   - "Active Directory"
   - Windows
+translation:
+  - "en"
 ---
 
 Lors de tests d'intrusion en entreprise, le mouvement latéral et l'élévation de privilèges sont deux concepts fondamentaux pour avancer et prendre le contrôle de la cible. Il existe une multitude de moyens de faire l'un ou l'autre, mais aujourd'hui nous allons présenter une nouvelle technique pour lire le contenu d'un dump de lsass à distance, diminuant significativement la latence et la détection lors de l'extraction de mots de passe sur un ensemble de machines.

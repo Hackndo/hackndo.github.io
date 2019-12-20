@@ -10,6 +10,8 @@ description: "BloodHound est un outil permettant de cartographier un environneme
 tags:
   - "Active Directory"
   - Windows
+translation:
+  - "en"
 ---
 
 BloodHound est un outil permettant de cartographier un environnement Active Directory en le représentant sous forme de graphe. Cette représentation offre alors toute la puissance de la théorie des graphes pour découvrir des chemins d'attaque qui auraient été autrement difficiles voire impossibles à détecter.

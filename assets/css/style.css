@@ -45,7 +45,18 @@ Main Page Content
     content: 'mobile';
 }
 
-@media only screen and (min-width: 768px) {
+.cd-main-content .content-wrapper .lang img {
+    width: 50px;
+    opacity: 0.3;
+    float: right;
+    margin-top: 35px;
+}
+
+.cd-main-content .content-wrapper .lang img:hover {
+    opacity: 0.8;
+}
+
+@media only screen and (min-width: 900px) {
     .cd-main-content .content-wrapper {
         margin-left: 310px;
         padding-top: 55px;
@@ -87,7 +98,7 @@ body {
     line-height: 1.5;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 900px) {
     body {
         font-size: 20px;
     }
@@ -281,7 +292,7 @@ img {
     margin-top: 1em;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 900px) {
     .post-cover {
         margin-top: 0px;
     }
@@ -610,7 +621,7 @@ Header
     display: table;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 900px) {
     .cd-main-header {
         display: none;
     }
@@ -640,7 +651,7 @@ Header
     padding: 7px 0 2px 8px;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 900px) {
     .cd-logo {
         margin: 16px 0 0 36px;
     }
@@ -739,7 +750,7 @@ Header
     transform: translateX(4px) translateY(2px) rotate(-45deg);
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 900px) {
     .cd-nav-trigger {
         display: none;
     }
@@ -860,13 +871,13 @@ Sidebar
     display: none;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 900px) {
     .cd-side-nav {
         position: relative;
         float: left;
         top: auto;
         min-height: 100vh;
-        padding: 55px 0;
+        padding: 55px 0 20px 0;
         /* reset style */
         visibility: visible;
         opacity: 1;
@@ -889,8 +900,15 @@ Sidebar
     }
     .cd-side-nav .cd-label, .cd-side-nav .sidebar-copyright {
         display: block;
-        padding: 0.7em 0.7em;
         color: rgba(255, 255, 255, .5);
+    }
+
+    .cd-side-nav .cd-label {
+        padding: 0.7em 0.7em;
+    }
+
+    .cd-side-nav .sidebar-copyright {
+        padding: 0;
     }
     .cd-side-nav ul a {
         font-size: 1em;
@@ -970,7 +988,7 @@ Sidebar
     display: none;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 900px) {
     .box {
         display: block;
         padding: 25px;
