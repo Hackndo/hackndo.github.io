@@ -406,7 +406,9 @@ Comme nous l'avons dit dans la partie théorique, nous pouvons réécrire la val
 
 Nous pourrions décrire ici comment écrire un shellcode, mais ce n'est pas le but de cet article. Des notions plus avancées d'assembleur sont nécessaires et si nous voulions faire le tour du sujet, un article ne suffirait pas. C'est pourquoi nous allons prendre un shellcode tout fait, disponible sur internet, fonctionnant pour une architecture x86 :
 
-> \xeb\x1f\x5e\x89\x76\x08\x31\xc0\x88\x46\x07\x89\x46\x0c\xb0\x0b\x89\xf3\x8d\x4e\x08\x8d\x56\x0c\xcd\x80\x31\xdb\x89\xd8\x40\xcd\x80\xe8\xdc\xff\xff\xff/bin/sh
+```
+\xeb\x1f\x5e\x89\x76\x08\x31\xc0\x88\x46\x07\x89\x46\x0c\xb0\x0b\x89\xf3\x8d\x4e\x08\x8d\x56\x0c\xcd\x80\x31\xdb\x89\xd8\x40\xcd\x80\xe8\xdc\xff\xff\xff/bin/sh
+```
 
 Rapidement, cette suite d'instruction exécute l'appel système `execve` en lui passant comme argument la chaine de caractères `"/bin/sh"`, puis fait un appel à l'appel système `exit`.
 
