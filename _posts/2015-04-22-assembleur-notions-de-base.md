@@ -3,7 +3,10 @@ title: 'Assembleur - Notions de base'
 date: 2015-04-22
 author: "Pixis"
 layout: post
-permalink: /assembleur-notions-de-base/
+permalink: /assembly-basics/
+redirect_from:
+    - /assembleur-notions-de-base/
+    - /assembleur-notions-de-base
 disqus_identifier: 0000-0000-0000-000A
 description: "L'assembleur est obscur pour vous ? Voici un article qui vous permettra d'y voir plus clair."
 cover: assets/uploads/2015/04/BACKGROUND.jpg
@@ -348,7 +351,7 @@ Supérieur (Greater)/ Inférieur (Lower)
 
 #### CALL adresse
 
-L'instruction `call` permet de faire appel au code d'une autre fonction située à un espace mémoire différent. L'adresse qui lui est passée en argument permet de trouver ce code. Cet appel est en fait un condensé de deux instructions. La première permet de sauvegarder l'instruction qui suit le call (pour le retour de la fonction, afin de reprendre le fil d'exécution du programme) et la deuxième permet d'effectivement sauter à la fonction recherchée. Comme nous l'avons vu dans un article précédent sur le [fonctionnement de la pile](/fonctionnement-de-la-pile/), le registre qui contient l'instruction suivante est `EIP`. Un call est donc finalement la suite de ces deux instructions :
+L'instruction `call` permet de faire appel au code d'une autre fonction située à un espace mémoire différent. L'adresse qui lui est passée en argument permet de trouver ce code. Cet appel est en fait un condensé de deux instructions. La première permet de sauvegarder l'instruction qui suit le call (pour le retour de la fonction, afin de reprendre le fil d'exécution du programme) et la deuxième permet d'effectivement sauter à la fonction recherchée. Comme nous l'avons vu dans un article précédent sur le [fonctionnement de la pile](/stack-introduction/), le registre qui contient l'instruction suivante est `EIP`. Un call est donc finalement la suite de ces deux instructions :
 
 ```nasm
 PUSH EIP
@@ -412,7 +415,7 @@ La ligne `+0`
 push    ebp
 ```
 
-permet de pousser le registre `EBP` sur la pile. Pour rappel, `EBP` (Base Pointer) est le registre qui contient l'adresse du début du stackframe de la fonction courante. Comme nous entrons dans une fonction, il faut sauvegarder le début du stackframe de la fonction précédente, ce que fait cette ligne `+0`. Une fois ceci fait, il faut maintenant donner la valeur de notre nouvelle base de stackframe à `EBP`. Comme nous entrons à peine dans la fonction, nous n'avons encore rien empilé qui soit propre à la fonction, donc le sommet de la pile actuel correspond à la base du futur stackframe de la fonction main. Et où est contenue l'adresse du sommet de la pile ? Vous vous en souvenez, dans `ESP` (Stack Pointer ! Si ça vous est inconnu, je vous invite à relire l'article sur le [fonctionnement de la pile](/fonctionnement-de-la-pile/)). La ligne `+1` enregistre alors le contenu de `ESP` dans `EBP`
+permet de pousser le registre `EBP` sur la pile. Pour rappel, `EBP` (Base Pointer) est le registre qui contient l'adresse du début du stackframe de la fonction courante. Comme nous entrons dans une fonction, il faut sauvegarder le début du stackframe de la fonction précédente, ce que fait cette ligne `+0`. Une fois ceci fait, il faut maintenant donner la valeur de notre nouvelle base de stackframe à `EBP`. Comme nous entrons à peine dans la fonction, nous n'avons encore rien empilé qui soit propre à la fonction, donc le sommet de la pile actuel correspond à la base du futur stackframe de la fonction main. Et où est contenue l'adresse du sommet de la pile ? Vous vous en souvenez, dans `ESP` (Stack Pointer ! Si ça vous est inconnu, je vous invite à relire l'article sur le [fonctionnement de la pile](/stack-introduction/)). La ligne `+1` enregistre alors le contenu de `ESP` dans `EBP`
 
 ```nasm
 mov    ebp,esp

@@ -3,7 +3,10 @@ title: "Fonctionnement de la pile"
 date: 2015-01-13
 author: "Pixis"
 layout: post
-permalink: /fonctionnement-de-la-pile/
+permalink: /stack-introduction/
+redirect_from:
+  - "/fonctionnement-de-la-pile/"
+  - "/fonctionnement-de-la-pile"
 disqus_identifier: 0000-0000-0000-000E
 description: "Article sur le fonctionnement de la pile, ou stack au sein des ordinateurs."
 cover: assets/uploads/2015/01/stack.jpg
@@ -12,7 +15,7 @@ tags:
   - "User Land"
   - Linux
 ---
-La pile (dont on a parlé dans l'article sur la [gestion de la mémoire](/gestion-de-la-memoire/) a une structure **LIFO** (Last In, First Out).
+La pile (dont on a parlé dans l'article sur la [gestion de la mémoire](/memory-allocation/) a une structure **LIFO** (Last In, First Out).
 
 <!--more-->
 
@@ -31,7 +34,7 @@ Cette structure LIFO est finalement extrêmement utile. En effet, lors de l'appe
 
 [![img_54b4159f5c27f](/assets/uploads/2015/01/img_54b4159f5c27f.png)](/assets/uploads/2015/01/img_54b4159f5c27f.png)
 
-Nous avons vu dans un article sur la [gestion de la mémoire](/gestion-de-la-memoire/) ce qu'étaient les stack frame (vous savez, ces informations stockées sur la pile lors de l'appel d'une fonction pour enregistrer le contexte d'exécution ainsi que les variables passées à la fonction). Et bien le registre `ESP` garde en mémoire l'adresse du haut de la pile (donc l'adresse la plus basse, puisque plus la pile grandit, plus les nouvelles adresses sont basses). Il est donc mis à jour à chaque modification de la pile (ajout d'une valeur ou suppression de la dernière valeur). Le registre `EBP` garde en mémoire l'adresse du début de la stack frame. Ainsi, la stack frame courante se situe entre l'adresse contenue dans `EBP` et l'adresse contenue dans `ESP`.
+Nous avons vu dans un article sur la [gestion de la mémoire](/memory-allocation/) ce qu'étaient les stack frame (vous savez, ces informations stockées sur la pile lors de l'appel d'une fonction pour enregistrer le contexte d'exécution ainsi que les variables passées à la fonction). Et bien le registre `ESP` garde en mémoire l'adresse du haut de la pile (donc l'adresse la plus basse, puisque plus la pile grandit, plus les nouvelles adresses sont basses). Il est donc mis à jour à chaque modification de la pile (ajout d'une valeur ou suppression de la dernière valeur). Le registre `EBP` garde en mémoire l'adresse du début de la stack frame. Ainsi, la stack frame courante se situe entre l'adresse contenue dans `EBP` et l'adresse contenue dans `ESP`.
 
 Voici un schéma qui illustre le rôle des registres `EBP` et `ESP` :
 
@@ -41,7 +44,7 @@ Ce que nous venons de voir est vrai tant qu'on reste dans la même stack frame. 
 
 ## Prologue - Épilogue
 
-_Pour être en mesure de bien comprendre la suite de cet article, des notions de base d'assembleur sont utiles. Même s'il est possible de suivre sans aucune connaissance, il est fortement conseillé de lire l'article [Notions de base sur l'assembleur](/assembleur-notions-de-base/) qui vous donnera les bases nécessaires pour une meilleure compréhension._
+_Pour être en mesure de bien comprendre la suite de cet article, des notions de base d'assembleur sont utiles. Même s'il est possible de suivre sans aucune connaissance, il est fortement conseillé de lire l'article [Notions de base sur l'assembleur](/assembly-basics/) qui vous donnera les bases nécessaires pour une meilleure compréhension._
 
 Considérons le programme fonction.c suivant :
 

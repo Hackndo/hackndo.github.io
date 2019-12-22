@@ -21,7 +21,7 @@ Cet article n'a pas non plus pour vocation d'être exhaustif quant à ce sujet, 
 
 ## Processeur
 
-Un CPU a un jeu d'instruction qui lui est propre (_Instruction Set_), lui permettant de faire des opérations, des modifications dans le flot d'exécution ou encore de modifier la mémoire. Comme les accès mémoire sont relativement lents, un CPU possède des registres. Nous avons déjà parlé des registres dans l'article sur [la gestion de la mémoire](/gestion-de-la-memoire/). Ce sont des petites zones de mémoire au sein d'un CPU qui sont accessibles instantannément et servent à stocker des valeurs pour des calculs, pour garder des informations sur les structures en cours etc.
+Un CPU a un jeu d'instruction qui lui est propre (_Instruction Set_), lui permettant de faire des opérations, des modifications dans le flot d'exécution ou encore de modifier la mémoire. Comme les accès mémoire sont relativement lents, un CPU possède des registres. Nous avons déjà parlé des registres dans l'article sur [la gestion de la mémoire](/memory-allocation/). Ce sont des petites zones de mémoire au sein d'un CPU qui sont accessibles instantannément et servent à stocker des valeurs pour des calculs, pour garder des informations sur les structures en cours etc.
 
 En ce qui concerne les jeux d'instructions, il y a deux grands familles. Les RISC (_Reduced Instruction Sec Computer_) et les CISC (_Complex Instruction Set Computer_). Les instructions des RISC ont une taille fixe et sont exécutées en un cycle d'horloge tandis que les CISC ont des instructions de tailles variables qui sont exécutées en un ou plusieurs cycles d'horloge.
 

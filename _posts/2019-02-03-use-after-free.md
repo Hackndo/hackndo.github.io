@@ -18,7 +18,7 @@ Nous nous sommes intéressés à différentes vulnérabilités qui mettaient en 
 
 ## La Heap
 
-Contrairement à la pile dont le fonctionnement a été expliqué dans [cet article](https://beta.hackndo.com/fonctionnement-de-la-pile/), la *heap* (le tas) est une zone mémoire utilisée pour des allocations dynamiques. Pour cela, tous les espaces mémoires dans la *heap* peuvent être utilisés à n'importe quel moment. Il n'y a plus de notion d'empilement, dépilement. N'importe quel bloc peut être alloué ou libéré à tout instant.
+Contrairement à la pile dont le fonctionnement a été expliqué dans [cet article](https://beta.hackndo.com/stack-introduction/), la *heap* (le tas) est une zone mémoire utilisée pour des allocations dynamiques. Pour cela, tous les espaces mémoires dans la *heap* peuvent être utilisés à n'importe quel moment. Il n'y a plus de notion d'empilement, dépilement. N'importe quel bloc peut être alloué ou libéré à tout instant.
 
 On comprend assez intuitivement que ce système est beaucoup plus souple, mais qu'en contrepartie, il est plus lent et complexe, puisqu'il faut garder un état de la mémoire afin de savoir si un bloc est alloué ou non.
 

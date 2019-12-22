@@ -26,7 +26,7 @@ Le soucis, c'est qu'en tant qu'administrateur d'un système d'information comple
 
 Voici un exemple d'une liste d'ACE (Access Control Entry) que l'on peut trouver sur un objet "GPO".
 
-[![ACL Complexity](../assets/uploads/2019/07/acl_complexity.png)](../assets/uploads/2019/07/acl_complexity.png)
+[![ACL Complexity](/assets/uploads/2019/07/acl_complexity.png)](/assets/uploads/2019/07/acl_complexity.png)
 
 La barre de défilement à droite montre que le nombre d'entrées possibles est très important. Imaginez alors qu'il y a des entrées comme celles-ci sur tous les objets de l'Active Directory, que certains droits peuvent s'appliquer via délégation, qu'il y a des groupes inclus dans d'autres groupes, héritant des droits des groupes parents, etc.
 

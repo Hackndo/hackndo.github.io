@@ -52,7 +52,7 @@ Le kernel est responsable de l'ordonnancement (_scheduling_) des différentes t�
 
 Par ailleurs, pour passer d'un processus à l'autre, le kernel doit mémoriser des informations telles que les fichiers ouverts, les droits du processus, et quelles pages mémoires sont utilisées par celui-ci. Si nous trouvons où sont stockées ces infos et que nous les modifions, ça peut devenir intéressant.
 
-Ensuite, le kernel est responsable de la gestion de la mémoire virtuelle. L'article sur [la gestion de la mémoire](/gestion-de-la-memoire/) en parle rapidement, mais ajoutons ici quelques informations et termes. La mémoire physique est divisée en _frames_, et la mémoire virtuelle en _pages_. Lorsqu'un processus a besoin d'espace mémoire, il demande à la mémoire physique de lui allouer des _pages_. C'est la table de pages qui fait le lien entre les _pages_ et les _frames_, avec une table de pages par processus.
+Ensuite, le kernel est responsable de la gestion de la mémoire virtuelle. L'article sur [la gestion de la mémoire](/memory-allocation/) en parle rapidement, mais ajoutons ici quelques informations et termes. La mémoire physique est divisée en _frames_, et la mémoire virtuelle en _pages_. Lorsqu'un processus a besoin d'espace mémoire, il demande à la mémoire physique de lui allouer des _pages_. C'est la table de pages qui fait le lien entre les _pages_ et les _frames_, avec une table de pages par processus.
 
 [![Screen-Shot-2016-07-05-at-20.56.49](/assets/uploads/2016/06/Screen-Shot-2016-07-05-at-20.56.49.png)](/assets/uploads/2016/06/Screen-Shot-2016-07-05-at-20.56.49.png)
 

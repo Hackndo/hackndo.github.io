@@ -3,7 +3,11 @@ title: "Gestion de la mémoire"
 date: 2015-01-11
 author: "Pixis"
 layout: post
-permalink: /gestion-de-la-memoire/
+permalink: /memory-allocation/
+redirect_from:
+  - "/gestion-de-la-memoire/"
+  - "/gestion-de-la-memoire"
+
 disqus_identifier: 0000-0000-0000-000F
 description: "Aujourd'hui, je vais tenter de rassembler tout ce que j'ai pu comprendre sur la gestion de la mémoire lors de l'exécution d'un programme."
 cover: assets/uploads/2015/01/hacking.jpg
@@ -191,4 +195,4 @@ Nous avons également deux autres registres, un peu plus spéciaux :
 * Le registre EIP est appelé **P**ointeur d'**I**nstruction. Il contient l'adresse de la prochaine instruction que le processeur doit exécuter.
 * Enfin, le registre EFLAGS qui, en réalité, contient des indicateurs, des interrupteurs, des drapeaux (_flags_) essentiellement utilisés pour des comparaisons, mais pas uniquement.
 
-Pour aller plus loin, vous pouvez lire l'article sur [le fonctionnement de la pile](/fonctionnement-de-la-pile).
+Pour aller plus loin, vous pouvez lire l'article sur [le fonctionnement de la pile](/stack-introduction).
