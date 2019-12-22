@@ -9,6 +9,8 @@ description: "On me demande très souvent si je suis déjà allé sur le deep we
 cover: assets/uploads/2015/08/deepweb.jpg
 tags:
   - Web
+translation:
+  - en
 ---
 Ceci est un tout petit article qui permet de remettre très rapidement et très sommairement les choses en place. On me demande très souvent si je suis déjà allé sur le deep web, le dark web, des darknets sans vraiment comprendre ce que c'était, quelles étaient les différences etc. Cet article n'a pas pour vocation de faire une étude, un état des lieux, mais plutôt de faire toucher du doigt au néophyte ce que signifient ces termes. Je propose donc quelques lignes pour pouvoir commencer à expliquer en 5 minutes ce qu'impliquent ces termes.
 
