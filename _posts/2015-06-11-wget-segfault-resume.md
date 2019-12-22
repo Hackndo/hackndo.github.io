@@ -7,7 +7,6 @@ permalink: /wget-segfault-resume/
 disqus_identifier: 0000-0000-0000-0007
 description: "Un segfault dans wget ? Analyse technique du pourquoi du comment pour proposer un patch !"
 cover: assets/uploads/2015/06/WGETSEGFAULT.jpg
-image: assets/uploads/2015/06/WGETSEGFAULT.jpg
 tags:
   - "User Land"
   - Linux

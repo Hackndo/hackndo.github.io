@@ -7,7 +7,6 @@ permalink: /retour-a-la-libc/
 disqus_identifier: 0000-0000-0000-0008
 description: "Article sur le retour à la libc, avec la théorie et des exemples"
 cover: assets/uploads/2015/05/retli.jpg
-image: assets/uploads/2015/05/retli.jpg
 tags:
   - "User Land"
   - Linux

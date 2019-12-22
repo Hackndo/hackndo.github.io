@@ -7,7 +7,6 @@ permalink: /hash-length-extension/
 disqus_identifier: 0000-0000-0000-0003
 description: "Je vous propose alors de partir d'une vision large du sujet pour comprendre globalement le fonctionnement de cette technique avant d’entamer une explication technique agrémentée d'exemples."
 cover: assets/uploads/2015/09/hash_length_extension.jpg
-image: assets/uploads/2015/09/hash_length_extension.jpg
 tags:
   - Crypto
 ---

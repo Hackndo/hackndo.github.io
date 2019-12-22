@@ -7,7 +7,6 @@ permalink: /padding-oracle/
 disqus_identifier: 0000-0000-0000-0018
 description: "Nous allons dans cet article parler de la technique d'attaque du padding oracle, en utilisant le padding d'un message chiffré suite à un chiffrement par bloc utilisant le mode CBC."
 cover: assets/uploads/2017/02/sc1.png
-image: assets/uploads/2017/02/sc1.png
 tags:
   - Crypto
 ---

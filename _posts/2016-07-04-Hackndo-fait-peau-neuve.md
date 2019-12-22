@@ -7,7 +7,6 @@ permalink: /hackndo-fait-peau-neuve/
 disqus_identifier: 0000-0000-0000-0012
 description: "Bienvenue sur la toute nouvelle version du blog Hackndo."
 cover: assets/uploads/2016/07/beta_hackndo_com.jpg
-image: assets/uploads/2016/07/beta_hackndo_com.jpg
 tags:
   - Misc
 ---

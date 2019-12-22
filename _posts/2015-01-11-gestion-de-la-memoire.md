@@ -11,7 +11,6 @@ redirect_from:
 disqus_identifier: 0000-0000-0000-000F
 description: "Aujourd'hui, je vais tenter de rassembler tout ce que j'ai pu comprendre sur la gestion de la mémoire lors de l'exécution d'un programme."
 cover: assets/uploads/2015/01/hacking.jpg
-image: assets/uploads/2015/01/hacking.jpg
 tags:
   - "User Land"
   - Linux
