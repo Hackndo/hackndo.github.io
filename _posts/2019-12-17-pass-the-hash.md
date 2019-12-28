@@ -10,6 +10,8 @@ description: "La technique du Pass the Hash est extrêmement utilisée lors de m
 tags:
   - "Active Directory"
   - Windows
+translation:
+  - en
 ---
 
 Durant les tests d'intrusion internes, le mouvement latéral est une composante essentielle pour l'auditeur afin de chercher des informations en vue d'élever ses privilèges sur le système d'information. La technique dite du **Pass the Hash** est extrêmement utilisée dans cette situation pour devenir administrateur sur un ensemble de machines. Nous allons détailler ici le fonctionnement de cette technique.
