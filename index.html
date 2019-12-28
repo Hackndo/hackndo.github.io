@@ -18,7 +18,7 @@ description: Ce blog est dédié à la sécurité informatique. Tutos sur les bu
     </h1>
 
     <div class="post-info">
-      <p class="alignleft">{{ post.date | date_to_string }} · {% assign words = post.content | number_of_words %}{% if words < 360 %}1 min{% else %}{{ words | divided_by:180 }} min{% endif %}</p>
+      <p class="alignleft">{{ post.date | date_to_string }} · {% assign words = post.content | number_of_words %}{{ words | divided_by:180 | plus:1 }} min</p>
       <p class="alignright">Auteur : <strong><a href="https://twitter.com/HackAndDo">{{ post.author }}</a></strong></p>
     </div>
 
