@@ -40,7 +40,6 @@ plugins:
   - jekyll-paginate
   - jekyll-archives
   - jekyll-feed
-  - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-redirect-from
 
