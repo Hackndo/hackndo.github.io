@@ -11,7 +11,7 @@ comments: true
   {% endif %}
   <h1 class="post-title">{{ page.title }}</h1>
   <div class="post-info">
-      <p class="alignleft">{{ page.date | date_to_string }} <a class="post-comments-count" href="http://{{ site.url }}{{ page.url }}#disqus_thread"></a></p>
+      <p class="alignleft">{{ page.date | date_to_string }} · {% include read_time.html %} <a class="post-comments-count" href="{{ site.url }}{{ page.url }}#disqus_thread"></a></p>
       <p class="alignright">Auteur : <strong><a href="https://twitter.com/HackAndDo">{{ page.author }}</a></strong></p>
       <div class="keywords">
         <span class="post-tags">{% for tag in page.tags %}<a href="/archives/#{{ tag | slugify }}"><i class="fas fa-tags"></i> {{ tag }}</a>{% endfor %}</span>
