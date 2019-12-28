@@ -1,6 +1,6 @@
 ---
 title: 'Libre, opensource & freeware'
-date: 2014-07-25 19:38:43 -0400
+date: 2014-07-25 19:38:43
 author: "Pixis"
 layout: post
 permalink: /libre-opensource-freeware/

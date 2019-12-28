@@ -1,6 +1,6 @@
 ---
 title: Tour du monde
-date: 2015-11-09  15:38:43 -0400
+date: 2015-11-09  15:38:43
 author: "Pixis"
 layout: post
 permalink: /tour-du-monde/

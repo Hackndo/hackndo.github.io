@@ -1,6 +1,6 @@
 ---
 title: "Le hacking, c'est quoi ?"
-date: 2014-07-25 15:38:43 -0400
+date: 2014-07-25 15:38:43
 author: "Pixis"
 layout: post
 permalink: /what-is-hacking/

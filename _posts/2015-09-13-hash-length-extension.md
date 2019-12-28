@@ -1,6 +1,6 @@
 ---
 title: "Hash length extension"
-date: 2015-09-13 15:38:43 -0400
+date: 2015-09-13 15:38:43
 author: "Pixis"
 layout: post
 permalink: /hash-length-extension/

@@ -1,6 +1,6 @@
 ---
 title: Hackndo fait peau neuve
-date: 2016-07-04  09:17:43 -0400
+date: 2016-07-04  09:17:43
 author: "Pixis"
 layout: post
 permalink: /hackndo-fait-peau-neuve/

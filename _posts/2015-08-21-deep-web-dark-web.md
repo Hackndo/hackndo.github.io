@@ -1,6 +1,6 @@
 ---
 title: 'Deep Web & Dark Web'
-date: 2015-08-21 12:08:16 -0400
+date: 2015-08-21 12:08:16
 author: "Pixis"
 layout: post
 permalink: /deep-web-dark-web/

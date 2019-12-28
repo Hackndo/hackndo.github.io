@@ -1,6 +1,6 @@
 ---
 title: Follow the white rabbit !
-date: 2015-09-02 15:38:43 -0400
+date: 2015-09-02 15:38:43
 author: "Pixis"
 layout: post
 permalink: /follow-the-white-rabbit/
