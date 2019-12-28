@@ -1,0 +1,57 @@
+---
+layout: null
+sitemap:
+  exclude: 'yes'
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  {% for post in site.posts %}
+  <url>
+    <loc>{{ site.url }}{{ post.url }}</loc>
+
+    {% if post.translation %}
+      {% for lang in post.translation %}
+      <xhtml:link 
+               rel="alternate"
+               hreflang="{{ lang }}"
+               href="https://{{ lang }}.hackndo.com{{ post.url }}"/>
+      {% endfor %}
+      <xhtml:link 
+               rel="alternate"
+               hreflang="fr"
+               href="{{ site.url }}{{ post.url }}"/>
+    {% endif %}
+
+    {% if post.sitemap.lastmod %}
+      <lastmod>{{ post.sitemap.lastmod | date: "%Y-%m-%d" }}</lastmod>
+    {% elsif post.date %}
+      <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
+    {% else %}
+      <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+    {% endif %}
+  </url>
+  {% endfor %}
+  {% for page in site.pages %}
+    {% unless page.sitemap.exclude == "yes" or page.name == "feed.xml" or page.layout == "redirect" %}
+    <url>
+      <loc>{{ site.url }}{{ page.url | remove: "index.html" }}</loc>
+      <xhtml:link 
+               rel="alternate"
+               hreflang="en"
+               href="https://en.hackndo.com{{ page.url }}"/>
+      <xhtml:link 
+               rel="alternate"
+               hreflang="fr"
+               href="{{ site.url }}{{ page.url }}"/>
+      {% if page.sitemap.lastmod %}
+        <lastmod>{{ page.sitemap.lastmod | date: "%Y-%m-%d" }}</lastmod>
+      {% elsif page.date %}
+        <lastmod>{{ page.date | date_to_xmlschema }}</lastmod>
+      {% else %}
+        <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+      {% endif %}
+    </url>
+    {% endunless %}
+  {% endfor %}
+</urlset>
