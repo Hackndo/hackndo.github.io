@@ -52,6 +52,15 @@
     <meta name="twitter:image" content="{{ site.url }}/assets/icones/logo.png" />
     {% endif %}
 
+    {% if page.url == "/" %}
+    <link rel="alternate" hreflang="en" href="https://en.hackndo.com">
+    {% else %}
+      {% if page.translation %}
+        {% for lang in page.translation %}
+      <link rel="alternate" hreflang="{{ lang }}" href="https://{{ lang }}.hackndo.com{{ page.url }}">
+        {% endfor %}
+      {% endif %}
+    {% endif %}
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-80312745-1"></script>
     <script>
