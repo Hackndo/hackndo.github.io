@@ -420,6 +420,10 @@ Une fois que ces trois arguments ont été traités, et bien la DLL crée le fic
 
 Grâce à cette fonction, nous pouvons maintenant utiliser **comsvcs.dll** pour dumper le processus lsass, au lieu d'envoyer procdump et de l'exécuter sur la machine distante.
 
+```
+rundll32.exe C:\Windows\System32\comsvcs.dll MiniDump "<lsass pid> lsass.dmp full"
+```
+
 Il faut cependant garder en tête que cette technique ne fonctionne qu'en étant l'utilisateur **SYSTEM**.
 
 ## Module CrackMapExec
