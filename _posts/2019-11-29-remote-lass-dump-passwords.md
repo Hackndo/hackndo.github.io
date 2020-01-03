@@ -402,6 +402,26 @@ Function=minidump, Time=0.897719860077
 
 Sans cette optimisation, le script prenait environ 40 secondes, tandis qu'avec l'optimisation, il prend moins d'une seconde. Moins d'une seconde pour extraire les secrets d'authentification d'un dump lsass distant de plus de 150Mo !
 
+### Ne plus dépendre de Procdump
+
+Mise à jour du 3 Janvier 2020 : Procdump est actuellement utilisé pour faire un dump du processus lsass. Bien qu'il soit signé par Microsoft, je trouve bien plus propre de **ne pas** passer par ça, mais plutôt d'utiliser des outils qui font partie de Windows **par défaut**.
+
+Il y a une DLL (un fichier qui contient tout un tas de fonctions) appelée **comsvcs.dll**, située dans le dossier `C:\Windows\System32`, qui est utilisée pour dumper un processus lorsqu'il crash. Cette DLL contient notamment la fonction `MiniDumpW` qui semble avoir été écrite pour être utilisée avec l'outil `rundll32.exe`.
+
+[![comsvcs dll minidump signature](/assets/uploads/2020/01/minidump_signature.png)](/assets/uploads/2020/01/minidump_signature.png)
+
+Les deux premiers arguments ne sont pas utilisés, mais le troisième est divisé en trois parties. La première correspond à l'id du processus (PID), la deuxième à l'emplacement du dump et la troisième est en fait toujours le mot **full**, pas d'autre choix.
+
+[![comsvcs dll minidump argument](/assets/uploads/2020/01/minidump_offsets.png)](/assets/uploads/2020/01/minidump_offsets.png)
+
+Une fois que ces trois arguments ont été traités, et bien la DLL crée le fichier et dump le processus choisi dans ce fichier.
+
+[![comsvcs dll minidump dump](/assets/uploads/2020/01/minidump_dump.png)](/assets/uploads/2020/01/minidump_dump.png)
+
+Grâce à cette fonction, nous pouvons maintenant utiliser **comsvcs.dll** pour dumper le processus lsass, au lieu d'envoyer procdump et de l'exécuter sur la machine distante.
+
+Il faut cependant garder en tête que cette technique ne fonctionne qu'en étant l'utilisateur **SYSTEM**.
+
 ## Module CrackMapExec
 
 Avec ce nouveau minidump, j'ai modifié le module CrackMapExec qui permet cette fois d'aller dumper lsass sur un ensemble de machines distantes, d'extraire les mots de passe **à distance** sur ces dumps, et de supprimer les traces de mon passage après coup.
