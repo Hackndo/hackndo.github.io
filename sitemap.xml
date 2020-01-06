@@ -32,26 +32,18 @@ sitemap:
     {% endif %}
   </url>
   {% endfor %}
-  {% for page in site.pages %}
-    {% unless page.sitemap.exclude == "yes" or page.name == "feed.xml" or page.layout == "redirect" or page.url contains "/page/" %}
-    <url>
-      <loc>{{ site.url }}{{ page.url | remove: "index.html" }}</loc>
-      <xhtml:link 
-               rel="alternate"
-               hreflang="en"
-               href="https://en.hackndo.com{{ page.url }}"/>
-      <xhtml:link 
-               rel="alternate"
-               hreflang="fr"
-               href="{{ site.url }}{{ page.url }}"/>
-      {% if page.sitemap.lastmod %}
-        <lastmod>{{ page.sitemap.lastmod | date: "%Y-%m-%d" }}</lastmod>
-      {% elsif page.date %}
-        <lastmod>{{ page.date | date_to_xmlschema }}</lastmod>
-      {% else %}
-        <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
-      {% endif %}
+  <url>
+    <loc>https://beta.hackndo.com/</loc>
+    <xhtml:link 
+              rel="alternate"
+              hreflang="en"
+              href="https://en.hackndo.com/"/>
+    <xhtml:link 
+              rel="alternate"
+              hreflang="fr"
+              href="https://beta.hackndo.com/"/>
+    
+      <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+      
     </url>
-    {% endunless %}
-  {% endfor %}
 </urlset>
