@@ -62,7 +62,7 @@ Le javascript `alert` sera exécuté, mais seulement pour nous, puisqu'il faut l
 
 Contrairement à ce que nous pourrions penser, le fait que la charge utile soit exécutée côté client est bel et bien un risque pour l'utilisateur. En effet, le client possède plusieurs informations secrètes et utiles pour l'attaquant, il a également des extensions dans son navigateur qui peuvent avoir des vulnérabilités.
 
-Jusque-là, nous avons seulement affiché une pop-up dans la navigateur de la victime, mais nous allons aller un peu plus loin et voler les cookies de l'utilisateur sur le site vulnérable. Pour cela, nous utiliserons la propriété [cookie](https://developer.mozilla.org/fr/docs/Web/API/Document/cookie){:target="blank"} du document (sous réserve que les cookies ne soient pas [protégés](https://www.information-security.fr/securite-sites-web-lutilite-flags-secure-httponly/){:target="blank"})
+Jusque-là, nous avons seulement affiché une pop-up dans la navigateur de la victime, mais nous allons aller un peu plus loin et voler les cookies de l'utilisateur sur le site vulnérable. Pour cela, nous utiliserons la propriété [cookie](https://developer.mozilla.org/fr/docs/Web/API/Document/cookie){:target="blank"} du document (sous réserve que les cookies ne soient pas [protégés](https://en.wikipedia.org/wiki/HTTP_cookie#Secure_cookie){:target="blank"})
 
 ```javascript
 document.cookie
