@@ -10,6 +10,8 @@ description: "Maintenant que nous avons vu le fonctionnement du protocole Kerber
 tags:
   - "Active Directory"
   - Windows
+translation:
+  - en
 ---
 
 Maintenant que nous avons vu le fonctionnement du [protocole Kerberos](/kerberos) en environnement Active Directory, nous allons découvrir ensemble les notions de Silver Ticket et Golden Ticket. Pour bien comprendre comment ils fonctionnent, il est nécessaire de faire un zoom sur le PAC (*Privilege Attribute Certificate*).
