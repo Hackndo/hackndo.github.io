@@ -292,12 +292,7 @@ Donc pour résumer, voici les deux cas :
 
 Voici un petit tableau résumé. Pour chaque combinaison des deux clés de registre, ce tableau indique si les actions d'administration à distance sont possibles avec un compte administrateur natif et avec un compte administrateur non natif. Les valeurs en gras sont les valeurs par défaut.
 
-| LocalAccountTokenFilterPolicy | FilterAdministratorToken | Administrateuf natif (RID 500) | Administrateuf non natif |
-|:-----------------------------:|:------------------------:|:------------------------------:|:------------------------:|
-|             **0**             |           **0**          |                1               |             0            |
-|             **0**             |             1            |                0               |             0            |
-|               1               |           **0**          |                1               |             1            |
-|               1               |             1            |                1               |             1            |
+[![Registry table](/assets/uploads/2019/11/pth_table.png)](/assets/uploads/2019/11/pth_table.png)
 
 Je précise encore une fois que ces informations concernent les actions d'administration. En effet, il est toujours possible de s'authentifier auprès de la machine, quelles que soient les valeurs des clés de registres. Voici un petit programme utilisant la librairie impacket qui permet de comprendre ce point :
 
