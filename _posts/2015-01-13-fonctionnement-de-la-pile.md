@@ -8,7 +8,7 @@ redirect_from:
   - "/fonctionnement-de-la-pile/"
   - "/fonctionnement-de-la-pile"
 disqus_identifier: 0000-0000-0000-000E
-description: "Article sur le fonctionnement de la pile, ou stack au sein des ordinateurs."
+description: "Cet article traite du fonctionnement de la pile, ou stack lors de l'exécution d'un programme. On explique tout avec un exemple concret."
 cover: assets/uploads/2015/01/stack.jpg
 tags:
   - "User Land"

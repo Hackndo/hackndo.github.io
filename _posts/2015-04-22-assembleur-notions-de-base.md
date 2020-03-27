@@ -8,7 +8,7 @@ redirect_from:
     - /assembleur-notions-de-base/
     - /assembleur-notions-de-base
 disqus_identifier: 0000-0000-0000-000A
-description: "L'assembleur est obscur pour vous ? Voici un article qui vous permettra d'y voir plus clair."
+description: "L'assembleur est obscure pour vous ? Voici un article qui vous permettra d'y voir plus clair. Nous décortiquons toutes les instructions les plus utilisées afin de bien comprendre comment elles fonctionnent."
 cover: assets/uploads/2015/04/BACKGROUND.jpg
 tags:
     - Linux
