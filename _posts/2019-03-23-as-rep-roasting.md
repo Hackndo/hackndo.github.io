@@ -13,6 +13,8 @@ description: "Lors d'une demande de TGT, l'utilisateur doit, par défaut, s'auth
 tags:
   - "Active Directory"
   - Windows
+translation:
+  - en
 ---
 
 Lors d'une demande de TGT, l'utilisateur doit, par défaut, s'authentifier auprès du KDC pour que celui-ci lui réponde. Il arrive que cette authentification préalable ne soit pas demandée pour certains comptes, permettant à un attaquant d'abuser de cette configuration.
