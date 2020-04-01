@@ -120,7 +120,7 @@ Ainsi, si nous nous connectons en tant que l'utilisateur `jdoe` sur une machine,
 
 [![Abuse Task](/assets/uploads/2019/04/abusetask.png)](/assets/uploads/2019/04/abusetask.png)
 
-Elle est créée en tant que l'utilisateur `jdoe`, et lorsqu'elle sera appliquée, ce sera en tant que l'utilisateur à qui elle s'applique.
+L'auteur de la tâche est `jdoe`, mais ce n'est pas lui qui exécutera la tâche suite à la mise à jour de la GPO. Ce sera **en tant que** l'utilisateur qui travaille sur sa machine que, lorsque la GPO sera appliquée, cette tâche planifiée sera exécutée.
 
 Dans l'onglet "Actions", nous indiquons ce qu'il se passera à l'exécution. Ici, nous utilisons un reverse-shell en Powershell pour que lors de son exécution, l'utilisateur cible se connecte à l'attaquant en proposant un shell.
 
