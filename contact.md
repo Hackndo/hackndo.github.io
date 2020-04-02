@@ -4,9 +4,7 @@ title: Me contacter
 permalink: /contact/
 ---
 
-Je suis disponible en permanence sur mon serveur Discord
-
-[Hackndo sur Discord](https://discord.gg/NyjPhRb){:target="blank"}
+<iframe src="https://discordapp.com/widget?id=378528634253869056&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
 
 N'hésitez pas à venir pour discuter des articles, d'infosec, ou tout autre chose.
 
