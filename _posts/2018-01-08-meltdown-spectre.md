@@ -411,4 +411,4 @@ Je vous invite à lire [le billet](http://blogmotion.fr/internet/securite/metldo
 
 Pour plus de détails sur les attaques, je vous mets également les whitepapers ici pour [meltdown](https://meltdownattack.com/meltdown.pdf){:target="blank"} et [spectre](https://spectreattack.com/spectre.pdf){:target="blank"}.
 
-J'espère que cet article vous aide à y voir plus clair, n'hésitez toujours pas à commenter ou à me retrouver sur [Discord](https://discord.gg/9At6SUZ){:target="blank"} pour plus d'informations, des remarques, des corrections, etc.
+J'espère que cet article vous aide à y voir plus clair, n'hésitez toujours pas à commenter ou à me retrouver sur [Discord](https://discord.gg/NyjPhRb){:target="blank"} pour plus d'informations, des remarques, des corrections, etc.

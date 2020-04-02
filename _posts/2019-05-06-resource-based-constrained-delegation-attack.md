@@ -126,7 +126,7 @@ Ce qu'il faut finalement retenir, c'est qu'il est possible de prendre la main su
 
 Pour s'en prémunir, plusieurs actions sont possibles. Tout d'abord, il faut implémenter le [channel binding](https://support.microsoft.com/en-us/help/4034879/how-to-add-the-ldapenforcechannelbinding-registry-entry) au niveau de LDAP afin d'empêcher le relai vers LDAPS. Ensuite, il faut limiter la possibilité de création de comptes machine sur le domaine à des groupes définis d'utilisateurs. Enfin, en lien avec cet exemple, IPv6 devrait être désactivé dans les réseaux d'entreprise, puisqu'il ne répond à aucun besoin.
 
-Cet article étant relativement dense, il serait tout à fait normal que des points ne soient pas tout à fait clairs. Si vous avez des questions, n'hésitez pas à les poser en commentaire ou sur [Discord](https://discord.gg/9At6SUZ){:target="blank"}. Vous pouvez toujours suivre la sortie de nouveaux articles sur mon twitter [@hackanddo](https://twitter.com/HackAndDo){:target="blank"}.
+Cet article étant relativement dense, il serait tout à fait normal que des points ne soient pas tout à fait clairs. Si vous avez des questions, n'hésitez pas à les poser en commentaire ou sur [Discord](https://discord.gg/NyjPhRb){:target="blank"}. Vous pouvez toujours suivre la sortie de nouveaux articles sur mon twitter [@hackanddo](https://twitter.com/HackAndDo){:target="blank"}.
 
 Enfin, n'hésitez pas à faire un tour sur les ressources citées, notamment l'article de [Elad Shamir](https://twitter.com/elad_shamir) qui est un travail de recherche complet et super intéressant.
 

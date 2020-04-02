@@ -6,7 +6,7 @@ permalink: /contact/
 
 Je suis disponible en permanence sur mon serveur Discord
 
-[Hackndo sur Discord](https://discord.gg/9At6SUZ){:target="blank"}
+[Hackndo sur Discord](https://discord.gg/NyjPhRb){:target="blank"}
 
 N'hésitez pas à venir pour discuter des articles, d'infosec, ou tout autre chose.
 

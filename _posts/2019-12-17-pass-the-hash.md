@@ -350,4 +350,4 @@ Une partie de ces recommandations est indiquée dans le [Guide d'hygiène inform
 
 En attendant, cette technique a encore de beaux jours devant elle !
 
-Si vous avez des questions, n'hésitez pas à les poser ici ou sur [Discord](https://discord.gg/9At6SUZ) et je me ferai une joie de tenter d'y répondre. De la même manière, si vous voyez des coquilles, je suis tout ouïe. A la prochaine !
+Si vous avez des questions, n'hésitez pas à les poser ici ou sur [Discord](https://discord.gg/NyjPhRb) et je me ferai une joie de tenter d'y répondre. De la même manière, si vous voyez des coquilles, je suis tout ouïe. A la prochaine !

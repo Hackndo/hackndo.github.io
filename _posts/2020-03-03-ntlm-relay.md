@@ -655,4 +655,4 @@ Nous avons d'ailleurs terminé en montrant comment le channel binding permettait
 
 J'espère que ce long article vous a permis de mieux comprendre ce qu'il se passait lors d'une attaque de relai NTLM. Vous comprenez j'espère mieux les briques qui entrent en jeu, et les protections existantes.
 
-Cet article étant assez conséquent, il est tout à fait probable que des coquilles se soient glissées à l'intérieur. N'hésitez pas à me contacter sur [twitter](https://twitter.com/hackanddo) ou sur mon [serveur Discord](https://discord.gg/9At6SUZ) pour discuter de tout ça.
+Cet article étant assez conséquent, il est tout à fait probable que des coquilles se soient glissées à l'intérieur. N'hésitez pas à me contacter sur [twitter](https://twitter.com/hackanddo) ou sur mon [serveur Discord](https://discord.gg/NyjPhRb) pour discuter de tout ça.
