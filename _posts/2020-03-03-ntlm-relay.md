@@ -242,7 +242,7 @@ Le client sachant qu'une authentification NTLM est nécessaire, va envoyer le pr
   <    Connection: close
 ```
 
-Tant que la session est ouverte, l'authentification sera effective. Dès que la session se termine, en revanche, le serveur n'aura plus le contexte de sécurité du client, et une nouvelle authentification devra avoir lieu. Ca peut souvent arriver, et grâce aux mécanismes de SSO (*Single Sign On*) de Microsoft, c'est souvent transparent pour l'utilisateur.
+Tant que la session TCP est ouverte, l'authentification sera effective. Dès que la session se termine, en revanche, le serveur n'aura plus le contexte de sécurité du client, et une nouvelle authentification devra avoir lieu. Ca peut souvent arriver, et grâce aux mécanismes de SSO (*Single Sign On*) de Microsoft, c'est souvent transparent pour l'utilisateur.
 
 ### Intégration avec SMB
 
