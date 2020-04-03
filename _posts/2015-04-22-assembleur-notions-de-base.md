@@ -360,7 +360,7 @@ JMP adresse
 
 #### LEAVE
 
-A l'inverse `LEAVE` permet de préparer la sortie d'une fonction en récupérant les variables enregistrée lors du début de la fonction afin de retrouver le contexte d'exécution tel qu'il avait été enregistré juste avant d'exécuter le code de la fonction, tout détruisant ce qu'il restait du stackframe :
+A l'inverse `LEAVE` permet de préparer la sortie d'une fonction en récupérant les variables enregistrées lors du début de la fonction afin de retrouver le contexte d'exécution tel qu'il avait été enregistré juste avant d'exécuter le code de la fonction, tout détruisant ce qu'il restait du stackframe :
 
 ```nasm
 MOV ESP, EBP
