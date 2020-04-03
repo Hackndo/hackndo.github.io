@@ -167,7 +167,7 @@ Si on trouve l'instruction
 mov eax, [ ebx + ecx*2 + 0x0000000a]
 ```
 
-Alors le contenu des crochet se décompose de la manière suivante
+Alors le contenu des crochets se décompose de la manière suivante
 
 ```nasm
 ebx + 2*ecx = 0x80000004
