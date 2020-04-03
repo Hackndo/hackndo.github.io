@@ -19,7 +19,7 @@ Suite à l'article sur la [délégation Kerberos](/constrained-unconstrained-del
 
 ## Rappels : Unconstrained Delegation
 
-Comme nous l'avons vu dans l'article sur la [délégation Kerberos](/constrained-unconstrained-delegation), lorsqu'un compte possède le drapeau "Unconstrained Delegation" (`ADS_UF_TRUSTED_FOR_DELEGATION`), si les informations d'authentification de l'utilisateur faisant une demande de TGS pour un service proposé par ce compte peuvent être relayées, alors le contrôleur de domaine va répondre à l'utilisateur avec un [KRB_TGS_REQ](/kerberos/#krb_tgs_req) contenant les informations classiques telles que le TGS, mais il va également intégrer dans sa réponse **une copie du TGT** de l'utilisateur, ainsi qu'une nouvelle clé de session associée.
+Comme nous l'avons vu dans l'article sur la [délégation Kerberos](/constrained-unconstrained-delegation), lorsqu'un compte possède le drapeau "Unconstrained Delegation" (`ADS_UF_TRUSTED_FOR_DELEGATION`), si les informations d'authentification de l'utilisateur faisant une demande de TGS pour un service proposé par ce compte peuvent être relayées, alors le contrôleur de domaine va répondre à l'utilisateur avec un [KRB_TGS_REP](/kerberos/#krb_tgs_rep) contenant les informations classiques telles que le TGS, mais il va également intégrer dans sa réponse **une copie du TGT** de l'utilisateur, ainsi qu'une nouvelle clé de session associée.
 
 [![Unconstrained Delegation](/assets/uploads/2019/02/cop_tgt.png)](/assets/uploads/2019/02/cop_tgt.png)
 
