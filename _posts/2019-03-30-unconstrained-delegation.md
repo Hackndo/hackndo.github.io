@@ -5,11 +5,13 @@ author: "Pixis"
 layout: post
 permalink: /constrained-unconstrained-delegation/
 disqus_identifier: 0000-0000-0000-00ab
-cover: assets/uploads/2019/02/impersonation.png
+cover: assets/uploads/2019/02/delegation_banner.png
 description: "Au sein d'un Active Directory, des services peuvent être utilisés par des utilisateurs. Il arrive parfois que ces services doivent en contacter d'autres, au nom de l'utilisateur, comme un service web pourrait avoir besoin de contacter un serveur de fichiers. Afin d'autoriser un service à accéder à un autre service au nom de l'utilisateur, une solution a été mise en place : La délégation Kerberos."
 tags:
   - "Active Directory"
   - Windows
+translation:
+  - en
 ---
 
 Au sein d'un Active Directory, des services peuvent être utilisés par des utilisateurs. Il arrive parfois que ces services doivent en contacter d'autres, au nom de l'utilisateur, comme un service web pourrait avoir besoin de contacter un serveur de fichiers. Afin d'autoriser un service à accéder à un autre service **au nom de l'utilisateur**, une solution a été mise en place (introduite à partir de Windows Server 2000) pour répondre à ce besoin : **La délégation Kerberos.**
@@ -34,9 +36,9 @@ La possibilité de relayer des identifiants peut être donnée à une machine ou
 
 Il existe aujourd'hui trois manières d'autoriser une machine ou un compte de service de prendre la place d'un utilisateur pour communiquer avec un ou plusieurs autre(s) service(s) : La **Unconstrained Delegation**, la **Constrained Delegation** et la **Resource Based Constrained Delegation**.
 
-### Kerberos Unconstrained Delegation - KUD
+### Kerberos Unconstrained Delegation
 
-Dans le cas d'une **Unconstrained Delegation** (KUD), le serveur ou le compte de service qui se voit attribuer ce droit est en mesure de se faire passer pour l'utilisateur pour communiquer avec **n'importe quel service** sur **n'importe quelle machine**.
+Dans le cas d'une **Unconstrained Delegation**, le serveur ou le compte de service qui se voit attribuer ce droit est en mesure de se faire passer pour l'utilisateur pour communiquer avec **n'importe quel service** sur **n'importe quelle machine**.
 
 C'est historiquement le seul choix qu'il y avait lors de l'instauration du principe de délégation, mais il a été complété par le principe de la **Constrained Delegation**.
 
@@ -47,9 +49,9 @@ Voici un exemple, dans mon lab, d'une machine qui est en **Unconstrained Delegat
 
 [![Unconstrained Delegation](/assets/uploads/2019/02/unconstrained_delegation.png)](/assets/uploads/2019/02/unconstrained_delegation.png)
 
-### Kerberos Constrained Delegation - KCD
+### Kerberos Constrained Delegation
 
-Si une machine ou un compte de service possède le flag **Constrained Delegation** (KCD), alors une liste de services autorisés sera associée à ce droit. Par exemple, dans le cas du serveur web de l'introduction, la machine hébergeant le serveur web aura le drapeau **KCD** avec comme précision que ce serveur ne peut relayer les informations de l'utilisateur qu'au service `CIFS` du serveur `SERVEUR01`.
+Si une machine ou un compte de service possède le flag **Constrained Delegation**, alors une liste de services autorisés sera associée à ce droit. Par exemple, dans le cas du serveur web de l'introduction, la machine hébergeant le serveur web aura le drapeau **Constrained Delegation** avec comme précision que ce serveur ne peut relayer les informations de l'utilisateur qu'au service `CIFS` du serveur `SERVEUR01`.
 
 [![Constrained Delegation](/assets/uploads/2019/02/constrained_delegation_schema.png)](/assets/uploads/2019/02/constrained_delegation_schema.png)
 
@@ -61,47 +63,42 @@ Dans mon lab, le serveur web est `WEB-SERVER-01` et celui qui possède le partag
 
 [![Delegation CIFS](/assets/uploads/2019/02/delegation_cifs.png)](/assets/uploads/2019/02/delegation_cifs.png)
 
-**\<note\>**
 
-De ma compréhension, le statut délégation ne peut être appliqué qu'à une machine ou un utilisateur de service (i.e. ayant au moins un attribut [SPN](/service-principal-name-spn)).
-- Dans le premier cas (Machine), cela implique que **tous** les services hébergés sur la machine peuvent relayer les informations de l'utilisateur.
-- Dans le deuxième cas (compte de service), cela veut dire que quel que soit le serveur sur lequel tournent les services exécutés par ce compte de service, ils -- ces services -- auront tous la possibilité de délégation.
+### Resource Based Kerberos Constrained Delegation - RBCD
 
-Je trouve ce comportement étonnant, j'aurais pensé qu'il était possible de décider que seul un service précis sur une machine précise pouvait relayer les informations de l'utilisateur, mais il me semble, en l'état, que cette granularité n'existe pas.
-
-Si ma compréhension est incorrecte, n'hésitez pas à me le remonter dans les commentaires ou sur [twitter](https://twitter.com/HackAndDo).
-
-**\</note\>**
-
-### Resource Based Kerberos Constrained Delegation - RBKCD
-
-Enfin, nous avons le cas de la **Resource Based Constrained Delegation** (RBKCD). Apparue avec Windows Server 2012, cette solution permet de palier à quelques problèmes liés à la **KCD** (Responsabilité, délégation inter-domaines, ...). Sans trop aller dans les détails, la responsabilité de la délégation est déplacée. Alors que dans **KCD**, c'est au niveau du serveur qui délègue qu'on indique les [SPN](/service-principal-name-spn) autorisés, dans le cas du **RBKCD**, c'est au niveau des services finaux qu'on indique la liste des services qui peuvent communiquer avec eux via délégation. Ainsi, le schéma est le suivant :
+Enfin, nous avons le cas de la **Resource Based Constrained Delegation** (RBCD). Apparue avec Windows Server 2012, cette solution permet de palier à quelques problèmes liés à la délégation contrainte classique (Responsabilité, délégation inter-domaines, ...). Sans trop aller dans les détails, la responsabilité de la délégation est déplacée. Alors que dans délégation contrainte, c'est au niveau du serveur qui délègue qu'on indique la liste des [SPN](/service-principal-name-spn) autorisés, dans le cas du **RBCD**, c'est au niveau des services finaux qu'on indique la liste des services qui peuvent communiquer avec eux via délégation. Ainsi, le schéma est le suivant :
 
 [![Resource Based Constrained Delegation](/assets/uploads/2019/02/resource_based_constrained_delegation_schema.png)](/assets/uploads/2019/02/resource_based_constrained_delegation_schema.png)
 
-La responsabilité est déplacée, c'est au niveau du serveur qui reçoit les connexions avec délégation que se trouve l'information de si oui ou non cette délégation est acceptée.
+La responsabilité est déplacée, c'est au niveau de la ressource qui reçoit les connexions avec délégation que se trouve l'information de si oui ou non cette délégation est acceptée.
 
-En d'autres termes, c'est le service final qui dit "j'autorise cette liste de compte [...] à s'authentifier chez moi au nom d'un utilisateur".
+En d'autres termes, c'est la ressource finale qui dit "j'autorise cette liste de comptes [...] à s'authentifier chez moi au nom d'un utilisateur".
 
 ## Détails techniques
 
-Maintenant que le principe est compris (du moins je l'espère), nous allons détailler un peu ce process. Concrètement, comment est-ce qu'une machine ou un compte peut se faire passer pour un utilisateur auprès d'un service ? C'est ce que nous allons voir maintenant. Les détails entre les différentes techniques sont relativement différents, c'est pourquoi chacune d'entre elle sera expliquée séparemment. Accrochez vous, *it's gonna get dirty*.
+Maintenant que le principe est compris (du moins je l'espère), nous allons détailler un peu ce process. Concrètement, comment est-ce qu'une machine ou un compte peut se faire passer pour un utilisateur auprès d'une ressource ? C'est ce que nous allons voir maintenant. Les détails entre les différentes techniques sont relativement différents, c'est pourquoi chacune d'entre elle sera expliquée séparemment. Accrochez vous, *it's gonna get dirty*.
 
-### Kerberos Unconstrained Delegation - KUD
+### Kerberos Unconstrained Delegation 
 
 Comme nous l'avons vu, dans ce cas, le serveur ou le compte de service peut s'authentifier au nom de l'utilisateur auprès de n'importe quel autre service. Pour que cela soit possible, il faut deux prérequis :
 
-* Le premier est que le compte qui veut déléguer une authentification possède le drapeau `ADS_UF_TRUSTED_FOR_DELEGATION` présent dans [ADS_USER_FLAG_ENUM](https://docs.microsoft.com/en-us/windows/desktop/api/iads/ne-iads-ads_user_flag). Pour pouvoir changer cette information, il faut avoir le droit `SeEnableDelegationPrivilege` qui est la plupart du temps seulement existant pour les administrateurs de domaine. Voici comment ce drapeau est placé sur le compte (machine ou compte de service):
+* Le premier est que le compte qui veut déléguer une authentification possède le drapeau `TRUSTED_FOR_DELEGATION` dans la liste des drapeaux [UAC - User Account Control](https://docs.microsoft.com/en-us/windows/win32/adschema/a-useraccountcontrol?redirectedfrom=MSDN). Pour pouvoir changer cette information sur un compte de service, il faut avoir le droit `SeEnableDelegationPrivilege` qui est la plupart du temps seulement existant pour les administrateurs de domaine. Voici comment ce drapeau est placé sur le compte (machine ou compte de service):
 
 [![Unconstrained Delegation](/assets/uploads/2019/02/unconstrained_delegation.png)](/assets/uploads/2019/02/unconstrained_delegation.png)
 
+Une fois placé, nous pouvons voir les drapeaux UAC et constater que `TRUSTED_FOR_DELEGATION` est bien présent.
 
-* Le deuxième est que le compte utilisateur qui va être relayé soit effectivement "relayable". Pour cela, il **ne faut pas** faut que le drapeau [ADS_UF_NOT_DELEGATED](https://docs.microsoft.com/en-us/windows/desktop/api/iads/ne-iads-ads_user_flag) soit positionné. Par défaut, aucun compte de l'AD n'a ce drapeau de positionné, ils sont donc tous "relayables".
+[![Unconstrained Delegation UAC](/assets/uploads/2020/04/UAC_UD.png)](/assets/uploads/2020/04/UAC_UD.png)
 
-Concrètement, lors des échanges avec le contrôleur de domaine tels que décrits dans l'article [Kerberos en Active Directory](/kerberos), lorsque l'utilisateur fait une demande de TGS ([KRB_TGS_REQ](/kerberos/#krb_tgs_req)), il précisera le [SPN](/service-principal-name-spn) du service qu'il souhaite consommer. C'est à ce moment que le contrôleur de domaine va chercher les deux prérequis :
 
-* Est-ce que le drapeau `ADS_UF_TRUSTED_FOR_DELEGATION` est positionné dans les attributs du compte associé au [SPN](/service-principal-name-spn) 
-* Est-ce que le drapeau `ADS_UF_NOT_DELEGATED` n'est **pas** positionné pour l'utilisateur qui fait la demande
+* Le deuxième est que le compte utilisateur qui va être relayé soit effectivement "relayable". Pour cela, il **ne faut pas** faut que le drapeau [NOT_DELEGATED](https://docs.microsoft.com/en-us/windows/desktop/api/iads/ne-iads-ads_user_flag) soit positionné. Par défaut, aucun compte de l'AD n'a ce drapeau de positionné, ils sont donc tous "relayables".
+
+[![Not delegated flag unset](/assets/uploads/2020/04/UAC_user_not_delegated.png)](/assets/uploads/2020/04/UAC_user_not_delegated.png)
+
+Concrètement, lors des échanges avec le contrôleur de domaine tels que décrits dans l'article [Kerberos en Active Directory](/kerberos), lorsque l'utilisateur fait une demande de TGS ([KRB_TGS_REQ](/kerberos/#krb_tgs_req)), il précisera le [SPN](/service-principal-name-spn) du service qu'il souhaite utiliser. C'est à ce moment que le contrôleur de domaine va chercher les deux prérequis :
+
+* Est-ce que le drapeau `TRUSTED_FOR_DELEGATION` est positionné dans les attributs du compte associé au [SPN](/service-principal-name-spn) 
+* Est-ce que le drapeau `NOT_DELEGATED` n'est **pas** positionné pour l'utilisateur qui fait la demande
 
 Si les deux prérequis sont vérifiés, alors le contrôleur de domaine va répondre à l'utilisateur avec un [KRB_TGS_REQ](/kerberos/#krb_tgs_req) contenant les informations classiques, mais il va également intégrer dans sa réponse **une copie du TGT** de l'utilisateur, ainsi qu'une nouvelle clé de session associée.
 
@@ -111,7 +108,7 @@ Une fois en possession de ces éléments, l'utilisateur va continuer le processu
 
 [![TGT Memory](/assets/uploads/2019/02/tgt_memory.png)](/assets/uploads/2019/02/tgt_memory.png)
 
-En effet, maintenant en possession d'une copie du TGT de l'utilisateur ainsi que d'une clé de session valide, le service peut s'authentifier auprès de n'importe quel autre service au nom de l'utilisateur en faisant une demande de TGS au contrôleur de domaine, en lui fournissant ce TGT et en chiffrant un authentifiant avec la clé de session. C'est le principe de la **Unconstrained Delegation**.
+En effet, maintenant en possession d'une copie du TGT de l'utilisateur ainsi que d'une clé de session valide, le service peut s'authentifier auprès de n'importe quel autre service au nom de l'utilisateur en faisant une demande de TGS au contrôleur de domaine, en lui fournissant ce TGT et en chiffrant un authentifiant avec la clé de session. C'est le principe de la délégation sans contrainte, ou **Unconstrained Delegation**.
 
 Voici un schéma récapitulatif :
 
@@ -120,31 +117,44 @@ Voici un schéma récapitulatif :
 
 ### Kerberos Constrained Delegation
 
-Pour la **Constrained Delegation**, une liste de [SPN](/service-principal-name-spn) ou de comptes autorisés sera fournie pour indiquer les services/comptes acceptés pour la délégation. De ce fait, le processus n'est pas le même. Le service concerné ne sera pas en possession du TGT de l'utilisateur, sinon il n'y a aucun moyen de contrôler les authentifications du service. Un mécanisme différent est utilisé.
+Pour la délégation contrainte, ou **Constrained Delegation**, une liste de [SPN](/service-principal-name-spn) est fournie pour indiquer les ressources acceptées pour la délégation. De ce fait, le processus n'est pas le même. Le service concerné ne sera pas en possession du TGT de l'utilisateur, sinon il n'y a aucun moyen de contrôler ses authentifications. Un mécanisme différent est utilisé.
 
-Mettons nous dans le cas où l'utilisateur s'authentifie auprès du `Service A` puis que ce `Service A` doit s'authentifier auprès du `Service B` en tant que l'utilisateur.
+Mettons nous dans le cas où l'utilisateur s'authentifie auprès du `Service A` puis que ce `Service A` doit s'authentifier auprès de la ressource `Ressource B` en tant que l'utilisateur.
 
-L'utilisateur fait une requête de TGS, puis l'envoie au `Service A`. Ce service devant s'authentifier en tant que l'utilisateur auprès de `Service B`, il va demander un TGS au KDC au nom de l'utilisateur. Cette demande est régie par l'extension [S4U2Proxy](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/bde93b0e-f3c9-4ddf-9f44-e1453be7af5a). Pour indiquer au contrôleur de domaine qu'il veut s'authentifier au nom de quelqu'un d'autre, deux attributs seront définis dans la demande de ticket [KRB_TGS_REQ](/kerberos/#krb_tgs_req) :
+L'utilisateur fait une requête de TGS, puis l'envoie au `Service A`. Ce service devant s'authentifier en tant que l'utilisateur auprès de `Ressource B`, il va demander un TGS au contrôleur de domaine au nom de l'utilisateur. Cette demande est régie par l'extension [S4U2Proxy](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/bde93b0e-f3c9-4ddf-9f44-e1453be7af5a). Pour indiquer au contrôleur de domaine qu'il veut s'authentifier au nom de quelqu'un d'autre, deux attributs seront définis dans la demande de ticket [KRB_TGS_REQ](/kerberos/#krb_tgs_req) :
 
-* le champ `additional-tickets`, d'habitude vide, doit cette fois contenir le TGS de l'utilisateur en question (sous condition que le drapeau `ADS_UF_NOT_DELEGATED` ne soit **pas** positionné pour l'utilisateur qui fait la demande. Si c'était le cas, le TGS de l'utilisateur ne serait pas `forwardable`, et le contrôleur de domaine ne l'accepterait pas dans la suite du processus)
-* Le drapeau [cname-in-addl-tkt](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/17b9af82-d45a-437d-a05c-79547fe969f5), qui doit être positionné pour indiquer au DC qu'il ne doit pas utiliser les informations du serveur, mais celle du ticket présent dans `additional-tickets`, c'est à dire les informations de l'utilisateur pour lequel le service veut se faire passer.
+* le champ `additional-tickets`, d'habitude vide, doit cette fois contenir le TGS de l'utilisateur en question (sous condition que le drapeau `NOT_DELEGATED` ne soit **pas** positionné pour l'utilisateur qui fait la demande. Si c'était le cas, le TGS de l'utilisateur ne serait pas `forwardable`, et le contrôleur de domaine ne l'accepterait pas dans la suite du processus)
+* Le drapeau [cname-in-addl-tkt](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/17b9af82-d45a-437d-a05c-79547fe969f5), qui doit être positionné pour indiquer au contrôleur de domaine qu'il ne doit pas utiliser les informations du serveur, mais celles du ticket présent dans `additional-tickets`, c'est à dire les informations de l'utilisateur pour lequel le service veut se faire passer.
 
-C'est lors de cette demande que le contrôleur de domaine, en voyant ces informations, va vérifier que `Service A` a le droit de s'authentifier auprès de `Service B` au nom de l'utilisateur.
+C'est lors de cette demande que le contrôleur de domaine, en voyant ces informations, va vérifier que `Service A` a le droit de s'authentifier auprès de `Ressource B` au nom de l'utilisateur.
 
 #### Constrained Delegation - Classique
 
-Dans le cas classique de **Constrained Delegation** (donc quand l'information est située au niveau de `Service A`), cette information est présente dans l'attribut [msDS-AllowedToDelegateTo](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-ada2/86261ca1-154c-41fb-8e5f-c6446e77daaa) **de l'objet (compte) demandeur**, donc de `Service A`, attribut qui spécifie la liste des [SPN](/service-principal-name-spn) autorisés pour la délégation. Par exemple ici l'attribut `msDS-AllowedToDelegateTo` contiendra `cifs/WEB-SERVER-02`.
+Dans le cas classique de **Constrained Delegation** (donc quand l'information est située au niveau de `Service A`), cette information est présente dans l'attribut [msDS-AllowedToDelegateTo](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-ada2/86261ca1-154c-41fb-8e5f-c6446e77daaa) **de l'objet (compte) demandeur**, donc de `Service A`, attribut qui spécifie la liste des [SPN](/service-principal-name-spn) autorisés pour la délégation.
 
 [![Delegation CIFS](/assets/uploads/2019/02/delegation_cifs.png)](/assets/uploads/2019/02/delegation_cifs.png)
 
-Si le [SPN](/service-principal-name-spn) cible est bien présent, alors le KDC renvoie un TGS valide, avec le nom de l'utilisateur, pour le service demandé. Voici un schéma récapitulatif :
+Par exemple ici l'attribut `msDS-AllowedToDelegateTo` contiendra `cifs/WEB-SERVER-02`.
+
+[![allowedToDelegateTo](/assets/uploads/2020/04/allowedToDelegateTo.png)](/assets/uploads/2020/04/allowedToDelegateTo.png)
+
+
+Si le [SPN](/service-principal-name-spn) cible est bien présent, alors le contrôleur de domaine renvoie un TGS valide, avec le nom de l'utilisateur, pour le service demandé. Voici un schéma récapitulatif :
 
 [![Constrained Delegation Detailed](/assets/uploads/2019/02/constrained_delegation_schema_detailed.png)](/assets/uploads/2019/02/constrained_delegation_schema_detailed.png)
 
 
 #### Constrained Delegation - Resource Based
 
-Le KDC va cette fois aller voir les attributs de **Service B** (et non plus de `Service A`). Il va vérifier que le compte associé à `Service A` est bien présent dans l'attribut [msDS-AllowedToActOnBehalfOfOtherIdentity](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-ada2/cea4ac11-a4b2-4f2d-84cc-aebb4a4ad405) du compte lié à `Service B`.
+Le contrôleur de domaine va cette fois aller voir les attributs de **Ressource B** (et non plus de `Service A`). Il va vérifier que le compte associé à `Service A` est bien présent dans l'attribut [msDS-AllowedToActOnBehalfOfOtherIdentity](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-ada2/cea4ac11-a4b2-4f2d-84cc-aebb4a4ad405) du compte lié à `Ressource B`.
+
+Pour mettre en place de la délégation sans contrainte basée sur une ressource, il faut le faire via Powershell.
+
+[![Set RBCD](/assets/uploads/2020/04/set_rbcd.png)](/assets/uploads/2020/04/set_rbcd.png)
+
+Nous ajoutons `WEB-SERVER-01` à la liste de confiance de `WEB-SERVER-02`. Le contenu de l'attribut **msDS-AllowedToActOnBehalfOfOtherIdentity** est alors mis à jour.
+
+Voici le schéma récapitulant le fonctionnement de RBCD.
 
 [![Resource Based Constrained Delegation Detailed](/assets/uploads/2019/02/resource_based_constrained_delegation_schema_detailed.png)](/assets/uploads/2019/02/resource_based_constrained_delegation_schema_detailed.png)
 
@@ -156,24 +166,29 @@ Si vous êtes encore là et que vous avez bien suivi, vous aurez remarqué que n
 
 C'est pourquoi il y a une étape supplémentaire, possible grâce à l'extension [S4U2Self](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/02636893-7a1f-4357-af9a-b672e3e3de13), que `Service A` doit effectuer. Cette étape lui permet d'obtenir un TGS pour un utilisateur **choisi arbitrairement**. Pour cela, il effectue une demande de TGS classique ([KRB_TGS_REQ](/kerberos/#krb_tgs_req)) sauf qu'au lieu de mettre son nom à lui dans le bloc `PA-FOR-USER` (présent dans la partie préauthentification), il met le nom d'un utilisateur **qu'il choisit**.
 
-Evidemment, on pourrait croire que c'est une capacité très puissante et dangereuse puisqu'en fait, pour tous services `S` et `T` pour lesquels il y aurait une délégation possible de `S` vers `T`, le `Service S` pourrait se faire passer pour n'importe quel utilisateur auprès de `Service T`. Heureusement, ce n'est pas le cas. En effet, si le drapeau [ADS_UF_TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION](https://docs.microsoft.com/en-us/windows/desktop/api/iads/ne-iads-ads_user_flag) n'est pas positionné sur l'objet associé au `Service S`, alors le ticket qu'il récupèrera ne sera pas tranférable (*forwardable*) et ne pourra donc pas être utilisé pour une délégation contrainte classique. Il existe un cas particulier pour la délégation Resource-Based, dont nous parlerons dans un autre article.
+Cette capacité à gérer une **transition de protocole** n'est acceptée par le contrôleur de domaine que si elle a explicitement été accordée au compte de service voulant gérer cette délégation. C'est ici, dans la gestion des délégation, qu'un administrateur peut choisir une délégation contrainte en utilisant uniquement Kerberos, donc sans transition de protocole, ou pouvant utiliser n'importe quel protocole, autorisant ainsi la **transition de protocole**.
 
-Pour que le compte puisse avoir ce drapeau, il faut le préciser ici dans l'interface graphique :
+[![Protocol transition](/assets/uploads/2020/04/protocol_transition.png)](/assets/uploads/2020/04/protocol_transition.png)
 
-[![Drapeau S4U2Self](/assets/uploads/2019/02/s4u2self_gui.png)](/assets/uploads/2019/02/s4u2self_gui.png)
+Dans le premier cas, le drapeau **TRUSTED_FOR_DELEGATION** qui est positionné sur le compte, et le service ne peut que relayer les authentification kerberos. Il ne peut pas utiliser l'extension S4U2Self pour créer un ticket factice.
 
-Attention, le schéma récapitulatif se complique, mais j'espère qu'il reste relativement clair.
+Dans le deuxième cas, c'est le drapeau **TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION** qui est positionné. Si c'est le cas, alors le service ayant cette capacité **peut se faire passer pour n'importe qui** auprès des services présents dans sa liste via l'extension **S4U2Self**.
+
+Attention, le schéma de la délégation contrainte se complique un peu, mais j'espère qu'il reste relativement clair.
 
 [![S4U2Self](/assets/uploads/2019/02/s4u2self.png)](/assets/uploads/2019/02/s4u2self.png)
 
-
-D'expérience, il est rare de trouver des comptes au sein d'un domaine qui possèdent ce drapeau. Si cependant un compte de ce type est compromis, alors tous les services auxquels ce compte est en droit de s'authentifier via délégation seront également compromis, puisque l'attaquant peut créer des tickets de service au nom d'utilisateurs arbitraires, notamment des utilisateurs administrateurs des services ciblés.
+Si un compte de ce type est compromis, alors tous les services auxquels ce compte est en droit de s'authentifier via délégation seront également compromis, puisque l'attaquant peut créer des tickets de service au nom d'utilisateurs arbitraires, notamment des utilisateurs administrateurs des services ciblés.
 
 ## Conclusion
 
-Je pensais faire un article qui allait décrire le principe de Constrained et Unconstrained Delegation ainsi que les attaques associées, cependant les explications sont beaucoup plus denses que prévues, ainsi cet article reste consacré à l'explication. Les attaques associées seront présentées dans d'autres articles, que je citerai ici, au fil de leurs sorties.
+Je pensais faire un article qui allait décrire le principe de la délégation kerberos ainsi que les attaques associées, cependant les explications sont beaucoup plus denses que prévues, ainsi cet article reste consacré à l'explication. Les attaques associées seront présentées dans d'autres articles.
 
-* [Unconstrained Delegation - Risques](/unconstrained-delegation-attack)
+Pour résumer, il existe trois types de délégation :
+
+1. **Délégation sans contrainte** : Dans ce cas de figure, le client envoie une copie de son TGT à un service, et ce service pour l'utiliser pour se faire passer pour le client auprès de qui il souhaite. Seul un administrateur peut appliquer cette option
+2. **Délégation contrainte** : Une liste de ressources est imposée au service qui souhaitera déléguer une authentification. Si par ailleurs la **transition de protocole** est autorisée, alors le service peut se faire passer pour n'importe qui auprès des ressources présentes dans sa liste. Quoiqu'il en soit, seul un administrateur peut appliquer cette option.
+3. **Délégation contrainte basée sur les ressources** : C'est au niveau de la ressource finale qu'il y a une liste de confiance. Tous les comptes présents dans cette liste peuvent déléguer une authentification et accéder à la ressource. Les ressources sont maitres de leur liste, elles peuvent les modifier comme bon leur semble.
 
 Si vous avez des questions ou remarques, n'hésitez pas, je suis tout ouïe.
 
