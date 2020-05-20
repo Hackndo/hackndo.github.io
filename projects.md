@@ -9,7 +9,23 @@ permalink: /projects/
 **Python3.6+** library to remotely parse lsass dump and extract credentials. Also contains CrackMapExec module to automatically
 execute procdump on remote hosts before extracting credentials.
 
-![lsassy](https://raw.githubusercontent.com/Hackndo/lsassy/master/assets/cme_lsassy.gif){:target="blank"}
+![lsassy](https://github.com/Hackndo/lsassy/raw/master/assets/example.png){:target="blank"}
+
+***
+
+### [pyGPOAbuse](https://github.com/Hackndo/pyGPOAbuse){:target="blank"}
+
+This tool can be used when a controlled account can modify an existing GPO that applies to one or more users & computers. It will create an immediate scheduled task as SYSTEM on the remote computer for computer GPO, or as logged in user for user GPO.
+
+![pygpoabuse](https://github.com/Hackndo/pygpoabuse/raw/master/assets/demo.gif){:target="blank"}
+
+***
+
+### [SprayHound](https://github.com/Hackndo/sprayhound){:target="blank"}
+
+Python library to safely password spray in Active Directory, set pwned users as owned in Bloodhound and detect path to Domain Admins
+
+![sprayhound](https://raw.githubusercontent.com/Hackndo/sprayhound/master/asssets/example.gif){:target="blank"}
 
 ***
 
