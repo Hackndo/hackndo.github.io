@@ -100,7 +100,7 @@ Concrètement, lors des échanges avec le contrôleur de domaine tels que décri
 * Est-ce que le drapeau `TRUSTED_FOR_DELEGATION` est positionné dans les attributs du compte associé au [SPN](/service-principal-name-spn) 
 * Est-ce que le drapeau `NOT_DELEGATED` n'est **pas** positionné pour l'utilisateur qui fait la demande
 
-Si les deux prérequis sont vérifiés, alors le contrôleur de domaine va répondre à l'utilisateur avec un [KRB_TGS_REQ](/kerberos/#krb_tgs_req) contenant les informations classiques, mais il va également intégrer dans sa réponse **une copie du TGT** de l'utilisateur, ainsi qu'une nouvelle clé de session associée.
+Si les deux prérequis sont vérifiés, alors le contrôleur de domaine va répondre à l'utilisateur avec un [KRB_TGS_REP](/kerberos/#krb_tgs_rep) contenant les informations classiques, mais il va également intégrer dans sa réponse **une copie du TGT** de l'utilisateur, ainsi qu'une nouvelle clé de session associée.
 
 [![TGT Copy](/assets/uploads/2019/02/cop_tgt.png)](/assets/uploads/2019/02/cop_tgt.png)
 
