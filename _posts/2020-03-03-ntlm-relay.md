@@ -523,6 +523,7 @@ Pour vous donner une idée, voici comment est calculée la clé de session pour 
 Clé = MD4(Hash NT)
 
 # Pour NTLMv2
+Hash NTLMv2 = HMAC_MD5(hash NT, Uppercase(Username) + UserDomain)
 Clé = HMAC_MD5(Hash NTLMv2, HMAC_MD5(Hash NTLMv2, Réponse NTLMv2 + Challenge))
 ```
 
