@@ -61,6 +61,8 @@ Cela peut se faire avec l'outil [ASREPRoast](https://github.com/HarmJ0y/ASREPRoa
 
 Une fois en possession de la réponse du KDC [KRB_AS_REP](/kerberos/#krb_tgs_rep), l'attaquant peut tenter de trouver en mode hors-ligne le mot de passe en clair de la victime ciblée, par exemple en utilisant John The Ripper avec le format `krb5tgs`.
 
+Du côté Linux, il existe également l'outil [GetNPUsers.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetNPUsers.py) de la suite Impacket qui permet de trouver les utilisateurs avec la préauthentification désactivée.
+
 ## Conclusion
 
 Cette technique, décrite dans un [article](https://www.harmj0y.net/blog/activedirectory/roasting-as-reps/) de [Harmj0y](https://twitter.com/harmj0y), est un moyen parmi beaucoup de récupérer des mots de passe en clair au sein d'un environnement Active Directory. Si des comptes à privilèges sont paramétrés pour ne pas nécessiter une pré-authentification, un attaquant peut simplement requêter un TGT pour ce compte et tenter de retrouver en mode hors-ligne le mot de passe du compte. Avec des machines puissantes, la vitesse de cracking peut devenir colossale. Notons cependant que les comptes n'ayant pas de pré-authentification nécessaire sont rares. Ils peuvent exister pour des raisons historiques, mais cette technique reste moins généralisable que le [kerberoasting](/kerberoasting)
