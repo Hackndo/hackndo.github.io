@@ -134,7 +134,7 @@ Voici le plan d'action que l'attaquant peut suivre
 
 ### Création de l'exécutable malveillant
 
-Nous allons créer une exécutable malveillant qui va se faire passer pour un logiciel permettant de mettre à jour Adobe Flash, mais qui véritablement se connectera à la machine de l'attaquant pour lui donner la main sur la machine de la victime à distance. Nous n'allons pas faire quelque chose de très compliqué, et seulement le nom du programme permettra de leurrer les victimes.
+Nous allons créer un exécutable malveillant qui va se faire passer pour un logiciel permettant de mettre à jour Adobe Flash, mais qui véritablement se connectera à la machine de l'attaquant pour lui donner la main sur la machine de la victime à distance. Nous n'allons pas faire quelque chose de très compliqué, et seulement le nom du programme permettra de leurrer les victimes.
 
 Nous utilisons le `Social Engineering Toolkit` pour parvenir à nos fins en créant un `Windows Reverse_TCP Meterpreter`. Si vous avez compris l'environnement dans lequel nous nous trouvons, cet exécutable doit se connecter à l'adresse de l'attaquant lorsqu'il est exécuté, adresse qui est 192.168.1.104, par exemple sur le port 6666.
 
