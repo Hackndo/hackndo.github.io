@@ -322,7 +322,7 @@ def decipher(cipher):
 """
 Ajoute le padding en fonction de la taille d'un bloc
 """
-def set_padding(data, size_block=128):
+def set_padding(data, size_block=BLOCK_SIZE):
     if size_block % 8 != 0:
         return False
     size_block_byte = size_block//8
@@ -350,14 +350,14 @@ def is_padding_valid(data):
 """
 Découpe un buffer en blocs en fonction de la taille fournie
 """
-def get_blocks(data, size_block=128):
-    return [data[i*(128//8):(i+1)*(128//8)] for i in range(len(data)//(128//8))]
+def get_blocks(data, size_block=BLOCK_SIZE):
+    return [data[i*(size_block//8):(i+1)*(size_block//8)] for i in range(len(data)//(size_block//8))]
 
 """
 Déchiffrement du message
 Si l'IV est fourni, alors le premier bloc est également déchiffré
 """
-def decrypt(cipher, IV=None, block_size=128):
+def decrypt(cipher, IV=None, block_size=BLOCK_SIZE):
     cipher_blocks = get_blocks(cipher)
     res = b""
     if IV is not None:
