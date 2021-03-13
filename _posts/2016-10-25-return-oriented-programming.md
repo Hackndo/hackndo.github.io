@@ -120,19 +120,19 @@ Ainsi, lorsque les instructions que nous voulons effectuer ont été exécutées
 Voici un exemple concret. Imaginons que dans l'ensemble des instructions de mon binaire, je trouve à différents endroits les instructions suivantes
 
 ```bash
-# 0x08041234 Instructions 1
+# 0x08041234 Instruction 1
 INC   EAX
 RET
 
-# 0x08046666 Instructions 2
+# 0x08046666 Instruction 2
 XOR   EAX, EAX
 RET
 
-# 0x08041337 Instructions 3
+# 0x08041337 Instruction 3
 POP   EBX
 RET
 
-# 0x08044242 Instructions 4
+# 0x08044242 Instruction 4
 INT   0x80
 ```
 
@@ -162,7 +162,7 @@ Nous allons donc rediriger le flux d'exécution vers la première instruction qu
 Le flux d'exécution va être redirigé vers les instructions
 
 ```bash
-# 0x08041234 Instructions 1
+# 0x08041234 Instruction 1
 XOR    EAX, EAX
 RET
 ```
