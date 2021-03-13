@@ -467,7 +467,7 @@ You password is incorrect
 $ 
 ```
 
-ROP, c'est super chouette, amusez vous avec ça. Dans mon exemple, je n'avais malheureusement pas de gadget de la form
+ROP, c'est super chouette, amusez vous avec ça. Dans mon exemple, je n'avais malheureusement pas de gadget de la forme
 
 ```bash
 int 0x80
