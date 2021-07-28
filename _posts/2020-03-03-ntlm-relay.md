@@ -628,8 +628,6 @@ Comme il existe beaucoup de cas, voici un tableau qui en résume certains.
 
 Concernant LDAPS ou HTTPS en client, je les ai mis dans le tableau, sous réserve que la CA qui a généré le certificat de l'attaquant soit acceptée par le client. Par ailleurs, d'autres protocoles pourraient être ajoutés, comme SQL ou SMTP, mais j'avoue ne pas avoir lu la documentations de tous les protocoles de la planète.
 
-Pour les cases grises, je ne sais pas comment réagit un serveur HTTPS lorsqu'il reçoit une authentification avec le drapeau `NEGOCIATE_SIGN` à **1**.
-
 ## Bannir. NTLMv1.
 
 J'ajoute un petit fun fact que m'a suggéré d'ajouter [Marina Simakov](https://twitter.com/simakov_marina), c'est que comme on l'a vu, le hash NTLMv2 d'un client prend en compte le challenge du serveur, mais aussi notamment le drapeau `msAvFlags` qui indique la présence ou non d'un MIC, ou le champ indiquant le nom de la machine cible lors de l'authentification, ou encore le SPN ou le CBT pour le channel binding.
