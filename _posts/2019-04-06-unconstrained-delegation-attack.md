@@ -98,4 +98,4 @@ Il y aura toujours un événement 4624 sur le serveur, mais aucune copie de TGT 
 
 [![DCSync](/assets/uploads/2019/04/no_ticket.png)](/assets/uploads/2019/04/no_ticket.png)
 
-J'espère que cet article vous a plu, si vous avez des remarques ou des questions, n'hésitez pas à les poser ici ou sur [Discord](https://discord.gg/NyjPhRb){:target="blank"}. Vous pouvez toujours suivre la sortie de nouveaux articles sur mon twitter [@hackanddo](https://twitter.com/HackAndDo){:target="blank"}.
+J'espère que cet article vous a plu, si vous avez des remarques ou des questions, n'hésitez pas à les poser ici ou sur [Discord](https://discord.hackndo.com){:target="blank"}. Vous pouvez toujours suivre la sortie de nouveaux articles sur mon twitter [@hackanddo](https://twitter.com/HackAndDo){:target="blank"}.

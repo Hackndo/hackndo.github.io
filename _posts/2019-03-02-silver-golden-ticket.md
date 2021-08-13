@@ -220,7 +220,7 @@ Active Directory Domination](https://www.blackhat.com/docs/us-17/thursday/us-17-
 
 Cet article permet de clarifier les notions de PAC, Silver Ticket, Golden Ticket, ainsi que les différentes méthodes de chiffrement utilisées dans les échanges. Ces notions sont essentielles pour comprendre les attaques Kerberos dans un Active Directory.
 
-N'hésitez pas à laisser un commentaire ou à me retrouver sur le [serveur Discord](https://discord.gg/NyjPhRb) du blog si vous avez des questions ou des idées !
+N'hésitez pas à laisser un commentaire ou à me retrouver sur le [serveur Discord](https://discord.hackndo.com) du blog si vous avez des questions ou des idées !
 
 ## Ressources
 

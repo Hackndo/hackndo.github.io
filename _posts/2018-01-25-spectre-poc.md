@@ -983,6 +983,6 @@ SECRET
 
 Vous trouverez tous les codes sources sur [mon github](https://github.com/Hackndo/spectre-poc){:target="blank"}.
 
-J'espère que cet article vous aide à y voir encore plus clair. Comme d'habitude, n'hésitez pas à commenter ou à me retrouver sur [Discord](https://discord.gg/NyjPhRb){:target="blank"} pour plus d'informations, des remarques, des corrections, etc.
+J'espère que cet article vous aide à y voir encore plus clair. Comme d'habitude, n'hésitez pas à commenter ou à me retrouver sur [Discord](https://discord.hackndo.com){:target="blank"} pour plus d'informations, des remarques, des corrections, etc.
 
 Je tenais à remercier [Gynvael](https://twitter.com/gynvael){:target="blank"} pour le [live](https://www.youtube.com/watch?v=0o6MoJ2gHHI){:target="blank"} qu'il a fait sur le sujet, me permettant de combler les trous manquant afin de terminer cet article.
