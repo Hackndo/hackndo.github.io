@@ -260,7 +260,6 @@ Ce qu'il faut retenir, c'est qu'il existe une commande SMB spécifique possédan
 Voici un exemple de packet SMB contenant la réponse d'un serveur à une authentification.
 
 [![NTLM dans un packet SMB](/assets/uploads/2020/03/ntlm_smb_pcap_example.png)](/assets/uploads/2020/03/ntlm_smb_pcap_example.png)
-HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanmanServer\Parameters
 
 Ces deux exemples montrent bien que le contenu des messages NTLM est indépendant du protocole. Il peut être inclus dans n'importe quel protocole qui le supporte.
 
