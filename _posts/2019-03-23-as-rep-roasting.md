@@ -59,7 +59,7 @@ Cela peut se faire avec l'outil [ASREPRoast](https://github.com/HarmJ0y/ASREPRoa
 
 [![ASREPRoast](/assets/uploads/2019/02/attackasrep.png)](/assets/uploads/2019/02/attackasrep.png)
 
-Une fois en possession de la réponse du KDC [KRB_AS_REP](/kerberos/#krb_tgs_rep), l'attaquant peut tenter de trouver en mode hors-ligne le mot de passe en clair de la victime ciblée, par exemple en utilisant John The Ripper avec le format `krb5tgs`.
+Une fois en possession de la réponse du KDC [KRB_AS_REP](/kerberos/#krb_tgs_rep), l'attaquant peut tenter de trouver en mode hors-ligne le mot de passe en clair de la victime ciblée, par exemple en utilisant John The Ripper avec le format `krb5asrep`.
 
 Du côté Linux, il existe également l'outil [GetNPUsers.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetNPUsers.py) de la suite Impacket qui permet de trouver les utilisateurs avec la préauthentification désactivée.
 
