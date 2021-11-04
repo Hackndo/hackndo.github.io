@@ -9,7 +9,7 @@ permalink: /projects/
 **Python3.6+** library to remotely parse lsass dump and extract credentials. Also contains CrackMapExec module to automatically
 execute procdump on remote hosts before extracting credentials.
 
-![lsassy](https://github.com/Hackndo/lsassy/raw/master/assets/example.png){:target="blank"}
+<a href="https://asciinema.org/a/441582?autoplay=1" rel="nofollow"><img src="https://camo.githubusercontent.com/b1a232c994617771cfd3f34dcbe385b42b6c3be0f717a9a3fdf632121a2b445d/68747470733a2f2f61736369696e656d612e6f72672f612f3434313538322e737667" width="80%" data-canonical-src="https://asciinema.org/a/441582.svg" style="max-width: 100%;"></a>
 
 ***
 
