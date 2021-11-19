@@ -497,9 +497,9 @@ Vous l'aurez donc compris, en l'état, nous ne pouvons rien faire dans ce cas l�
 
 ### Drop the MIC
 
-Un petit retour sur une vulnérabilité récente trouvée par [Preempt](https://www.preempt.com) que vous comprendrez aisément maintenant.
+Un petit retour sur une vulnérabilité récente trouvée par Preempt que vous comprendrez aisément maintenant.
 
-C'est la [CVE-2019-1040](https://www.preempt.com/blog/drop-the-mic-cve-2019-1040/) joliement nommée **Drop the MIC**. Cette vulnérabilité montrait que dans le cas où on ne faisait que retirer le MIC, même si le drapeau indiquait sa présence, le serveur acceptait l'authentification sans broncher. C'était évidemment un bug qui a été corrigé depuis.
+C'est la CVE-2019-1040 joliement nommée **Drop the MIC**. Cette vulnérabilité montrait que dans le cas où on ne faisait que retirer le MIC, même si le drapeau indiquait sa présence, le serveur acceptait l'authentification sans broncher. C'était évidemment un bug qui a été corrigé depuis.
 
 Elle a été intégrée dans l'outil [ntlmrelayx](https://github.com/SecureAuthCorp/impacket/blob/master/examples/ntlmrelayx.py) via l'utilisation du paramètre `--remove-mic`.
 
@@ -509,7 +509,7 @@ Reprenons alors notre exemple de tout à l'heure, mais cette fois avec un contr�
 
 Notre attaque fonctionne. Amazing.
 
-Pour information, une autre vunérabilité a été trouvée par la même équipe, et s'appelle logiquement [Drop The MIC 2](https://www.preempt.com/blog/drop-the-mic-2-active-directory-open-to-more-ntlm-attacks/)
+Pour information, une autre vunérabilité a été trouvée par la même équipe, et s'appelle logiquement Drop The MIC 2.
 
 ## Clé de session
 
@@ -551,8 +551,6 @@ C'est ce nom là qui est comparé avec la machine effectuant la requête NetLogo
 [![NetLogon NTLM clé de session](/assets/uploads/2020/03/ntlm_netlogon_session_key.png)](/assets/uploads/2020/03/ntlm_netlogon_session_key.png)
 
 Enfin, de la même manière que `msAvFlags`, nous ne pouvons pas modifier le nom de la machine à la volée dans la réponse NTLM, car il est pris en compte dans le calcul de la réponse NTLMv2.
-
-Une vulnérabilité similaire à **Drop the MIC 2** a été découverte récemment par l'équipe de Preempt. Voici le [lien](https://www.preempt.com/blog/your-session-key-is-my-session-key-how-to-retrieve-the-session-key-for-any-authentication/) vers leur article si vous êtes curieux.
 
 ## Channel Binding
 
@@ -613,9 +611,6 @@ Voilà un schéma un peu barbu pour représenter le 2ème cas.
 Il montre l'établissement de deux sessions TLS. L'une entre le client et l'attaquant (en rouge) et une entre l'attaquant et le serveur (en bleu). Le client va récupérer le certificat de l'attaquant, et en calculer un condensat, **cert hash**, en rouge.
 
 A la fin des échanges NTLM, ce condensat sera mis dans la réponse NTLM, et sera protégée puisqu'il fait partie de la donnée chiffrée de la réponse NTLM. Quand le serveur recevra ce condensat, il va calculer le condensat de son propre certificat, et en voyant que ce n'est pas le même, il refusera la connexion.
-
-Encore une fois, Preempt a récemment [trouvé une vulnérabilité](https://www.preempt.com/blog/how-to-easily-bypass-epa-to-compromise-any-web-server-that-supports-windows-integrated-authentication/) qui a depuis été corrigée à ce sujet.
-
 
 ## Que peut-on relayer ?
 
