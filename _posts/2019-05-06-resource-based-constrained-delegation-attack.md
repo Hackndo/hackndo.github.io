@@ -34,31 +34,31 @@ Concrètement, comme expliqué dans l'[article sur la délégation](/constrained
 
 Par ailleurs, pour que cette délégation fonctionne, l'attribut `ADS_UF_NOT_DELEGATED` de l'utilisateur ne doit pas être positionné. C'est un attribut qui permet d'interdire la délégation en vue de protéger le compte des attaques liées à la délégation.
 
-Notons également que pour relayer l'authentification d'un utilisateur, le compte de service "relai" (`WEBSERVER$` dans le schéma) doit avoir un TGS provenant de l'utilisateur.
+Notons également que pour relayer l'authentification d'un utilisateur, le compte de service "relais" (`WEBSERVER$` dans le schéma) doit avoir un ticket de service provenant de l'utilisateur.
 
-**Si l'utilisateur s'authentifie via Kerberos**, aucun soucis, le service "relai" est en possession du TGS de l'utilisateur, donc le mécanisme (**S4U2Proxy**) est simple, le compte de service envoie le TGS de l'utilisateur au contrôleur de domaine pour que celui-ci lui renvoie un TGS valide pour accéder à la ressource désirée (si bien sûr le compte de service fait partie de la liste de confiance de la ressource).
+**Si l'utilisateur s'authentifie via Kerberos**, aucun soucis, le service "relai" est en possession du ticket de service de l'utilisateur, donc le mécanisme (**S4U2Proxy**) est simple, le compte de service envoie le ticket de service de l'utilisateur au contrôleur de domaine pour que celui-ci lui renvoie un ticket de service valide pour accéder à la ressource désirée (si bien sûr le compte de service fait partie de la liste de confiance de la ressource).
 
 [![Resource Based Constrained Delegation Detailed](/assets/uploads/2019/02/resource_based_constrained_delegation_schema_detailed.png)](/assets/uploads/2019/02/resource_based_constrained_delegation_schema_detailed.png)
 
-En revanche, **si l'utilisateur s'authentifie d'une autre manière** (NTLM par exemple), le compte de service n'a pas reçu de TGS. Il va alors devoir faire une première demande pour avoir un TGS transférable au nom de l'utilisateur, c'est le mécanisme **S4U2Self**, puis il utilisera ce TGS transférable pour faire le processus expliqué juste avant, **S4U2Proxy**.
+En revanche, **si l'utilisateur s'authentifie d'une autre manière** (NTLM par exemple), le compte de service n'a pas reçu de ticket de service. Il va alors devoir faire une première demande pour avoir un ticket de service transférable au nom de l'utilisateur, c'est le mécanisme **S4U2Self**, puis il utilisera ce ticket de service transférable pour faire le processus expliqué juste avant, **S4U2Proxy**.
 
 [![S4U2Self](/assets/uploads/2019/02/s4u2self.png)](/assets/uploads/2019/02/s4u2self.png)
 
 ## Comportement "by design"
 
-Maintenant que ces rappels sont faits, il est intéressant de creuser un peu. En effet, on se rend compte que le mécanisme **S4U2Self** peut être assez dangereux, parce qu'un service peut finalement demander un TGS **au nom de n'importe quel utilisateur**. Dans le processus normal, il demande un TGS au nom de l'utilisateur qui s'est authentifié auprès de lui, mais rien ne l'oblige à se limiter à ce compte.
+Maintenant que ces rappels sont faits, il est intéressant de creuser un peu. En effet, on se rend compte que le mécanisme **S4U2Self** peut être assez dangereux, parce qu'un service peut finalement demander un ticket de service **au nom de n'importe quel utilisateur**. Dans le processus normal, il demande un ticket de service au nom de l'utilisateur qui s'est authentifié auprès de lui, mais rien ne l'oblige à se limiter à ce compte.
 
-Heureusement, cette possibilité de demander des TGS transférables au nom de n'importe qui (S4U2Self) n'est possible que pour les comptes ayant l'attribut **TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION** de positionné, c'est à dire **les compte pouvant faire de la délégation contrainte** avec **transition de protocole**.  Ce n'est donc pas un attribut positionné par défaut.
+Heureusement, cette possibilité de demander des tickets de service transférables au nom de n'importe qui (S4U2Self) n'est possible que pour les comptes ayant l'attribut **TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION** de positionné, c'est à dire **les compte pouvant faire de la délégation contrainte** avec **transition de protocole**.  Ce n'est donc pas un attribut positionné par défaut.
 
-Plus précisemment, **tous les comptes de service peuvent faire un S4U2Self**, mais seuls ceux avec l'attribut **TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION** recevront un TGS **transférable**, condition à priori nécessaire pour S4U2Proxy (cf. [la documentation Microsoft](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/ad98268b-f75b-42c3-b09b-959282770642)).
+Plus précisemment, **tous les comptes de service peuvent faire un S4U2Self**, mais seuls ceux avec l'attribut **TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION** recevront un ticket de service **transférable**, condition à priori nécessaire pour S4U2Proxy (cf. [la documentation Microsoft](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/ad98268b-f75b-42c3-b09b-959282770642)).
 
-Ainsi, par exemple, lors d'une délégation contrainte (**pas** Resource-Based) avec transition de protocole, si un compte machine demande un TGS via S4U2Self, comme cette machine est en délégation contrainte **avec transition de protocole**, elle possède bien le drapeau **TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION**. Ce compte recevra un donc TGS **transférable**, et lors de la demande de TGS pour une des ressources pour lesquelles il peut faire de la délégation (S4U2Proxy), il pourra transférer ce TGS.
+Ainsi, par exemple, lors d'une délégation contrainte (**pas** Resource-Based) avec transition de protocole, si un compte machine demande un ticket de service via S4U2Self, comme cette machine est en délégation contrainte **avec transition de protocole**, elle possède bien le drapeau **TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION**. Ce compte recevra un donc ticket de service **transférable**, et lors de la demande de ticket de service pour une des ressources pour lesquelles il peut faire de la délégation (S4U2Proxy), il pourra transférer ce ticket de service.
 
-En revanche, et **c'est là que c'est super incroyable**, dans le cas de la délégation **Resource-Based**, si de la même manière un compte machine demande un TGS via S4U2Self, cette fois-ci le compte **n'a pas** l'attribut **TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION**, ce compte recevra donc un TGS **qui sera non transférable**, mais lors de la demande de TGS pour une ressource (S4U2Proxy), cette demande **SERA ACCEPTÉE** (cf. encore [la documentation Microsoft](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/c6f6f8b3-1209-487b-881d-d0908a413bb7)).
+En revanche, et **c'est là que c'est super incroyable**, dans le cas de la délégation **Resource-Based**, si de la même manière un compte machine demande un ticket de service via S4U2Self, cette fois-ci le compte **n'a pas** l'attribut **TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION**, ce compte recevra donc un ticket de service **qui sera non transférable**, mais lors de la demande de ticket de service pour une ressource (S4U2Proxy), cette demande **SERA ACCEPTÉE** (cf. encore [la documentation Microsoft](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/c6f6f8b3-1209-487b-881d-d0908a413bb7)).
 
 [![S4U2Self without transferable](/assets/uploads/2019/04/s4u2selfok.png)](/assets/uploads/2019/04/s4u2selfok.png)
 
-Dans cet exemple, le `SERVEUR1$` n'a pas l'attribut **TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION** de positionné, mais il est déclaré dans la liste de confiance de `Service B`. Lors de sa demande de TGS pour un utilisateur lambda via S4U2Self, le contrôleur de domaine lui envoie un TGS **non transférable**, cependant en passant ce TGS à la requête S4U2Proxy afin de récupérer un TGS pour utiliser le `Service B`, il n'y a aucun soucis, ça fonctionne, et `SERVEUR1$` peut utiliser `Service B` en tant que l'utilisateur choisi.
+Dans cet exemple, le `SERVEUR1$` n'a pas l'attribut **TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION** de positionné, mais il est déclaré dans la liste de confiance de `Service B`. Lors de sa demande de ticket de service pour un utilisateur lambda via S4U2Self, le contrôleur de domaine lui envoie un ticket de service **non transférable**, cependant en passant ce ticket de service à la requête S4U2Proxy afin de récupérer un ticket de service pour utiliser le `Service B`, il n'y a aucun soucis, ça fonctionne, et `SERVEUR1$` peut utiliser `Service B` en tant que l'utilisateur choisi.
 
 Au cas où ce n'est toujours pas clair, ça veut dire que `SERVEUR1$` peut s'authentifier auprès de `Service B` en tant que **n'importe quel utilisateur**.
 
@@ -100,13 +100,13 @@ Deux actions vont être effectuées via LDAPS, en utilisant cette authentificati
 
 Maintenant, nous avons la main sur le compte `HACKNDO$`, puisque nous avons choisi son nom et son mot de passe lors de la création, et ce compte a la confiance de `DESKTOP-01$`.
 
-Il suffit alors de se connecter en tant que `HACKNDO$`, faire une demande de TGS au nom d'un administrateur via `S4U2Self`. Le contrôleur de domaine va nous répondre avec un TGS **non transférable**. Nous demandons ensuite un TGS pour utiliser le service `CIFS` de `DESKTOP-01` (`CIFS/DESKTOP-01`) en fournissant le TGS précédemment demandé (S4U2Proxy). Comme nous l'avons vu au début, bien qu'il ne soit pas transférable, il est tout de même accepté, et le contrôleur de domaine nous envoie un TGS en tant qu'administrateur pour utiliser le service `CIFS` de `DESKTOP-01`.
+Il suffit alors de se connecter en tant que `HACKNDO$`, faire une demande de ticket de service au nom d'un administrateur via `S4U2Self`. Le contrôleur de domaine va nous répondre avec un ticket de service **non transférable**. Nous demandons ensuite un ticket de service pour utiliser le service `CIFS` de `DESKTOP-01` (`CIFS/DESKTOP-01`) en fournissant le ticket de service précédemment demandé (S4U2Proxy). Comme nous l'avons vu au début, bien qu'il ne soit pas transférable, il est tout de même accepté, et le contrôleur de domaine nous envoie un ticket de service en tant qu'administrateur pour utiliser le service `CIFS` de `DESKTOP-01`.
 
 Voici un petit schéma récapitulatif :
 
 [![Processus complet](/assets/uploads/2019/04/process_complete_relay.png)](/assets/uploads/2019/04/process_complete_relay.png)
 
-Il est possible de répéter l'opération pour demander un TGS en vue de pouvoir gérer les services. Ainsi, en envoyant un exécutable de type "reverse-shell" sur la machine avec le ticket `CIFS`, puis en créant et démarrant un service utilisant cet executable à l'aide d'un ticket `SCHEDULE`, il est possible de prendre la main sur la machine en tant que SYSTEM.
+Il est possible de répéter l'opération pour demander un ticket de service en vue de pouvoir gérer les services. Ainsi, en envoyant un exécutable de type "reverse-shell" sur la machine avec le ticket `CIFS`, puis en créant et démarrant un service utilisant cet executable à l'aide d'un ticket `SCHEDULE`, il est possible de prendre la main sur la machine en tant que SYSTEM.
 
 ## Résumé
 
@@ -114,8 +114,8 @@ L'opération étant un peu complexe, voici les différentes étapes résumées :
 
 1. Ajouter une machine `M` au domaine (via un relai d'authentification, via un compte de domaine déjà possédé, ...)
 2. Ajouter cette machine `M` à la liste de confiance de la cible `C` (i.e. l'ajouter à l'attribut `msDS-AllowedToActOnBehalfOfOtherIdentity` en relayant l'authentification de la machine cible, puisqu'elle a le droit de changer son propre attribut)
-3. Faire une demande de TGS pour un ticket au nom d'un administrateur via S4U2Self
-4. Une fois en possession de ce ticket, l'envoyer au contrôleur de domaine pour demander un TGS vers la cible `C` via S4U2Proxy.
+3. Faire une demande de ticket de service pour un ticket au nom d'un administrateur via S4U2Self
+4. Une fois en possession de ce ticket, l'envoyer au contrôleur de domaine pour demander un ticket de service vers la cible `C` via S4U2Proxy.
 5. Enjoy ce nouveau ticket valide, en tant que l'administrateur choisi. D'autres tickets peuvent être demandés avec l'étape 4.
 
 ## Conclusion
