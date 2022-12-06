@@ -19,16 +19,16 @@ Suite à l'article sur la [délégation Kerberos](/constrained-unconstrained-del
 
 ## Rappels : Unconstrained Delegation
 
-Comme nous l'avons vu dans l'article sur la [délégation Kerberos](/constrained-unconstrained-delegation), lorsqu'un compte possède le drapeau "Unconstrained Delegation" (`ADS_UF_TRUSTED_FOR_DELEGATION`), si les informations d'authentification de l'utilisateur faisant une demande de TGS pour un service proposé par ce compte peuvent être relayées, alors le contrôleur de domaine va répondre à l'utilisateur avec un [KRB_TGS_REP](/kerberos/#krb_tgs_rep) contenant les informations classiques telles que le TGS, mais il va également intégrer dans sa réponse **une copie du TGT** de l'utilisateur, ainsi qu'une nouvelle clé de session associée.
+Comme nous l'avons vu dans l'article sur la [délégation Kerberos](/constrained-unconstrained-delegation), lorsqu'un compte possède le drapeau "Unconstrained Delegation" (`ADS_UF_TRUSTED_FOR_DELEGATION`), si les informations d'authentification de l'utilisateur faisant une demande de ticket de service pour un service proposé par ce compte peuvent être relayées, alors le contrôleur de domaine va répondre à l'utilisateur avec un [KRB_TGS_REP](/kerberos/#krb_tgs_rep) contenant les informations classiques telles que le ticket de service, mais il va également intégrer dans sa réponse **une copie du TGT** de l'utilisateur, ainsi qu'une nouvelle clé de session associée.
 
 [![Unconstrained Delegation](/assets/uploads/2019/02/cop_tgt.png)](/assets/uploads/2019/02/cop_tgt.png)
 
 
-Concrètement, le compte de service qui recevra ce TGS **aura aussi une copie du TGT de l'utilisateur**, ainsi qu'une clé de session valide pour utiliser ce TGT.
+Concrètement, le compte de service qui recevra ce ticket de service **aura aussi une copie du TGT de l'utilisateur**, ainsi qu'une clé de session valide pour utiliser ce TGT.
 
 ## Exploitation
 
-Cela signifie que maintenant, avec ces informations, le service peut demander n'importe quel TGS au nom de l'utilisateur. Je répète : il peut demander **n'importe. quel. TGS. au nom de l'utilisateur**. Il peut se faire passer pour l'utilisateur pour s'authentifier auprès de n'importe quel service.
+Cela signifie que maintenant, avec ces informations, le service peut demander n'importe quel ticket de service au nom de l'utilisateur. Je répète : il peut demander **n'importe. quel. ticket de service. au nom de l'utilisateur**. Il peut se faire passer pour l'utilisateur pour s'authentifier auprès de n'importe quel service.
 
 [![Unconstrained Delegation](/assets/uploads/2019/02/unconstrained_delegation_schema.png)](/assets/uploads/2019/02/unconstrained_delegation_schema.png)
 
@@ -50,7 +50,7 @@ Nous allons ici présenter un exemple qui a été effectué dans mon lab, ADSEC.
 
 Il est possible de s'authentifier auprès de cette machine pour utiliser ses partages réseau. Nous imaginons qu'un attaquant ait réussi à compromettre cette machine, et qu'il est administrateur local de cette machine.
 
-L'attaquant doit alors attendre qu'un utilisateur à privilèges se connecte sur la machine. Il va donc monitorer les connexions et inspecter les TGS afin de voir si un TGT est présent dans l'un deux. Pour cela, il utilise l'outil [Rubeus](https://github.com/GhostPack/Rubeus) développé par [@Harmj0y](https://twitter.com/harmj0y). (D'autres outils existent tels que [kekeo](https://github.com/gentilkiwi/kekeo/) de [@gentilkiwi](https://twitter.com/gentilkiwi) par exemple.)
+L'attaquant doit alors attendre qu'un utilisateur à privilèges se connecte sur la machine. Il va donc monitorer les connexions et inspecter les tickets de service afin de voir si un TGT est présent dans l'un deux. Pour cela, il utilise l'outil [Rubeus](https://github.com/GhostPack/Rubeus) développé par [@Harmj0y](https://twitter.com/harmj0y). (D'autres outils existent tels que [kekeo](https://github.com/gentilkiwi/kekeo/) de [@gentilkiwi](https://twitter.com/gentilkiwi) par exemple.)
 
 ```
 .\Rubeus monitor /interval:5
@@ -62,11 +62,11 @@ Il se trouve qu'à un moment donné, le compte `support-account`, **administrate
 
 [![Connexion from DA](/assets/uploads/2019/04/connexion_from_domain_admin.png)](/assets/uploads/2019/04/connexion_from_domain_admin.png)
 
-Cette connexion est détectée par Rubeus, puisqu'un événement [4624](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventID=4624) (Successful logon) est généré dans le journal d'événements de `WEB-SERVER-01`. Comme cette machine est en "Unconstrained Delegation", le TGS envoyé par l'administrateur de domaine contient une copie de son TGT, copie qui va être extrait par Rubeus.
+Cette connexion est détectée par Rubeus, puisqu'un événement [4624](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventID=4624) (Successful logon) est généré dans le journal d'événements de `WEB-SERVER-01`. Comme cette machine est en "Unconstrained Delegation", le ticket de service envoyé par l'administrateur de domaine contient une copie de son TGT, copie qui va être extrait par Rubeus.
 
 [![Connexion success on Rubeus](/assets/uploads/2019/04/connexion_success.png)](/assets/uploads/2019/04/connexion_success.png)
 
-Maintenant en possession du TGT d'un administrateur de domaine (encodé en base 64 dans cette capture), l'attaquant peut demander un TGS pour utiliser le service LDAP du contrôleur de domaine `DC-01`. Rubeus permet de faire cette requête.
+Maintenant en possession du TGT d'un administrateur de domaine (encodé en base 64 dans cette capture), l'attaquant peut demander un ticket de service pour utiliser le service LDAP du contrôleur de domaine `DC-01`. Rubeus permet de faire cette requête.
 
 ```
 .\Rubeus.exe asktgs /ticket:<ticket en base64> /service:ldap/dc-01.adsec.local /ptt
@@ -74,12 +74,12 @@ Maintenant en possession du TGT d'un administrateur de domaine (encodé en base 
 
 [![Get LDAP TGS](/assets/uploads/2019/04/get_ldap_tgs.png)](/assets/uploads/2019/04/get_ldap_tgs.png)
 
-Tout fonctionne comme prévu, nous pouvons vérifier la présence du TGS en mémoire, pour l'utilisateur `support-account` (puisque l'attaquant a utilisé son TGT), et pour le service LDAP du contrôleur de domaine.
+Tout fonctionne comme prévu, nous pouvons vérifier la présence du ticket de service en mémoire, pour l'utilisateur `support-account` (puisque l'attaquant a utilisé son TGT), et pour le service LDAP du contrôleur de domaine.
 
 [![Get LDAP TGS](/assets/uploads/2019/04/get_ldap_tgs_success.png)](/assets/uploads/2019/04/get_ldap_tgs_success.png)
 
 
-Avec ce TGS, il est possible de demander au contrôleur de domaine de se synchroniser avec l'attaquant. Ici, l'attaquant a uniquement demandé de synchroniser le compte `krbtgt` en vue de faire un "Golden Ticket".
+Avec ce ticket de service, il est possible de demander au contrôleur de domaine de se synchroniser avec l'attaquant. Ici, l'attaquant a uniquement demandé de synchroniser le compte `krbtgt` en vue de faire un "Golden Ticket".
 
 
 [![DCSync](/assets/uploads/2019/04/dc_sync.png)](/assets/uploads/2019/04/dc_sync.png)
@@ -92,7 +92,7 @@ Cette démonstration montre l'impact immense que peut avoir la compromission d'u
 
 [![DCSync](/assets/uploads/2019/04/account_sensitive.png)](/assets/uploads/2019/04/account_sensitive.png)
 
-Si l'option est activée pour ce compte, alors le contrôleur de domaine saura qu'aucun service n'aura le droit de relayer les informations d'authentification de cet utilisateur. Ainsi, concernant la délégation complète, le contrôleur de domaine ne vas pas inclure une copie du TGT lors de la demande de TGS.
+Si l'option est activée pour ce compte, alors le contrôleur de domaine saura qu'aucun service n'aura le droit de relayer les informations d'authentification de cet utilisateur. Ainsi, concernant la délégation complète, le contrôleur de domaine ne vas pas inclure une copie du TGT lors de la demande de ticket de service.
 
 Il y aura toujours un événement 4624 sur le serveur, mais aucune copie de TGT ne sera disponible.
 
