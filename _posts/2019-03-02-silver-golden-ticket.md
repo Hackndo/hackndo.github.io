@@ -83,7 +83,7 @@ AuthorizationData item
                     .... .... .... .... .... .... .... ...0 = Account Disabled: This account is NOT disabled
 ```
 
-Ce PAC se trouve dans les tickets générés pour un utilisateur (TGT ou TGS) et est chiffré soit avec la clé du KDC, soit avec celle du service demandé. L'utilisateur n'a donc pas la main sur ces informations, il ne peut pas modifier ses propres droits, groupes, etc.
+Ce PAC se trouve dans les tickets générés pour un utilisateur (TGT ou ticket de service) et est chiffré soit avec la clé du KDC, soit avec celle du service demandé. L'utilisateur n'a donc pas la main sur ces informations, il ne peut pas modifier ses propres droits, groupes, etc.
 
 Cette structure est très importante car c'est elle qui permet à un utilisateur d'accéder (ou non) à un service, à une ressource, d'effectuer certaines actions.
 
@@ -93,13 +93,13 @@ Le PAC peut être considéré comme le badge de sécurité de l'utilisateur : Il
 
 ## Silver Ticket
 
-Lorsqu'un client a besoin d'utiliser un service, il demande au KDC (Key Distribution Center) un TGS (*Ticket Granting Service*). Ce processus passe par les deux demandes [KRB_TGS_REQ](/kerberos/#krb_tgs_req) et [KRB_TGS_REP](/kerberos/#krb_tgs_rep).
+Lorsqu'un client a besoin d'utiliser un service, il demande au KDC (Key Distribution Center) un ticket de service. Ce processus passe par les deux demandes [KRB_TGS_REQ](/kerberos/#krb_tgs_req) et [KRB_TGS_REP](/kerberos/#krb_tgs_rep).
 
-Pour rappel, voici à quoi ressemble schématiquement un TGS.
+Pour rappel, voici à quoi ressemble schématiquement un ticket de service.
 
 [![TGS](/assets/uploads/2019/02/tgs.png)](/assets/uploads/2019/02/tgs.png)
 
-Il est chiffré avec le hash NT du compte responsable du service (compte machine ou compte utilisateur). Ainsi, si un attaquant parvient à extraire le mot de passe ou le hash NT d'un compte de service, il peut alors forger un ticket de service (TGS) en choisissant les informations qu'il veut mettre dedans afin d'accéder à ce service, sans passer par le KDC. C'est l'attaquant qui construit ce ticket dans son coin, comme un grand. C'est ce ticket forgé qui est appelé **Silver Ticket**.
+Il est chiffré avec le hash NT du compte responsable du service (compte machine ou compte utilisateur). Ainsi, si un attaquant parvient à extraire le mot de passe ou le hash NT d'un compte de service, il peut alors forger un ticket de service en choisissant les informations qu'il veut mettre dedans afin d'accéder à ce service, sans passer par le KDC. C'est l'attaquant qui construit ce ticket dans son coin, comme un grand. C'est ce ticket forgé qui est appelé **Silver Ticket**.
 
 Prenons en exemple un attaquant qui trouve le hash NT du compte de la machine `DESKTOP-01`. Le compte machine est alors `DESKTOP-01$`. L'attaquant peut créer un bloc de données correspondant à un ticket comme celui trouvé dans [KRB_TGS_REP](/kerberos/#krb_tgs_rep), Il indiquera le nom du domaine, le nom du service demandé sous sa forme [SPN](/service-principal-name-spn) (Service Principal Name), le nom d'un utilisateur (qu'il peut choisir arbitrairement), son PAC (qu'il peut également forger). Voici un exemple simpliste de ticket que l'attaquant peut créer :
 
@@ -112,7 +112,7 @@ Prenons en exemple un attaquant qui trouve le hash NT du compte de la machine `D
     * **authtime** : 2050/01/01 00:00:00 *// Date de validité du ticket*
     * **authorization-data** : PAC forgé dans lequel l'utilisateur est, par exemple, administrateur du domaine
 
-Une fois cette structure créée, il chiffre le bloc `enc-part` avec le hash NT découvert, puis il peut créer de toute pièce un [KRB_AP_REQ](/kerberos/#krb_ap_req). En effet, il lui suffit d'envoyer ce ticket au service cible, accompagné d'un authentifiant qu'il chiffre avec la clé de session qu'il a arbitrairement choisie dans le TGS. Le service sera en mesure de déchiffrer le TGS, extraire la clé de session, déchiffrer l'authentifiant et fournir le service à l'utilisateur puisque les informations forgée dans le PAC indiquent qu'il a le droit d'utiliser ce service.
+Une fois cette structure créée, il chiffre le bloc `enc-part` avec le hash NT découvert, puis il peut créer de toute pièce un [KRB_AP_REQ](/kerberos/#krb_ap_req). En effet, il lui suffit d'envoyer ce ticket au service cible, accompagné d'un authentifiant qu'il chiffre avec la clé de session qu'il a arbitrairement choisie dans le ticket de service. Le service sera en mesure de déchiffrer le ticket de service, extraire la clé de session, déchiffrer l'authentifiant et fournir le service à l'utilisateur puisque les informations forgée dans le PAC indiquent qu'il a le droit d'utiliser ce service.
 
 Notons que le PAC est doublement signé. Une première signature via le secret du compte de service, et une deuxième via le secret du contrôleur de domaine. Cependant, lorsque le service reçoit ce ticket, il ne vérifie en général que la première signature. En effet, les comptes de services ayant le privilège [SeTcbPrivilege](https://docs.microsoft.com/en-us/windows/desktop/secauthz/privilege-constants), signifiant que ces comptes peuvent agir en tant que partie du système d'exploitation (par exemple le compte local `SYSTEM`), ne vérifient pas la signature du contrôleur de domaine. Pratique, d'un point de vue attaquant ! Cela signifie également que même si le secret du KDC est changé (i.e. le mot de passe du compte `krbtgt`), les Silver Tickets pourront toujours fonctionner, sympa comme persistence.
 
@@ -158,7 +158,7 @@ C'est un bon début, mais nous pouvons aller plus loin. En construisant un Silve
 
 Si jamais un attaquant parvient à trouver le hash NT de ce compte, il est alors en mesure de forger des TGT avec des PAC arbitraires. Et là, c'est un peu le Saint Graal. Il suffit de forger un TGT avec comme information que l'utilisateur de ce ticket fait partie du groupe "Administrateurs du Domaine", et le tour est joué.
 
-Avec un TGT de la sorte entre les mains, l'utilisateur peut demander au KDC n'importe quel TGS pour n'importe quel service. Or ces TGS auront une copie du PAC qu'a forgé l'attaquant, certifiant qu'il est administrateur de domaine.
+Avec un TGT de la sorte entre les mains, l'utilisateur peut demander au KDC n'importe quel ticket de service pour n'importe quel service. Or ces tickets de service auront une copie du PAC qu'a forgé l'attaquant, certifiant qu'il est administrateur de domaine.
 
 C'est ce TGT forgé qui est appelé **Golden Ticket**. Le schéma de l'attaque est très similaire à celui du Silver Ticket. Voici une représentation également simplifiée :
 
@@ -179,7 +179,7 @@ La ligne de commande utilisée dans Mimikatz est la suivante :
 ```
 Cela veut dire qu'on crée un ticket pour le domaine `adsec.local` avec un nom d'utilisateur **arbitraire** (`random_user`), en fournissant le hash NT de l'utilisateur `krbtgt`. Cette commande crée un TGT avec une PAC indiquant que nous sommes administrateur du domaine (entre autre), et que nous nous appelons ANYUSER (choisi arbitrairement).
 
-Une fois ce ticket en mémoire, notre session est en mesure de demander un TGS pour n'importe quel [SPN](/service-principal-name-spn), par exemple pour `CIFS\DC-01.adsec.local` permettant de lire le contenu du partage `\\DC-01.adsec.local\$`
+Une fois ce ticket en mémoire, notre session est en mesure de demander un ticket de service pour n'importe quel [SPN](/service-principal-name-spn), par exemple pour `CIFS\DC-01.adsec.local` permettant de lire le contenu du partage `\\DC-01.adsec.local\$`
 
 [![GT granted](/assets/uploads/2019/03/golden_ticket_access_granted.png)](/assets/uploads/2019/03/golden_ticket_access_granted.png)
 
