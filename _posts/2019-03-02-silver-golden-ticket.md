@@ -99,20 +99,20 @@ Pour rappel, voici à quoi ressemble schématiquement un TGS.
 
 [![TGS](/assets/uploads/2019/02/tgs.png)](/assets/uploads/2019/02/tgs.png)
 
-Il est chiffré avec le hash NTLM du compte responsable du service (compte machine ou compte utilisateur). Ainsi, si un attaquant parvient à extraire le mot de passe ou le hash NTLM d'un compte de service, il peut alors forger un ticket de service (TGS) en choisissant les informations qu'il veut mettre dedans afin d'accéder à ce service, sans passer par le KDC. C'est l'attaquant qui construit ce ticket dans son coin, comme un grand. C'est ce ticket forgé qui est appelé **Silver Ticket**.
+Il est chiffré avec le hash NT du compte responsable du service (compte machine ou compte utilisateur). Ainsi, si un attaquant parvient à extraire le mot de passe ou le hash NT d'un compte de service, il peut alors forger un ticket de service (TGS) en choisissant les informations qu'il veut mettre dedans afin d'accéder à ce service, sans passer par le KDC. C'est l'attaquant qui construit ce ticket dans son coin, comme un grand. C'est ce ticket forgé qui est appelé **Silver Ticket**.
 
-Prenons en exemple un attaquant qui trouve le hash NTLM du compte de la machine `DESKTOP-01`. Le compte machine est alors `DESKTOP-01$`. L'attaquant peut créer un bloc de données correspondant à un ticket comme celui trouvé dans [KRB_TGS_REP](/kerberos/#krb_tgs_rep), Il indiquera le nom du domaine, le nom du service demandé sous sa forme [SPN](/service-principal-name-spn) (Service Principal Name), le nom d'un utilisateur (qu'il peut choisir arbitrairement), son PAC (qu'il peut également forger). Voici un exemple simpliste de ticket que l'attaquant peut créer :
+Prenons en exemple un attaquant qui trouve le hash NT du compte de la machine `DESKTOP-01`. Le compte machine est alors `DESKTOP-01$`. L'attaquant peut créer un bloc de données correspondant à un ticket comme celui trouvé dans [KRB_TGS_REP](/kerberos/#krb_tgs_rep), Il indiquera le nom du domaine, le nom du service demandé sous sa forme [SPN](/service-principal-name-spn) (Service Principal Name), le nom d'un utilisateur (qu'il peut choisir arbitrairement), son PAC (qu'il peut également forger). Voici un exemple simpliste de ticket que l'attaquant peut créer :
 
 * **realm** : adsec.local
 * **sname** : cifs\desktop-01.adsec.local
-* **enc-part** : *// Partie chiffrée avec le hash NTLM trouvé par l'attaquant*
+* **enc-part** : *// Partie chiffrée avec le hash NT trouvé par l'attaquant*
     * **key** : 0x309DC6FA122BA1C *// Clé de session arbitrairement choisie*
     * **crealm** : adsec.local
     * **cname** : pixisAdmin
     * **authtime** : 2050/01/01 00:00:00 *// Date de validité du ticket*
     * **authorization-data** : PAC forgé dans lequel l'utilisateur est, par exemple, administrateur du domaine
 
-Une fois cette structure créée, il chiffre le bloc `enc-part` avec le hash NTLM découvert, puis il peut créer de toute pièce un [KRB_AP_REQ](/kerberos/#krb_ap_req). En effet, il lui suffit d'envoyer ce ticket au service cible, accompagné d'un authentifiant qu'il chiffre avec la clé de session qu'il a arbitrairement choisie dans le TGS. Le service sera en mesure de déchiffrer le TGS, extraire la clé de session, déchiffrer l'authentifiant et fournir le service à l'utilisateur puisque les informations forgée dans le PAC indiquent qu'il a le droit d'utiliser ce service.
+Une fois cette structure créée, il chiffre le bloc `enc-part` avec le hash NT découvert, puis il peut créer de toute pièce un [KRB_AP_REQ](/kerberos/#krb_ap_req). En effet, il lui suffit d'envoyer ce ticket au service cible, accompagné d'un authentifiant qu'il chiffre avec la clé de session qu'il a arbitrairement choisie dans le TGS. Le service sera en mesure de déchiffrer le TGS, extraire la clé de session, déchiffrer l'authentifiant et fournir le service à l'utilisateur puisque les informations forgée dans le PAC indiquent qu'il a le droit d'utiliser ce service.
 
 Notons que le PAC est doublement signé. Une première signature via le secret du compte de service, et une deuxième via le secret du contrôleur de domaine. Cependant, lorsque le service reçoit ce ticket, il ne vérifie en général que la première signature. En effet, les comptes de services ayant le privilège [SeTcbPrivilege](https://docs.microsoft.com/en-us/windows/desktop/secauthz/privilege-constants), signifiant que ces comptes peuvent agir en tant que partie du système d'exploitation (par exemple le compte local `SYSTEM`), ne vérifient pas la signature du contrôleur de domaine. Pratique, d'un point de vue attaquant ! Cela signifie également que même si le secret du KDC est changé (i.e. le mot de passe du compte `krbtgt`), les Silver Tickets pourront toujours fonctionner, sympa comme persistence.
 
@@ -130,7 +130,7 @@ La ligne de commande utilisée dans Mimikatz est la suivante :
 /kerberos::golden /domain:adsec.local /user:random_user /sid:S-1-5-21-1423455951-1752654185-1824483205 /rc4:ceaxxxxxxxxxxxxxxxxxxxxxxxxxxxxx /target:DESKTOP-01.adsec.local /service:cifs /ptt
 ```
 
-Cela veut dire qu'on crée un ticket pour le domaine `adsec.local` avec un nom d'utilisateur **arbitraire** (`random_user`), et que l'on vise le service `CIFS` de la machine `DESKTOP-01` en fournissant son hash NTLM.
+Cela veut dire qu'on crée un ticket pour le domaine `adsec.local` avec un nom d'utilisateur **arbitraire** (`random_user`), et que l'on vise le service `CIFS` de la machine `DESKTOP-01` en fournissant son hash NT.
 
 Il est également possible de créer un Silver Ticket sous linux en utilisant [impaket](https://github.com/SecureAuthCorp/impacket), via l'outil `ticketer.py`.
 
@@ -154,9 +154,9 @@ psexec.py -k DESKTOP-01.adsec.local
 
 Nous avons vu qu'avec un **Silver Ticket**, il était possible d'accéder à un service fourni par un compte de domaine si ce compte était compromis. En effet, le service accepte les informations chiffrées avec son propre secret puisqu'en théorie, seul le service et le KDC ont connaissance de ce secret.
 
-C'est un bon début, mais nous pouvons aller plus loin. En construisant un Silver Ticket, l'attaquant s'affranchit du KDC puisqu'en réalité, le vrai PAC de l'utilisateur contenu dans son TGT ne permet pas d'effectuer toutes les actions qu'il souhaite. Pour pouvoir modifier le TGT, ou en forger un nouveau, il faudrait connaitre la clé qui l'a chiffré, c'est à dire celle du KDC. Cette clé, c'est en fait le hash NTLM du compte `krbtgt`. Ce compte est un simple compte, sans droits particuliers (au niveau système ou Active Directory) et même désactivé. Cette faible exposition permet de mieux le protéger.
+C'est un bon début, mais nous pouvons aller plus loin. En construisant un Silver Ticket, l'attaquant s'affranchit du KDC puisqu'en réalité, le vrai PAC de l'utilisateur contenu dans son TGT ne permet pas d'effectuer toutes les actions qu'il souhaite. Pour pouvoir modifier le TGT, ou en forger un nouveau, il faudrait connaitre la clé qui l'a chiffré, c'est à dire celle du KDC. Cette clé, c'est en fait le hash NT du compte `krbtgt`. Ce compte est un simple compte, sans droits particuliers (au niveau système ou Active Directory) et même désactivé. Cette faible exposition permet de mieux le protéger.
 
-Si jamais un attaquant parvient à trouver le hash NTLM de ce compte, il est alors en mesure de forger des TGT avec des PAC arbitraires. Et là, c'est un peu le Saint Graal. Il suffit de forger un TGT avec comme information que l'utilisateur de ce ticket fait partie du groupe "Administrateurs du Domaine", et le tour est joué.
+Si jamais un attaquant parvient à trouver le hash NT de ce compte, il est alors en mesure de forger des TGT avec des PAC arbitraires. Et là, c'est un peu le Saint Graal. Il suffit de forger un TGT avec comme information que l'utilisateur de ce ticket fait partie du groupe "Administrateurs du Domaine", et le tour est joué.
 
 Avec un TGT de la sorte entre les mains, l'utilisateur peut demander au KDC n'importe quel TGS pour n'importe quel service. Or ces TGS auront une copie du PAC qu'a forgé l'attaquant, certifiant qu'il est administrateur de domaine.
 
@@ -168,7 +168,7 @@ En pratique, voici la démonstration de la création d'un **Golden Ticket**. D'a
 
 [![Access denied](/assets/uploads/2019/03/golden_ticket_access_denied.png)](/assets/uploads/2019/03/golden_ticket_access_denied.png)
 
-On génère alors le **Golden Ticket** en utilisant le hash NTLM du compte `krbtgt`
+On génère alors le **Golden Ticket** en utilisant le hash NT du compte `krbtgt`
 
 [![GT Generation](/assets/uploads/2019/03/golden_ticket_generated.png)](/assets/uploads/2019/03/golden_ticket_generated.png)
 
@@ -177,7 +177,7 @@ La ligne de commande utilisée dans Mimikatz est la suivante :
 ```
 /kerberos::golden /domain:adsec.local /user:random_user /sid:S-1-5-21-1423455951-1752654185-1824483205 /krbtgt:ceaxxxxxxxxxxxxxxxxxxxxxxxxxxxxx /ptt
 ```
-Cela veut dire qu'on crée un ticket pour le domaine `adsec.local` avec un nom d'utilisateur **arbitraire** (`random_user`), en fournissant le hash NTLM de l'utilisateur `krbtgt`. Cette commande crée un TGT avec une PAC indiquant que nous sommes administrateur du domaine (entre autre), et que nous nous appelons ANYUSER (choisi arbitrairement).
+Cela veut dire qu'on crée un ticket pour le domaine `adsec.local` avec un nom d'utilisateur **arbitraire** (`random_user`), en fournissant le hash NT de l'utilisateur `krbtgt`. Cette commande crée un TGT avec une PAC indiquant que nous sommes administrateur du domaine (entre autre), et que nous nous appelons ANYUSER (choisi arbitrairement).
 
 Une fois ce ticket en mémoire, notre session est en mesure de demander un TGS pour n'importe quel [SPN](/service-principal-name-spn), par exemple pour `CIFS\DC-01.adsec.local` permettant de lire le contenu du partage `\\DC-01.adsec.local\$`
 
