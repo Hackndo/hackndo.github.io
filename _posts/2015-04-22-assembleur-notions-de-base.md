@@ -154,7 +154,7 @@ mov eax, [ ebx + ecx*2 + 0x80848c48 ]
 
 Dans cet exemple, le double du contenu de `ECX` est ajouté au contenu de `EBX`, auquel on ajoute l'offset indiquée (ici `0x8084c48`), ce qui nous donne une nouvelle adresse. La valeur contenue à cette adresse est assignée à `EAX`.
 
-Prenons un cas plus simple, pour être certains de ne pas nous emmêler les pinceaux. Soient :
+Prenons un cas plus simple, pour être certains de ne pas nous emmêler les pinceaux. Soit :
 
 ```nasm
 ebx = 0x80000000
