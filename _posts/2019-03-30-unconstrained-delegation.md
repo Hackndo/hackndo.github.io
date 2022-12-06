@@ -95,7 +95,7 @@ Une fois placé, nous pouvons voir les drapeaux UAC et constater que `TRUSTED_FO
 
 [![Not delegated flag unset](/assets/uploads/2020/04/UAC_user_not_delegated.png)](/assets/uploads/2020/04/UAC_user_not_delegated.png)
 
-Concrètement, lors des échanges avec le contrôleur de domaine tels que décrits dans l'article [Kerberos en Active Directory](/kerberos), lorsque l'utilisateur fait une demande de TGS ([KRB_TGS_REQ](/kerberos/#krb_tgs_req)), il précisera le [SPN](/service-principal-name-spn) du service qu'il souhaite utiliser. C'est à ce moment que le contrôleur de domaine va chercher les deux prérequis :
+Concrètement, lors des échanges avec le contrôleur de domaine tels que décrits dans l'article [Kerberos en Active Directory](/kerberos), lorsque l'utilisateur fait une demande de ticket de service ([KRB_TGS_REQ](/kerberos/#krb_tgs_req)), il précisera le [SPN](/service-principal-name-spn) du service qu'il souhaite utiliser. C'est à ce moment que le contrôleur de domaine va chercher les deux prérequis :
 
 * Est-ce que le drapeau `TRUSTED_FOR_DELEGATION` est positionné dans les attributs du compte associé au [SPN](/service-principal-name-spn) 
 * Est-ce que le drapeau `NOT_DELEGATED` n'est **pas** positionné pour l'utilisateur qui fait la demande
@@ -104,11 +104,11 @@ Si les deux prérequis sont vérifiés, alors le contrôleur de domaine va répo
 
 [![TGT Copy](/assets/uploads/2019/02/cop_tgt.png)](/assets/uploads/2019/02/cop_tgt.png)
 
-Une fois en possession de ces éléments, l'utilisateur va continuer le processus classique en envoyant une requête auprès du service ([KRB_AP_REQ](/kerberos/#krb_ap_req)) en lui envoyant le TGS et un authentifiant. Le service va être en mesure de déchiffrer le contenu du TGS, vérifier l'identité de l'utilisateur en déchiffrant l'authentifiant, mais surtout il va pouvoir récupérer la copie du TGT ainsi que la clé de session associée pour, ensuite, se faire passer pour l'utilisateur auprès du contrôleur de domaine.
+Une fois en possession de ces éléments, l'utilisateur va continuer le processus classique en envoyant une requête auprès du service ([KRB_AP_REQ](/kerberos/#krb_ap_req)) en lui envoyant le ticket de service et un authentifiant. Le service va être en mesure de déchiffrer le contenu du ticket de service, vérifier l'identité de l'utilisateur en déchiffrant l'authentifiant, mais surtout il va pouvoir récupérer la copie du TGT ainsi que la clé de session associée pour, ensuite, se faire passer pour l'utilisateur auprès du contrôleur de domaine.
 
 [![TGT Memory](/assets/uploads/2019/02/tgt_memory.png)](/assets/uploads/2019/02/tgt_memory.png)
 
-En effet, maintenant en possession d'une copie du TGT de l'utilisateur ainsi que d'une clé de session valide, le service peut s'authentifier auprès de n'importe quel autre service au nom de l'utilisateur en faisant une demande de TGS au contrôleur de domaine, en lui fournissant ce TGT et en chiffrant un authentifiant avec la clé de session. C'est le principe de la délégation sans contrainte, ou **Unconstrained Delegation**.
+En effet, maintenant en possession d'une copie du TGT de l'utilisateur ainsi que d'une clé de session valide, le service peut s'authentifier auprès de n'importe quel autre service au nom de l'utilisateur en faisant une demande de ticket de service au contrôleur de domaine, en lui fournissant ce TGT et en chiffrant un authentifiant avec la clé de session. C'est le principe de la délégation sans contrainte, ou **Unconstrained Delegation**.
 
 Voici un schéma récapitulatif :
 
@@ -121,9 +121,9 @@ Pour la délégation contrainte, ou **Constrained Delegation**, une liste de [SP
 
 Mettons nous dans le cas où l'utilisateur s'authentifie auprès du `Service A` puis que ce `Service A` doit s'authentifier auprès de la ressource `Ressource B` en tant que l'utilisateur.
 
-L'utilisateur fait une requête de TGS, puis l'envoie au `Service A`. Ce service devant s'authentifier en tant que l'utilisateur auprès de `Ressource B`, il va demander un TGS au contrôleur de domaine au nom de l'utilisateur. Cette demande est régie par l'extension [S4U2Proxy](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/bde93b0e-f3c9-4ddf-9f44-e1453be7af5a). Pour indiquer au contrôleur de domaine qu'il veut s'authentifier au nom de quelqu'un d'autre, deux attributs seront définis dans la demande de ticket [KRB_TGS_REQ](/kerberos/#krb_tgs_req) :
+L'utilisateur fait une requête de ticket de service, puis l'envoie au `Service A`. Ce service devant s'authentifier en tant que l'utilisateur auprès de `Ressource B`, il va demander un ticket de service au contrôleur de domaine au nom de l'utilisateur. Cette demande est régie par l'extension [S4U2Proxy](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/bde93b0e-f3c9-4ddf-9f44-e1453be7af5a). Pour indiquer au contrôleur de domaine qu'il veut s'authentifier au nom de quelqu'un d'autre, deux attributs seront définis dans la demande de ticket [KRB_TGS_REQ](/kerberos/#krb_tgs_req) :
 
-* le champ `additional-tickets`, d'habitude vide, doit cette fois contenir le TGS de l'utilisateur en question (sous condition que le drapeau `NOT_DELEGATED` ne soit **pas** positionné pour l'utilisateur qui fait la demande. Si c'était le cas, le TGS de l'utilisateur ne serait pas `forwardable`, et le contrôleur de domaine ne l'accepterait pas dans la suite du processus)
+* le champ `additional-tickets`, d'habitude vide, doit cette fois contenir le ticket de service de l'utilisateur en question (sous condition que le drapeau `NOT_DELEGATED` ne soit **pas** positionné pour l'utilisateur qui fait la demande. Si c'était le cas, le ticket de service de l'utilisateur ne serait pas `forwardable`, et le contrôleur de domaine ne l'accepterait pas dans la suite du processus)
 * Le drapeau [cname-in-addl-tkt](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/17b9af82-d45a-437d-a05c-79547fe969f5), qui doit être positionné pour indiquer au contrôleur de domaine qu'il ne doit pas utiliser les informations du serveur, mais celles du ticket présent dans `additional-tickets`, c'est à dire les informations de l'utilisateur pour lequel le service veut se faire passer.
 
 C'est lors de cette demande que le contrôleur de domaine, en voyant ces informations, va vérifier que `Service A` a le droit de s'authentifier auprès de `Ressource B` au nom de l'utilisateur.
@@ -139,7 +139,7 @@ Par exemple ici l'attribut `msDS-AllowedToDelegateTo` contiendra `cifs/WEB-SERVE
 [![allowedToDelegateTo](/assets/uploads/2020/04/allowedToDelegateTo.png)](/assets/uploads/2020/04/allowedToDelegateTo.png)
 
 
-Si le [SPN](/service-principal-name-spn) cible est bien présent, alors le contrôleur de domaine renvoie un TGS valide, avec le nom de l'utilisateur, pour le service demandé. Voici un schéma récapitulatif :
+Si le [SPN](/service-principal-name-spn) cible est bien présent, alors le contrôleur de domaine renvoie un ticket de service valide, avec le nom de l'utilisateur, pour le service demandé. Voici un schéma récapitulatif :
 
 [![Constrained Delegation Detailed](/assets/uploads/2019/02/constrained_delegation_schema_detailed.png)](/assets/uploads/2019/02/constrained_delegation_schema_detailed.png)
 
@@ -162,9 +162,9 @@ Comme le montre le schéma, le fonctionnement technique est similaire, cependant
 
 ### Extension S4U2Self
 
-Si vous êtes encore là et que vous avez bien suivi, vous aurez remarqué que nous n'avons pas abordé dans cet article la notion de transition de protocole. En effet, dans ce qui a été expliqué concernant la délégation contrainte, nous partions du principe que le `Service A` était en possession d'un ticket de service provenant de `USER`, ticket qui était ajouté dans le champ `additional-tickets` de la demande de TGS (**S4U2Proxy**). Mais il arrive que l'utilisateur s'authentifie auprès du serveur d'une autre manière que via le protocole Kerberos (par exemple via NTLM, ou même un formulaire web). Dans ce cas, le serveur n'est pas en possession d'un TGS envoyé par l'utilisateur. Ainsi, `Service A` ne peut pas, en l'état, remplir le champ `additional-tickets` comme il le faisait dans les cas précédemment décrits.
+Si vous êtes encore là et que vous avez bien suivi, vous aurez remarqué que nous n'avons pas abordé dans cet article la notion de transition de protocole. En effet, dans ce qui a été expliqué concernant la délégation contrainte, nous partions du principe que le `Service A` était en possession d'un ticket de service provenant de `USER`, ticket qui était ajouté dans le champ `additional-tickets` de la demande de ticket de service (**S4U2Proxy**). Mais il arrive que l'utilisateur s'authentifie auprès du serveur d'une autre manière que via le protocole Kerberos (par exemple via NTLM, ou même un formulaire web). Dans ce cas, le serveur n'est pas en possession d'un ticket de service envoyé par l'utilisateur. Ainsi, `Service A` ne peut pas, en l'état, remplir le champ `additional-tickets` comme il le faisait dans les cas précédemment décrits.
 
-C'est pourquoi il y a une étape supplémentaire, possible grâce à l'extension [S4U2Self](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/02636893-7a1f-4357-af9a-b672e3e3de13), que `Service A` doit effectuer. Cette étape lui permet d'obtenir un TGS pour un utilisateur **choisi arbitrairement**. Pour cela, il effectue une demande de TGS classique ([KRB_TGS_REQ](/kerberos/#krb_tgs_req)) sauf qu'au lieu de mettre son nom à lui dans le bloc `PA-FOR-USER` (présent dans la partie préauthentification), il met le nom d'un utilisateur **qu'il choisit**.
+C'est pourquoi il y a une étape supplémentaire, possible grâce à l'extension [S4U2Self](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/02636893-7a1f-4357-af9a-b672e3e3de13), que `Service A` doit effectuer. Cette étape lui permet d'obtenir un ticket de service pour un utilisateur **choisi arbitrairement**. Pour cela, il effectue une demande de ticket de service classique ([KRB_TGS_REQ](/kerberos/#krb_tgs_req)) sauf qu'au lieu de mettre son nom à lui dans le bloc `PA-FOR-USER` (présent dans la partie préauthentification), il met le nom d'un utilisateur **qu'il choisit**.
 
 Cette capacité à gérer une **transition de protocole** n'est acceptée par le contrôleur de domaine que si elle a explicitement été accordée au compte de service voulant gérer cette délégation. C'est ici, dans la gestion des délégation, qu'un administrateur peut choisir une délégation contrainte en utilisant uniquement Kerberos, donc sans transition de protocole, ou pouvant utiliser n'importe quel protocole, autorisant ainsi la **transition de protocole**.
 
