@@ -64,7 +64,7 @@ Comme promis, nous allons nous intéresser à deux cas pratiques.
 
 ### Cas 1
 
-J'ai illustré un cas similaire en vidéo, vous le [trouverez ici](https://www.youtube.com/watch?v=V7Gdc32XRhA){:target="blank"}.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/V7Gdc32XRhA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ```c
 #include <stdio.h>
