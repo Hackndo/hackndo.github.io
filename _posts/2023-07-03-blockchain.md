@@ -9,6 +9,8 @@ cover: assets/uploads/2023/06/blockchain_banner.png
 description: "Une blockchain représente un registre (ou base de données) décentralisé. Il n'y a pas une entité centrale qui décide de la validité ou non d'une transaction, mais bien des milliers de personnes ou machines qui travaillent pour vérifier et valider ces transactions, le tout étant régit par des règles et concepts mathématiques bien précis."
 tags:
   - "Blockchain"
+translation:
+  - en
 ---
 
 
