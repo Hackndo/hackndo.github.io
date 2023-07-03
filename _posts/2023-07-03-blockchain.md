@@ -1,6 +1,6 @@
 ---
 title: "Blockchain 101"
-date: 2023-06-16 11:12:43
+date: 2023-07-03 02:12:43
 author: "Pixis"
 layout: post
 permalink: /blockchain/
