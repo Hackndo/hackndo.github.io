@@ -13,9 +13,9 @@ Si jamais vous êtes tombé(e) ici par hasard, sachez que je ne prétends pas ê
 
 # Qui suis-je
 
-Sur les internets, je m'appelle **Pixis**, et je suis un fervent utilisateur du site [newbiecontest](https://www.newbiecontest.org/index.php){:target="blank"} ([mon profil](https://www.newbiecontest.org/index.php?page=info_membre&nick=pixis){:target="blank"}) dont je suis administrateur.
+Sur les internets, je m'appelle **Pixis**, et je travaille chez [Login Sécurité](https://www.login-securite.com/){:target="blank"}.
 
-Vrai passionné qui passe ses jours et nuits sur différents sujets, que ce soit concernant la sécurité informatique (Active Directory ♥), mais également bidouilleur raspberry/arduino/domotique, toujours curieux, et qui aime partager.
+Vrai passionné qui passe ses jours et nuits sur différents sujets, que ce soit concernant la sécurité informatique (Active Directory ♥, sécurité des smart-contracts), mais également bidouilleur raspberry/arduino/domotique, toujours curieux, et qui aime partager.
 
 Je vous souhaite donc la bienvenue sur mon humble blog, et j'espère que les articles que vous pourrez trouver vous seront utiles !
 
