@@ -52,7 +52,7 @@ Par ailleurs, pour communiquer avec la blockchain, l'utilisateur passera par le 
 
 ## Validation
 
-C'est très bien, mais qui est-ce qui valide ces transactions ? Qui fait le calcul pour vérifier que Alice a bien au moins 1 _coin_ à envoyer à quelqu'un ? Et que c'est bien Alice qui effectue la transaction ?
+C'est très bien, mais qui valide ces transactions ? Qui fait le calcul pour vérifier que Alice a bien au moins 1 _coin_ à envoyer à quelqu'un ? Et que c'est bien Alice qui effectue la transaction ?
 
 C'est là qu'interviennent les notions de **blocs** et de **validateurs**. Pour qu'une blockchain fonctionne correctement, il faut que plusieurs personnes se mettent au travail pour valider les transactions. Ils créent ce qu'on appelle des nœuds (_nodes_) qui seront capables de s'annoncer auprès du réseau pour en faire partie, récupérer toutes les transactions passées et celles en attente de validation. C'est un vrai réseau _peer-to-peer_. Dès qu'un utilisateur souhaite effectuer une transaction (**1**), le client qu'il utilise pour effectuer sa transaction enverra un message de broadcast pour indiquer qu'une nouvelle transaction a été envoyée (via [NewPooledTransactionHashes](https://eips.ethereum.org/EIPS/eip-2464)) (**2**). Le (ou les) nœud alentours recevra cette information et récupérera la transaction pour la **vérifier** (vérification de la signature, des fonds disponibles, etc.) (**3**), mais elle ne sera pas encore **validée** pour autant. Elle va rejoindre la liste d'attente des transactions qui ont été envoyées mais pas encore validées, appelée le **mempool**. Ce nœud préviendra également d'autres nœuds (**4**) qui eux-mêmes feront le travail de vérification (**6**) et ajouteront cette transaction à leur mempool, etc.
 
