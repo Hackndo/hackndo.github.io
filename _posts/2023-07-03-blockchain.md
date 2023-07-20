@@ -94,4 +94,4 @@ Par ailleurs, à chaque bloc validé, un petit montant de la cryptomonnaie est c
 
 ## Conclusion
 
-Ces quelques paragraphes permettent j'espère de clarifier le concept global d'une blockchain, et sert d'introduction aux prochains articles qui se concentreront sur la blockchain Ethereum, notamment sur l'Ethereum Virtual Machine qui permet d'exécuter des Smart Contracts, et les enjeux de sécurité associés à cette exécution de code décentralisée. A très vite !
+Ces quelques paragraphes permettent j'espère de clarifier le concept global d'une blockchain, et sert d'introduction aux prochains articles qui se concentrent sur la [blockchain Ethereum](/ethereum), notamment sur l'[Ethereum Virtual Machine](/ethereum-virtual-machine/) qui permet d'exécuter des Smart Contracts, et les enjeux de sécurité associés à cette exécution de code décentralisée. A très vite !
