@@ -21,6 +21,12 @@ This tool can be used when a controlled account can modify an existing GPO that 
 
 ***
 
+### [conpass](https://github.com/Hackndo/conpass){:target="blank"}
+
+Python tool for continuous password spraying taking into account the password policy.
+
+***
+
 ### [SprayHound](https://github.com/Hackndo/sprayhound){:target="blank"}
 
 Python library to safely password spray in Active Directory, set pwned users as owned in Bloodhound and detect path to Domain Admins
