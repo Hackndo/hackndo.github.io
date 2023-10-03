@@ -9,6 +9,8 @@ cover: assets/uploads/2023/10/sensitive_data.png
 description: "Toutes les données enregistrées par un smart contract sont stockées sur la blockchain, donc peuvent être lues par tout le monde. Si jamais des données sensibles sont enregistrées par un smart contract, un attaquant sera en capacité de les lire."
 tags:
   - "Blockchain"
+translation:
+  - en
 ---
 
 Vous vous souvenez des différents espaces de stockages auxquels a accès l'EVM ? Celui comparable au disque dur d'un ordinateur est le **account storage**. C'est cette zone mémoire dans laquelle l'état du contrat est enregistré. Mais vous vous souvenez aussi que la blockchain Ethereum est une machine a états décentralisée, accessible en lecture à tout le monde ? Vous voyez où je veux en venir ? Toutes les données enregistrées par un smart contract peuvent être lues par tout le monde. Si jamais des données sensibles sont enregistrées par un smart contract, nous serons en capacité de les lire.
