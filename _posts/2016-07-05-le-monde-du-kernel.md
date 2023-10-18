@@ -8,7 +8,7 @@ disqus_identifier: 0000-0000-0000-0013
 description: "Lorsque vous utilisez votre ordinateur tous les jours, en allant sur internet, en regardant des films, ou encore en codant, une grosse machinerie est en route pour vous simplifier la vie."
 cover: assets/uploads/2016/07/kernel_1.jpg
 tags:
-  - "Kernel Land"
+  - Kernel
   - Linux
 ---
 
