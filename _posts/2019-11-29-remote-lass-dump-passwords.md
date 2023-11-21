@@ -432,7 +432,7 @@ Avec ce nouveau minidump, j'ai modifié le module CrackMapExec qui permet cette 
 
 ## Nouveaux outils
 
-Vici deux outils que j'ai développés pour concrétiser ces recherches :
+Voici deux outils que j'ai développés pour concrétiser ces recherches :
 
 [lsassy](https://github.com/Hackndo/lsassy) est disponible sur mon [Github](https://github.com/Hackndo/lsassy) ou sur [Pypi](https://pypi.org/project/lsassy/). C'est l'interface entre Pypykatz et la cible, qui permet de lire le dump de lsass à distance, avec les optimisations dont on a parlé dans cet article.
 
