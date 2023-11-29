@@ -1,12 +1,12 @@
 ---
-title: "Relai NTLM"
+title: "Relais NTLM"
 date: 2020-04-01 10:11:52
 author: "Pixis"
 layout: post
 permalink: /ntlm-relay/
 disqus_identifier: 0000-0000-0000-00b4
 cover: assets/uploads/2020/03/ntlm_relay_banner.png
-description: "Le relai NTLM est une technique consistant à se mettre entre un client et un serveur pour effectuer des actions sur le serveur en se faisant passer pour le client. Les protections telles que le SMB Signing ou le MIC permettent de limiter les actions d'un attaquant. Cet article descend dans le détail de cette technique pour en comprendre le fonctionnement et ses limites."
+description: "Le relais NTLM est une technique consistant à se mettre entre un client et un serveur pour effectuer des actions sur le serveur en se faisant passer pour le client. Les protections telles que le SMB Signing ou le MIC permettent de limiter les actions d'un attaquant. Cet article descend dans le détail de cette technique pour en comprendre le fonctionnement et ses limites."
 tags:
   - "Active Directory"
   - Windows
@@ -14,7 +14,7 @@ translation:
   - en
 ---
 
-Le relai NTLM est une technique consistant à se mettre entre un client et un serveur pour effectuer des actions sur le serveur en se faisant passer pour le client. Correctement utilisée, elle peut être très puissante et peut permettre de prendre le contrôle d'un domaine Active Directory sans avoir d'identifiants au préalable. L'objet de cet article est d'expliquer le relai NTLM, et de présenter ses limites.
+Le relais NTLM est une technique consistant à se mettre entre un client et un serveur pour effectuer des actions sur le serveur en se faisant passer pour le client. Correctement utilisée, elle peut être très puissante et peut permettre de prendre le contrôle d'un domaine Active Directory sans avoir d'identifiants au préalable. L'objet de cet article est d'expliquer le relais NTLM, et de présenter ses limites.
 
 <!--more-->
 
@@ -32,7 +32,7 @@ Par ailleurs, et afin d'éviter toute confusion, voici quelques rappels :
 
 ## Introduction
 
-Le relai NTLM repose, comme son nom l'indique, sur l'authentification NTLM. Le fonctionnement de NTLM a été vu dans [l'article sur pass-the-hash](/pass-the-hash/#protocole-ntlm). Je vous invite à lire au moins la partie sur le protocole NTLM et sur les authentifications locales et distantes.
+Le relais NTLM repose, comme son nom l'indique, sur l'authentification NTLM. Le fonctionnement de NTLM a été vu dans [l'article sur pass-the-hash](/pass-the-hash/#protocole-ntlm). Je vous invite à lire au moins la partie sur le protocole NTLM et sur les authentifications locales et distantes.
 
 Pour rappel, le protocole NTLM est utilisé pour authentifier un client auprès d'un serveur. Ce qu'on appelle client et serveur sont les deux parties de l'échange. Le client est celui qui souhaite s'authentifier, et le serveur est celui qui valide, ou non, l'authentification du client.
 
@@ -50,7 +50,7 @@ Ce procédé s'appelle **challenge/response**.
 
 L'intérêt de cet échange, c'est que le secret de l'utilisateur ne transite jamais sur le réseau. C’est ce qu’on appelle une [preuve à divulgation nulle de connaissance](https://fr.wikipedia.org/wiki/Preuve_%C3%A0_divulgation_nulle_de_connaissance).
 
-## Relai NTLM
+## Relais NTLM
 
 Avec ces informations, nous pouvons aisément imaginer le scénario suivant : Un attaquant arrive à se positionner entre le client et le serveur, et ne fait que relayer les informations de l'un vers l'autre.
 
@@ -58,13 +58,13 @@ Comme il est en position d'homme du milieu, cela signifie que du point de vue du
 
 Sauf que l'attaquant ne souhaite pas "juste" s'authentifier auprès du serveur. Il souhaite le faire en se faisant passer pour le client. Or, il ne connait pas le secret du client, et même s'il écoute les conversations, comme ce secret n'est jamais transmis sur le réseau, l'attaquant n'est pas en mesure d’extraire un quelconque secret pour ensuite s'authentifier auprès du serveur. Mais alors, comment ça fonctionne ?
 
-### Relai de messages
+### Relais de messages
 
 Lors d'une authentification NTLM, un client peut prouver à un serveur qu'il est bien qui il prétend être, et pour cela, il chiffre une information fournie par le serveur en utilisant son mot de passe. L'idée est alors que l'attaquant va se positionner en "passe plat", en laissant le client travailler, et en passant les plats du client vers le serveur, et les réponse du serveur vers le client.
 
 Tout ce que le client doit envoyer au serveur, c'est l'attaquant qui le recevra, et il renverra les messages tels quels au vrai serveur, et tous les messages que le serveur envoie au client, c'est également l'attaquant qui les recevra, et ils les transmettra au client, tels quels.
 
-[![Relai NTLM](/assets/uploads/2020/03/ntlm_relay_basic.png)](/assets/uploads/2020/03/ntlm_relay_basic.png)
+[![Relais NTLM](/assets/uploads/2020/03/ntlm_relay_basic.png)](/assets/uploads/2020/03/ntlm_relay_basic.png)
 
 Et tout ça, ça fonctionne bien ! En effet, du point de vue du client, donc la partie de gauche sur le schéma, une authentification NTLM a lieu entre l'attaquant et lui, avec toutes les briques nécessaires. Le client envoie une demande d'authentification dans son premier message, ce à quoi l'attaquant répond avec un défi, ou *challenge*. En recevant ce challenge, le client construit sa réponse à l'aide de son secret, et envoie finalement le dernier message de l'authentification contenant notamment le challenge chiffré.
 
@@ -74,7 +74,7 @@ C'est là que réside tout l'intérêt de cette attaque. En effet, du point de v
 
 Ainsi, du point de vue du serveur, voilà ce qu'il s'est passé :
 
-[![Relai NTLM - Point de vue du serveur](/assets/uploads/2020/03/ntlm_relay_server_pov.png)](/assets/uploads/2020/03/ntlm_relay_server_pov.png)
+[![Relais NTLM - Point de vue du serveur](/assets/uploads/2020/03/ntlm_relay_server_pov.png)](/assets/uploads/2020/03/ntlm_relay_server_pov.png)
 
 A la fin de ces échanges, l'attaquant est authentifié sur le serveur avec les identifiants du client.
 
@@ -88,7 +88,7 @@ Pour être exact, ce n'est pas tout à fait le chiffrement du challenge, mais un
 
 A titre d'exemple, j'ai monté un petit lab avec plusieurs machines. Il y a notamment un client **DESKTOP01** dont l'adresse IP est **192.168.56.221** et un serveur **WEB01** avec comme IP **192.168.56.211**. Ma machine est celle de l'attaquant, avec l'adresse IP **192.168.56.1**. Nous nous trouvons donc dans la situation suivante :
 
-[![Relai NTLM - Exemple](/assets/uploads/2020/03/ntlm_relay_example_smb_smb_no_signing.png)](/assets/uploads/2020/03/ntlm_relay_example_smb_smb_no_signing.png)
+[![Relais NTLM - Exemple](/assets/uploads/2020/03/ntlm_relay_example_smb_smb_no_signing.png)](/assets/uploads/2020/03/ntlm_relay_example_smb_smb_no_signing.png)
 
 L'attaquant a donc réussi à se mettre en position d'homme du milieu. Il existe différentes techniques pour y parvenir, que ce soit via un abus des configurations par défaut de IPv6 dans un environnement Windows, ou des protocoles LLMNR et NBT-NS. Quoiqu'il en soit, l'attaquant fait croire au client que c'est lui, le serveur. Ainsi, lorsque le client tente de s'authentifier, c'est auprès de l'attaquant qu'il va effectuer cette opération.
 
@@ -102,33 +102,33 @@ L'outil crée différents serveurs, dont un serveur SMB pour cet exemple, et il 
 
 D'un point de vue réseau, voici une capture de l'échange, avec l'attaquant qui relaie les informations vers la cible.
 
-[![Relai NTLM - PCAP](/assets/uploads/2020/03/ntlm_relay_example_smb_smb_no_signing_pcap.png)](/assets/uploads/2020/03/ntlm_relay_example_smb_smb_no_signing_pcap.png)
+[![Relais NTLM - PCAP](/assets/uploads/2020/03/ntlm_relay_example_smb_smb_no_signing_pcap.png)](/assets/uploads/2020/03/ntlm_relay_example_smb_smb_no_signing_pcap.png)
 
 En vert se trouvent les échanges entre le client **DESKTOP01** et l'attaquant, et en rouge les échanges entre l'attaquant et le serveur **WEB01**. Nous voyons bien les 3 messages effectués entre **DESKTOP01** et l'attaquant, et entre l'attaquant et le serveur **WEB01**.
 
-Et pour bien comprendre la notion de **relai**, nous pouvons vérifier que lorsque le serveur **WEB01** envoie un challenge à l'attaquant, l'attaquant renvoie exactement la même chose au client **DESKTOP01**.
+Et pour bien comprendre la notion de **relais**, nous pouvons vérifier que lorsque le serveur **WEB01** envoie un challenge à l'attaquant, l'attaquant renvoie exactement la même chose au client **DESKTOP01**.
 
 Voilà le challenge envoyé par **WEB01** à l'attaquant :
 
-[![Relai NTLM - Challenge](/assets/uploads/2020/03/ntlm_relay_example_smb_smb_no_signing_pcap_challenge_1.png)](/assets/uploads/2020/03/ntlm_relay_example_smb_smb_no_signing_pcap.png)
+[![Relais NTLM - Challenge](/assets/uploads/2020/03/ntlm_relay_example_smb_smb_no_signing_pcap_challenge_1.png)](/assets/uploads/2020/03/ntlm_relay_example_smb_smb_no_signing_pcap.png)
 
 Lorsque l'attaquant reçoit ce challenge, il l'envoie à son tour, sans le modifier, au client **DESKTOP01**. Dans cet exemple, le challenge est `b6515172c37197b0`, et il est transmis au client :
 
-[![Relai NTLM - Challenge](/assets/uploads/2020/03/ntlm_relay_example_smb_smb_no_signing_pcap_challenge_2.png)](/assets/uploads/2020/03/ntlm_relay_example_smb_smb_no_signing_pcap.png)
+[![Relais NTLM - Challenge](/assets/uploads/2020/03/ntlm_relay_example_smb_smb_no_signing_pcap_challenge_2.png)](/assets/uploads/2020/03/ntlm_relay_example_smb_smb_no_signing_pcap.png)
 
 Le client va alors calculer la réponse en utilisant son secret, comme nous l'avons vu dans les paragraphes précédents, et il va envoyer cette réponse en indiquant qui il est (**jsnow**), sur quelle machine il se trouve (**DESKTOP01**), et dans cet exemple il indique que c'est un utilisateur du domaine, donc il fournit le nom du domaine (**ADSEC**).
 
-[![Relai NTLM - Response](/assets/uploads/2020/03/ntlm_relay_example_smb_smb_no_signing_pcap_response_1.png)](/assets/uploads/2020/03/ntlm_relay_example_smb_smb_no_signing_pcap.png)
+[![Relais NTLM - Response](/assets/uploads/2020/03/ntlm_relay_example_smb_smb_no_signing_pcap_response_1.png)](/assets/uploads/2020/03/ntlm_relay_example_smb_smb_no_signing_pcap.png)
 
 L'attaquant qui reçoit tout ça ne se pose pas de questions. Il envoie exactement les mêmes informations au serveur. Il prétend donc être l'utilisateur **jsnow** sur la machine **DESKTOP01** et faisant partie du domaine **ADSEC**, et il envoie également la réponse qui a été calculée par le client, appelée **NTLM Response** dans ces captures d'écran, mais que nous pouvons également appeler **Hash NTLMv2**. 
 
-[![Relai NTLM - Response](/assets/uploads/2020/03/ntlm_relay_example_smb_smb_no_signing_pcap_response_2.png)](/assets/uploads/2020/03/ntlm_relay_example_smb_smb_no_signing_pcap.png)
+[![Relais NTLM - Response](/assets/uploads/2020/03/ntlm_relay_example_smb_smb_no_signing_pcap_response_2.png)](/assets/uploads/2020/03/ntlm_relay_example_smb_smb_no_signing_pcap.png)
 
-Nous voyons bien que l'attaquant a joué le rôle de relai dans cet échange. Il n'a fait que passer les informations du client vers le serveur et vice versa, sauf qu'in fine, le serveur pense que l'attaquant s'est authentifié avec succès, et l'attaquant peut alors effectuer des actions sur le serveur en se faisant passer pour **ADSEC\jsnow**.
+Nous voyons bien que l'attaquant a joué le rôle de relais dans cet échange. Il n'a fait que passer les informations du client vers le serveur et vice versa, sauf qu'in fine, le serveur pense que l'attaquant s'est authentifié avec succès, et l'attaquant peut alors effectuer des actions sur le serveur en se faisant passer pour **ADSEC\jsnow**.
 
 ## Authentification vs Session
 
-Maintenant que nous avons compris le principe de base du relai NTLM, la question qui se pose est de savoir comment, concrètement, est-ce qu'on peut effectuer des actions sur un serveur après avoir relayé l'authentification NTLM ? D'ailleurs, qu'entend-on par "actions" ? Qu'est-il possible de faire ?
+Maintenant que nous avons compris le principe de base du relais NTLM, la question qui se pose est de savoir comment, concrètement, est-ce qu'on peut effectuer des actions sur un serveur après avoir relayé l'authentification NTLM ? D'ailleurs, qu'entend-on par "actions" ? Qu'est-il possible de faire ?
 
 Pour répondre à cette question, il faut d'abord éclaircir une chose fondamentale. Lorsqu'un client s'authentifie auprès d'un serveur pour y faire *quelque chose*, nous devons distinguer deux choses
 
@@ -267,7 +267,7 @@ Il est alors très important de bien distinguer la partie authentification, donc
 
 [![Authentification vs Session](/assets/uploads/2020/03/ntlm_auth_vs_session.png)](/assets/uploads/2020/03/ntlm_auth_vs_session.png)
 
-Comme ces informations sont indépendantes, cela signifie qu'un attaquant en situation d'homme du milieu peut très bien recevoir une authentification via HTTP, par exemple, et la relayer vers un serveur mais en utilisant SMB. C'est ce qu'on appelle du **relai cross-protocole**.
+Comme ces informations sont indépendantes, cela signifie qu'un attaquant en situation d'homme du milieu peut très bien recevoir une authentification via HTTP, par exemple, et la relayer vers un serveur mais en utilisant SMB. C'est ce qu'on appelle du **relais cross-protocole**.
 
 [![Cross protocole](/assets/uploads/2020/03/ntlm_relay_cross_protocol.png)](/assets/uploads/2020/03/ntlm_relay_cross_protocol.png)
 
@@ -289,11 +289,11 @@ Mais du coup, c'est quoi l'intérêt de signer des paquets ? Et bien comme discu
 
 C'est là que la signature des flux entre en jeu. Même si l'attaquant a réussi à s'authentifier auprès du serveur en tant que le client, il ne sera pas en mesure, **ensuite**, **indépendamment de l'authentification**, de signer les paquets. En effet, pour pouvoir signer un paquet, il faut **avoir connaissance du secret** du signataire.
 
-Or dans le relai NTLM, l'attaquant **veut se faire passer pour un client**, mais il n'a **pas connaissance de son secret**. Il n'est donc pas en mesure de signer quoi que ce soit au nom du client. Comme il ne peut pas signer le paquet, le serveur recevant le paquet va soit voir que la signature n'est pas présente, soit qu'elle n'existe pas, et rejettera la demande de l'attaquant.
+Or dans le relais NTLM, l'attaquant **veut se faire passer pour un client**, mais il n'a **pas connaissance de son secret**. Il n'est donc pas en mesure de signer quoi que ce soit au nom du client. Comme il ne peut pas signer le paquet, le serveur recevant le paquet va soit voir que la signature n'est pas présente, soit qu'elle n'existe pas, et rejettera la demande de l'attaquant.
 
-[![Absence de signature d'un paquet de session après relai NTLM](/assets/uploads/2020/03/ntlm_session_signing_failed.png)](/assets/uploads/2020/03/ntlm_session_signing_failed.png)
+[![Absence de signature d'un paquet de session après relais NTLM](/assets/uploads/2020/03/ntlm_session_signing_failed.png)](/assets/uploads/2020/03/ntlm_session_signing_failed.png)
 
-Vous le comprenez donc bien, si les paquets doivent nécessairement être signés après l'authentification, alors l'attaquant ne peut plus opérer, puisqu'il n'a pas connaissance du secret du client. L'attaque échouera donc. C'est une mesure très efficace pour se protéger du relai NTLM.
+Vous le comprenez donc bien, si les paquets doivent nécessairement être signés après l'authentification, alors l'attaquant ne peut plus opérer, puisqu'il n'a pas connaissance du secret du client. L'attaque échouera donc. C'est une mesure très efficace pour se protéger du relais NTLM.
 
 C'est très bien tout ça, mais comment est-ce que le client et le serveur se mettent d'accord sur le fait de signer ou non les paquets ? Et bien c'est une très bonne question. Oui, je sais, c'est moi qui la pose, mais ça n'enlève rien à sa pertinence.
 
@@ -455,7 +455,7 @@ Et bien pour LDAPS, ce drapeau est également pris en compte par le serveur. Si 
 
 Or dans notre attaque, le client que nous relayons voulait s'authentifier via SMB, donc il indique que oui, il supporte la signature des flux, donc oui, il met le drapeau `NEGOTIATE_SIGN` à **1**. Mais si nous relayons son authentification, sans rien modifier, via LDAPS, et bien le serveur LDAPS va voir ce drapeau, et ne va pas nous autoriser à communiquer avec lui.
 
-Comme proposé avec le relai de SMB vers LDAP, nous pourrions tout simplement modifier le message NTLM à la volée, et enlever le drapeau. Si nous le pouvions, nous le ferions, et effectivement, ça fonctionnerait bien. Sauf qu'il y a également une **signature au niveau NTLM**.
+Comme proposé avec le relais de SMB vers LDAP, nous pourrions tout simplement modifier le message NTLM à la volée, et enlever le drapeau. Si nous le pouvions, nous le ferions, et effectivement, ça fonctionnerait bien. Sauf qu'il y a également une **signature au niveau NTLM**.
 
 Cette signature, elle s'appelle le **MIC**, ou *Message Integrity Code*.
 
@@ -556,7 +556,7 @@ Enfin, de la même manière que `msAvFlags`, nous ne pouvons pas modifier le nom
 
 Nous allons parler d'une dernière notion. Plusieurs fois nous avons répété que la couche d'authentification, donc les messages NTLM, était quasi-indépendante de la couche applicative, du protocole utilisé (SMB, LDAP, ...). Je dis "quasi" parce que nous avons vu que certains protocoles utilisent les drapeaux des messages NTLM pour savoir si la session doit être signée ou non.
 
-Quoiqu'il en soit, en l'état, il est tout à fait possible pour un attaquant de récupérer un message NTLM dans un protocole A, et de le renvoyer dans un protocole B. C'est le principe du **relai cross-protocole** que nous avons déjà évoqué.
+Quoiqu'il en soit, en l'état, il est tout à fait possible pour un attaquant de récupérer un message NTLM dans un protocole A, et de le renvoyer dans un protocole B. C'est le principe du **relais cross-protocole** que nous avons déjà évoqué.
 
 [![Cross protocole](/assets/uploads/2020/03/ntlm_relay_cross_protocol.png)](/assets/uploads/2020/03/ntlm_relay_cross_protocol.png)
 
@@ -588,7 +588,7 @@ Nous voyons qu'il indique bien vouloir utiliser le service **CIFS** (équivalent
 
 Mais comme vous pouvez le voir, il n'y a pas que le nom du service dans le SPN (CIFS). Il y a également la cible de l'authentification, ici l'adresse IP de l'attaquant. Cela implique que si un attaquant relaie ce message à un serveur, et que le serveur vérifie le SPN, il verra qu'il n'est pas destination indiquée dans le SPN et refusera la connexion.
 
-Ainsi, cette protection, si supportée par tous les clients et serveurs, et si requise pour tous les serveurs, protège de tout relai NTLM.
+Ainsi, cette protection, si supportée par tous les clients et serveurs, et si requise pour tous les serveurs, protège de tout relais NTLM.
 
 ### Liaison avec la couche TLS
 
@@ -618,7 +618,7 @@ Avec toutes ces informations, vous devriez être capables de savoir les quels pr
 
 Comme il existe beaucoup de cas, voici un tableau qui en résume certains.
 
-[![Résumé du relai NTLM](/assets/uploads/2020/03/ntlm_resume.png)](/assets/uploads/2020/03/ntlm_resume.png)
+[![Résumé du relais NTLM](/assets/uploads/2020/03/ntlm_resume.png)](/assets/uploads/2020/03/ntlm_resume.png)
 
 Concernant LDAPS ou HTTPS en client, je les ai mis dans le tableau, sous réserve que la CA qui a généré le certificat de l'attaquant soit acceptée par le client. Par ailleurs, d'autres protocoles pourraient être ajoutés, comme SQL ou SMTP, mais j'avoue ne pas avoir lu la documentations de tous les protocoles de la planète.
 
@@ -638,7 +638,7 @@ C'est le comportement "by design" donc ça ne peut pas être corrigé. Donc je l
 
 Et bien, ça fait beaucoup d'informations à digérer.
 
-Nous avons vu ici le **fonctionnement du relai NTLM**, en prenant bien conscience que l'authentification et la session qui s'en suit sont deux notions distinctes permettant de faire du **relai cross-protocole** dans beaucoup de cas. Bien que le protocole englobe d'une manière ou d'une autre les données d'authentification, elles sont pour lui opaques, et gérées par SSPI.
+Nous avons vu ici le **fonctionnement du relais NTLM**, en prenant bien conscience que l'authentification et la session qui s'en suit sont deux notions distinctes permettant de faire du **relais cross-protocole** dans beaucoup de cas. Bien que le protocole englobe d'une manière ou d'une autre les données d'authentification, elles sont pour lui opaques, et gérées par SSPI.
 
 Nous avons également montré en quoi la **signature des flux** pouvait protéger le serveur d'attaques de type homme du milieu. Pour cela, la cible doit attendre une signature des flux de la part du client, sinon l'attaquant pourra se faire passer pour quelqu'un d'autre sans avoir à signer les messages qu'il envoie. 
 
@@ -646,6 +646,6 @@ Nous avons vu que le MIC était très important pour protéger les échanges NTL
 
 Nous avons d'ailleurs terminé en montrant comment le channel binding permettait de faire le lien entre la couche d'authentification et la couche de session, soit via le nom du service, soit via une liaison avec le certificat du serveur.
 
-J'espère que ce long article vous a permis de mieux comprendre ce qu'il se passait lors d'une attaque de relai NTLM. Vous comprenez j'espère mieux les briques qui entrent en jeu, et les protections existantes.
+J'espère que ce long article vous a permis de mieux comprendre ce qu'il se passait lors d'une attaque de relais NTLM. Vous comprenez j'espère mieux les briques qui entrent en jeu, et les protections existantes.
 
 Cet article étant assez conséquent, il est tout à fait probable que des coquilles se soient glissées à l'intérieur. N'hésitez pas à me contacter sur [twitter](https://twitter.com/hackanddo) ou sur mon [serveur Discord](https://discord.hackndo.com) pour discuter de tout ça.
