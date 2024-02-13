@@ -306,7 +306,7 @@ Pour cela, deux éléments entrent en jeu.
 
 Cette négociation permet de savoir si le client et/ou le serveur supportent la signature des flux (mais pas que), et se fait pendant l'échange NTLM. Donc je vous ai un peu menti tout à l'heure, les deux échanges ne sont pas complètement indépendants. (D'ailleurs, j'ai dit que comme c'était indépendant, on pouvait changer de protocole entre le client et le serveur, mais il y a des limites, nous les verrons dans le chapitre sur le MIC dans l'authentification NTLM.)
 
-En fait, dans les messages NTLM, il y a d'autres autres informations que le challenge et la réponse qui sont échangées. Il y a également des drapeaux de négociation, ou *Negotiate Flags*. Ces drapeaux indiquent ce que supporte l'entité qui les envoie.
+En fait, dans les messages NTLM, il y a d'autres informations que le challenge et la réponse qui sont échangées. Il y a également des drapeaux de négociation, ou *Negotiate Flags*. Ces drapeaux indiquent ce que supporte l'entité qui les envoie.
 
 On trouve plusieurs drapeaux, mais celui qui nous intéresse ici c'est **NEGOTIATE_SIGN**.
 
@@ -574,7 +574,7 @@ Le nom du service se trouvant dans la réponse NTLM, il est protégé par la ré
 
 Dans l'exemple présenté dans le dernier schéma, nous voyons un client qui tente de s'authentifier via HTTP auprès du serveur. Sauf que le serveur, c'est un attaquant, et l'attaquant rejoue cette authentification auprès du serveur légitime, pour accéder non plus à un service web (via HTTP), mais un partage réseau (SMB).
 
-Sauf que le client a indiqué le service qu'il souhaitait utiliser dans sa réponse NTLM, et comme l'attaquant ne peut pas le modifier, il est obligé de le relayer tel quel. Le serveur reçoit alors le dernier message, compare le service demandé demandé par l'attaquant avec le service renseigné dans le message NTLM, et refuse la connexion en s'apercevant que les deux services ne correspondent pas.
+Sauf que le client a indiqué le service qu'il souhaitait utiliser dans sa réponse NTLM, et comme l'attaquant ne peut pas le modifier, il est obligé de le relayer tel quel. Le serveur reçoit alors le dernier message, compare le service demandé par l'attaquant avec le service renseigné dans le message NTLM, et refuse la connexion en s'apercevant que les deux services ne correspondent pas.
 
 [![Cross protocole example](/assets/uploads/2020/03/ntlm_service_binding.png)](/assets/uploads/2020/03/ntlm_service_binding.png)
 
@@ -614,7 +614,7 @@ A la fin des échanges NTLM, ce condensat sera mis dans la réponse NTLM, et ser
 
 ## Que peut-on relayer ?
 
-Avec toutes ces informations, vous devriez être capables de savoir les quels protocoles peuvent être relayés vers quels protocoles. Nous avons vu qu'il était impossible de relayer du SMB vers du LDAP ou du LDAPS, par exemple. En revanche, tout client qui ne positionne pas le drapeau `NEGOTIATE_SIGN` peut être relayé vers LDAP si la signature n'est pas imposée, ou LDAPS si le channel binding n'est pas requis.
+Avec toutes ces informations, vous devriez être capables de savoir quels protocoles peuvent être relayés vers quels protocoles. Nous avons vu qu'il était impossible de relayer du SMB vers du LDAP ou du LDAPS, par exemple. En revanche, tout client qui ne positionne pas le drapeau `NEGOTIATE_SIGN` peut être relayé vers LDAP si la signature n'est pas imposée, ou LDAPS si le channel binding n'est pas requis.
 
 Comme il existe beaucoup de cas, voici un tableau qui en résume certains.
 
