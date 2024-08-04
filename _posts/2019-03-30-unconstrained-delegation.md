@@ -170,9 +170,9 @@ Cette capacité à gérer une **transition de protocole** n'est acceptée par le
 
 [![Protocol transition](/assets/uploads/2020/04/protocol_transition.png)](/assets/uploads/2020/04/protocol_transition.png)
 
-Dans le premier cas, le drapeau **TRUSTED_FOR_DELEGATION** qui est positionné sur le compte, et le service ne peut que relayer les authentification kerberos. Il ne peut pas utiliser l'extension S4U2Self pour créer un ticket factice.
+Dans le premier cas, le service ne peut que relayer les authentification kerberos. Il ne peut pas utiliser l'extension S4U2Self pour créer un ticket factice. L'UAC n'est pas modifié. 
 
-Dans le deuxième cas, c'est le drapeau **TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION** qui est positionné. Si c'est le cas, alors le service ayant cette capacité **peut se faire passer pour n'importe qui** auprès des services présents dans sa liste via l'extension **S4U2Self**.
+Dans le deuxième cas, le drapeau **TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION** est positionné. Si c'est le cas, alors le service ayant cette capacité **peut se faire passer pour n'importe qui** auprès des services présents dans sa liste via l'extension **S4U2Self**.
 
 Attention, le schéma de la délégation contrainte se complique un peu, mais j'espère qu'il reste relativement clair.
 
