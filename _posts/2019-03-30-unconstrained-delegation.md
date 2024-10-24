@@ -91,7 +91,7 @@ Une fois placé, nous pouvons voir les drapeaux UAC et constater que `TRUSTED_FO
 [![Unconstrained Delegation UAC](/assets/uploads/2020/04/UAC_UD.png)](/assets/uploads/2020/04/UAC_UD.png)
 
 
-* Le deuxième est que le compte utilisateur qui va être relayé soit effectivement "relayable". Pour cela, il **ne faut pas** faut que le drapeau [NOT_DELEGATED](https://docs.microsoft.com/en-us/windows/desktop/api/iads/ne-iads-ads_user_flag) soit positionné. Par défaut, aucun compte de l'AD n'a ce drapeau de positionné, ils sont donc tous "relayables".
+* Le deuxième est que le compte utilisateur qui va être relayé soit effectivement "relayable". Pour cela, il **ne faut pas** que le drapeau [NOT_DELEGATED](https://docs.microsoft.com/en-us/windows/desktop/api/iads/ne-iads-ads_user_flag) soit positionné. Par défaut, aucun compte de l'AD n'a ce drapeau de positionné, ils sont donc tous "relayables".
 
 [![Not delegated flag unset](/assets/uploads/2020/04/UAC_user_not_delegated.png)](/assets/uploads/2020/04/UAC_user_not_delegated.png)
 
