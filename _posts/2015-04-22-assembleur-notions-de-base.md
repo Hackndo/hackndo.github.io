@@ -315,7 +315,7 @@ Donc ce test permet de savoir si eax est positif ou non. Cependant, `CMP` effect
 
 #### Jumps
 
-Il existe de nombreuses instruction qui sautent à un autre endroit du code. Une instruction qui saute quelque soit la condition, et d'autres qui dépendent du résultat d'un test précédemment effectué. Sans condition, nous avons l'instruction
+Il existe de nombreuses instruction qui sautent à un autre endroit du code. Une instruction qui saute quelle que soit la condition, et d'autres qui dépendent du résultat d'un test précédemment effectué. Sans condition, nous avons l'instruction
 
 **JMP**
 
@@ -379,7 +379,7 @@ POP EIP
 
 ### Misc
 
-Pour finir, une instruction qui peut paraître anodine comme ça, mais qui a sont importance certaine : L'instruction `NOP` (No OPeration). Cette instruction ... ne fait rien. Si le processeur tombe sur cette instruction, il va tout simplement ne rien faire, et passer à l'instruction suivante.
+Pour finir, une instruction qui peut paraître anodine comme ça, mais qui a son importance certaine : L'instruction `NOP` (No OPeration). Cette instruction ... ne fait rien. Si le processeur tombe sur cette instruction, il va tout simplement ne rien faire, et passer à l'instruction suivante.
 
 Voilà, vous avez tous les éléments en main pour comprendre le programme désassemblé fourni au début de l'article. Y arriverez-vous ?
 
@@ -407,7 +407,7 @@ End of assembler dump.
 
 Pour que vous puissiez suivre, je ferai référence aux lignes telles qu'indiquées entre chevrons dans le code désassemblé. Par exemple, la ligne `+3` correspond à la ligne `0x080483f5 <+3>:     sub    esp,0x18` donc à l'instruction `sub esp, 0x18`
 
-Allons-y ! Nous avons donc le code assembleur de la fonction `main` d'un programme que nous ne connaissons pas. La fonction `main` est une fonction comme une autre du point de vue du processeur, il convient donc, comme n'importe quelle fonction, de commencer par les 3 premières lignes typiques d'un début de fonction (parfois un peu plus, mais le principe reste le même), qu'on appelle le **prologue**. Ces lignes permettent en sommes de sauvegarder l'état de la fonction précédente, et de préparer la pile pour les variables locales de la fonction courante.
+Allons-y ! Nous avons donc le code assembleur de la fonction `main` d'un programme que nous ne connaissons pas. La fonction `main` est une fonction comme une autre du point de vue du processeur, il convient donc, comme n'importe quelle fonction, de commencer par les 3 premières lignes typiques d'un début de fonction (parfois un peu plus, mais le principe reste le même), qu'on appelle le **prologue**. Ces lignes permettent en somme de sauvegarder l'état de la fonction précédente, et de préparer la pile pour les variables locales de la fonction courante.
 
 La ligne `+0`
 
