@@ -18,5 +18,5 @@ Le password spraying, c'est une technique connue qui consiste à tester un même
 
 <!--more-->
 
-Cet article est disponible en français sur [le blog de Login Sécurité](https://www.login-securite.com/2024/06/03/spray-passwords-avoid-lockouts/), ou en anglais sur [en.hackndo.com](https://en.hackndo.com/password-spraying-lockout/)
+Cet article est disponible en français sur [le blog de Login Sécurité](https://www.login-securite.com/blog/spray-passwords-avoid-lockouts) ou en anglais sur [en.hackndo.com](https://en.hackndo.com/password-spraying-lockout/)
 
