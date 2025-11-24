@@ -32,7 +32,7 @@ Cependant, le serveur web ne sait pas ce qui appartient à l'utilisateur sur le 
 
 ## Constrained & Unconstrained Delegation
 
-La possibilité de relayer des identifiants peut être donnée à une machine ou un utilisateur de service, c'est à dire qui possède au moins un attibut [SPN](/service-principal-name-spn).
+La possibilité de relayer des identifiants peut être donnée à une machine ou un utilisateur de service, c'est à dire qui possède au moins un attribut [SPN](/service-principal-name-spn).
 
 Il existe aujourd'hui trois manières d'autoriser une machine ou un compte de service de prendre la place d'un utilisateur pour communiquer avec un ou plusieurs autre(s) service(s) : La **Unconstrained Delegation**, la **Constrained Delegation** et la **Resource Based Constrained Delegation**.
 
