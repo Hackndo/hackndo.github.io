@@ -1,6 +1,7 @@
 ---
 title: 'Assembleur - Notions de base'
 date: 2015-04-22
+last_modified_at: 2025-01-07 13:40:37
 author: "Pixis"
 layout: post
 permalink: /assembly-basics/

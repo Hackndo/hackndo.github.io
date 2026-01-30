@@ -1,6 +1,7 @@
 ---
 title: "AS_REP Roasting"
 date: 2019-03-22 07:10:06
+last_modified_at: 2021-10-20 10:47:52
 author: "Pixis"
 layout: post
 permalink: /kerberos-asrep-roasting/

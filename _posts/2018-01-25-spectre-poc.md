@@ -1,6 +1,7 @@
 ---
 title: "Construction d'un PoC pour Spectre"
 date: 2018-01-25 22:28:14
+last_modified_at: 2021-08-13 09:26:11
 author: "Pixis"
 layout: post
 permalink: /construction-poc-spectre/

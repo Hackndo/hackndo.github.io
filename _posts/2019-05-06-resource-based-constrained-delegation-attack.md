@@ -1,6 +1,7 @@
 ---
 title: "Resource-Based Constrained Delegation - Risques"
 date: 2019-05-05 10:28:42
+last_modified_at: 2022-12-06 09:43:13
 author: "Pixis"
 layout: post
 permalink: /resource-based-constrained-delegation-attack/

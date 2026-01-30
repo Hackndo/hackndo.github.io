@@ -1,6 +1,7 @@
 ---
 title: Introduction à gdb
 date: 2015-05-17
+last_modified_at: 2019-12-22 17:47:06
 author: "Pixis"
 layout: post
 permalink: /introduction-a-gdb/

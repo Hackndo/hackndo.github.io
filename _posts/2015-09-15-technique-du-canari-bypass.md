@@ -1,6 +1,7 @@
 ---
 title: 'Technique du Canari : Bypass'
 date: 2015-09-15
+last_modified_at: 2019-12-22 17:47:06
 author: "Pixis"
 layout: post
 permalink: /technique-du-canari-bypass/

@@ -1,6 +1,7 @@
 ---
 title: "Les failles kernel"
 date: 2016-07-07  10:38:42
+last_modified_at: 2023-10-18 13:26:03
 author: "Pixis"
 layout: post
 permalink: /les-failles-kernel/

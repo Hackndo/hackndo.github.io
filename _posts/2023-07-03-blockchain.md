@@ -1,6 +1,7 @@
 ---
 title: "Blockchain 101"
 date: 2023-07-03 02:12:43
+last_modified_at: 2023-07-20 12:08:29
 author: "Pixis"
 layout: post
 permalink: /blockchain/

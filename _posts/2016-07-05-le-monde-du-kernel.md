@@ -1,6 +1,7 @@
 ---
 title: "Le monde du kernel"
 date: 2016-07-05  17:48:43
+last_modified_at: 2023-10-18 13:26:03
 author: "Pixis"
 layout: post
 permalink: /le-monde-du-kernel/

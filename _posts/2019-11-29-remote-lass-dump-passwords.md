@@ -1,6 +1,7 @@
 ---
 title: "Extraction des secrets de lsass à distance"
 date: 2019-11-28 22:40:00
+last_modified_at: 2023-11-21 15:37:00
 author: "Pixis"
 layout: post
 permalink: /remote-lsass-dump-passwords/

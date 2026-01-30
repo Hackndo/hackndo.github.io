@@ -1,6 +1,7 @@
 ---
 title: "Données sensibles d'un smart contract"
 date: 2023-10-03 08:09:08
+last_modified_at: 2023-10-16 10:59:18
 author: "Pixis"
 layout: post
 permalink: /sensitive-data/

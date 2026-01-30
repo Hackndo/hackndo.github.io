@@ -1,6 +1,7 @@
 ---
 title: "L'attaque XSS"
 date: 2017-09-19  15:36:12
+last_modified_at: 2020-11-19 11:43:13
 author: "Pixis"
 layout: post
 permalink: /la-faille-xss/

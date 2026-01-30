@@ -1,6 +1,7 @@
 ---
 title: "Spray passwords, avoid lockouts"
 date: 2024-05-30 14:25:55
+last_modified_at: 2025-08-28 14:24:00
 author: "Pixis"
 layout: post
 permalink: /password-spraying-lockout/

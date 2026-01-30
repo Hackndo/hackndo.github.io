@@ -1,6 +1,7 @@
 ---
 title: "Padding oracle"
 date: 2017-02-10  16:59:25
+last_modified_at: 2021-01-04 21:41:18
 author: "Pixis"
 layout: post
 permalink: /padding-oracle/

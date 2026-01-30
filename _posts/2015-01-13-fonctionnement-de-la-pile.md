@@ -1,6 +1,7 @@
 ---
 title: "Fonctionnement de la pile"
 date: 2015-01-13
+last_modified_at: 2020-03-27 12:15:40
 author: "Pixis"
 layout: post
 permalink: /stack-introduction/

@@ -1,6 +1,7 @@
 ---
 title: "Rappels d'architecture"
 date: 2016-07-07  14:12:57
+last_modified_at: 2023-10-18 13:26:03
 author: "Pixis"
 layout: post
 permalink: /rappels-d-architecture/

@@ -1,6 +1,7 @@
 ---
 title: "Unconstrained Delegation - Risques"
 date: 2019-04-12 11:28:42
+last_modified_at: 2022-12-06 09:44:04
 author: "Pixis"
 layout: post
 permalink: /unconstrained-delegation-attack/

@@ -1,6 +1,7 @@
 ---
 title: "ROP - Return Oriented Programming"
 date: 2016-10-25  15:57:12
+last_modified_at: 2021-03-13 17:37:57
 author: "Pixis"
 layout: post
 permalink: /return-oriented-programming/

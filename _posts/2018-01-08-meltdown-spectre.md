@@ -1,6 +1,7 @@
 ---
 title: "Attaques Meltdown & Spectre"
 date: 2018-01-10  20:45:14
+last_modified_at: 2023-10-18 13:26:03
 author: "Pixis"
 layout: post
 permalink: /meltdown-spectre/
