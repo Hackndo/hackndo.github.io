@@ -1,6 +1,7 @@
 ---
 title: "Relais NTLM"
 date: 2020-04-01 10:11:52
+last_modified_at: 2026-01-30 15:30:00
 author: "Pixis"
 layout: post
 permalink: /ntlm-relay/
@@ -24,7 +25,7 @@ Cet article n'est pas voué à être un tutoriel à suivre à la lettre pour men
 
 Par ailleurs, et afin d'éviter toute confusion, voici quelques rappels :
 
-* **Hash NT** et **Hash LM** sont des versions de condensat des mots de passe des utilisateurs. Les hash LM sont totalement obsolètes, et ne seront pas mentionnés dans cet article. Le hash NT est communément appelé, à tord à mon sens, "hash NTLM". Cette désignation prête à confusion avec le nom du protocole, NTLM. Ainsi, lorsque nous parlerons du condensat du mot de passe de l'utilisateur, nous parlerons bien de **hash NT**.
+* **Hash NT** et **Hash LM** sont des versions de condensat des mots de passe des utilisateurs. Les hash LM sont totalement obsolètes, et ne seront pas mentionnés dans cet article. Le hash NT est communément appelé, à tort à mon sens, "hash NTLM". Cette désignation prête à confusion avec le nom du protocole, NTLM. Ainsi, lorsque nous parlerons du condensat du mot de passe de l'utilisateur, nous parlerons bien de **hash NT**.
 * **NTLM** est donc le nom du **protocole** d'authentification. Il existe aussi en version 2. Dans cet article, si la version influe sur l'explication, alors NTLMv1 et NTLMv2 seront les termes employés. Sinon, le terme NTLM sera employé pour regrouper l'ensemble des versions du protocole.
 * **Réponse NTLMv1** et **Réponse NTLMv2** seront les terminologies utilisées pour parler de la réponse au challenge envoyée par le client, pour les version 1 et 2 du protocole NTLM.
 * **Net-NTLMv1** et **Net-NTLMv2** sont des néo-terminologies utilisées lorsque le hash NT est appelé hash NTLM afin de distinguer le hash NTLM du protocole. Comme nous n'utilisons pas la terminologie hash NTLM, ces deux terminologies ne seront pas utilisées.
@@ -95,10 +96,10 @@ L'attaquant a donc réussi à se mettre en position d'homme du milieu. Il existe
 L'outil que j'utilise pour effectuer cette attaque est [ntlmrelayx](https://github.com/SecureAuthCorp/impacket/blob/master/examples/ntlmrelayx.py), outil présent dans la suite Impacket. Cet outil est présenté en détails dans [cet article](https://www.secureauth.com/blog/playing-relayed-credentials) par [Agsolino](https://twitter.com/agsolino), le développeur de Impacket.
 
 ```sh
-ntlmrelayx.py -t 192.168.56.221
+ntlmrelayx.py -t 192.168.56.211
 ```
 
-L'outil crée différents serveurs, dont un serveur SMB pour cet exemple, et il écoute dessus. S'il reçoit une connexion sur ce serveur, il relaiera cette connexion vers la cible que nous lui fournissons, soit **192.168.56.221** dans cet exemple. 
+L'outil crée différents serveurs, dont un serveur SMB pour cet exemple, et il écoute dessus. S'il reçoit une connexion sur ce serveur, il relaiera cette connexion vers la cible que nous lui fournissons, soit **192.168.56.211** dans cet exemple. 
 
 D'un point de vue réseau, voici une capture de l'échange, avec l'attaquant qui relaie les informations vers la cible.
 
@@ -536,7 +537,7 @@ En revanche lors d'une [authentification avec un compte de domaine](https://beta
 
 [![Session key](/assets/uploads/2020/03/ntlm_session_key_struct.png)](/assets/uploads/2020/03/ntlm_session_key_struct.png)
 
-La question qui se pose alors, c'est de savoir ce qui empêche un attaquant de faire la même demande que le serveur cible auprès du contrôleur de domaine. Et bien avant la [CVE-2015-005](https://www.coresecurity.com/advisories/windows-pass-through-authentication-methods-improper-validation), rien ! 
+La question qui se pose alors, c'est de savoir ce qui empêche un attaquant de faire la même demande que le serveur cible auprès du contrôleur de domaine. Et bien avant la [CVE-2015-0005](https://www.coresecurity.com/advisories/windows-pass-through-authentication-methods-improper-validation), rien ! 
 
 > What we found while implementing the NETLOGON protocol [12] is the domain controller not verifying whether the authentication information being sent, was actually meant to the domain-joined machine that is requesting this operation (e.g. NetrLogonSamLogonWithFlags()). What this means is that **any domain-joined machine can verify any pass-through authentication against the domain controller**, and to get the base key for cryptographic operations for any session within the domain.
 
@@ -594,7 +595,7 @@ Ainsi, cette protection, si supportée par tous les clients et serveurs, et si r
 
 Cette fois-ci, cette protection a pour but de lier la couche d'authentification, donc toujours les messages NTLM, à la couche TLS qui peut potentiellement être utilisée.
 
-Si le client souhaite utiliser un protocole encapsulé dans TLS (HTTPS, LDAPS par exemple), il va établir une session TLS avec le serveur, et il va créer un condensat du certificat du serveur qu'il va mettre dans sa réponse NTLM. Ce condensat est appéle **Channel Binding Token**, ou CBT. Le serveur légitime va alors recevoir le message NTLM à la fin de l'authentification, lire le condensat indiqué dans la réponse, et le comparer avec le vrai condensat de son certificat. S'il est différent, c'est qu'il n'est pas le destinataire original de cet 
+Si le client souhaite utiliser un protocole encapsulé dans TLS (HTTPS, LDAPS par exemple), il va établir une session TLS avec le serveur, et il va créer un condensat du certificat du serveur qu'il va mettre dans sa réponse NTLM. Ce condensat est appelé **Channel Binding Token**, ou CBT. Le serveur légitime va alors recevoir le message NTLM à la fin de l'authentification, lire le condensat indiqué dans la réponse, et le comparer avec le vrai condensat de son certificat. S'il est différent, c'est qu'il n'est pas le destinataire original de cet
 échange.
 
 Encore une fois, ce condensat se trouvant dans la réponse NTLM, il est protégé par la réponse **NtProofStr**, comme pour le **SPN** du **Service Binding**.

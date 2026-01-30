@@ -11,8 +11,8 @@ comments: true
   {% endif %}
   <h1 class="post-title">{{ page.title }}</h1>
   <div class="post-info">
-    
-    <p class="alignleft">{{ page.date | date_to_string }} · {% assign words = content | number_of_words %}{{ words | divided_by:180 | plus:1 }} min</p>
+
+    <p class="alignleft">{{ page.date | date_to_string }}{% if page.last_modified_at and page.last_modified_at != page.date %} · Mise à jour : {{ page.last_modified_at | date_to_string }}{% endif %}</p>
     <p class="alignright">Auteur : <strong><a href="https://twitter.com/HackAndDo">{{ page.author }}</a></strong></p>
       <div class="keywords">
         <span class="post-tags">{% for tag in page.tags %}<a href="/archives/#{{ tag | slugify }}"><i class="fas fa-tags"></i> {{ tag }}</a>{% endfor %}</span>

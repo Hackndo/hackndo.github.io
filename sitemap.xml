@@ -23,7 +23,9 @@ sitemap:
                href="{{ site.url }}{{ post.url }}"/>
     {% endif %}
 
-    {% if post.sitemap.lastmod %}
+    {% if post.last_modified_at %}
+      <lastmod>{{ post.last_modified_at | date_to_xmlschema }}</lastmod>
+    {% elsif post.sitemap.lastmod %}
       <lastmod>{{ post.sitemap.lastmod | date: "%Y-%m-%d" }}</lastmod>
     {% elsif post.date %}
       <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
