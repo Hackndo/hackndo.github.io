@@ -287,8 +287,12 @@ tbody tr:nth-child(odd) td { background-color: var(--c-bg-alt); }
 /* Sidebar — bureau : colonne fixe et collante */
 @media (min-width: 900px) {
   .sidebar {
+    /* top est ajuste par main.js : 0 si la sidebar tient dans l'ecran,
+       sinon (hauteur viewport - hauteur sidebar) pour qu'elle defile avec
+       la page puis se fige quand on atteint son bas. */
     position: sticky;
     top: 0;
+    align-self: flex-start;
     display: flex;
     flex-direction: column;
     flex: 0 0 var(--sidebar-w);
