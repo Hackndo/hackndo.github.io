@@ -8,7 +8,7 @@ description: Ce blog est dédié à la sécurité informatique. Tutos sur les bu
   <div class="post">
   {% if post.cover %}
     <p class="post-cover">
-      <img src="/{{ post.cover }}" alt="{{ post.title }}" title="{{ post.title }}" />
+      <img src="/{{ post.cover }}" alt="{{ post.title }}" title="{{ post.title }}" loading="lazy" decoding="async" />
     </p>
   {% endif %}
     <h1 class="post-title">

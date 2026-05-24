@@ -11,21 +11,19 @@ comments: true
   {% endif %}
   <h1 class="post-title">{{ page.title }}</h1>
   <div class="post-info">
-
     <p class="alignleft">{{ page.date | date_to_string }}{% if page.last_modified_at and page.last_modified_at != page.date %} · Mise à jour : {{ page.last_modified_at | date_to_string }}{% endif %}</p>
     <p class="alignright">Auteur : <strong><a href="https://twitter.com/HackAndDo">{{ page.author }}</a></strong></p>
-      <div class="keywords">
-        <span class="post-tags">{% for tag in page.tags %}<a href="/archives/#{{ tag | slugify }}"><i class="fas fa-tags"></i> {{ tag }}</a>{% endfor %}</span>
-      </div>
-</div>
+  </div>
+  {% if page.tags.size > 0 %}
+  <div class="keywords">
+    <span class="post-tags">{% for tag in page.tags %}<a href="/archives/#{{ tag | slugify }}">{% include icon-tag.svg %} {{ tag }}</a>{% endfor %}</span>
+  </div>
+  {% endif %}
 
   <article>
   {{ content }}
   </article>
 </div>
-<div class="keywords">
-    <span class="post-tags">{% for tag in page.tags %}<a href="/archives/#{{ tag | slugify }}"><i class="fas fa-tags"></i> {{ tag }}</a>{% endfor %}</span>
-  </div>
 
 {% if page.author == "Pixis" %}
 <br />
