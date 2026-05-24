@@ -82,29 +82,47 @@
   }
 
   /* Bouton "Copier" sur chaque bloc de code (en-tete "fenetre terminal") */
-  if (navigator.clipboard) {
-    var blocks = content.querySelectorAll('div.highlight');
-    blocks.forEach(function (block) {
-      var code = block.querySelector('pre code') || block.querySelector('code');
-      if (!code) return;
-
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'copy-btn';
-      btn.textContent = 'Copier';
-      btn.setAttribute('aria-label', 'Copier le code');
-      block.appendChild(btn);
-
-      btn.addEventListener('click', function () {
-        navigator.clipboard.writeText(code.innerText).then(function () {
-          btn.textContent = 'Copié !';
-          btn.classList.add('is-copied');
-          setTimeout(function () {
-            btn.textContent = 'Copier';
-            btn.classList.remove('is-copied');
-          }, 2000);
-        });
-      });
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text);
+    }
+    /* Repli pour les contextes non securises (http via IP locale, etc.) */
+    return new Promise(function (resolve, reject) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        document.execCommand('copy') ? resolve() : reject();
+      } catch (e) { reject(e); }
+      document.body.removeChild(ta);
     });
   }
+
+  var blocks = content.querySelectorAll('div.highlight');
+  blocks.forEach(function (block) {
+    var code = block.querySelector('pre code') || block.querySelector('code');
+    if (!code) return;
+
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'copy-btn';
+    btn.textContent = 'Copier';
+    btn.setAttribute('aria-label', 'Copier le code');
+    block.appendChild(btn);
+
+    btn.addEventListener('click', function () {
+      copyText(code.innerText).then(function () {
+        btn.textContent = 'Copié !';
+        btn.classList.add('is-copied');
+        setTimeout(function () {
+          btn.textContent = 'Copier';
+          btn.classList.remove('is-copied');
+        }, 2000);
+      });
+    });
+  });
 })();
