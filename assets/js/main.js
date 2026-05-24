@@ -36,6 +36,22 @@
     desktop.addListener(setSidebarOffset);
   }
 
+  /* Bouton "Retour en haut" : apparait apres avoir defile, disponible partout */
+  var toTop = document.createElement('button');
+  toTop.type = 'button';
+  toTop.className = 'to-top';
+  toTop.setAttribute('aria-label', 'Retour en haut');
+  toTop.innerHTML = '<span aria-hidden="true">↑</span>';
+  document.body.appendChild(toTop);
+  toTop.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  var toggleToTop = function () {
+    toTop.classList.toggle('is-visible', window.pageYOffset > 600);
+  };
+  toggleToTop();
+  window.addEventListener('scroll', toggleToTop, { passive: true });
+
   /* Contenu d'article : sommaire + ancres */
   var content = document.querySelector('.post__content');
   if (!content) return;
@@ -63,5 +79,32 @@
   if (window.anchors) {
     anchors.options.visible = 'hover';
     anchors.add('.post__content h2, .post__content h3, .post__content h4, .post__content h5, .post__content h6');
+  }
+
+  /* Bouton "Copier" sur chaque bloc de code (en-tete "fenetre terminal") */
+  if (navigator.clipboard) {
+    var blocks = content.querySelectorAll('div.highlight');
+    blocks.forEach(function (block) {
+      var code = block.querySelector('pre code') || block.querySelector('code');
+      if (!code) return;
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'copy-btn';
+      btn.textContent = 'Copier';
+      btn.setAttribute('aria-label', 'Copier le code');
+      block.appendChild(btn);
+
+      btn.addEventListener('click', function () {
+        navigator.clipboard.writeText(code.innerText).then(function () {
+          btn.textContent = 'Copié !';
+          btn.classList.add('is-copied');
+          setTimeout(function () {
+            btn.textContent = 'Copier';
+            btn.classList.remove('is-copied');
+          }, 2000);
+        });
+      });
+    });
   }
 })();

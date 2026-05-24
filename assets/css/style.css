@@ -228,6 +228,58 @@ pre::-webkit-scrollbar-thumb, .highlight pre::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, .18); border-radius: 9px;
 }
 
+/* Bouton "Copier" logé dans l'en-tête "fenêtre terminal" du bloc de code */
+.copy-btn {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  z-index: 2;
+  padding: .25rem .6rem;
+  font: 500 .72rem/1 var(--font-mono);
+  color: rgba(255, 255, 255, .68);
+  background: rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity .2s, background .2s, color .2s, border-color .2s;
+}
+.highlight:not(pre):hover .copy-btn,
+.copy-btn:focus-visible { opacity: 1; }
+.copy-btn:hover { background: rgba(255, 255, 255, .18); color: #fff; }
+.copy-btn.is-copied { color: var(--c-accent); border-color: var(--c-accent); opacity: 1; }
+
+/* Bouton "Retour en haut" : flottant, apparaît après défilement */
+.to-top {
+  position: fixed;
+  bottom: 1.4rem;
+  right: 1.4rem;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  font-size: 1.2rem;
+  line-height: 1;
+  color: #fff;
+  background: var(--c-accent);
+  border: 0;
+  border-radius: 50%;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity .25s var(--ease), transform .25s var(--ease), visibility .25s;
+}
+.to-top.is-visible { opacity: .92; visibility: visible; transform: none; }
+.to-top:hover { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .to-top { transition: opacity .25s, visibility .25s; transform: none; }
+}
+
 /* Tableaux — défilables horizontalement sur petits écrans */
 table {
   display: block;
