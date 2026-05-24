@@ -437,7 +437,7 @@ tbody tr:nth-child(odd) td { background-color: #fafafa; }
 .sidebar__footer p { margin: 0; }
 
 /* Sélecteur de langue (drapeau) */
-.lang-switch { float: right; margin: 0 0 .5rem 1rem; }
+.lang-switch { position: relative; z-index: 10; float: right; margin: 0 0 .5rem 1rem; }
 .lang-switch img {
   width: 40px; margin: 0; border-radius: 3px; opacity: .45;
   transition: opacity .2s var(--ease), transform .2s var(--ease);
