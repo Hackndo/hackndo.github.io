@@ -11,16 +11,14 @@ sitemap:
     <loc>{{ site.url }}{{ post.url }}</loc>
 
     {% if post.translation %}
+      <xhtml:link rel="alternate" hreflang="fr" href="{{ site.url }}{{ post.url }}"/>
       {% for lang in post.translation %}
-      <xhtml:link 
-               rel="alternate"
-               hreflang="{{ lang }}"
-               href="https://{{ lang }}.hackndo.com{{ post.url }}"/>
+        {% if lang[1] != nil and lang[1] != "" %}
+      <xhtml:link rel="alternate" hreflang="{{ lang[0] }}" href="{{ lang[1] }}"/>
+        {% else %}
+      <xhtml:link rel="alternate" hreflang="{{ lang[0] }}" href="https://{{ lang[0] }}.hackndo.com{{ post.url }}"/>
+        {% endif %}
       {% endfor %}
-      <xhtml:link 
-               rel="alternate"
-               hreflang="fr"
-               href="{{ site.url }}{{ post.url }}"/>
     {% endif %}
 
     {% if post.last_modified_at %}
@@ -35,17 +33,21 @@ sitemap:
   </url>
   {% endfor %}
   <url>
-    <loc>https://beta.hackndo.com/</loc>
-    <xhtml:link 
-              rel="alternate"
-              hreflang="en"
-              href="https://en.hackndo.com/"/>
-    <xhtml:link 
-              rel="alternate"
-              hreflang="fr"
-              href="https://beta.hackndo.com/"/>
-    
-      <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
-      
-    </url>
+    <loc>{{ site.url }}/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://beta.hackndo.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://en.hackndo.com/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beta.hackndo.com/"/>
+    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+  </url>
+
+  {% for page in site.pages %}
+    {% if page.sitemap.exclude != 'yes' and page.layout and page.url contains '.html' == false and page.url != '/404.html' %}
+      {% unless page.url contains '/feed' or page.url contains '/sitemap' %}
+  <url>
+    <loc>{{ site.url }}{{ page.url }}</loc>
+    <lastmod>{% if page.last_modified_at %}{{ page.last_modified_at | date_to_xmlschema }}{% else %}{{ site.time | date_to_xmlschema }}{% endif %}</lastmod>
+  </url>
+      {% endunless %}
+    {% endif %}
+  {% endfor %}
 </urlset>
