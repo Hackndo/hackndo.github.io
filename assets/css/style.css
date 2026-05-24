@@ -292,8 +292,7 @@ tbody tr:nth-child(odd) td { background-color: var(--c-bg-alt); }
     display: flex;
     flex-direction: column;
     flex: 0 0 var(--sidebar-w);
-    height: 100vh;
-    overflow-y: auto;
+    min-height: 100vh;
     padding-top: 1.5rem;
   }
   .sidebar__nav a:hover { background: var(--c-dark-hover); }
