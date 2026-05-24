@@ -21,8 +21,6 @@ Un petit post pour vous prévenir : Je pars faire le tour du monde ! Départ dim
 
 Jusque là, j'étais plutôt tourné appsys, tandis que lui se penchera sur l'aspect **réseau**. C'est un domaine extrêmement intéressant également, et je suis pressé de voir ce qu'il va nous pondre 😀
 
-À côté de ça, je vous rappelle l'existence de ce post [Follow the white rabbit](/follow-the-white-rabbit/). Il n'y a pas tant de validations que ça. Ce n'est quand même pas trop difficile pour vous, si ? 😉
-
 Allez, à vos claviers, et à dans 10 mois !
 
 Love pisse flex.
