@@ -4,30 +4,25 @@
   {% include head.html %}
 
   <body>
-    {% include header.html %}
-    <main class="cd-main-content">
-		<nav class="cd-side-nav">
-            {% include sidebar.html %}
-        </nav>
+    <a class="skip-link" href="#content">Aller au contenu</a>
 
-        <div class="content-wrapper">
-            {% if page.url == "/" %}
-              <p class="lang"><a href="https://en.hackndo.com{{ page.url }}"><img src="/assets/icones/en.png" alt="english flag" /></a></p>
-            {% else %}
-              {% for post in site.posts %}
-                {% if post.permalink == page.url %}
-                  {% for lang in post.translation %}
-                    {% if lang == "en" %}
-                      <p class="lang"><a href="https://en.hackndo.com{{ page.url }}"><img src="/assets/icones/en.png" alt="english flag" /></a></p>
-                      {% break %}
-                    {% endif %}
-                  {% endfor %}
-                {% endif %}
-              {% endfor %}
-            {% endif %}
-            {{ content }}
+    {% include header.html %}
+
+    <div class="layout">
+      {% include sidebar.html %}
+
+      <main class="content" id="content">
+        <div class="container">
+          {% if page.url == "/" %}
+            <p class="lang-switch"><a href="https://en.hackndo.com{{ page.url }}" hreflang="en" aria-label="Read in English"><img src="/assets/icones/en.png" alt="English version" /></a></p>
+          {% elsif page.translation and page.translation contains "en" %}
+            <p class="lang-switch"><a href="https://en.hackndo.com{{ page.url }}" hreflang="en" aria-label="Read in English"><img src="/assets/icones/en.png" alt="English version" /></a></p>
+          {% endif %}
+          {{ content }}
         </div>
-    </main>
+      </main>
+    </div>
+
     <script src="/assets/js/anchor.min.js" defer></script>
     <script src="/assets/js/main.js" defer></script>
   </body>

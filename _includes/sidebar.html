@@ -1,43 +1,44 @@
-<div class="sidebar-about">
-    <h1>
-        <img id="site-logo" src="/assets/icones/pixis_logo.png" alt="hackndo logo" title="logo" />
-        <a class="sidebar-title" href="/">
-        {{ site.title }}
-        </a>
-    </h1>
-    <p class="lead">{{ site.tagline }}</p>
-</div>
+<aside class="sidebar" id="sidebar" aria-label="Barre latérale">
+  <div class="sidebar__brand">
+    <a class="sidebar__home" href="/" aria-label="Accueil hackndo">
+      <img class="sidebar__logo" src="/assets/icones/pixis_logo.png" alt="" width="160" height="160" />
+      <span class="sidebar__title">{{ site.title }}</span>
+    </a>
+    <p class="sidebar__tagline">{{ site.tagline }}</p>
+  </div>
 
-<ul>
-    <li class="cd-label">Blog</li>
-    <li class="{% if page.url == '/' %}active{% endif %}">
-        <a href="/">Home</a>
-    </li>
-    {% assign pages_list = site.pages %}
-    {% for node in pages_list %}
+  <nav class="sidebar__nav" aria-label="Navigation du site">
+    <p class="sidebar__heading">Blog</p>
+    <ul>
+      <li class="{% if page.url == '/' %}is-active{% endif %}"><a href="/">Home</a></li>
+      {% for node in site.pages %}
         {% if node.title != null %}
-            {% if node.layout == "page" or node.layout == "archive" %}
-                <li class="{% if page.url == node.url %}active{% endif %}">
-                    <a href="{{ node.url }}">{{ node.title }}</a>
-                </li>
-            {% endif %}
+          {% if node.layout == "page" or node.layout == "archive" %}
+          <li class="{% if page.url == node.url %}is-active{% endif %}"><a href="{{ node.url }}">{{ node.title }}</a></li>
+          {% endif %}
         {% endif %}
-    {% endfor %}
-</ul>
-<ul>
-    <li class="cd-label">Liens</li>
-    <li><a href="https://www.login-securite.com/" target="_blank">Login Sécurité</a></li>
-</ul>
+      {% endfor %}
+    </ul>
 
-<div class="sidebar-social">
-<ul>
-  <li><a href="https://twitter.com/HackAndDo" title="Twitter" target="_blank"><img alt="Twitter" title="Twitter" src="/assets/icones/social/x.png" /></a></li>
-  <li><a href="https://github.com/hackndo" title="Github" target="_blank"><img title="Github" alt="Github" src="/assets/icones/social/github.png" /></a></li>
-  <li><a href="https://www.youtube.com/channel/UC9WYWHLdu9TK-0Hu3wcHJ9g" title="Youtube" target="_blank"><img title="Youtube" alt="Youtube" src="/assets/icones/social/youtube.png" /></a></li>
-  <li><a href="https://discord.hackndo.com" title="Discord" target="_blank"><img title="Discord" alt="Discord" src="/assets/icones/social/discord.png" /></a></li>
-  <li><a href="https://www.linkedin.com/in/romainbentz/" title="LinkedIn" target="_blank"><img title="LinkedIn" alt="LinkedIn" src="/assets/icones/social/linkedin.png" /></a></li>
-  <li><a href="/feed.xml" title="RSS" target="_blank"><img title="RSS" alt="RSS" src="/assets/icones/social/rss.png" /></a></li>
-  <li><a href="https://ko-fi.com/hackndo" title="Ko-Fi" target="_blank"><img title="Ko-Fi" alt="Ko-Fi" src="/assets/icones/social/kofi.gif" /></a></li>
-</ul>
-</div>
-<p class="sidebar-copyright">&copy; {{ site.time | date: '%Y' }}. Tous droits réservés.</p>
+    <p class="sidebar__heading">Liens</p>
+    <ul>
+      <li><a href="https://www.login-securite.com/" target="_blank" rel="noopener">Login Sécurité</a></li>
+    </ul>
+  </nav>
+
+  <nav class="sidebar__social" aria-label="Réseaux sociaux">
+    <ul>
+      <li><a href="https://twitter.com/HackAndDo" title="Twitter" target="_blank" rel="noopener"><img alt="Twitter" src="/assets/icones/social/x.png" width="24" height="24" /></a></li>
+      <li><a href="https://github.com/hackndo" title="Github" target="_blank" rel="noopener"><img alt="Github" src="/assets/icones/social/github.png" width="24" height="24" /></a></li>
+      <li><a href="https://www.youtube.com/channel/UC9WYWHLdu9TK-0Hu3wcHJ9g" title="Youtube" target="_blank" rel="noopener"><img alt="Youtube" src="/assets/icones/social/youtube.png" width="24" height="24" /></a></li>
+      <li><a href="https://discord.hackndo.com" title="Discord" target="_blank" rel="noopener"><img alt="Discord" src="/assets/icones/social/discord.png" width="24" height="24" /></a></li>
+      <li><a href="https://www.linkedin.com/in/romainbentz/" title="LinkedIn" target="_blank" rel="noopener"><img alt="LinkedIn" src="/assets/icones/social/linkedin.png" width="24" height="24" /></a></li>
+      <li><a href="/feed.xml" title="RSS" target="_blank" rel="noopener"><img alt="RSS" src="/assets/icones/social/rss.png" width="24" height="24" /></a></li>
+      <li><a href="https://ko-fi.com/hackndo" title="Ko-Fi" target="_blank" rel="noopener"><img alt="Ko-Fi" src="/assets/icones/social/kofi.gif" width="24" height="24" /></a></li>
+    </ul>
+  </nav>
+
+  <footer class="sidebar__footer">
+    <p>&copy; {{ site.time | date: '%Y' }}. Tous droits réservés.</p>
+  </footer>
+</aside>

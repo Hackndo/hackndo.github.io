@@ -21,9 +21,9 @@ Dans un premier temps, il faut savoir que cette technique ne marche que pour cer
 
 Je vous propose alors de partir d'une vision large du sujet pour comprendre globalement le fonctionnement de cette technique avant d’entamer une explication technique agrémentée d'exemples.
 
-# Théorie
+## Théorie
 
-## Première approche
+### Première approche
 
 Cette technique est à la fois très simple à comprendre, relativement puissante mais assez compliquée à mettre en place sans se tromper (l'expérience parle). L'idée, c'est que l'algorithme de hachage sha1 fonctionne de la manière suivante : Lorsqu'on lui demande de hacher une chaîne de caractères, il découpe cette chaîne en blocs de taille fixe, 64 octets pour sha1. Une fois cette découpe faite, le dernier bloc doit être rempli pour faire également 64 octets. C'est l'algorithme de hachage qui s'en occupe, nous verrons les détails ensuite.
 
@@ -37,9 +37,9 @@ Ainsi, il est très simple de comprendre que si nous avons haché une chaîne co
 
 Mais pourquoi est-ce que c'est dangereux ?
 
-## Exemple d'exploitation
+### Exemple d'exploitation
 
-### Contexte
+#### Contexte
 
 Prenons un exemple très simple. Imaginons qu'un serveur web reçoive des requêtes provenant de différents utilisateurs, et que ce serveur ait une valeur secrète `MonS3cret`, ainsi qu'une valeur `name=hackndo&admin=0` ou `name=hackndo&admin=1` si on veut qu'un utilisateur soit invité ou administrateur. Ce genre de pratique ne sera utilisée que très rarement d'une manière aussi simple à exploiter, il arrive souvent qu'elle soit un peu cachée derrière des cookies ou autres variables afin d'éviter le recours à des sessions ou une base de donnée pour vérifier l'identité de l'utilisateur une fois qu'il s'est identifié.
 
@@ -63,7 +63,7 @@ L'utilisateur charge la page, le serveur reçoit tous les paramètres de l'URL p
 
 Maintenant, l'utilisateur (qui a très envie de devenir administrateur !) change le paramètre `admin=0` en `admin=1`. Mais comme il ne connait pas la valeur du secret, il n'est pas en mesure de trouver la valeur de `check`. Le serveur reçoit à nouveau les paramètres, mais cette fois-ci il détectera que le sha1 des paramètres est différent du sha1 du `check` qu'il avait précédemment calculé. Il refusera donc de donner les informations.
 
-### Exploitation
+#### Exploitation
 
 Souvenez-vous alors du fonctionnement de sha1. Nous avons expliqué que nous pouvions aisément ajouter des éléments à la suite d'une empreinte déjà calculée sans connaitre les étapes intermédiaires. Nous pourrions alors ajouter, par exemple `&admin=1` pour obtenir la chaîne `name=hackndo&admin=0&admin=1`
 
@@ -75,7 +75,7 @@ Sachant que le dernier paramètre fait foi, nous serions administrateur, pourvu 
 
 Si vous avez suivi jusque là, c'est bien. Vous aurez remarqué cependant un petit détail : Le nouveau bloc de 64 octets est ajouté après le bloc précédent, donc après les informations originales, mais également après le padding normalement effectué par sha1. Ceci est nécessaire, et nous allons voir pourquoi avec une explication succincte du fonctionnement de sha1.
 
-## SHA1
+### SHA1
 
 Pour l'origine de SHA1 je vous invite à lire [la page wikipedia](https://fr.wikipedia.org/wiki/SHA-1){:target="blank"}. Nous allons ici expliquer sommairement comment cet algorithme fonctionne.
 
@@ -109,7 +109,7 @@ La chaîne est reçue, et la première opération effectuée est qu'un bit égal
 
 Ici la taille de notre chaîne est de 28 octets, donc 224 bits, donc 0xE0 bits.
 
-# Cas pratique
+## Cas pratique
 
 Nous avons maintenant tous les éléments en main pour passer au cas pratique ! Nous allons reprendre l'exemple de la partie théorie, mais nous allons cette fois mettre les mains dans le cambouis.
 
@@ -145,7 +145,7 @@ name=hackndo&admin=0%80%00%00%00...%00%E8&admin=1
 
 En effet, nous ne devons pas toucher au padding ajouté automatiquement par sha1 lorsqu'il a effectué son opération sur name=hackndo&admin=0 en nous fournissant la signature. Si nous enlevons le padding, alors l'empreinte n'est plus valide. Notre chaîne de caractères doit alors être ajoutée en fin de bloc. Mais ce n'est pas un soucis dans notre cas.
 
-## Que fait le serveur ?
+### Que fait le serveur ?
 
 Étudions ce que fait le serveur pour pouvoir le reproduire et ajouter nos informations.
 
@@ -193,15 +193,15 @@ Enfin, les 8 derniers octets
 
 sont utilisés pour la taille du message original en bits, en big endian (29 octets, 232 bits, donc 0xE8 bits).
 
-## Comment le reproduire ?
+### Comment le reproduire ?
 
-### Trouver le padding
+#### Trouver le padding
 
 La première étape va être de calculer le padding qui a été ajouté automatiquement, afin de pouvoir reproduire le bloc de 64 octets ayant fourni la signature `3e1dc496d50661d476139ee7e936d9b6822f2f62`.
 
 Théoriquement, nous n'avons pas connaissance de la valeur secrète, donc nous ne connaissons pas sa taille. Nous ne connaissons donc pas le nombre de zéros à mettre pour le padding, ni la taille à indiquer en fin de bloc. Il faut donc, en pratique, essayer avec différentes longueurs jusqu'à trouver celle qui correspond. Pour gagner du temps, nous allons directement prendre la longueur qui correspond, c'est à dire 9 octets.
 
-### Ajouter notre message
+#### Ajouter notre message
 
 Maintenant que nous avons le padding, nous pouvons ajouter notre message à la suite. Comme le premier bloc fait 64 octets, notre message ajouté commencera juste au début du deuxième bloc, comme cela :
 
@@ -220,7 +220,7 @@ Nous avons alors le message complet que nous allons envoyer au serveur :
 "name=hackndo&admin=0" + "\x80\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xE8" + "&admin=1"
 ```
 
-### Calcul de la signature
+#### Calcul de la signature
 
 La dernière chose à faire est de calculer la signature de ce nouveau message. Je rappelle qu'avant d'être signé, la valeur secrète va être ajoutée en début de message. Une fois ceci fait, il va être découpé en deux blocs. Le premier bloc que nous avons pris soin de créer est exactement le même que celui produit par sha1 lorsque nous ne lui passions que la chaîne originale avec admin=0. Nous sommes en possession de cette sortie de hachage, qui est 3e1dc496d50661d476139ee7e936d9b6822f2f62`.
 

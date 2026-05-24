@@ -20,11 +20,11 @@ Rapidement, un debugger permet de lancer un programme, placer des points d'arrê
 
 GDB est portable (cross-platform), donc les commandes que nous allons voir ici pourront être effectuées sur tous les OS pourvu que GDB soit installé, et les exemples pris ici ont été effectués sur Linux. C'est un outil très puissant, avec de nombreuses fonctionnalités qu'il serait difficile de lister et expliquer exhaustivement, c'est pourquoi nous verrons ici ce qui me paraissait être le plus important (... parmi les fonctionnalités que je connais. Si vous en connaissez d'autres ou des astuces permettant d’accélérer/simplifier des choses, n'hésitez pas à m'en faire part dans les commentaires, je les intégrerai dans cet article).
 
-# Lancement
+## Lancement
 
 Il existe différentes manières de lancer gdb et de charger un binaire dans une session gdb, voici quelques commandes utiles
 
-## Hors gdb
+### Hors gdb
 
 Pour lancer gdb, rien de plus simple. Dans un shell/terminal/console, lancez la commande suivante
 
@@ -74,7 +74,7 @@ gdb --args <binary> <args...>
 gdb --pid <PID> --symbols <binary>
 ```
 
-## Dans gdb
+### Dans gdb
 
 ```bash
 # Envoyer les arguments au binaire qui va être lancé
@@ -90,7 +90,7 @@ gdb --pid <PID> --symbols <binary>
 (gdb) kill
 ```
 
-# Calculs
+## Calculs
 
 Avant de s'occuper des binaires, gdb permet d'effectuer des calculs très simplement, dans différentes bases les plus utilisées (binaire, octale, hexa, décimale) et même d'afficher les caractères correspondants aux valeurs ASCII.
 
@@ -118,7 +118,7 @@ $5 = 0x1a
 $6 = 1100
 ```
 
-# Informations
+## Informations
 
 Quelques informations nécessaires lorsque vous avez chargé un binaire et que vous êtes en train de le déboguer
 
@@ -133,13 +133,13 @@ Quelques informations nécessaires lorsque vous avez chargé un binaire et que v
 (gdb) i b
 ```
 
-# Affichage
+## Affichage
 
-## Syntaxe
+### Syntaxe
 
 Comme expliqué dans l'article sur les [notions de base d'assembleur](/assembly-basics/), il existe deux syntaxes pour lire de l'assembleur : AT&T et Intel. Pour passer de l'une à l'autre, voici comment faire :
 
-### AT&T
+#### AT&T
 
 ```bash
 (gdb) set disassembly-flavor att
@@ -151,7 +151,7 @@ Dump of assembler code for function main:
 End of assembler dump.
 ```
 
-### Intel
+#### Intel
 
 ```bash
 (gdb) set disassembly-flavor intel
@@ -163,7 +163,7 @@ Dump of assembler code for function main:
 End of assembler dump.
 ```
 
-## Debug
+### Debug
 
 Lors d'une phase de debug, il peut être utile d'avoir sous les yeux le code machine qui s'exécute ainsi que l'état des différents registres.
 
@@ -223,11 +223,11 @@ child process 20368 In: main                          
 (gdb) ni
 ```
 
-# Breakpoints
+## Breakpoints
 
 Les breakpoints sont extrêmement puissants. Ils permettent de mettre en pause l'exécution du programme lorsqu'ils sont rencontrés. Cela permet d'étudier la mémoire à un instant très précis, quand ça nous intéresse. En effet, souvent il y a des millions d'instructions exécutées avant l'appel de la fonction qui nous intéresse, donc mettre à breakpoint au bon endroit fait gagner **énormément** de temps.
 
-## Sans conditions
+### Sans conditions
 
 ```bash
 (gdb) break main
@@ -247,7 +247,7 @@ Num     Type           Disp Enb Address    What
 Delete all breakpoints? (y or n) y
 ```
 
-## Avec conditions
+### Avec conditions
 
 Soit le programme C suivant :
 
@@ -324,7 +324,7 @@ Et pour enlever les conditions sur un breakpoint :
 Breakpoint 1 now unconditional.
 ```
 
-# Pas à pas
+## Pas à pas
 
 ```bash
 # nexti : Permet d'avancer d'une (ou <step>) instruction(s), et si c'est un call, le call est exécuté
@@ -336,7 +336,7 @@ Breakpoint 1 now unconditional.
 (gdb) c
 ```
 
-# Fonctions
+## Fonctions
 
 Il est possible de définir des fonctions au sein de gdb, permettant de simplifier la répétition d'un ensemble de commandes, ou encore de boucler jusqu'à ce qu'une condition soit vérifiée. Pour cela, il faut lancer la commande `define <ma_fonction>` puis indiquer les instructions voulues, et terminer par `end`. Comme les exemples valent toujours mieux que les beaux discours :
 
@@ -390,7 +390,7 @@ Il est possible d'utiliser les structures de contrôles, telles que
 > end
 ```
 
-# .gdbinit
+## .gdbinit
 
 Bien sûr, avec toutes ces informations, vous pouvez vous créer votre petit environnement gdb qui satisfait vos besoins et vos préférences, mais vous n'allez évidemment pas taper toutes les commandes à chaque fois. Il est très fastidieux de devoir taper, à chaque lancement de gdb, les commandes permettant de changer de syntaxe, de breaker sur la fonction main, de désassembler le binaire, d'étudier la pile, si c'est ce que vous voulez faire à chaque fois que vous ouvrez gdb (mais libre à vous de choisir ce que vous voulez)
 
@@ -429,7 +429,7 @@ $ gdb <binary> -nx
 
 Voilà, avec cette introduction à gdb, vous devriez pouvoir l'utiliser et profiter de sa force. Il manque un tas de choses, j'en suis conscient, et j'ajouterai des fonctions qui me paraitront pertinentes, que ce soit en les découvrant par moi-même, ou par vos commentaires !
 
-# Pour aller plus loin ...
+## Pour aller plus loin ...
 
 Si vous sentez que gdb est trop morne, qu'il manque de couleurs, de fonctionnalités, sachez que de nombreuses initiatives existent dans le monde open source afin de vous rendre la vie plus agréable, en vous proposant des `.gdbinit` remarquablement complets et utiles. (_Merci à yaap pour les liens_) Nous pouvons citer, entre autre :\`
 

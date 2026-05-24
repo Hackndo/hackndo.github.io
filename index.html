@@ -3,55 +3,48 @@ layout: default
 title: Home
 description: Ce blog est dédié à la sécurité informatique. Tutos sur les buffers overflow, l'Active Directory, on explique tout avec des exemples concrets.
 ---
-<div class="posts">
+<h1 class="sr-only">hackndo — derniers articles</h1>
+
+<div class="post-list">
   {% for post in paginator.posts %}
-  <div class="post">
-  {% if post.cover %}
-    <p class="post-cover">
-      <img src="/{{ post.cover }}" alt="{{ post.title }}" title="{{ post.title }}" loading="lazy" decoding="async" />
-    </p>
-  {% endif %}
-    <h1 class="post-title">
-      <a href="{{ post.url }}">
-        {{ post.title }}
-      </a>
-    </h1>
-
-    <div class="post-info">
-      <p class="alignleft">{{ post.date | date_to_string }}{% if post.last_modified_at and post.last_modified_at != post.date %} · Mise à jour : {{ post.last_modified_at | date_to_string }}{% endif %}</p>
-      <p class="alignright">Auteur : <strong><a href="https://twitter.com/HackAndDo">{{ post.author }}</a></strong></p>
-    </div>
-
-    {{ post.excerpt }}
-
-    {% capture content_words %} 
-      {{ post.content | number_of_words }} 
-    {% endcapture %} 
-    {% capture excerpt_words %} 
-      {{ post.excerpt | number_of_words }} 
-    {% endcapture %} 
-    {% if excerpt_words != content_words %}
-    <br />
-    <a href="{{ post.url }}">Lire la suite →</a>
+  <article class="card">
+    {% if post.cover %}
+    <a href="{{ post.url }}" class="card__cover" tabindex="-1" aria-hidden="true">
+      <img src="/{{ post.cover }}" alt="{{ post.title }}" loading="lazy" decoding="async" />
+    </a>
     {% endif %}
-    <hr />
-  </div>
+
+    <h2 class="card__title"><a href="{{ post.url }}">{{ post.title }}</a></h2>
+
+    <p class="card__meta">
+      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_string }}</time>
+      {% if post.last_modified_at and post.last_modified_at != post.date %}<span>· Mise à jour le <time datetime="{{ post.last_modified_at | date_to_xmlschema }}">{{ post.last_modified_at | date_to_string }}</time></span>{% endif %}
+      <span>· {{ post.author }}</span>
+    </p>
+
+    <div class="card__excerpt">{{ post.excerpt }}</div>
+
+    {% unless post.excerpt == post.content %}
+    <p><a class="more-link" href="{{ post.url }}">Lire la suite →</a></p>
+    {% endunless %}
+  </article>
   {% endfor %}
 </div>
 
-<div class="pagination">
-  {% if paginator.next_page %}
-    <a class="pagination-item older" href="{{ paginator.next_page_path }}">Plus ancien</a>
-  {% else %}
-    <span class="pagination-item older">Plus ancien</span>
-  {% endif %}
+<nav class="pagination" aria-label="Pagination des articles">
   {% if paginator.previous_page %}
     {% if paginator.page == 2 %}
-      <a class="pagination-item newer" href="/">Plus récent</a>
+      <a class="pagination__item" href="/">← Plus récent</a>
     {% else %}
-      <a class="pagination-item newer" href="{{ paginator.previous_page_path }}">Plus récent</a>
+      <a class="pagination__item" href="{{ paginator.previous_page_path }}">← Plus récent</a>
     {% endif %}
   {% else %}
-    <span class="pagination-item newer">Plus récent</span>
+    <span class="pagination__item is-disabled">← Plus récent</span>
   {% endif %}
-</div>
+
+  {% if paginator.next_page %}
+    <a class="pagination__item" href="{{ paginator.next_page_path }}">Plus ancien →</a>
+  {% else %}
+    <span class="pagination__item is-disabled">Plus ancien →</span>
+  {% endif %}
+</nav>
