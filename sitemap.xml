@@ -41,13 +41,13 @@ sitemap:
   </url>
 
   {% for page in site.pages %}
-    {% if page.sitemap.exclude != 'yes' and page.layout and page.url contains '.html' == false and page.url != '/404.html' %}
-      {% unless page.url contains '/feed' or page.url contains '/sitemap' %}
+    {% unless page.sitemap.exclude == 'yes' or page.url contains '.html' or page.url contains '.xml' or page.url contains '.txt' %}
+      {% if page.layout %}
   <url>
     <loc>{{ site.url }}{{ page.url }}</loc>
     <lastmod>{% if page.last_modified_at %}{{ page.last_modified_at | date_to_xmlschema }}{% else %}{{ site.time | date_to_xmlschema }}{% endif %}</lastmod>
   </url>
-      {% endunless %}
-    {% endif %}
+      {% endif %}
+    {% endunless %}
   {% endfor %}
 </urlset>
