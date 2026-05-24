@@ -14,7 +14,8 @@ comments: true
     <h1 class="post__title">{{ page.title }}</h1>
     <p class="post__meta">
       <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date_to_string }}</time>
-      {% if page.last_modified_at and page.last_modified_at != page.date %}<span>· Mise à jour le <time datetime="{{ page.last_modified_at | date_to_xmlschema }}">{{ page.last_modified_at | date_to_string }}</time></span>{% endif %}
+      {% if page.last_modified_at and page.last_modified_at != page.date %}<span>· Maj {{ page.last_modified_at | date_to_string }}</span>{% endif %}
+      <span class="post__read">{{ content | number_of_words | divided_by: 200.0 | ceil }} min</span>
       <span class="post__author">Auteur : <a href="https://twitter.com/HackAndDo" rel="author">{{ page.author }}</a></span>
     </p>
     {% if page.tags.size > 0 %}

@@ -18,7 +18,7 @@ description: Ce blog est dédié à la sécurité informatique. Tutos sur les bu
 
     <p class="card__meta">
       <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_string }}</time>
-      {% if post.last_modified_at and post.last_modified_at != post.date %}<span>· Mise à jour le <time datetime="{{ post.last_modified_at | date_to_xmlschema }}">{{ post.last_modified_at | date_to_string }}</time></span>{% endif %}
+      <span>· {{ post.content | number_of_words | divided_by: 200.0 | ceil }} min</span>
       <span>· {{ post.author }}</span>
     </p>
 
