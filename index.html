@@ -25,7 +25,7 @@ description: Ce blog est dédié à la sécurité informatique. Tutos sur les bu
     <div class="card__excerpt">{{ post.excerpt }}</div>
 
     {% unless post.excerpt == post.content %}
-    <p><a class="more-link" href="{{ post.url }}">Lire la suite →</a></p>
+    <p><a class="more-link" href="{{ post.url }}">Lire la suite</a></p>
     {% endunless %}
   </article>
   {% endfor %}
