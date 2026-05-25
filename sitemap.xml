@@ -42,7 +42,7 @@ sitemap:
   </url>
 
   {% for page in site.pages %}
-    {% unless page.sitemap.exclude == 'yes' or page.url contains '.html' or page.url contains '.xml' or page.url contains '.txt' %}
+    {% unless page.sitemap.exclude == 'yes' or page.redirect or page.url == '/' or page.url contains '/page/' or page.url contains '.html' or page.url contains '.xml' or page.url contains '.txt' %}
       {% if page.layout %}
   <url>
     <loc>{{ site.url }}{{ page.url }}</loc>
