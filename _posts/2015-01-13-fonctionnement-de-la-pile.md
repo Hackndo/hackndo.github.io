@@ -14,6 +14,8 @@ cover: assets/uploads/2015/01/stack.jpg
 tags:
   - "User Land"
   - Linux
+translation:
+  - en
 ---
 La pile (dont on a parlé dans l'article sur la [gestion de la mémoire](/memory-allocation/) a une structure **LIFO** (Last In, First Out).
 

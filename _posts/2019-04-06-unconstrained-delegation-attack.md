@@ -11,6 +11,8 @@ description: "Cet article montre comment abuser de la délégation complète (Un
 tags:
   - "Active Directory"
   - Windows
+translation:
+  - en
 ---
 
 Suite à l'article sur la [délégation Kerberos](/constrained-unconstrained-delegation), nous allons maintenant voir comment abuser de la délégation complète (Unconstrained Delegation) afin de récupérer le TGT d'un utilisateur, nous permettant ainsi de nous authentifier auprès de n'importe quel service en son nom.

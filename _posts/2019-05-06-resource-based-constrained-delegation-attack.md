@@ -11,6 +11,8 @@ description: "Cet article montre comment abuser de la délégation contrainte ba
 tags:
   - "Active Directory"
   - Windows
+translation:
+  - en
 ---
 
 Cet article montre comment abuser de la délégation contrainte basée sur les ressources (resource-based constrained delegation) afin de prendre le contrôle de machines.

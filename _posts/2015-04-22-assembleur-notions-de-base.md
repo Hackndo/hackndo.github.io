@@ -13,6 +13,8 @@ description: "L'assembleur est obscure pour vous ? Voici un article qui vous per
 cover: assets/uploads/2015/04/BACKGROUND.jpg
 tags:
     - Linux
+translation:
+  - en
 ---
 Salut tout le monde, voici un nouvel article qui va permettre, je pense, d'éclaircir bon nombre de notions que j'ai déjà abordées dans mes articles précédents, et qui permettront également de faciliter la compréhension des articles à venir.
 

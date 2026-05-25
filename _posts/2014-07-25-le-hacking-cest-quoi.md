@@ -13,6 +13,8 @@ description: "Bonjour à tous, et bienvenue sur mon tout premier article."
 cover: assets/uploads/2014/07/hacking_nav.png
 tags:
   - Misc
+translation:
+  - en
 ---
 
 Bonjour à tous, et bienvenue sur mon tout premier article.

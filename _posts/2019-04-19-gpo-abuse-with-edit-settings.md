@@ -11,6 +11,8 @@ description: "Cet article présente ce qu'est une GPO puis décrit un chemin d'a
 tags:
   - "Active Directory"
   - Windows
+translation:
+  - en
 ---
 
 Cet article présente ce qu'est une GPO (Group Policy Object) puis décrit un chemin d'attaque possible lorsqu'un attaquant a le droit de modifier les paramètres d'une GPO qui s'applique à des utilisateurs.
