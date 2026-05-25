@@ -11,6 +11,8 @@ cover: assets/uploads/2016/07/kernel_2.jpg
 tags:
   - Kernel
   - Linux
+translation:
+  en: https://en.hackndo.com/kernel-vulnerabilities/
 ---
 
 Avec l'article d'introduction sur [le monde du kernel](/le-monde-du-kernel/), nous avons tous les éléments théoriques généraux qui permettent de comprendre pourquoi il est intéressant de trouver des failles dans le kernel.

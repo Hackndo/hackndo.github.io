@@ -11,6 +11,8 @@ cover: assets/uploads/2016/07/kernel_3.jpg
 tags:
   - Kernel
   - Linux
+translation:
+  en: https://en.hackndo.com/architecture-basics/
 ---
 
 Avant d'aller plus loin, il est nécessaire de parler rapidement de l'architecture d'un ordinateur. En effet, dans le user-land, il y a une couche d'abstraction qui permet de ne pas trop se soucier de l'architecture (quoiqu'il est nécessaire tout de même de connaitre les conventions d'appel, le nombre de bits gérés etc.), or le kernel **est** cette couche, donc penser être capable d'écrire des exploits corrects sans connaitre les rudiments de l'architecture d'un ordinateur n'est clairement pas imaginable.

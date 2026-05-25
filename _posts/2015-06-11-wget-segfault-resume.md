@@ -11,6 +11,8 @@ cover: assets/uploads/2015/06/WGETSEGFAULT.jpg
 tags:
   - "User Land"
   - Linux
+translation:
+  en: https://en.hackndo.com/wget-segfault-summary/
 ---
 Salut à tous, **winw** m'a montré récemment un truc assez sympa. Dans un terminal, tapez la commande
 

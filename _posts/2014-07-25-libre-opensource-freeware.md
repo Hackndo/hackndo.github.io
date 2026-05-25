@@ -10,6 +10,8 @@ description: "Logiciel libre, open source, freeware, ça vous dit quelque chose 
 cover: assets/uploads/2014/07/lock.png
 tags:
   - Misc
+translation:
+  en: https://en.hackndo.com/free-open-source-freeware/
 ---
 
 Logiciel libre, open source, freeware, ça vous dit quelque chose ? Sûrement, car ces termes sont au cœur des technologies actuelles et sont enracinés dans le marché du logiciel.

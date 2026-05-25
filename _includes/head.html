@@ -59,13 +59,13 @@
     {% else %}
       <link rel="alternate" hreflang="fr" href="{{ site.url }}{{ page.url }}" />
       {% if page.translation %}
-        {% for lang in page.translation %}
-          {% if lang[1] != nil and lang[1] != "" %}
-      <link rel="alternate" hreflang="{{ lang[0] }}" href="{{ lang[1] }}" />
-          {% else %}
-      <link rel="alternate" hreflang="{{ lang[0] }}" href="https://{{ lang[0] }}.hackndo.com{{ page.url }}" />
-          {% endif %}
-        {% endfor %}
+        {% if page.translation.en %}
+      <link rel="alternate" hreflang="en" href="{{ page.translation.en }}" />
+        {% else %}
+          {% for code in page.translation %}
+      <link rel="alternate" hreflang="{{ code }}" href="https://{{ code }}.hackndo.com{{ page.url }}" />
+          {% endfor %}
+        {% endif %}
       <link rel="alternate" hreflang="x-default" href="{{ site.url }}{{ page.url }}" />
       {% endif %}
     {% endif %}

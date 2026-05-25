@@ -10,6 +10,8 @@ description: "Un petit post pour vous prévenir : Je pars faire le tour du monde
 cover: assets/uploads/2015/11/DSC00791-copie2.jpg
 tags:
   - Misc
+translation:
+  en: https://en.hackndo.com/around-the-world/
 ---
 Hello tout le monde.
 

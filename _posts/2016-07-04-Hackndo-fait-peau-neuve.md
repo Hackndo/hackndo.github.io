@@ -10,6 +10,8 @@ description: "Bienvenue sur la toute nouvelle version du blog Hackndo."
 cover: assets/uploads/2016/07/beta_hackndo_com.jpg
 tags:
   - Misc
+translation:
+  en: https://en.hackndo.com/hackndo-new-look/
 ---
 
 Bienvenue sur la toute nouvelle version du blog Hackndo.

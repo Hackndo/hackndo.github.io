@@ -10,6 +10,8 @@ description: "Voici un petit mémo sur les pointeurs de fonction."
 cover: assets/uploads/2015/03/shellcode.jpg
 tags:
     - Misc
+translation:
+  en: https://en.hackndo.com/c-function-pointers/
 ---
 Voici un petit mémo sur les pointeurs de fonction. Pour rappel, un pointeur est une variable qui contient une adresse mémoire d'une donnée. La donnée peut être un int, un float, un tableau, etc. Mais ça peut aussi être l'adresse d'une fonction. Mais qu'est ce que ça veut dire que l'adresse d'une fonction ?
 

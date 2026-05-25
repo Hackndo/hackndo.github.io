@@ -15,6 +15,8 @@
         <div class="container">
           {% if page.url == "/" %}
             <p class="lang-switch"><a href="https://en.hackndo.com{{ page.url }}" hreflang="en" aria-label="Read in English"><img src="/assets/icones/en.png" alt="English version" /></a></p>
+          {% elsif page.translation.en %}
+            <p class="lang-switch"><a href="{{ page.translation.en }}" hreflang="en" aria-label="Read in English"><img src="/assets/icones/en.png" alt="English version" /></a></p>
           {% elsif page.translation and page.translation contains "en" %}
             <p class="lang-switch"><a href="https://en.hackndo.com{{ page.url }}" hreflang="en" aria-label="Read in English"><img src="/assets/icones/en.png" alt="English version" /></a></p>
           {% endif %}

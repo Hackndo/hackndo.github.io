@@ -11,6 +11,8 @@ cover: assets/uploads/2016/07/kernel_1.jpg
 tags:
   - Kernel
   - Linux
+translation:
+  en: https://en.hackndo.com/the-kernel-world/
 ---
 
 Bonjour à tous. Aujourd'hui, je commence une série d'articles qui va concerner le monde du kernel. Je signale maintenant que le livre "A guide to kernel exploitation - Exploiting the core" est la source principale de cette série.

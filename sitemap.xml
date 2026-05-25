@@ -12,13 +12,14 @@ sitemap:
 
     {% if post.translation %}
       <xhtml:link rel="alternate" hreflang="fr" href="{{ site.url }}{{ post.url }}"/>
-      {% for lang in post.translation %}
-        {% if lang[1] != nil and lang[1] != "" %}
-      <xhtml:link rel="alternate" hreflang="{{ lang[0] }}" href="{{ lang[1] }}"/>
-        {% else %}
-      <xhtml:link rel="alternate" hreflang="{{ lang[0] }}" href="https://{{ lang[0] }}.hackndo.com{{ post.url }}"/>
-        {% endif %}
-      {% endfor %}
+      {% if post.translation.en %}
+      <xhtml:link rel="alternate" hreflang="en" href="{{ post.translation.en }}"/>
+      {% else %}
+        {% for code in post.translation %}
+      <xhtml:link rel="alternate" hreflang="{{ code }}" href="https://{{ code }}.hackndo.com{{ post.url }}"/>
+        {% endfor %}
+      {% endif %}
+      <xhtml:link rel="alternate" hreflang="x-default" href="{{ site.url }}{{ post.url }}"/>
     {% endif %}
 
     {% if post.last_modified_at %}
